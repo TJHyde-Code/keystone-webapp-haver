@@ -1,0 +1,9 @@
+﻿Install-Package Microsoft.EntityFrameworkCore.Sqlite
+
+Add-Migration -Context ApplicationDbContext -Output Dir Data\Migrations Initial
+
+
+Add-Migratio -Context HaverContext -o Data\HaverMigrations Initial
+Update-Database -Context HaverContext
+
+
