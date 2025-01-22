@@ -13,10 +13,11 @@ namespace HaverGroupProject.Data
 
         //DBSets
         public DbSet<OperationsSchedule> OperationsSchedules { get; set; }
-
+        public DbSet<Engineer> Engineers { get; set; }
         public DbSet<Vendor> Vendors { get; set; }
-
-        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }        
+        public DbSet<Note> Notes { get; set; }
+        public DbSet<MachineDescription> MachineDescriptions { get; set; }
 
         //ModelBuilder        
         protected override void OnModelCreating(ModelBuilder modelBuilder)

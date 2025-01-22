@@ -14,7 +14,7 @@
 
         public string CustomerEmail { get; set; }
 
-        public ICollection<OperationsSchedule>? OperationsSchedules { get; set; }
+        public ICollection<OperationsSchedule>? OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
 
     }
 }

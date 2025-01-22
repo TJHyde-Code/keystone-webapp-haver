@@ -44,5 +44,17 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Delivery Date")]
         public DateOnly DeliveryDate { get; set; }
+
+        [Display(Name ="Engineer")]
+        public int EngineerID { get; set; }
+        public Engineer? Engineer { get; set; }
+
+        [Display(Name = "Machine Desc.")]
+        public int MachineDescriptionID { get; set; }
+        public MachineDescription? MachineDescription { get; set; }
+
+        [Display(Name ="Notes")]
+        public Note? Note { get; set; }
+
     }
 }
