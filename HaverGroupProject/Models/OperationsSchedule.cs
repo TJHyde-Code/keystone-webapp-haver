@@ -61,6 +61,10 @@ namespace HaverGroupProject.Models
         [DataType(DataType.DateTime)]
         public DateOnly DeliveryDate { get; set; }
 
+        [Display(Name ="Value $")]
+        [DataType(DataType.Currency)]
+        public double Value { get; set; }
+
         [Display(Name ="Engineer")]
         public int EngineerID { get; set; }
         public Engineer? Engineer { get; set; }
@@ -71,6 +75,8 @@ namespace HaverGroupProject.Models
 
         [Display(Name ="Notes")]
         public Note? Note { get; set; }
+
+      
 
     }
 }
