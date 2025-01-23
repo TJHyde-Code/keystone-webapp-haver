@@ -30,7 +30,7 @@ namespace HaverGroupProject.Models
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         public string? CustomerEmail { get; set; }
 
-        public ICollection<OperationsSchedule>? OperationsSchedules { get; set; }
+        public ICollection<OperationsSchedule>? OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
 
     }
 }

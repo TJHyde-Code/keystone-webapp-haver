@@ -30,7 +30,9 @@ namespace HaverGroupProject.Models
         [Required(ErrorMessage = "Vendor Email is Required")]
         public string? VendorEmail { get; set; }
 
-        public ICollection<OperationsSchedule>? OperationsSchedules { get; set; }
+        public ICollection<OperationsSchedule>? OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
+
+        
 
     }
 }
