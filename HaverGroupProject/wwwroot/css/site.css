@@ -1,22 +1,44 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.custom-header {
+    font-size: 13px;
 }
+
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
+
+table {
+    background-color: aliceblue;
+}
+
+.btn {
+    font-size: 18pt;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.btn-success {
+    background-color: #234DB7;
+    color: #FFFFFF;
+    font-size: 16px;
+}
+
+
+    .btn-success:hover {
+        background-color: #394e8e;
+    }

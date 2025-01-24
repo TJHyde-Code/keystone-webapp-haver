@@ -9,6 +9,7 @@ namespace HaverGroupProject.Models
         [Display(Name = "Customer's Name")]
         [Required(ErrorMessage = "Customer Name is required")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
+        [StringLength(30, ErrorMessage = "Customer's Name cannot be longer than 30 characters long. ")]
         public string? CustomerName { get; set; }
 
         [Display(Name = "Release Date")]
@@ -16,18 +17,22 @@ namespace HaverGroupProject.Models
         [DataType(DataType.DateTime)]
         public DateOnly ReleaseDate { get; set; }
 
-        [Display(Name = "Customer Address")]
-        [Required(ErrorMessage = "Customer Address is required")]
+        [Display(Name = "Customer's Address")]
+        [Required(ErrorMessage = "Customer's Address is required")]
+        [StringLength(255, ErrorMessage = "Customer's Address cannot be longer than 255 characters long. ")]
         public string? CustomerAddress { get; set; }
 
-        [Display(Name = "Customer Contact Name")]
-        [Required(ErrorMessage = "Customer Contact Name is required")]
+        [Display(Name = "Customer's Contact Name")]
+        [Required(ErrorMessage = "Customer's Contact Name is required")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
+        [StringLength(50, ErrorMessage = "Customer's Contact Name cannot be longer than 50 characters long. ")]
         public string? CustomerContactName { get; set; }
 
-        [Display(Name = "Customer Contact Name")]
-        [Required(ErrorMessage = "Customer Contact Name is required")]
+        [Display(Name = "Customer's Email")]
+        [Required(ErrorMessage = "Customer's Email is required")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
+        [StringLength(255, ErrorMessage = "Customer's Email cannot be longer than 255 characters long. ")]
+        [DataType(DataType.EmailAddress)]
         public string? CustomerEmail { get; set; }
 
         public ICollection<OperationsSchedule>? OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();

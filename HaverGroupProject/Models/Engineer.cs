@@ -28,17 +28,20 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "First Name")]
         [Required(ErrorMessage = "A First Name is required for all Engineers")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         [StringLength(50, ErrorMessage = "Name must be less than 50 Characters in length")]
         public string EngFirstName { get; set; } = "";
 
 
-        [Display(Name = "Middle Name")]       
+        [Display(Name = "Middle Name")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         [StringLength(50, ErrorMessage = "Name must be less than 50 Characters in length")]
         public string? EngMiddleName { get; set; } = "";
 
 
         [Display(Name = "Last Name")]
         [Required(ErrorMessage = "A Last Name is required for all Engineers")]
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         [StringLength(50, ErrorMessage = "Last Name must be less than 50 Characters in length")]
         public string EngLastName { get; set; } = "";
 
@@ -46,9 +49,10 @@ namespace HaverGroupProject.Models
         [Required(ErrorMessage = "Phone number is required.")]
         [RegularExpression("^\\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number (no spaces).")]
         [DataType(DataType.PhoneNumber)]
-        [StringLength(10)]        
+        [StringLength(10)]
         public string? EngPhone { get; set; }
 
+        [Required(ErrorMessage = "Email Address is required.")]
         [StringLength(255)]
         [DataType(DataType.EmailAddress)]
         public string? EngEmail { get; set; }

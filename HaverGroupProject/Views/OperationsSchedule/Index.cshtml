@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
+﻿ @model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,95 +7,100 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-success">Create New</a>
 </p>
-<table class="table">
+
+<table class="table" aria-describedby="tableSummary">
     <thead>
-        <tr>
-            <th>
+        <tr class="custom-header">
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.SalesOrdNum)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.ExtSalesOrdNum)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Customer)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.MachineDesc)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.SerialNum)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.PackageReleaseName)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.KickoffMeeting)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.ReleaseApprovalDrawing)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.Vendor)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.PONum)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.PODueDate)
             </th>
-            <th>
+            <th scope="col">
                 @Html.DisplayNameFor(model => model.DeliveryDate)
             </th>
-            <th></th>
+            <th scope="col">Actions</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SalesOrdNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExtSalesOrdNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Customer.CustomerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MachineDesc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SerialNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PackageReleaseName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KickoffMeeting)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReleaseApprovalDrawing)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vendor.VendorName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PONum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PODueDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SalesOrdNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtSalesOrdNum)
+                </td>
+                <td>
+                    @(item.Customer != null ? item.Customer.CustomerName : "N/A")
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.MachineDesc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PackageReleaseName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KickoffMeeting)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseApprovalDrawing)
+                </td>
+                <td>
+                    @(item.Vendor != null ? item.Vendor.VendorName : "N/A")
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.PONum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PODueDate.ToString("yyyy-MM-dd"))
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DeliveryDate.ToString("yyyy-MM-dd"))
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger"
+                       onclick="return confirm('Are you sure you want to delete this item?')">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -21,7 +21,6 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Machine Description")]
         [Required(ErrorMessage = "Machine Description is required")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         public string? MachineDesc { get; set; }
 
         [Display(Name = "Serial #")]
@@ -36,11 +35,12 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Kickoff Meeting")]
         [Required(ErrorMessage = "Kickoff Meeting Date is required")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateOnly KickoffMeeting { get; set; }
 
         [Display(Name = "Approval Drawing")]
         [Required(ErrorMessage = "Approval Drawing is required")]
+        [DataType(DataType.Date)]
         public DateOnly ReleaseApprovalDrawing { get; set; }
 
         [Display(Name = "Vendor")]
@@ -53,19 +53,15 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "PO Due Date")]
         [Required(ErrorMessage = "PO Due Date is required")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateOnly PODueDate { get; set; }
 
         [Display(Name = "Delivery Date")]
         [Required(ErrorMessage = "Delivery Date is required")]
-        [DataType(DataType.DateTime)]
+        [DataType(DataType.Date)]
         public DateOnly DeliveryDate { get; set; }
 
-        [Display(Name ="Value $")]
-        [DataType(DataType.Currency)]
-        public double Value { get; set; }
-
-        [Display(Name ="Engineer")]
+        [Display(Name = "Engineer")]
         public int EngineerID { get; set; }
         public Engineer? Engineer { get; set; }
 
@@ -73,10 +69,8 @@ namespace HaverGroupProject.Models
         public int MachineDescriptionID { get; set; }
         public MachineDescription? MachineDescription { get; set; }
 
-        [Display(Name ="Notes")]
+        [Display(Name = "Notes")]
         public Note? Note { get; set; }
-
-      
 
     }
 }
