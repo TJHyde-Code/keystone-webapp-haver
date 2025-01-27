@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.Customer)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.ID)
+            @Model.Customer?.CustomerName
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.MachineDesc)
@@ -58,11 +58,37 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ReleaseApprovalDrawing)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Vendor)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.OperationsScheduleVendors)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vendor.ID)
+        <dd class="col-sm-10">
+            @{
+                int vendorCount = Model.OperationsScheduleVendors.Count;
+                if (vendorCount > 0)
+                {
+                    string firstVendor = Model.OperationsScheduleVendors.FirstOrDefault().Vendor.VendorName;
+                    if (vendorCount > 1)
+                    {
+                        string vendorList = "";
+                        var v = Model.OperationsScheduleVendors.ToList();
+                        for (int i = 1; i < vendorCount; i++)
+                        {
+                            vendorList += v[i].Vendor.VendorName + " <br />";
+                        }
+                        <a class="" role="button" data-bs-toggle="collapse" href="#collapseVendor@(Model.ID)"
+                           aria-expanded="false" aria-controls="collapseVendor@(Model.ID)">
+                            @firstVendor <span class="badge bg-info">@vendorCount</span>
+                        </a>
+                        <div class="collapse" id="collapseVendor@(Model.ID)">
+                            @Html.Raw(vendorList)
+                        </div>
+                    }
+                    else
+                    {
+                        @firstVendor
+                    }
+                }
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PONum)

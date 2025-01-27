@@ -8,7 +8,7 @@ namespace HaverGroupProject.Data
     public static class HaverInitializer
     {
         public static void Initialize(IServiceProvider serviceProvider,
-            bool DeleteDatabase = false, bool UseMigrations = true, bool SeedSampleData = true)
+            bool DeleteDatabase = true, bool UseMigrations = true, bool SeedSampleData = true)
         {
             using (var context = new HaverContext(
                 serviceProvider.GetRequiredService<DbContextOptions<HaverContext>>()))
@@ -17,7 +17,6 @@ namespace HaverGroupProject.Data
                 try
                 {
                     
-                  
                 }
                 catch (Exception ex)
                 {
@@ -27,8 +26,30 @@ namespace HaverGroupProject.Data
 
 
                 #region Seed Required Data
+                try
+                {
 
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
 
+                #endregion
+
+                #region Seed Sample Data
+                if (SeedSampleData)
+                {
+                    try
+                    {
+                        
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
+                }
                 #endregion
             }//Using Close
 

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HaverGroupProject.Data;
 using HaverGroupProject.Models;
+using HaverGroupProject.ViewModels;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace HaverGroupProject.Controllers
 {
@@ -22,7 +24,10 @@ namespace HaverGroupProject.Controllers
         // GET: OperationsSchedule
         public async Task<IActionResult> Index()
         {
-            var haverContext = _context.OperationsSchedules.Include(o => o.Customer).Include(o => o.Vendor);
+            var haverContext = _context.OperationsSchedules
+                .Include(o => o.Customer)
+                .Include(o => o.Vendor)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor);
             return View(await haverContext.ToListAsync());
         }
 
@@ -37,6 +42,7 @@ namespace HaverGroupProject.Controllers
             var operationsSchedule = await _context.OperationsSchedules
                 .Include(o => o.Customer)
                 .Include(o => o.Vendor)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (operationsSchedule == null)
             {
@@ -49,9 +55,13 @@ namespace HaverGroupProject.Controllers
         // GET: OperationsSchedule/Create
         public IActionResult Create()
         {
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "ID");
+            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "CustomerName");
             ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID");
-            return View();
+
+            OperationsSchedule operationsSchedule = new OperationsSchedule();
+            PopulateAssignedVendorData(operationsSchedule);
+
+            return View(operationsSchedule);
         }
 
         // POST: OperationsSchedule/Create
@@ -59,16 +69,32 @@ namespace HaverGroupProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,SalesOrdNum,ExtSalesOrdNum,CustomerID,MachineDesc,SerialNum,PackageReleaseName,KickoffMeeting,ReleaseApprovalDrawing,VendorID,PONum,PODueDate,DeliveryDate,InstalledMedia,SparePartsSpareMedia,BaseFrame,AirSeal,CoatingLining,Disassebmly")] OperationsSchedule operationsSchedule)
+        public async Task<IActionResult> Create([Bind("ID,SalesOrdNum,ExtSalesOrdNum,CustomerID,MachineDesc,SerialNum,PackageReleaseName,KickoffMeeting,ReleaseApprovalDrawing,VendorID,PONum,PODueDate,DeliveryDate,InstalledMedia,SparePartsSpareMedia,BaseFrame,AirSeal,CoatingLining,Disassebmly")] OperationsSchedule operationsSchedule, string[] selectedOptions)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(operationsSchedule);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                UpdateOperationsScheduleVendors(selectedOptions, operationsSchedule);
+
+                if (ModelState.IsValid)
+                {
+                    _context.Add(operationsSchedule);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "ID", operationsSchedule.CustomerID);
+            catch (RetryLimitExceededException)
+            {
+                ModelState.AddModelError("", "Unable to save changes after multiple attempts.");
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Unable to save changes.");
+            }
+            
+            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "CustomerName", operationsSchedule.CustomerID);
             ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID", operationsSchedule.VendorID);
+
+            PopulateAssignedVendorData(operationsSchedule);
             return View(operationsSchedule);
         }
 
@@ -80,13 +106,19 @@ namespace HaverGroupProject.Controllers
                 return NotFound();
             }
 
-            var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
+            var operationsSchedule = await _context.OperationsSchedules
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(o => o.Vendor)
+                .FirstOrDefaultAsync(o => o.ID == id);
+
             if (operationsSchedule == null)
             {
                 return NotFound();
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "ID", operationsSchedule.CustomerID);
+
+            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "CustomerName", operationsSchedule.CustomerID);
             ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID", operationsSchedule.VendorID);
+
+            PopulateAssignedVendorData(operationsSchedule);
             return View(operationsSchedule);
         }
 
@@ -95,23 +127,34 @@ namespace HaverGroupProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,SalesOrdNum,ExtSalesOrdNum,CustomerID,MachineDesc,SerialNum,PackageReleaseName,KickoffMeeting,ReleaseApprovalDrawing,VendorID,PONum,PODueDate,DeliveryDate,InstalledMedia,SparePartsSpareMedia,BaseFrame,AirSeal,CoatingLining,Disassebmly")] OperationsSchedule operationsSchedule)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,SalesOrdNum,ExtSalesOrdNum,CustomerID,MachineDesc,SerialNum,PackageReleaseName,KickoffMeeting,ReleaseApprovalDrawing,VendorID,PONum,PODueDate,DeliveryDate,InstalledMedia,SparePartsSpareMedia,BaseFrame,AirSeal,CoatingLining,Disassebmly")] OperationsSchedule operationsSchedule, string[] selectedOptions)
         {
-            if (id != operationsSchedule.ID)
+            var operationsScheduleToUpdate = await _context.OperationsSchedules
+                .Include(o => o.Customer)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(o => o.Vendor)
+                .FirstOrDefaultAsync (o => o.ID == id);
+
+            if (operationsScheduleToUpdate == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            UpdateOperationsScheduleVendors(selectedOptions, operationsScheduleToUpdate);
+
+            if (await TryUpdateModelAsync<OperationsSchedule>(operationsScheduleToUpdate, "", o => o.Vendor))
             {
                 try
                 {
-                    _context.Update(operationsSchedule);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", new { operationsScheduleToUpdate.ID });
+                }
+                catch(RetryLimitExceededException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes after multiple attemtps.");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OperationsScheduleExists(operationsSchedule.ID))
+                    if (!OperationsScheduleExists(operationsScheduleToUpdate.ID))
                     {
                         return NotFound();
                     }
@@ -120,11 +163,12 @@ namespace HaverGroupProject.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "ID", operationsSchedule.CustomerID);
-            ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID", operationsSchedule.VendorID);
-            return View(operationsSchedule);
+            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "ID", operationsScheduleToUpdate.CustomerID);
+            ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID", operationsScheduleToUpdate.VendorID);
+
+            PopulateAssignedVendorData(operationsScheduleToUpdate);
+            return View(operationsScheduleToUpdate);
         }
 
         // GET: OperationsSchedule/Delete/5
@@ -136,6 +180,7 @@ namespace HaverGroupProject.Controllers
             }
 
             var operationsSchedule = await _context.OperationsSchedules
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
                 .Include(o => o.Customer)
                 .Include(o => o.Vendor)
                 .FirstOrDefaultAsync(m => m.ID == id);
@@ -152,7 +197,9 @@ namespace HaverGroupProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
+            var operationsSchedule = await _context.OperationsSchedules
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
+                .FirstOrDefaultAsync(m => m.ID == id);
             if (operationsSchedule != null)
             {
                 _context.OperationsSchedules.Remove(operationsSchedule);
@@ -160,6 +207,73 @@ namespace HaverGroupProject.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private void PopulateAssignedVendorData(OperationsSchedule operationsSchedule)
+        {
+            var allOptions = _context.Vendors;
+            var currentOptionsHS = new HashSet<int>(operationsSchedule.OperationsScheduleVendors.Select(b => b.VendorID));
+
+            var selected = new List<ListOptionVM>();
+            var available = new List<ListOptionVM>();
+            foreach (var o in allOptions)
+            {
+                if (currentOptionsHS.Contains(o.ID))
+                {
+                    selected.Add(new ListOptionVM
+                    {
+                        ID = o.ID,
+                        DisplayText = o.VendorName
+                    });
+                }
+                else
+                {
+                    available.Add(new ListOptionVM
+                    {
+                        ID = o.ID,
+                        DisplayText = o.VendorName
+                    });
+                }
+            }
+            ViewData["selOpts"] = new MultiSelectList(selected.OrderBy(o => o.DisplayText), "ID", "DisplayText");
+            ViewData["availOpts"] = new MultiSelectList(available.OrderBy(o => o.DisplayText), "ID", "DisplayText");
+        }
+
+        private void UpdateOperationsScheduleVendors(string[] selectedOptions, OperationsSchedule operationsScheduleToUpdate)
+        {
+            if (selectedOptions == null)
+            {
+                operationsScheduleToUpdate.OperationsScheduleVendors = new List<OperationsScheduleVendor>();
+                return;
+            }
+
+            var selectedOptionsHS = new HashSet<string>(selectedOptions);
+            var currentOptionsHS = new HashSet<int>(operationsScheduleToUpdate.OperationsScheduleVendors.Select(b => b.VendorID));
+            foreach (var o in _context.Vendors) 
+            {
+                if (selectedOptionsHS.Contains(o.ID.ToString()))
+                {
+                    if (!currentOptionsHS.Contains(o.ID))
+                    {
+                        operationsScheduleToUpdate.OperationsScheduleVendors.Add(new OperationsScheduleVendor
+                        {
+                            VendorID = o.ID,
+                            OperationsScheduleID = operationsScheduleToUpdate.ID
+                        });
+                    }
+                }
+                else
+                {
+                    if (currentOptionsHS.Contains(o.ID))
+                    {
+                        OperationsScheduleVendor? vendorToRemove = operationsScheduleToUpdate.OperationsScheduleVendors.FirstOrDefault(d => d.VendorID == o.ID);
+                        if (vendorToRemove != null)
+                        {
+                            _context.Remove(vendorToRemove);
+                        }
+                    }
+                }
+            }
         }
 
         private bool OperationsScheduleExists(int id)

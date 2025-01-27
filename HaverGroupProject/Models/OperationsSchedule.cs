@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Numerics;
+﻿using System.Numerics;
 
 namespace HaverGroupProject.Models
 {
@@ -7,7 +6,7 @@ namespace HaverGroupProject.Models
     {
         public int ID { get; set; }
 
-        [Display(Name = "Customer")]
+        [Display(Name = "Sales Order")]
         [Required(ErrorMessage = "Number of Customer is required")]
         public int SalesOrdNum { get; set; }
 
@@ -71,6 +70,9 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Notes")]
         public Note? Note { get; set; }
+
+        [Display(Name = "Vendors")]
+        public ICollection<OperationsScheduleVendor> OperationsScheduleVendors { get; set; } = new HashSet<OperationsScheduleVendor>();
 
     }
 }

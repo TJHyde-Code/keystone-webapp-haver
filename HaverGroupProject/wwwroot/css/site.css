@@ -19,7 +19,11 @@ html {
 }
 
 body {
-    margin-bottom: 60px;
+  margin-bottom: 60px;
+}
+
+.form-group {
+    margin-bottom: 1rem;
 }
 
 table {

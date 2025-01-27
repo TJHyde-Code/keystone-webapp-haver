@@ -56,11 +56,27 @@ namespace HaverGroupProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,VendorName")] Vendor vendor)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(vendor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (!ModelState.IsValid)
+                {
+                    foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        Console.WriteLine($"Validation Error: {error.ErrorMessage}");
+                    }
+                    return View(vendor); // Return to the view to show validation messages.
+                }
+                if (ModelState.IsValid)
+                {
+                    _context.Add(vendor);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
             }
             return View(vendor);
         }
