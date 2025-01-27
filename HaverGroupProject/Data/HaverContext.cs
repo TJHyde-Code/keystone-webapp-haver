@@ -19,7 +19,7 @@ namespace HaverGroupProject.Data
         public DbSet<OperationsScheduleVendor> OperationsScheduleVendors { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Engineer> Engineers { get; set; }   
+        public DbSet<Engineer> Engineers { get; set; }     
         public DbSet<Note> Notes { get; set; }
         public DbSet<MachineDescription> MachineDescriptions { get; set; }
 
@@ -38,12 +38,12 @@ namespace HaverGroupProject.Data
                 .WithMany(v => v.OperationsScheduleVendors)
                 .HasForeignKey(ov => ov.VendorID)
                 .OnDelete(DeleteBehavior.Cascade);
-
             //Unique Index constraints.
 
             //Many to Many OperationsScheduleVendor Primary Key
             modelBuilder.Entity<OperationsScheduleVendor>()
                 .HasKey(t => new { t.VendorID, t.OperationsScheduleID });
+
 
             base.OnModelCreating(modelBuilder);
         }
