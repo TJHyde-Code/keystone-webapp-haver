@@ -15,21 +15,18 @@ namespace HaverGroupProject.Models
         [Display(Name = "Release Date")]
         [Required(ErrorMessage = "Release Date is required")]
         [DataType(DataType.DateTime)]
-        public DateOnly ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         [Display(Name = "Customer's Address")]
-        [Required(ErrorMessage = "Customer's Address is required")]
         [StringLength(255, ErrorMessage = "Customer's Address cannot be longer than 255 characters long. ")]
         public string? CustomerAddress { get; set; }
 
         [Display(Name = "Customer's Contact Name")]
-        [Required(ErrorMessage = "Customer's Contact Name is required")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         [StringLength(50, ErrorMessage = "Customer's Contact Name cannot be longer than 50 characters long. ")]
         public string? CustomerContactName { get; set; }
 
         [Display(Name = "Customer's Email")]
-        [Required(ErrorMessage = "Customer's Email is required")]
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         [StringLength(255, ErrorMessage = "Customer's Email cannot be longer than 255 characters long. ")]
         [DataType(DataType.EmailAddress)]

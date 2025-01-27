@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HaverGroupProject.Data.HaverMigrations
 {
     [DbContext(typeof(HaverContext))]
-    [Migration("20250127044715_FixingProblem")]
-    partial class FixingProblem
+    [Migration("20250127222906_CustomerChange")]
+    partial class CustomerChange
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,27 +27,156 @@ namespace HaverGroupProject.Data.HaverMigrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("CustomerAddress")
-                        .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CustomerContactName")
-                        .IsRequired()
+                        .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CustomerEmail")
-                        .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CustomerName")
                         .IsRequired()
+                        .HasMaxLength(30)
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("ReleaseDate")
+                    b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ID");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("HaverGroupProject.Models.Engineer", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("EngEmail")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EngFirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EngLastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EngMiddleName")
+                        .HasMaxLength(50)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("EngPhone")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Engineers");
+                });
+
+            modelBuilder.Entity("HaverGroupProject.Models.MachineDescription", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Class")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Deck")
+                        .IsRequired()
+                        .HasMaxLength(2)
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("NamePlateOrdered")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("NameplateRecieved")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Size")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("MachineDescriptions");
+                });
+
+            modelBuilder.Entity("HaverGroupProject.Models.Note", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ActualAssembHours")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ActualReworkHours")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("BudgetAssembHrs")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("OperationsScheduleID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("OtherComments")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PreOrder")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("TEXT");
+
+                    b.Property<byte[]>("RowVersion")
+                        .IsConcurrencyToken()
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("BLOB");
+
+                    b.Property<string>("Scope")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("OperationsScheduleID")
+                        .IsUnique();
+
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("HaverGroupProject.Models.OperationsSchedule", b =>
@@ -62,6 +191,9 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<DateOnly>("DeliveryDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("EngineerID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("ExtSalesOrdNum")
                         .HasColumnType("INTEGER");
 
@@ -71,6 +203,9 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<string>("MachineDesc")
                         .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("MachineDescriptionID")
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("PODueDate")
                         .HasColumnType("TEXT");
@@ -99,6 +234,10 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.HasKey("ID");
 
                     b.HasIndex("CustomerID");
+
+                    b.HasIndex("EngineerID");
+
+                    b.HasIndex("MachineDescriptionID");
 
                     b.HasIndex("VendorID");
 
@@ -151,11 +290,34 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.ToTable("Vendors");
                 });
 
+            modelBuilder.Entity("HaverGroupProject.Models.Note", b =>
+                {
+                    b.HasOne("HaverGroupProject.Models.OperationsSchedule", "OperationsSchedule")
+                        .WithOne("Note")
+                        .HasForeignKey("HaverGroupProject.Models.Note", "OperationsScheduleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OperationsSchedule");
+                });
+
             modelBuilder.Entity("HaverGroupProject.Models.OperationsSchedule", b =>
                 {
                     b.HasOne("HaverGroupProject.Models.Customer", "Customer")
                         .WithMany("OperationsSchedules")
                         .HasForeignKey("CustomerID");
+
+                    b.HasOne("HaverGroupProject.Models.Engineer", "Engineer")
+                        .WithMany("OperationsSchedules")
+                        .HasForeignKey("EngineerID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HaverGroupProject.Models.MachineDescription", "MachineDescription")
+                        .WithMany("OperationsSchedules")
+                        .HasForeignKey("MachineDescriptionID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("HaverGroupProject.Models.Vendor", "Vendor")
                         .WithMany("OperationsSchedules")
@@ -163,6 +325,10 @@ namespace HaverGroupProject.Data.HaverMigrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Engineer");
+
+                    b.Navigation("MachineDescription");
 
                     b.Navigation("Vendor");
                 });
@@ -178,7 +344,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.HasOne("HaverGroupProject.Models.Vendor", "Vendor")
                         .WithMany("OperationsScheduleVendors")
                         .HasForeignKey("VendorID")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("OperationsSchedule");
@@ -191,8 +357,20 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Navigation("OperationsSchedules");
                 });
 
+            modelBuilder.Entity("HaverGroupProject.Models.Engineer", b =>
+                {
+                    b.Navigation("OperationsSchedules");
+                });
+
+            modelBuilder.Entity("HaverGroupProject.Models.MachineDescription", b =>
+                {
+                    b.Navigation("OperationsSchedules");
+                });
+
             modelBuilder.Entity("HaverGroupProject.Models.OperationsSchedule", b =>
                 {
+                    b.Navigation("Note");
+
                     b.Navigation("OperationsScheduleVendors");
                 });
 

@@ -1,43 +1,42 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace HaverGroupProject.Data.HaverMigrations
 {
     /// <inheritdoc />
-    public partial class CustomerFix : Migration
+    public partial class VendorChange : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<DateOnly>(
-                name: "ReleaseDate",
-                table: "Customers",
-                type: "TEXT",
-                nullable: true,
-                oldClrType: typeof(DateOnly),
-                oldType: "TEXT");
-
             migrationBuilder.AlterColumn<string>(
-                name: "CustomerEmail",
-                table: "Customers",
+                name: "VendorPhone",
+                table: "Vendors",
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "TEXT");
 
             migrationBuilder.AlterColumn<string>(
-                name: "CustomerContactName",
-                table: "Customers",
+                name: "VendorEmail",
+                table: "Vendors",
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "TEXT");
 
             migrationBuilder.AlterColumn<string>(
-                name: "CustomerAddress",
-                table: "Customers",
+                name: "VendorContactName",
+                table: "Vendors",
+                type: "TEXT",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "TEXT");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "VendorAddress",
+                table: "Vendors",
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(string),
@@ -47,19 +46,9 @@ namespace HaverGroupProject.Data.HaverMigrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<DateOnly>(
-                name: "ReleaseDate",
-                table: "Customers",
-                type: "TEXT",
-                nullable: false,
-                defaultValue: new DateOnly(1, 1, 1),
-                oldClrType: typeof(DateOnly),
-                oldType: "TEXT",
-                oldNullable: true);
-
             migrationBuilder.AlterColumn<string>(
-                name: "CustomerEmail",
-                table: "Customers",
+                name: "VendorPhone",
+                table: "Vendors",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "",
@@ -68,8 +57,8 @@ namespace HaverGroupProject.Data.HaverMigrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "CustomerContactName",
-                table: "Customers",
+                name: "VendorEmail",
+                table: "Vendors",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "",
@@ -78,8 +67,18 @@ namespace HaverGroupProject.Data.HaverMigrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "CustomerAddress",
-                table: "Customers",
+                name: "VendorContactName",
+                table: "Vendors",
+                type: "TEXT",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "TEXT",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "VendorAddress",
+                table: "Vendors",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "",

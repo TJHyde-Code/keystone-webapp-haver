@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HaverGroupProject.Data.HaverMigrations
 {
     /// <inheritdoc />
-    public partial class TJMigration : Migration
+    public partial class Intitial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,11 +17,11 @@ namespace HaverGroupProject.Data.HaverMigrations
                 {
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    CustomerName = table.Column<string>(type: "TEXT", nullable: false),
+                    CustomerName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
                     ReleaseDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    CustomerAddress = table.Column<string>(type: "TEXT", nullable: false),
-                    CustomerContactName = table.Column<string>(type: "TEXT", nullable: false),
-                    CustomerEmail = table.Column<string>(type: "TEXT", nullable: false)
+                    CustomerAddress = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    CustomerContactName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    CustomerEmail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -38,7 +38,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     EngMiddleName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
                     EngLastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     EngPhone = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false),
-                    EngEmail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    EngEmail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
                 },
                 constraints: table =>
@@ -131,6 +131,62 @@ namespace HaverGroupProject.Data.HaverMigrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PreOrder = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Scope = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    BudgetAssembHrs = table.Column<string>(type: "TEXT", nullable: false),
+                    ActualAssembHours = table.Column<int>(type: "INTEGER", nullable: false),
+                    ActualReworkHours = table.Column<int>(type: "INTEGER", nullable: false),
+                    OtherComments = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    OperationsScheduleID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Notes_OperationsSchedules_OperationsScheduleID",
+                        column: x => x.OperationsScheduleID,
+                        principalTable: "OperationsSchedules",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OperationsScheduleVendors",
+                columns: table => new
+                {
+                    OperationsScheduleID = table.Column<int>(type: "INTEGER", nullable: false),
+                    VendorID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OperationsScheduleVendors", x => new { x.VendorID, x.OperationsScheduleID });
+                    table.ForeignKey(
+                        name: "FK_OperationsScheduleVendors_OperationsSchedules_OperationsScheduleID",
+                        column: x => x.OperationsScheduleID,
+                        principalTable: "OperationsSchedules",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OperationsScheduleVendors_Vendors_VendorID",
+                        column: x => x.VendorID,
+                        principalTable: "Vendors",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notes_OperationsScheduleID",
+                table: "Notes",
+                column: "OperationsScheduleID",
+                unique: true);
+
             migrationBuilder.CreateIndex(
                 name: "IX_OperationsSchedules_CustomerID",
                 table: "OperationsSchedules",
@@ -150,11 +206,22 @@ namespace HaverGroupProject.Data.HaverMigrations
                 name: "IX_OperationsSchedules_VendorID",
                 table: "OperationsSchedules",
                 column: "VendorID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OperationsScheduleVendors_OperationsScheduleID",
+                table: "OperationsScheduleVendors",
+                column: "OperationsScheduleID");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Notes");
+
+            migrationBuilder.DropTable(
+                name: "OperationsScheduleVendors");
+
             migrationBuilder.DropTable(
                 name: "OperationsSchedules");
 

@@ -5,7 +5,7 @@
 namespace HaverGroupProject.Data.HaverMigrations
 {
     /// <inheritdoc />
-    public partial class DisplayName : Migration
+    public partial class OperationsSchedulefix3 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

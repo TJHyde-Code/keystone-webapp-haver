@@ -5,66 +5,50 @@
 namespace HaverGroupProject.Data.HaverMigrations
 {
     /// <inheritdoc />
-    public partial class FixingAnotherProblem : Migration
+    public partial class OperationsScheduleFix2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_OperationsScheduleVendors_Vendors_VendorID",
-                table: "OperationsScheduleVendors");
-
             migrationBuilder.AlterColumn<string>(
-                name: "VendorPhone",
-                table: "Vendors",
+                name: "SerialNum",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "TEXT");
 
             migrationBuilder.AlterColumn<string>(
-                name: "VendorEmail",
-                table: "Vendors",
+                name: "PackageReleaseName",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "TEXT");
 
             migrationBuilder.AlterColumn<string>(
-                name: "VendorContactName",
-                table: "Vendors",
+                name: "PONum",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "TEXT");
 
             migrationBuilder.AlterColumn<string>(
-                name: "VendorAddress",
-                table: "Vendors",
+                name: "MachineDesc",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: true,
                 oldClrType: typeof(string),
                 oldType: "TEXT");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_OperationsScheduleVendors_Vendors_VendorID",
-                table: "OperationsScheduleVendors",
-                column: "VendorID",
-                principalTable: "Vendors",
-                principalColumn: "ID",
-                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_OperationsScheduleVendors_Vendors_VendorID",
-                table: "OperationsScheduleVendors");
-
             migrationBuilder.AlterColumn<string>(
-                name: "VendorPhone",
-                table: "Vendors",
+                name: "SerialNum",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "",
@@ -73,8 +57,8 @@ namespace HaverGroupProject.Data.HaverMigrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "VendorEmail",
-                table: "Vendors",
+                name: "PackageReleaseName",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "",
@@ -83,8 +67,8 @@ namespace HaverGroupProject.Data.HaverMigrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "VendorContactName",
-                table: "Vendors",
+                name: "PONum",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "",
@@ -93,22 +77,14 @@ namespace HaverGroupProject.Data.HaverMigrations
                 oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "VendorAddress",
-                table: "Vendors",
+                name: "MachineDesc",
+                table: "OperationsSchedules",
                 type: "TEXT",
                 nullable: false,
                 defaultValue: "",
                 oldClrType: typeof(string),
                 oldType: "TEXT",
                 oldNullable: true);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_OperationsScheduleVendors_Vendors_VendorID",
-                table: "OperationsScheduleVendors",
-                column: "VendorID",
-                principalTable: "Vendors",
-                principalColumn: "ID",
-                onDelete: ReferentialAction.Restrict);
         }
     }
 }
