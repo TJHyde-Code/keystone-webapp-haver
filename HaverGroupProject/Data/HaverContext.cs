@@ -18,6 +18,8 @@ namespace HaverGroupProject.Data
         public DbSet<Customer> Customers { get; set; }        
         public DbSet<Note> Notes { get; set; }
         public DbSet<MachineDescription> MachineDescriptions { get; set; }
+        //MT-Added DBSet for Additions
+        public DbSet<Additions> Additions { get; set; }
 
         //ModelBuilder        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
