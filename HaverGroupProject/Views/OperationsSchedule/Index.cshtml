@@ -1,0 +1,127 @@
+﻿@model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SalesOrdNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtSalesOrdNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MachineDesc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PackageReleaseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KickoffMeeting)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReleaseApprovalDrawing)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OperationsScheduleVendors)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PONum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PODueDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalesOrdNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtSalesOrdNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MachineDesc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PackageReleaseName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KickoffMeeting)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReleaseApprovalDrawing)
+            </td>
+            <td>
+                    @{
+                        int vendorCount = item.OperationsScheduleVendors.Count;
+                        if (vendorCount > 0)
+                        {
+                            string firstVendor = item.OperationsScheduleVendors.FirstOrDefault().Vendor.VendorName;
+                            if (vendorCount > 1)
+                            {
+                                string vendorList = "";
+                                var v = item.OperationsScheduleVendors.ToList();
+                                for (int i = 1; i < vendorCount; i++)
+                                {
+                                    vendorList += v[i].Vendor.VendorName + " <br />";
+                                }
+                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseVendor@(item.ID)"
+                                aria-expanded="false" aria-controls="collapseVendor@(item.ID)">
+                                @firstVendor <span class="badge bg-info">@vendorCount</span>
+                                </a>
+                                <div class="collapse" id="collapseVendor@(item.ID)">
+                                    @Html.Raw(vendorList)
+                                </div>
+                            }
+                            else
+                            {
+                                @firstVendor
+                            }
+                        }
+                    }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PONum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PODueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
