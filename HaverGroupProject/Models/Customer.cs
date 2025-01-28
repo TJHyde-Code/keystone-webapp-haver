@@ -34,7 +34,6 @@ namespace HaverGroupProject.Models
 
         //MT-Added Customer Phone Number
         [Display(Name = "Customer Phone Number")]
-        [Required(ErrorMessage = "Phone number is required.")]
         [RegularExpression("^\\d{10}$", ErrorMessage = "Please enter a valid 10-digit phone number (no spaces).")]
         [DataType(DataType.PhoneNumber)]
         [MaxLength(10)]
