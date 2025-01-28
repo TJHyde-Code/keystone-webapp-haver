@@ -9,6 +9,9 @@ using HaverGroupProject.Data;
 using HaverGroupProject.Models;
 using HaverGroupProject.ViewModels;
 using Microsoft.EntityFrameworkCore.Storage;
+using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using System.Drawing;
 
 namespace HaverGroupProject.Controllers
 {
@@ -207,6 +210,106 @@ namespace HaverGroupProject.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult DownloadOperationsSchedules()
+        {
+            //Get the appointments
+            var schedules = from os in _context.OperationsSchedules
+                        .Include(os => os.Customer)
+                        .Include(os => os.Vendor)
+                            orderby os.KickoffMeeting descending
+                            select new
+                            {
+                                SalesOrder = os.SalesOrdNum,
+                                Customer = os.Customer.CustomerName,
+                                Date = os.KickoffMeeting.ToString("yyyy-MM-dd"),
+                                Machine = os.MachineDesc,
+                                SerialNumber = os.SerialNum,
+                                Engineer = os.PackageReleaseName,
+                                Vendor = os.Vendor.VendorName,
+                                PONum = os.PONum,
+                                DeliveryDate = os.DeliveryDate.ToString("yyyy-MM-dd")
+
+                            };
+            //How many rows?
+            int numRows = schedules.Count();
+
+            if (numRows > 0) //We have data
+            {
+                //Create a new spreadsheet from scratch.
+                using (ExcelPackage excel = new ExcelPackage())
+                {
+
+                    //Note: you can also pull a spreadsheet out of the database if you
+                    //have saved it in the normal way we do, as a Byte Array in a Model
+                    //such as the UploadedFile class.
+                    //
+                    // Suppose...
+                    //
+                    // var theSpreadsheet = _context.UploadedFiles.Include(f => f.FileContent).Where(f => f.ID == id).SingleOrDefault();
+                    //
+                    //    //Pass the Byte[] FileContent to a MemoryStream
+                    //
+                    // using (MemoryStream memStream = new MemoryStream(theSpreadsheet.FileContent.Content))
+                    // {
+                    //     ExcelPackage package = new ExcelPackage(memStream);
+                    // }
+
+                    var workSheet = excel.Workbook.Worksheets.Add("OperationsSchedules");
+
+                    //Note: Cells[row, column]
+                    workSheet.Cells[3, 1].LoadFromCollection(schedules, true);
+
+                    //Style first column for dates
+                    workSheet.Column(1).Style.Numberformat.Format = "yyyy-mm-dd";
+
+                    //Style fee column for currency
+                    workSheet.Column(8).Style.Numberformat.Format = "yyyy-MM-dd";
+
+                    //Note: these are fine if you are only 'doing' one thing to the range of cells.
+                    //Otherwise you should USE a range object for efficiency
+                    using (ExcelRange headings = workSheet.Cells[3, 1, 3, 9])//
+                    {
+                        headings.Style.Font.Bold = true;
+                        var fill = headings.Style.Fill;
+                        fill.PatternType = ExcelFillStyle.Solid;
+                        fill.BackgroundColor.SetColor(Color.LightBlue);
+                    }
+
+                    workSheet.Cells[1, 1].Value = "Operations Schedules Report";
+                    using (ExcelRange titleRange = workSheet.Cells[1, 1, 1, 9])
+                    {
+                        titleRange.Merge = true;
+                        titleRange.Style.Font.Bold = true;
+                        titleRange.Style.Font.Size = 18;
+                        titleRange.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    }
+
+                    DateTime utcDate = DateTime.UtcNow;
+                    TimeZoneInfo esTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+                    DateTime localDate = TimeZoneInfo.ConvertTimeFromUtc(utcDate, esTimeZone);
+                    workSheet.Cells[2, 9].Value = "Created: " + localDate.ToString("yyyy-MM-dd HH:mm");
+                    workSheet.Cells[2, 9].Style.Font.Bold = true;
+                    workSheet.Cells[2, 9].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+
+                    workSheet.Cells.AutoFitColumns();
+
+                    try
+                    {
+                        Byte[] theData = excel.GetAsByteArray();
+                        string filename = "OperationsSchedules.xlsx";
+                        string mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                        return File(theData, mimeType, filename);
+                    }
+                    catch (Exception)
+                    {
+
+                        return BadRequest("Could not build and download the file.");
+                    }
+                }
+            }
+            return NotFound("No data available.");
         }
 
         private void PopulateAssignedVendorData(OperationsSchedule operationsSchedule)
