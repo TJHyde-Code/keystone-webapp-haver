@@ -40,6 +40,8 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "PO#")]
         public string? PONum { get; set; }
+        [Display(Name = "Production Order #")]
+        public string? ProductionOrderNumber { get; set; }
 
         [Display(Name = "PO Due Date")]
         [DataType(DataType.Date)]
