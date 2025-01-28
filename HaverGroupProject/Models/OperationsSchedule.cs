@@ -60,6 +60,7 @@ namespace HaverGroupProject.Models
         //[Display(Name = "Notes")]
         //public Note? Note { get; set; }
 
+        [Display(Name = "Vendors")]
         public ICollection<OperationsScheduleVendor> OperationsScheduleVendors { get; set; } = new HashSet<OperationsScheduleVendor>();
 
     }
