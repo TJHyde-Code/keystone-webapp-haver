@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HaverGroupProject.Data.HaverMigrations
 {
     /// <inheritdoc />
-    public partial class Intitial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,10 +18,10 @@ namespace HaverGroupProject.Data.HaverMigrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     CustomerName = table.Column<string>(type: "TEXT", maxLength: 30, nullable: false),
-                    ReleaseDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    CustomerAddress = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    CustomerContactName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CustomerEmail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
+                    ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    CustomerAddress = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true),
+                    CustomerContactName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    CustomerEmail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -72,10 +72,10 @@ namespace HaverGroupProject.Data.HaverMigrations
                     ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     VendorName = table.Column<string>(type: "TEXT", nullable: false),
-                    VendorAddress = table.Column<string>(type: "TEXT", nullable: false),
-                    VendorContactName = table.Column<string>(type: "TEXT", nullable: false),
-                    VendorPhone = table.Column<string>(type: "TEXT", nullable: false),
-                    VendorEmail = table.Column<string>(type: "TEXT", nullable: false)
+                    VendorAddress = table.Column<string>(type: "TEXT", nullable: true),
+                    VendorContactName = table.Column<string>(type: "TEXT", nullable: true),
+                    VendorPhone = table.Column<string>(type: "TEXT", nullable: true),
+                    VendorEmail = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,17 +91,18 @@ namespace HaverGroupProject.Data.HaverMigrations
                     SalesOrdNum = table.Column<int>(type: "INTEGER", nullable: false),
                     ExtSalesOrdNum = table.Column<int>(type: "INTEGER", nullable: false),
                     CustomerID = table.Column<int>(type: "INTEGER", nullable: true),
-                    MachineDesc = table.Column<string>(type: "TEXT", nullable: false),
-                    SerialNum = table.Column<string>(type: "TEXT", nullable: false),
-                    PackageReleaseName = table.Column<string>(type: "TEXT", nullable: false),
+                    MachineDesc = table.Column<string>(type: "TEXT", nullable: true),
+                    SerialNum = table.Column<string>(type: "TEXT", nullable: true),
+                    PackageReleaseName = table.Column<string>(type: "TEXT", nullable: true),
                     KickoffMeeting = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     ReleaseApprovalDrawing = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     VendorID = table.Column<int>(type: "INTEGER", nullable: true),
-                    PONum = table.Column<string>(type: "TEXT", nullable: false),
+                    PONum = table.Column<string>(type: "TEXT", nullable: true),
+                    ProductionOrderNumber = table.Column<string>(type: "TEXT", nullable: true),
                     PODueDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     DeliveryDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    EngineerID = table.Column<int>(type: "INTEGER", nullable: false),
-                    MachineDescriptionID = table.Column<int>(type: "INTEGER", nullable: false)
+                    EngineerID = table.Column<int>(type: "INTEGER", nullable: true),
+                    MachineDescriptionID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -115,14 +116,12 @@ namespace HaverGroupProject.Data.HaverMigrations
                         name: "FK_OperationsSchedules_Engineers_EngineerID",
                         column: x => x.EngineerID,
                         principalTable: "Engineers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_OperationsSchedules_MachineDescriptions_MachineDescriptionID",
                         column: x => x.MachineDescriptionID,
                         principalTable: "MachineDescriptions",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_OperationsSchedules_Vendors_VendorID",
                         column: x => x.VendorID,
@@ -184,8 +183,7 @@ namespace HaverGroupProject.Data.HaverMigrations
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_OperationsScheduleID",
                 table: "Notes",
-                column: "OperationsScheduleID",
-                unique: true);
+                column: "OperationsScheduleID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OperationsSchedules_CustomerID",

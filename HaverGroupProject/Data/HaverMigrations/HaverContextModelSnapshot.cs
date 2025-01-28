@@ -170,8 +170,7 @@ namespace HaverGroupProject.Data.HaverMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("OperationsScheduleID")
-                        .IsUnique();
+                    b.HasIndex("OperationsScheduleID");
 
                     b.ToTable("Notes");
                 });
@@ -210,11 +209,9 @@ namespace HaverGroupProject.Data.HaverMigrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PackageReleaseName")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("ProductionOrderNumber")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateOnly>("ReleaseApprovalDrawing")
@@ -287,8 +284,8 @@ namespace HaverGroupProject.Data.HaverMigrations
             modelBuilder.Entity("HaverGroupProject.Models.Note", b =>
                 {
                     b.HasOne("HaverGroupProject.Models.OperationsSchedule", "OperationsSchedule")
-                        .WithOne("Note")
-                        .HasForeignKey("HaverGroupProject.Models.Note", "OperationsScheduleID")
+                        .WithMany()
+                        .HasForeignKey("OperationsScheduleID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -356,7 +353,6 @@ namespace HaverGroupProject.Data.HaverMigrations
             modelBuilder.Entity("HaverGroupProject.Models.OperationsSchedule", b =>
                 {
                     b.Navigation("OperationsScheduleVendors");
-                    b.Navigation("Note");
                 });
 
             modelBuilder.Entity("HaverGroupProject.Models.Vendor", b =>
