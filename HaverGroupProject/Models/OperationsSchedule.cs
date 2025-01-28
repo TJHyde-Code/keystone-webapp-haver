@@ -47,9 +47,9 @@ namespace HaverGroupProject.Models
         public int? VendorID { get; set; }
         public Vendor? Vendor { get; set; }
 
-        [Display(Name = "PO#")]
-        [Required(ErrorMessage = "PO Number is required")]
-        public string? PONum { get; set; }
+        [Display(Name = "Production Order #")]
+        [Required(ErrorMessage = "Production Order Number is required")]
+        public string? ProductionOrderNumber { get; set; }
 
         [Display(Name = "PO Due Date")]
         [Required(ErrorMessage = "PO Due Date is required")]
