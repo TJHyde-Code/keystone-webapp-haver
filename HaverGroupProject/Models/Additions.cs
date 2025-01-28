@@ -4,6 +4,9 @@ namespace HaverGroupProject.Models
 {
     public class Additions
     {
+        //MT-Added primary key definition in order use SeedData
+        public int ID { get; set; }
+
         [Display(Name = "Media")]
         public bool InstalledMedia { get; set; }
 
@@ -19,7 +22,8 @@ namespace HaverGroupProject.Models
         [Display(Name = "Coating / Lining")]
         public bool CoatingLining { get; set; }
 
+        //MT-Fixed typo on "Disassembly"
         [Display(Name = "Disassembly")]
-        public bool Disassebmly { get; set; }
+        public bool Disassembly { get; set; }
     }
 }
