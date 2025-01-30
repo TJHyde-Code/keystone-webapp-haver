@@ -3,937 +3,922 @@ using HaverGroupProject.Models;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Linq;
+using Microsoft.Extensions.Hosting;
 
 namespace HaverGroupProject.Data
 {
     public static class HaverInitializer
     {
         public static void Initialize(IServiceProvider serviceProvider,
-            bool DeleteDatabase = true, bool UseMigrations = true, bool SeedSampleData = true)
+            bool DeleteDatabase = false, bool UseMigrations = true, bool SeedSampleData = true)
         {
             using (var context = new HaverContext(
                 serviceProvider.GetRequiredService<DbContextOptions<HaverContext>>()))
             {
-                #region Database Prep
+
+                #region Prepare the Database
+                if (DeleteDatabase || !context.Database.CanConnect())
+                {
+                    context.Database.EnsureDeleted(); //Delete the existing version 
+                    if (UseMigrations)
+                    {
+                        context.Database.Migrate(); //Create the Database and apply all migrations
+                    }
+                    else
+                    {
+                        context.Database.EnsureCreated(); //Create and update the database as per the Model
+                    }
+                }
+
+                #endregion
+                #region Seed Data
+                //Seed Data goes here
+                //Look for Customers and Vendors first, then SalesOrders
                 try
                 {
-                    //Seed Data goes here
-                    //Look for Customers and Vendors first, then SalesOrders
                     if (!context.Customers.Any())
                     {
                         context.Customers.AddRange(
+                           new Customer
+                           {
+                               CustomerName = "Connor Company",
+                               ReleaseDate = DateTime.UtcNow,
+                               CustomerAddress = "404 Spruce Court",
+                               CustomerContactName = "Emma Johnson",
+                               CustomerEmail = "EJohnson@hotmail.com",
+                               CustomerPhone = "5197890777"
+                           },
                             new Customer
                             {
-                                CustomerName = "Owens Corning",
-                                CustomerAddress = "123 Maple Street",
-                                CustomerContactName = "Liam Smith",
-                                //CustomerPhone = "519408756",
-                                CustomerEmail = "LSmith@hotmail.com",
+                                CustomerName = "Potato Shakers",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "404 Knotfound Rd.",
+                                CustomerContactName = "Jesse Lopez",
+                                CustomerEmail = "JLopez@hotmail.com",
+                                CustomerPhone = "5197590747"
                             },
                             new Customer
                             {
-                                CustomerName = "FMI",
-                                CustomerAddress = "456 Oak Avenue",
-                                CustomerContactName = "Olivia Brown",
-                                //CustomerPhone = "519475385",
-                                CustomerEmail = "OBrown@hotmail.com",
+                                CustomerName = "Centenial Grinding",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "1708 Pickard Rd",
+                                CustomerContactName = "Jean Luc",
+                                CustomerEmail = "JLuc@hotmail.com",
+                                CustomerPhone = "5195890677"
                             },
                             new Customer
                             {
-                                CustomerName = "Coloured Aggregates",
-                                CustomerAddress = "789 Pine Road",
-                                CustomerContactName = "Noah Davis",
-                                //CustomerPhone = "519230014",
-                                CustomerEmail = "NDavis@hotmail.com",
-                            },
-                            new Customer
+                                CustomerName = "Honest Jays",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "14 Palmer Crescent",
+                                CustomerContactName = "Mario Mario",
+                                CustomerEmail = "MMario@hotmail.com",
+                                CustomerPhone = "5397830777"
+                            }, new Customer
                             {
-                                CustomerName = "Rio Tinto Sorel",
-                                CustomerAddress = "101 Elm Drive",
-                                CustomerContactName = "Ava Wilson",
-                                //CustomerPhone = "5198874950",
-                                CustomerEmail = "AWilson@hotmail.com",
-                            },
-                            new Customer
-                            {
-                                CustomerName = "Calidra La Laja",
-                                CustomerAddress = "202 Birch Lane",
-                                CustomerContactName = "Ethan Martinez",
-                                //CustomerPhone = "5196947533",
-                                CustomerEmail = "EMartinez@hotmail.com",
-                            },
-                            new Customer
-                            {
-                                CustomerName = "Intradco",
-                                CustomerAddress = "302 Cedar Boulevard",
-                                CustomerContactName = "Sophia Anderson",
-                                //CustomerPhone = "5190081471",
-                                CustomerEmail = "SAnderson@hotmail.com",
-                            },
-                            new Customer
-                            {
-                                CustomerName = "SIL Industrial Minerals",
-                                CustomerAddress = "505 Willow Way",
-                                CustomerContactName = "Mason Taylor",
-                                //CustomerPhone = "5199630258",
-                                CustomerEmail = "MTaylor@hotmail.com",
-                            },
-                            new Customer
-                            {
-                                CustomerName = "United Taconite",
-                                CustomerAddress = "606 Aspen Circle",
-                                CustomerContactName = "Isabella Thomas",
-                                //CustomerPhone = "5197782244",
-                                CustomerEmail = "IThomas@hotmail.com",
-                            },
-                            new Customer
-                            {
-                                CustomerName = "Tougher Industries",
-                                CustomerAddress = "707 Redwood Terrace",
-                                CustomerContactName = "Lucas Moore",
-                                //CustomerPhone = "5193216540",
-                                CustomerEmail = "LMoore@hotmail.com",
-                            },
-                            new Customer
-                            {
-                                CustomerName = "Connor Company",
-                                CustomerAddress = "404 Spruce Court",
+                                CustomerName = "Masher McMash",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "20 Crush St",
                                 CustomerContactName = "Emma Johnson",
-                                //CustomerPhone = "5197890777",
                                 CustomerEmail = "EJohnson@hotmail.com",
-                            });
+                                CustomerPhone = "5197890777"
+                            },
+                            new Customer
+                            {
+                                CustomerName = "We Dig Holes",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "1952 Sunken Blvrd",
+                                CustomerContactName = "Doug Dig",
+                                CustomerEmail = "DDig@hotmail.com",
+                                CustomerPhone = "5192890577"
+                            },
+                            new Customer
+                            {
+                                CustomerName = "Sifting Made Easy",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "456 Swish Street",
+                                CustomerContactName = "Allan Swazze",
+                                CustomerEmail = "ASwayze@hotmail.com",
+                                CustomerPhone = "5137890677"
+                            },
+                            new Customer
+                            {
+                                CustomerName = "Pinnacle Pellet",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "22 Highland",
+                                CustomerContactName = "Janet Jones",
+                                CustomerEmail = "JJones@hotmail.com",
+                                CustomerPhone = "5137890757"
+                            },
+                            new Customer
+                            {
+                                CustomerName = "Farland Outfitters",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "Fairway Crescent",
+                                CustomerContactName = "Peter Montabelo",
+                                CustomerEmail = "PMontabelo@hotmail.com",
+                                CustomerPhone = "5167890775"
+                            },
+                            new Customer
+                            {
+                                CustomerName = "Windsor Contracting",
+                                ReleaseDate = DateTime.UtcNow,
+                                CustomerAddress = "7765 Blower Street",
+                                CustomerContactName = "Hudson James",
+                                CustomerEmail = "HJames@hotmail.com",
+                                CustomerPhone = "5197860707"
+                            }
+                        );
                         context.SaveChanges();
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while seeding the database: {ex.Message}");
+                }
 
-                    //Seed data for Vendors
+                //Seed data for Vendors
+                try
+                {
                     if (!context.Vendors.Any())
                     {
                         context.Vendors.AddRange(
-                        new Vendor
-                        {
-                            VendorName = "Precision Tools Inc",
-                            VendorAddress = "808 Cypress Street",
-                            VendorContactName = "Mia Clark",
-                            VendorPhone = "5326250989",
-                            VendorEmail = "MClark@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "Apex Machining Solutions",
-                            VendorAddress = "909 Magnolia Avenue",
-                            VendorContactName = "Benjamin Lewis",
-                            VendorPhone = "5328884050",
-                            VendorEmail = "BLewis@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "Elite Manufacturing",
-                            VendorAddress = "1010 Chestnut Road",
-                            VendorContactName = "Charlotte Walker",
-                            VendorPhone = "5323216877",
-                            VendorEmail = "CWalker@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "Titan Machines",
-                            VendorAddress = "111 Dogwood Drive",
-                            VendorContactName = "James Hall",
-                            VendorPhone = "5329877115",
-                            VendorEmail = "JHall@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "Superior CNC Services",
-                            VendorAddress = "1212 Fir Lane",
-                            VendorContactName = "Ameila Young",
-                            VendorPhone = "5327534215",
-                            VendorEmail = "AYoung@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "Prime Metal Fabricators",
-                            VendorAddress = "1313 Hemlock Boulevard",
-                            VendorContactName = "Alexander King",
-                            VendorPhone = "5329511599",
-                            VendorEmail = "AKing@hotmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "AMT",
-                            VendorAddress = "15 Juniper Court",
-                            VendorContactName = "Harper Scott",
-                            VendorPhone = "5323852140",
-                            VendorEmail = "HScott@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "ProCut Engineering",
-                            VendorAddress = "1515 Poplar Way",
-                            VendorContactName = "Henry Greens",
-                            VendorPhone = "5325983744",
-                            VendorEmail = "HGreens@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "Dynamic Tooling Systems",
-                            VendorAddress = "1616 Sycamore Circle",
-                            VendorContactName = "Evelyn Adams",
-                            VendorPhone = "5320964588",
-                            VendorEmail = "EAdams@gmail.com"
-                        },
-                        new Vendor
-                        {
-                            VendorName = "MasterCraft Machining",
-                            VendorAddress = "1717 Walnut Terrace",
-                            VendorContactName = "Daniel Baker",
-                            VendorPhone = "5328659874",
-                            VendorEmail = "DBaker@gmail.com"
-                        });
+                         new Vendor
+                         {
+                             VendorName = "Thompson Machining",
+                             VendorAddress = "177 Eastmarch",
+                             VendorContactName = "Daniel Baker",
+                             VendorPhone = "5328659874",
+                             VendorEmail = "DBaker@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "MasterCraft Machining",
+                             VendorAddress = "1717 Walnut Terrace",
+                             VendorContactName = "James Winston",
+                             VendorPhone = "5768659874",
+                             VendorEmail = "JWinston@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Jameson Parts",
+                             VendorAddress = "7680 Norfolk",
+                             VendorContactName = "John Trakt",
+                             VendorPhone = "5368659674",
+                             VendorEmail = "JTrakt@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Wilfred Machining",
+                             VendorAddress = "8814 Picton Place",
+                             VendorContactName = "Jeremy Armstrong",
+                             VendorPhone = "5328659574",
+                             VendorEmail = "JArmstrong@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Hudson Metal",
+                             VendorAddress = "9980 Tolley Rd",
+                             VendorContactName = "Tullulah Wayne",
+                             VendorPhone = "5328669874",
+                             VendorEmail = "TWayne.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Niagara Metalworks",
+                             VendorAddress = "7789 Petulli",
+                             VendorContactName = "Willow Morgan",
+                             VendorPhone = "5328659575",
+                             VendorEmail = "WMorgan@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Hamilton Industrial",
+                             VendorAddress = "7786 Wallaby",
+                             VendorContactName = "Austin Smith",
+                             VendorPhone = "5323659876",
+                             VendorEmail = "ASmith@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Forward Machining",
+                             VendorAddress = "8876 Albany Place",
+                             VendorContactName = "David Crocket",
+                             VendorPhone = "53286598867",
+                             VendorEmail = "DCrocket@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Princeton Processing",
+                             VendorAddress = "9965 Paley Ave",
+                             VendorContactName = "Chris Hall",
+                             VendorPhone = "5328459874",
+                             VendorEmail = "CHall@gmail.com",
+                         },
+                         new Vendor
+                         {
+                             VendorName = "Kraft Machining",
+                             VendorAddress = "1452 Charleston",
+                             VendorContactName = "Keegan Samuel",
+                             VendorPhone = "5328657674",
+                             VendorEmail = "KSamuel@gmail.com",
+                         }
+                         );
                         context.SaveChanges();
                     }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while seeding the database: {ex.Message}");
+                }
 
-                    //Seed data for Operations Schedule
+                //Seed Data for MachineDescription Table
+                try
+                {
+                    if (!context.MachineDescriptions.Any())
+                    {
+                        context.MachineDescriptions.AddRange(
+                            new MachineDescription
+                            {
+                                SerialNumber = "SN123456",
+                                Size = "6'x20'",
+                                Class = "T-330",
+                                Deck = "1D",
+                                NamePlateOrdered = true,
+                                NameplateRecieved = false,
+                            }
+                        );
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while seeding machine descriptions: {ex.Message}");
+                }
+
+
+
+                //Seed Data for Engineer Table
+                try
+                {
+                    if (!context.Engineers.Any())
+                    {
+                        context.Engineers.AddRange(
+                            new Engineer
+                            {
+                                EngFirstName = "John",
+                                EngMiddleName = "A",
+                                EngLastName = "Doe",
+                                EngPhone = "1234567890",
+                                EngEmail = "johndoe@example.com"
+                            }
+                        );
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while checking or seeding engineers: {ex.Message}");
+                }
+
+                //Seed data for Operations Schedule
+                try
+                {
                     if (!context.OperationsSchedules.Any())
                     {
                         context.OperationsSchedules.AddRange(
                             new OperationsSchedule
                             {
-                                SalesOrdNum = 10430736,
-                                ExtSalesOrdNum = 3934506,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Owens Corning").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-330" + " " + "6'x20'" + " " + "-" +"1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "James" && e.EngLastName == "Jackson").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-01"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-02"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Superior CNC Services").ID,
-                                PONum = "4500798658",
-                                PODueDate = DateOnly.Parse("2024-11-02"),
-                                DeliveryDate = DateOnly.Parse("2024-11-12"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10438456,
-                                ExtSalesOrdNum = 3934701,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Owens Corning").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "S-300" + " " + "5'x9'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "John" && e.EngLastName == "Hernandez").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-06"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-12"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Superior CNC Services").ID,
-                                PONum = "4500798660",
-                                PODueDate = DateOnly.Parse("2024-12-02"),
-                                DeliveryDate = DateOnly.Parse("2024-12-12"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10431478,
-                                ExtSalesOrdNum = 3934251,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Owens Corning").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-330" + " " + "4'x10'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Lisa" && e.EngLastName == "Lewis").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-09-05"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-09-12"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798661",
-                                PODueDate = DateOnly.Parse("2024-10-24"),
-                                DeliveryDate = DateOnly.Parse("2024-10-30"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10439630,
-                                ExtSalesOrdNum = 3934963,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "FMI").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-600" + " " + "5'x10'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Lisa" && e.EngLastName == "Lewis").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-11"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-18"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Apex Machining Solutions").ID,
-                                PONum = "4500798662",
-                                PODueDate = DateOnly.Parse("2024-12-18"),
-                                DeliveryDate = DateOnly.Parse("2024-12-22"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10439874,
-                                ExtSalesOrdNum = 3934987,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "FMI").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-1100" + " " + "6'x16'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "David" && e.EngLastName == "Brown").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-08-17"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-08-24"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Superior CNC Services").ID,
-                                PONum = "4500798663",
-                                PODueDate = DateOnly.Parse("2024-08-28"),
-                                DeliveryDate = DateOnly.Parse("2024-09-03"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10436541,
-                                ExtSalesOrdNum = 3934654,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Coloured Aggregates").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-1100" + " " + "6'x16'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "James" && e.EngLastName == "Jackson").ID,
-                                KickoffMeeting = DateOnly.Parse("2025-01-09"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2025-01-16"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Titan Machines").ID,
-                                PONum = "4500798664",
-                                PODueDate = DateOnly.Parse("2025-01-18"),
-                                DeliveryDate = DateOnly.Parse("2025-01-25"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10433210,
-                                ExtSalesOrdNum = 3934213,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Coloured Aggregates").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "L-800" + " " + "6'x20'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Ellie" && e.EngLastName == "Thompson").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-09-20"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-09-27"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Apex Machining Solutions").ID,
-                                PONum = "4500798665",
-                                PODueDate = DateOnly.Parse("2024-10-01"),
-                                DeliveryDate = DateOnly.Parse("2024-10-15"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10437894,
-                                ExtSalesOrdNum = 3934789,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Coloured Aggregates").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "S-300" + " " + "5'x9'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Christopher" && e.EngLastName == "Sanchez").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-06"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-15"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798666",
-                                PODueDate = DateOnly.Parse("2024-10-15"),
-                                DeliveryDate = DateOnly.Parse("2024-10-21"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10434561,
-                                ExtSalesOrdNum = 3934456,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Rio Tinto Sorel").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-880" + " " + "5'x12'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "David" && e.EngLastName == "Brown").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-12-13"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-12-20"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Elite Manufacturing").ID,
-                                PONum = "4500798667",
-                                PODueDate = DateOnly.Parse("2025-12-05"),
-                                DeliveryDate = DateOnly.Parse("2025-12-11"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10431230,
-                                ExtSalesOrdNum = 393123,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Rio Tinto Sorel").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-880" + " " + "5'x12'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Matthew" && e.EngLastName == "Davis").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-11-26"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-12-01"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Elite Manufacturing").ID,
-                                PONum = "4500798668",
-                                PODueDate = DateOnly.Parse("2024-12-01"),
-                                DeliveryDate = DateOnly.Parse("2024-12-07"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10437532,
-                                ExtSalesOrdNum = 3934753,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Rio Tinto Sorel").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-900" + " " + "6'x14'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "John" && e.EngLastName == "Hernandez").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-06"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-08"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Superior CNC Services").ID,
-                                PONum = "4500798669",
-                                PODueDate = DateOnly.Parse("2024-10-12"),
-                                DeliveryDate = DateOnly.Parse("2024-10-14"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10433570,
-                                ExtSalesOrdNum = 3934357,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Calidra La Laja").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-900" + " " + "6'x16'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Ellie" && e.EngLastName == "Thompson").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-18"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-24"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Prime Metal Fabricators").ID,
-                                PONum = "4500798670",
-                                PODueDate = DateOnly.Parse("2024-10-26"),
-                                DeliveryDate = DateOnly.Parse("2024-11-01"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10438612,
-                                ExtSalesOrdNum = 3934861,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Calidra La Laja").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-1100" + " " + "8'x16'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Karen" && e.EngLastName == "Lee").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-11-17"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-19"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Apex Machining Solutions").ID,
-                                PONum = "4500798671",
-                                PODueDate = DateOnly.Parse("2024-11-25"),
-                                DeliveryDate = DateOnly.Parse("2024-11-30"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10439078,
-                                ExtSalesOrdNum = 3934907,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Calidra La Laja").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-900" + " " + "6'x16'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Michael" && e.EngLastName == "Johnson").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-01"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-03"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Dynamic Tooling Systems").ID,
-                                PONum = "4500798672",
-                                PODueDate = DateOnly.Parse("2024-11-02"),
-                                DeliveryDate = DateOnly.Parse("2024-11-07"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10437733,
-                                ExtSalesOrdNum = 3938462,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Intradco").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-900" + " " + "6'x16'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Michael" && e.EngLastName == "Johnson").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-08"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-14"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Titan Machines").ID,
-                                PONum = "4500798673",
-                                PODueDate = DateOnly.Parse("2024-10-20"),
-                                DeliveryDate = DateOnly.Parse("2024-10-22"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10431793,
-                                ExtSalesOrdNum = 3934179,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Intradco").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-660" + " " + "5'x12'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "David" && e.EngLastName == "Brown").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-11-01"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-04"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Prime Metal Fabricators").ID,
-                                PONum = "4500798674",
-                                PODueDate = DateOnly.Parse("2024-11-08"),
-                                DeliveryDate = DateOnly.Parse("2024-11-10"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10439731,
-                                ExtSalesOrdNum = 3934114,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Intradco").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "S-110" + " " + "4'x8'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "James" && e.EngLastName == "Jackson").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-11-16"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-17"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "ProCut Engineering").ID,
-                                PONum = "4500798675",
-                                PODueDate = DateOnly.Parse("2024-11-21"),
-                                DeliveryDate = DateOnly.Parse("2024-11-23"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10435426,
-                                ExtSalesOrdNum = 3934426,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "SIL Industrial Minerals").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-880" + " " + "5'x12'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Lisa" && e.EngLastName == "Lewis").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-09"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-12"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Prime Metal Fabricators").ID,
-                                PONum = "4500798676",
-                                PODueDate = DateOnly.Parse("2024-10-16"),
-                                DeliveryDate = DateOnly.Parse("2024-10-20"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10434865,
-                                ExtSalesOrdNum = 3934684,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "SIL Industrial Minerals").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-330" + " " + "4'x10'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Anthony" && e.EngLastName == "White").ID,
-                                KickoffMeeting = DateOnly.Parse("2025-01-03"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2025-01-06"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Elite Manufacturing").ID,
-                                PONum = "4500798677",
-                                PODueDate = DateOnly.Parse("2025-01-09"),
-                                DeliveryDate = DateOnly.Parse("2025-01-11"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10430025,
-                                ExtSalesOrdNum = 3934852,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "SIL Industrial Minerals").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-330" + " " + "4'x10'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Anthony" && e.EngLastName == "White").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-18"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-20"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Precision Tools Inc").ID,
-                                PONum = "4500798678",
-                                PODueDate = DateOnly.Parse("2024-11-01"),
-                                DeliveryDate = DateOnly.Parse("2024-11-10"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10434159,
-                                ExtSalesOrdNum = 3934951,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "United Taconite").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-600" + " " + "5'x10'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Anthony" && e.EngLastName == "White").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-15"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-20"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Apex Machining Solutions").ID,
-                                PONum = "4500798679",
-                                PODueDate = DateOnly.Parse("2024-11-05"),
-                                DeliveryDate = DateOnly.Parse("2024-11-10"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10437532,
-                                ExtSalesOrdNum = 3934357,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "United Taconite").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-1100" + " " + "6'x16'" + " " + "-" + "1D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Ellie" && e.EngLastName == "Thompson").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-11-01"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-06"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Prime Metal Fabricators").ID,
-                                PONum = "4500798680",
-                                PODueDate = DateOnly.Parse("2024-11-08"),
-                                DeliveryDate = DateOnly.Parse("2024-11-12"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10434827,
-                                ExtSalesOrdNum = 3930198,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "United Taconite").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-1100" + " " + "6'x16'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Matthew" && e.EngLastName == "Davis").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-09-01"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-09-04"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Elite Manufacturing").ID,
-                                PONum = "4500798681",
-                                PODueDate = DateOnly.Parse("2024-09-14"),
-                                DeliveryDate = DateOnly.Parse("2024-09-16"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10484951,
-                                ExtSalesOrdNum = 3934775,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Tougher Industries").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "L-800" + " " + "6'x20'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Christopher" && e.EngLastName == "Sanchez").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-09-11"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-09-14"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Apex Machining Solutions").ID,
-                                PONum = "4500798682",
-                                PODueDate = DateOnly.Parse("2024-09-21"),
-                                DeliveryDate = DateOnly.Parse("2024-09-24"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 104369321,
-                                ExtSalesOrdNum = 3934999,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Tougher Industries").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "S-300" + " " + "5'x9'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Richard" && e.EngLastName == "Smith").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-09-25"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-09-27"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Precision Tools Inc").ID,
-                                PONum = "4500798683",
-                                PODueDate = DateOnly.Parse("2024-10-02"),
-                                DeliveryDate = DateOnly.Parse("2024-10-05"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10432020,
-                                ExtSalesOrdNum = 3934303,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Tougher Industries").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "S-300" + " " + "5'x9'" + " " + "-" + "2D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Richard" && e.EngLastName == "Smith").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-25"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-28"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Prime Metal Fabricators").ID,
-                                PONum = "4500798684",
-                                PODueDate = DateOnly.Parse("2024-10-03"),
-                                DeliveryDate = DateOnly.Parse("2024-11-02"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10436621,
-                                ExtSalesOrdNum = 3930492,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Connor Company").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-880" + " " + "5'x12'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "David" && e.EngLastName == "Brown").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-11-06"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-09"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798685",
-                                PODueDate = DateOnly.Parse("2024-11-13"),
-                                DeliveryDate = DateOnly.Parse("2024-11-18"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10478325,
-                                ExtSalesOrdNum = 3934555,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Connor Company").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "T-880" + " " + "5'x12'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Mark" && e.EngLastName == "Ramirez").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-11-24"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-28"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "AMT").ID,
-                                PONum = "4500798686",
-                                PODueDate = DateOnly.Parse("2024-11-30"),
-                                DeliveryDate = DateOnly.Parse("2024-12-07"),
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10494717,
-                                ExtSalesOrdNum = 3934225,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "Connor Company").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-900" + " " + "6'x14'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Jennifer" && e.EngLastName == "Jones").ID,
-                                KickoffMeeting = DateOnly.Parse("2024-10-01"),
-                                ReleaseApprovalDrawing = DateOnly.Parse("2024-10-05"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "AMT").ID,
-                                PONum = "4500798687",
-                                PODueDate = DateOnly.Parse("2024-10-29"),
-                                DeliveryDate = DateOnly.Parse("2024-11-04"),
-                            },
-                            new OperationsSchedule
-                            {
                                 SalesOrdNum = 10465896,
                                 ExtSalesOrdNum = 3934999,
-                                CustomerID = context.Customers.FirstOrDefault(n => n.CustomerName == "FMI").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(m => m.DescriptionSummary == "F-900" + " " + "6'x19'" + " " + "-" + "3D").ID,
-                                //EngineerID = context.Engineers.FirstOrDefault(e => e.EngFirstName == "Richard" && e.EngLastName == "Smith").ID,
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
+                                MachineDesc = "T-330 6'x20-1D",
+                                SerialNum = "SN123456",
+                                PackageReleaseName = "Package Alpha",
                                 KickoffMeeting = DateOnly.Parse("2024-11-11"),
                                 ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
-                                VendorID = context.Vendors.FirstOrDefault(v => v.VendorName == "Dynamic Tooling Systems").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798688",
+                                ProductionOrderNumber = "PO987654",
                                 PODueDate = DateOnly.Parse("2024-12-03"),
                                 DeliveryDate = DateOnly.Parse("2024-12-14"),
-                            });
+                                //EngineerID = 1,
+                                //NoteID = 1
+                            },
+                            new OperationsSchedule
+                            {
+                                SalesOrdNum = 10465897,
+                                ExtSalesOrdNum = 3935000,
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
+                                MachineDesc = "T-330 6'x20-1D",
+                                SerialNum = "SN123456",
+                                PackageReleaseName = "Package Alpha",
+                                KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                PONum = "4500798689",
+                                ProductionOrderNumber = "PO987655",
+                                PODueDate = DateOnly.Parse("2024-12-03"),
+                                DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                //EngineerID = 1,
+                                //NoteID = 1
+                            },
+                            new OperationsSchedule
+                            {
+                                SalesOrdNum = 10465898,
+                                ExtSalesOrdNum = 3935001,
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
+                                MachineDesc = "T-330 6'x20-1D",
+                                SerialNum = "SN123456",
+                                PackageReleaseName = "Package Alpha",
+                                KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                PONum = "4500798689",
+                                ProductionOrderNumber = "PO987656",
+                                PODueDate = DateOnly.Parse("2024-12-03"),
+                                DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                //EngineerID = 1,
+                                //NoteID = 1
+                            },
+                            new OperationsSchedule
+                            {
+                                SalesOrdNum = 10465899,
+                                ExtSalesOrdNum = 3935002,
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
+                                MachineDesc = "T-330 6'x20-1D",
+                                SerialNum = "SN123456",
+                                PackageReleaseName = "Package Alpha",
+                                KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                PONum = "4500798690",
+                                ProductionOrderNumber = "PO987657",
+                                PODueDate = DateOnly.Parse("2024-12-03"),
+                                DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                //EngineerID = 1,
+                                //NoteID = 1
+                            },
+                             new OperationsSchedule
+                             {
+                                 SalesOrdNum = 10465900,
+                                 ExtSalesOrdNum = 3935003,
+                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
+                                 MachineDesc = "T-330 6'x20-1D",
+                                 SerialNum = "SN123457",
+                                 PackageReleaseName = "Package Beta",
+                                 KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                 ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
+                                 PONum = "4500798691",
+                                 ProductionOrderNumber = "PO987658",
+                                 PODueDate = DateOnly.Parse("2024-12-03"),
+                                 DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                 //EngineerID = 1,
+                                 //NoteID = 1
+                             },
+                              new OperationsSchedule
+                              {
+                                  SalesOrdNum = 10465901,
+                                  ExtSalesOrdNum = 3935004,
+                                  CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
+                                  MachineDesc = "T-330 6'x20-1D",
+                                  SerialNum = "SN123457",
+                                  PackageReleaseName = "Package Beta",
+                                  KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                  ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                  VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID,
+                                  PONum = "4500798692",
+                                  ProductionOrderNumber = "PO987659",
+                                  PODueDate = DateOnly.Parse("2024-12-03"),
+                                  DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                  //EngineerID = 1,
+                                  //NoteID = 1
+                              },
+                              new OperationsSchedule
+                              {
+                                  SalesOrdNum = 10465902,
+                                  ExtSalesOrdNum = 3935005,
+                                  CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
+                                  MachineDesc = "T-330 6'x20-1D",
+                                  SerialNum = "SN123457",
+                                  PackageReleaseName = "Package Gamma",
+                                  KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                  ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                  VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
+                                  PONum = "4500798693",
+                                  ProductionOrderNumber = "PO987660",
+                                  PODueDate = DateOnly.Parse("2024-12-03"),
+                                  DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                  //EngineerID = 1,
+                                  //NoteID = 1
+                              },
+                               new OperationsSchedule
+                               {
+                                   SalesOrdNum = 10465903,
+                                   ExtSalesOrdNum = 3935006,
+                                   CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
+                                   MachineDesc = "T-330 6'x20-1D",
+                                   SerialNum = "SN123457",
+                                   PackageReleaseName = "Package Gamma",
+                                   KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                   ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                   VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                   PONum = "4500798694",
+                                   ProductionOrderNumber = "PO987661",
+                                   PODueDate = DateOnly.Parse("2024-12-03"),
+                                   DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                   //EngineerID = 1,
+                                   //NoteID = 1
+                               },
+                               new OperationsSchedule
+                               {
+                                   SalesOrdNum = 10465904,
+                                   ExtSalesOrdNum = 3935007,
+                                   CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
+                                   MachineDesc = "T-330 6'x20-1D",
+                                   SerialNum = "SN123786",
+                                   PackageReleaseName = "Package Alpha",
+                                   KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                   ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                   VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                   PONum = "4500798695",
+                                   ProductionOrderNumber = "PO987662",
+                                   PODueDate = DateOnly.Parse("2024-12-03"),
+                                   DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                   //EngineerID = 1,
+                                   //NoteID = 1
+                               },
+                               new OperationsSchedule
+                               {
+                                   SalesOrdNum = 10465905,
+                                   ExtSalesOrdNum = 3935008,
+                                   CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
+                                   MachineDesc = "T-330 6'x20-1D",
+                                   SerialNum = "SN123786",
+                                   PackageReleaseName = "Package Beta",
+                                   KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                   ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                   VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                   PONum = "4500798696",
+                                   ProductionOrderNumber = "PO987663",
+                                   PODueDate = DateOnly.Parse("2024-12-03"),
+                                   DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                   //EngineerID = 1,
+                                   //NoteID = 1
+                               },
+                               new OperationsSchedule
+                               {
+                                   SalesOrdNum = 10465906,
+                                   ExtSalesOrdNum = 3935009,
+                                   CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
+                                   MachineDesc = "T-330 6'x20-1D",
+                                   SerialNum = "SN123786",
+                                   PackageReleaseName = "Package Beta",
+                                   KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                   ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                   VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                                   PONum = "4500798697",
+                                   ProductionOrderNumber = "PO987664",
+                                   PODueDate = DateOnly.Parse("2024-12-03"),
+                                   DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                   //EngineerID = 1,
+                                   //NoteID = 1
+                               },
+                                new OperationsSchedule
+                                {
+                                    SalesOrdNum = 10465908,
+                                    ExtSalesOrdNum = 3935010,
+                                    CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
+                                    MachineDesc = "T-330 6'x20-1D",
+                                    SerialNum = "SN123786",
+                                    PackageReleaseName = "Package Beta",
+                                    KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                    ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                    PONum = "4500798699",
+                                    ProductionOrderNumber = "PO987666",
+                                    PODueDate = DateOnly.Parse("2024-12-03"),
+                                    DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                    //EngineerID = 1,
+                                    //NoteID = 1
+                                },
+                                new OperationsSchedule
+                                {
+                                    SalesOrdNum = 10465909,
+                                    ExtSalesOrdNum = 3935011,
+                                    CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
+                                    MachineDesc = "T-330 6'x20-1D",
+                                    SerialNum = "SN123786",
+                                    PackageReleaseName = "Package Beta",
+                                    KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                    ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
+                                    PONum = "4500798700",
+                                    ProductionOrderNumber = "PO987667",
+                                    PODueDate = DateOnly.Parse("2024-12-03"),
+                                    DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                    //EngineerID = 1,
+                                    //NoteID = 1
+                                },
+                                 new OperationsSchedule
+                                 {
+                                     SalesOrdNum = 10465910,
+                                     ExtSalesOrdNum = 3935012,
+                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
+                                     MachineDesc = "T-330 6'x20-1D",
+                                     SerialNum = "SN123797",
+                                     PackageReleaseName = "Package Beta",
+                                     KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                     ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                     VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                     PONum = "4500798701",
+                                     ProductionOrderNumber = "PO987668",
+                                     PODueDate = DateOnly.Parse("2024-12-03"),
+                                     DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                     //EngineerID = 1,
+                                     //NoteID = 1
+                                 },
+                                 new OperationsSchedule
+                                 {
+                                     SalesOrdNum = 10465911,
+                                     ExtSalesOrdNum = 3935013,
+                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
+                                     MachineDesc = "T-330 6'x20-1D",
+                                     SerialNum = "SN127497",
+                                     PackageReleaseName = "Package Alpha",
+                                     KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                     ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                     VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                     PONum = "4500798702",
+                                     ProductionOrderNumber = "PO987668",
+                                     PODueDate = DateOnly.Parse("2024-12-03"),
+                                     DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                     //EngineerID = 1,
+                                     //NoteID = 1
+                                 },
+                                  new OperationsSchedule
+                                  {
+                                      SalesOrdNum = 10465912,
+                                      ExtSalesOrdNum = 3935014,
+                                      CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
+                                      MachineDesc = "T-330 6'x20-1D",
+                                      SerialNum = "SN127497",
+                                      PackageReleaseName = "Package Alpha",
+                                      KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                      ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                      VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                                      PONum = "4500798703",
+                                      ProductionOrderNumber = "PO987668",
+                                      PODueDate = DateOnly.Parse("2024-12-03"),
+                                      DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                      //EngineerID = 1,
+                                      //NoteID = 1
+                                  },
+                                  new OperationsSchedule
+                                  {
+                                      SalesOrdNum = 10465913,
+                                      ExtSalesOrdNum = 3935015,
+                                      CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
+                                      MachineDesc = "T-330 6'x20-1D",
+                                      SerialNum = "SN127497",
+                                      PackageReleaseName = "Package Alpha",
+                                      KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                      ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                      VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID,
+                                      PONum = "4500798704",
+                                      ProductionOrderNumber = "PO987669",
+                                      PODueDate = DateOnly.Parse("2024-12-03"),
+                                      DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                      //EngineerID = 1,
+                                      //NoteID = 1
+                                  },
+                                   new OperationsSchedule
+                                   {
+                                       SalesOrdNum = 10465914,
+                                       ExtSalesOrdNum = 3935016,
+                                       CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
+                                       MachineDesc = "T-330 6'x20-1D",
+                                       SerialNum = "SN127497",
+                                       PackageReleaseName = "Package Zeta",
+                                       KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                       ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                       VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                       PONum = "4500798705",
+                                       ProductionOrderNumber = "PO987670",
+                                       PODueDate = DateOnly.Parse("2024-12-03"),
+                                       DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                       //EngineerID = 1,
+                                       //NoteID = 1
+                                   },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465915,
+                                        ExtSalesOrdNum = 3935017,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN127498",
+                                        PackageReleaseName = "Package Zeta",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                        PONum = "4500798706",
+                                        ProductionOrderNumber = "PO987671",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465916,
+                                        ExtSalesOrdNum = 3935018,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN127498",
+                                        PackageReleaseName = "Package Zeta",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                        PONum = "4500798707",
+                                        ProductionOrderNumber = "PO987672",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465917,
+                                        ExtSalesOrdNum = 3935019,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN127498",
+                                        PackageReleaseName = "Package Zeta",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                        PONum = "4500798708",
+                                        ProductionOrderNumber = "PO987673",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465918,
+                                        ExtSalesOrdNum = 3935020,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN127498",
+                                        PackageReleaseName = "Package Zeta",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                        PONum = "4500798709",
+                                        ProductionOrderNumber = "PO987674",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465919,
+                                        ExtSalesOrdNum = 3935021,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN127498",
+                                        PackageReleaseName = "Package John",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                        PONum = "4500798710",
+                                        ProductionOrderNumber = "PO987676",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465920,
+                                        ExtSalesOrdNum = 3935022,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN127498",
+                                        PackageReleaseName = "Package James",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                                        PONum = "4500798711",
+                                        ProductionOrderNumber = "PO987677",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465921,
+                                        ExtSalesOrdNum = 3935023,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN127498",
+                                        PackageReleaseName = "Package Collin",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                        PONum = "4500798712",
+                                        ProductionOrderNumber = "PO987678",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465922,
+                                        ExtSalesOrdNum = 3935024,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN156498",
+                                        PackageReleaseName = "Package Holly",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                        PONum = "4500798713",
+                                        ProductionOrderNumber = "PO987679",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                    new OperationsSchedule
+                                    {
+                                        SalesOrdNum = 10465923,
+                                        ExtSalesOrdNum = 3935025,
+                                        CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
+                                        MachineDesc = "T-330 6'x20-1D",
+                                        SerialNum = "SN156499",
+                                        PackageReleaseName = "Package Holly",
+                                        KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                        ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
+                                        PONum = "4500798714",
+                                        ProductionOrderNumber = "PO987680",
+                                        PODueDate = DateOnly.Parse("2024-12-03"),
+                                        DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                        //EngineerID = 1,
+                                        //NoteID = 1
+                                    },
+                                     new OperationsSchedule
+                                     {
+                                         SalesOrdNum = 10465924,
+                                         ExtSalesOrdNum = 3935026,
+                                         CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
+                                         MachineDesc = "T-330 6'x20-1D",
+                                         SerialNum = "SN156499",
+                                         PackageReleaseName = "Package Holly",
+                                         KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                         ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                         VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                         PONum = "4500798715",
+                                         ProductionOrderNumber = "PO987681",
+                                         PODueDate = DateOnly.Parse("2024-12-03"),
+                                         DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                         //EngineerID = 1,
+                                         //NoteID = 1
+                                     },
+                                     new OperationsSchedule
+                                     {
+                                         SalesOrdNum = 10465925,
+                                         ExtSalesOrdNum = 3935027,
+                                         CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
+                                         MachineDesc = "T-330 6'x20-1D",
+                                         SerialNum = "SN178499",
+                                         PackageReleaseName = "Package Holly",
+                                         KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                         ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                         VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                         PONum = "4500798716",
+                                         ProductionOrderNumber = "PO987682",
+                                         PODueDate = DateOnly.Parse("2024-12-03"),
+                                         DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                         //EngineerID = 1,
+                                         //NoteID = 1
+                                     },
+                                     new OperationsSchedule
+                                     {
+                                         SalesOrdNum = 10465926,
+                                         ExtSalesOrdNum = 3935028,
+                                         CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
+                                         MachineDesc = "T-330 6'x20-1D",
+                                         SerialNum = "SN178455",
+                                         PackageReleaseName = "Package Thomas",
+                                         KickoffMeeting = DateOnly.Parse("2024-11-11"),
+                                         ReleaseApprovalDrawing = DateOnly.Parse("2024-11-14"),
+                                         VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                         PONum = "4500798717",
+                                         ProductionOrderNumber = "PO987682",
+                                         PODueDate = DateOnly.Parse("2024-12-03"),
+                                         DeliveryDate = DateOnly.Parse("2024-12-14"),
+                                         //EngineerID = 1,
+                                         //NoteID = 1
+                                     }
+                        );
                         context.SaveChanges();
+
                     }
-
-                    //MT 30-entries for 30 customers
-                    //if (!context.Additions.Any())
-                    //{
-                    //    context.Additions.AddRange(
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = true,
-                    //            AirSeal = false,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = true,
-                    //            AirSeal = false,
-                    //            CoatingLining = true,
-                    //            Disassembly = true,
-                    //        },
-                    //         new Additions
-                    //         {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = false,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = false,
-                    //         },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = true,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = false,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = true,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = false,
-                    //            CoatingLining = true,
-                    //            Disassembly = true,
-                    //        },
-                    //         new Additions
-                    //         {
-                    //             InstalledMedia = true,
-                    //             SparePartsSpareMedia = false,
-                    //             BaseFrame = false,
-                    //             AirSeal = true,
-                    //             CoatingLining = false,
-                    //             Disassembly = true,
-                    //         },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = false,
-                    //            CoatingLining = false,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = false,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //         new Additions
-                    //         {
-                    //             InstalledMedia = false,
-                    //             SparePartsSpareMedia = false,
-                    //             BaseFrame = false,
-                    //             AirSeal = true,
-                    //             CoatingLining = true,
-                    //             Disassembly = false,
-                    //         },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = false,
-                    //            AirSeal = false,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = false,
-                    //        },
-                    //         new Additions
-                    //         {
-                    //             InstalledMedia = false,
-                    //             SparePartsSpareMedia = true,
-                    //             BaseFrame = false,
-                    //             AirSeal = false,
-                    //             CoatingLining = true,
-                    //             Disassembly = false,
-                    //         },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = false,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //         new Additions
-                    //         {
-                    //             InstalledMedia = false,
-                    //             SparePartsSpareMedia = false,
-                    //             BaseFrame = true,
-                    //             AirSeal = true,
-                    //             CoatingLining = true,
-                    //             Disassembly = false,
-                    //         },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = true,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = true,
-                    //            Disassembly = false,
-                    //        },
-                    //         new Additions
-                    //         {
-                    //             InstalledMedia = true,
-                    //             SparePartsSpareMedia = true,
-                    //             BaseFrame = true,
-                    //             AirSeal = false,
-                    //             CoatingLining = false,
-                    //             Disassembly = true,
-                    //         },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = false,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = true,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = true,
-                    //            CoatingLining = false,
-                    //            Disassembly = true,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = true,
-                    //            BaseFrame = false,
-                    //            AirSeal = true,
-                    //            CoatingLining = true,
-                    //            Disassembly = true,
-                    //        },
-                    //         new Additions
-                    //         {
-                    //             InstalledMedia = false,
-                    //             SparePartsSpareMedia = false,
-                    //             BaseFrame = false,
-                    //             AirSeal = false,
-                    //             CoatingLining = false,
-                    //             Disassembly = true,
-                    //         },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = true,
-                    //            Disassembly = true,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = false,
-                    //            AirSeal = false,
-                    //            CoatingLining = false,
-                    //            Disassembly = true,
-                    //        },
-                    //        new Additions
-                    //        {
-                    //            InstalledMedia = false,
-                    //            SparePartsSpareMedia = false,
-                    //            BaseFrame = true,
-                    //            AirSeal = true,
-                    //            CoatingLining = true,
-                    //            Disassembly = true,
-                    //        });
-                    //    context.SaveChanges();
-                    //}
-
-
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine(ex.GetBaseException().Message);
+                    Console.WriteLine($"An error occurred while seeding the database: {ex.Message}");
                 }
-                #endregion
 
-
-                #region Seed Required Data
+                //Seed Data for the Notes Table
                 try
                 {
-
+                    if (!context.Notes.Any())
+                    {
+                        context.Notes.AddRange(
+                            new Note
+                            {
+                                PreOrder = "Initial pre-order details.",
+                                Scope = "Standard scope of work.",
+                                BudgetAssembHrs = "120",
+                                ActualAssembHours = 100,
+                                ActualReworkHours = 10,
+                                OtherComments = "All assembly tasks completed with minor rework.",
+                            }
+                        );
+                        context.SaveChanges();
+                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    Console.WriteLine($"An error occurred while seeding notes: {ex.Message}");
                 }
+
+
+
+                //Seed Data for Additions Table
+                try
+                {
+                    if (!context.Additions.Any())
+                    {
+                        context.Additions.AddRange(
+                            new Additions
+                            {
+                                InstalledMedia = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = true,
+                                AirSeal = false,
+                                CoatingLining = true,
+                                Disassembly = true
+                            }
+                        );
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while seeding additions: {ex.Message}");
+                }
+
+
+
+                //Seed Data for OperationsScheduleVendor M:M
+                try
+                {
+                    if (!context.OperationsScheduleVendors.Any())
+                    {
+                        context.OperationsScheduleVendors.AddRange(
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 1,
+                                VendorID = 1
+                            }
+                        );
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred while seeding operations schedule vendors: {ex.Message}");
+                }
+
 
                 #endregion
 
-                #region Seed Sample Data
-                if (SeedSampleData)
-                {
-                    try
-                    {
-                        
-                    }
-                    catch (Exception)
-                    {
 
-                        throw;
-                    }
-                }
-                #endregion
+
+
             }//Using Close
 
         }//Initialize close
 
     }//HaverInitializer Class close.
+
 }//Namespace close
