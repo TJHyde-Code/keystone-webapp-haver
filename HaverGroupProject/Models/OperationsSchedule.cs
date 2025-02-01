@@ -17,8 +17,11 @@ namespace HaverGroupProject.Models
         public int? CustomerID { get; set; }
         public Customer? Customer { get; set; }
 
+
+        //Comment this out after seeding data updated to use the Machine Desc table
         [Display(Name = "Machine Description")]
         public string? MachineDesc { get; set; }
+
 
         [Display(Name = "Serial #")]
         public string? SerialNum { get; set; }
@@ -51,16 +54,16 @@ namespace HaverGroupProject.Models
         [DataType(DataType.Date)]
         public DateOnly DeliveryDate { get; set; }
 
-        //[Display(Name = "Engineer")]
-        //public int EngineerID { get; set; }
-        //public Engineer? Engineer { get; set; }
+        [Display(Name = "Engineer")]
+        public int EngineerID { get; set; }
+        public Engineer? Engineer { get; set; }
 
-        //[Display(Name = "Machine Desc.")]
-        //public int MachineDescriptionID { get; set; }
-        //public MachineDescription? MachineDescription { get; set; }
+        [Display(Name = "Machine Desc.")]
+        public int MachineDescriptionID { get; set; }
+        public MachineDescription? MachineDescription { get; set; }
 
-        //[Display(Name = "Notes")]
-        //public Note? Note { get; set; }
+        [Display(Name = "Notes")]
+        public Note? Note { get; set; }
 
         [Display(Name = "Vendors")]
         public ICollection<OperationsScheduleVendor> OperationsScheduleVendors { get; set; } = new HashSet<OperationsScheduleVendor>();

@@ -1,0 +1,62 @@
+﻿@model HaverGroupProject.Models.Note
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Note</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PreOrder" class="control-label"></label>
+                <input asp-for="PreOrder" class="form-control" />
+                <span asp-validation-for="PreOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Scope" class="control-label"></label>
+                <input asp-for="Scope" class="form-control" />
+                <span asp-validation-for="Scope" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BudgetAssembHrs" class="control-label"></label>
+                <input asp-for="BudgetAssembHrs" class="form-control" />
+                <span asp-validation-for="BudgetAssembHrs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualAssembHours" class="control-label"></label>
+                <input asp-for="ActualAssembHours" class="form-control" />
+                <span asp-validation-for="ActualAssembHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActualReworkHours" class="control-label"></label>
+                <input asp-for="ActualReworkHours" class="form-control" />
+                <span asp-validation-for="ActualReworkHours" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OtherComments" class="control-label"></label>
+                <textarea asp-for="OtherComments" class="form-control"></textarea>
+                <span asp-validation-for="OtherComments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OperationsScheduleID" class="control-label"></label>
+                <select asp-for="OperationsScheduleID" class ="form-control" asp-items="ViewBag.OperationsScheduleID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

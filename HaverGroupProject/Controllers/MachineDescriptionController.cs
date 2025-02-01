@@ -10,22 +10,22 @@ using HaverGroupProject.Models;
 
 namespace HaverGroupProject.Controllers
 {
-    public class MachineDescriptionsController : Controller
+    public class MachineDescriptionController : Controller
     {
         private readonly HaverContext _context;
 
-        public MachineDescriptionsController(HaverContext context)
+        public MachineDescriptionController(HaverContext context)
         {
             _context = context;
         }
 
-        // GET: MachineDescriptions
+        // GET: MachineDescription
         public async Task<IActionResult> Index()
         {
             return View(await _context.MachineDescriptions.ToListAsync());
         }
 
-        // GET: MachineDescriptions/Details/5
+        // GET: MachineDescription/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,18 +43,18 @@ namespace HaverGroupProject.Controllers
             return View(machineDescription);
         }
 
-        // GET: MachineDescriptions/Create
+        // GET: MachineDescription/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: MachineDescriptions/Create
+        // POST: MachineDescription/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,SerialNumber,Size,Class,Deck,NamePlateOrdered,NameplateRecieved")] MachineDescription machineDescription)
+        public async Task<IActionResult> Create([Bind("ID,SerialNumber,Size,Class,Deck,NamePlateOrdered,NameplateRecieved,InstalledMedia,SparePartsSpareMedia,BaseFrame,AirSeal,CoatingLining,Disassembly")] MachineDescription machineDescription)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace HaverGroupProject.Controllers
             return View(machineDescription);
         }
 
-        // GET: MachineDescriptions/Edit/5
+        // GET: MachineDescription/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,12 +81,12 @@ namespace HaverGroupProject.Controllers
             return View(machineDescription);
         }
 
-        // POST: MachineDescriptions/Edit/5
+        // POST: MachineDescription/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,SerialNumber,Size,Class,Deck,NamePlateOrdered,NameplateRecieved")] MachineDescription machineDescription)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,SerialNumber,Size,Class,Deck,NamePlateOrdered,NameplateRecieved,InstalledMedia,SparePartsSpareMedia,BaseFrame,AirSeal,CoatingLining,Disassembly")] MachineDescription machineDescription)
         {
             if (id != machineDescription.ID)
             {
@@ -116,7 +116,7 @@ namespace HaverGroupProject.Controllers
             return View(machineDescription);
         }
 
-        // GET: MachineDescriptions/Delete/5
+        // GET: MachineDescription/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +134,7 @@ namespace HaverGroupProject.Controllers
             return View(machineDescription);
         }
 
-        // POST: MachineDescriptions/Delete/5
+        // POST: MachineDescription/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

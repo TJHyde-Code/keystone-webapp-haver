@@ -45,10 +45,24 @@ namespace HaverGroupProject.Models
         [Display(Name = "Nameplate Rcvd.")]
         public bool NameplateRecieved { get; set; }
 
-        [ScaffoldColumn(false)]
-        [Timestamp]
-        public Byte[]? RowVersion { get; set; }//Added for concurrency
+        [Display(Name = "Media")]
+        public bool InstalledMedia { get; set; }
 
+        [Display(Name = "Spare Parts / Media")]
+        public bool SparePartsSpareMedia { get; set; }
+
+        [Display(Name = "Base")]
+        public bool BaseFrame { get; set; }
+
+        [Display(Name = "Air Seal")]
+        public bool AirSeal { get; set; }
+
+        [Display(Name = "Coating / Lining")]
+        public bool CoatingLining { get; set; }
+
+        //MT-Fixed typo on "Disassembly"
+        [Display(Name = "Disassembly")]
+        public bool Disassembly { get; set; }
         //Navigations. 
         public ICollection<OperationsSchedule> OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
     }
