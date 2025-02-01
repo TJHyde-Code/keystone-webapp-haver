@@ -246,6 +246,12 @@ namespace HaverGroupProject.Data
                                 Deck = "1D",
                                 NamePlateOrdered = true,
                                 NameplateRecieved = false,
+                                InstalledMedia = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = true,
+                                AirSeal = false,
+                                CoatingLining = true,
+                                Disassembly = true
                             }
                         );
                         context.SaveChanges();
@@ -860,33 +866,6 @@ namespace HaverGroupProject.Data
                 {
                     Console.WriteLine($"An error occurred while seeding notes: {ex.Message}");
                 }
-
-
-
-                //Seed Data for Additions Table
-                try
-                {
-                    if (!context.Additions.Any())
-                    {
-                        context.Additions.AddRange(
-                            new Additions
-                            {
-                                InstalledMedia = true,
-                                SparePartsSpareMedia = false,
-                                BaseFrame = true,
-                                AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
-                            }
-                        );
-                        context.SaveChanges();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"An error occurred while seeding additions: {ex.Message}");
-                }
-
 
 
                 //Seed Data for OperationsScheduleVendor M:M

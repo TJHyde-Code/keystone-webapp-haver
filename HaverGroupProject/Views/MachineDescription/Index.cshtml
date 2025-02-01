@@ -30,6 +30,24 @@
             <th>
                 @Html.DisplayNameFor(model => model.NameplateRecieved)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InstalledMedia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SparePartsSpareMedia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BaseFrame)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AirSeal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CoatingLining)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Disassembly)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -53,6 +71,24 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NameplateRecieved)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InstalledMedia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SparePartsSpareMedia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BaseFrame)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AirSeal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CoatingLining)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disassembly)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

@@ -57,9 +57,7 @@ namespace HaverGroupProject.Models
         [DataType(DataType.EmailAddress)]
         public string? EngEmail { get; set; }
 
-        [ScaffoldColumn(false)]
-        [Timestamp]
-        public Byte[]? RowVersion { get; set; }//Added for concurrency
+       
 
         //Navigations
         public ICollection<OperationsSchedule> OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
