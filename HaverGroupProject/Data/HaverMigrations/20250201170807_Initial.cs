@@ -12,24 +12,6 @@ namespace HaverGroupProject.Data.HaverMigrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Additions",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    InstalledMedia = table.Column<bool>(type: "INTEGER", nullable: false),
-                    SparePartsSpareMedia = table.Column<bool>(type: "INTEGER", nullable: false),
-                    BaseFrame = table.Column<bool>(type: "INTEGER", nullable: false),
-                    AirSeal = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CoatingLining = table.Column<bool>(type: "INTEGER", nullable: false),
-                    Disassembly = table.Column<bool>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Additions", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -57,8 +39,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     EngMiddleName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
                     EngLastName = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     EngPhone = table.Column<string>(type: "TEXT", maxLength: 10, nullable: false),
-                    EngEmail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
+                    EngEmail = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,7 +58,12 @@ namespace HaverGroupProject.Data.HaverMigrations
                     Deck = table.Column<string>(type: "TEXT", maxLength: 2, nullable: false),
                     NamePlateOrdered = table.Column<bool>(type: "INTEGER", nullable: false),
                     NameplateRecieved = table.Column<bool>(type: "INTEGER", nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true)
+                    InstalledMedia = table.Column<bool>(type: "INTEGER", nullable: false),
+                    SparePartsSpareMedia = table.Column<bool>(type: "INTEGER", nullable: false),
+                    BaseFrame = table.Column<bool>(type: "INTEGER", nullable: false),
+                    AirSeal = table.Column<bool>(type: "INTEGER", nullable: false),
+                    CoatingLining = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Disassembly = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,8 +106,8 @@ namespace HaverGroupProject.Data.HaverMigrations
                     ProductionOrderNumber = table.Column<string>(type: "TEXT", nullable: true),
                     PODueDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     DeliveryDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    EngineerID = table.Column<int>(type: "INTEGER", nullable: true),
-                    MachineDescriptionID = table.Column<int>(type: "INTEGER", nullable: true)
+                    EngineerID = table.Column<int>(type: "INTEGER", nullable: false),
+                    MachineDescriptionID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,12 +121,14 @@ namespace HaverGroupProject.Data.HaverMigrations
                         name: "FK_OperationsSchedules_Engineers_EngineerID",
                         column: x => x.EngineerID,
                         principalTable: "Engineers",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OperationsSchedules_MachineDescriptions_MachineDescriptionID",
                         column: x => x.MachineDescriptionID,
                         principalTable: "MachineDescriptions",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OperationsSchedules_Vendors_VendorID",
                         column: x => x.VendorID,
@@ -202,7 +190,8 @@ namespace HaverGroupProject.Data.HaverMigrations
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_OperationsScheduleID",
                 table: "Notes",
-                column: "OperationsScheduleID");
+                column: "OperationsScheduleID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OperationsSchedules_CustomerID",
@@ -233,9 +222,6 @@ namespace HaverGroupProject.Data.HaverMigrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Additions");
-
             migrationBuilder.DropTable(
                 name: "Notes");
 

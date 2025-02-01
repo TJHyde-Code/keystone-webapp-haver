@@ -30,6 +30,9 @@ namespace HaverGroupProject.Controllers
             var haverContext = _context.OperationsSchedules
                 .Include(o => o.Customer)
                 .Include(o => o.Vendor)
+                .Include(o => o.Engineer)
+                .Include(o => o.MachineDescription)
+                .Include(o => o.Note)
                 .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor);
             return View(await haverContext.ToListAsync());
         }
@@ -45,6 +48,9 @@ namespace HaverGroupProject.Controllers
             var operationsSchedule = await _context.OperationsSchedules
                 .Include(o => o.Customer)
                 .Include(o => o.Vendor)
+                .Include(o => o.Engineer)
+                .Include(o => o.MachineDescription)
+                .Include(o => o.Note)
                 .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (operationsSchedule == null)
