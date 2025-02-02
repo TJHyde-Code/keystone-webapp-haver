@@ -27,22 +27,42 @@ body {
 }
 
 table {
-    background-color: aliceblue;
+    background-color: whitesmoke;
+}
+
+
+.table-col {
+    background-color: #0A2240;
+    color: white;
+    
 }
 
 .btn {
-    font-size: 18pt;
+    font-size: 10pt;
     padding: 10px 20px;
     border-radius: 5px;
 }
 
 .btn-success {
-    background-color: #234DB7;
+    background-color: #0A2240;
     color: #FFFFFF;
-    font-size: 16px;
 }
 
+.btn-success:hover {
+    background-color: #2941e6;
+}
 
-    .btn-success:hover {
-        background-color: #394e8e;
-    }
+.logo {
+    height: 100px; /* Adjust size as needed */
+    width: auto;
+   
+}
+
+footer {
+    background-color: #0A2240;
+    color: white;
+    text-align: center;
+    padding: 1px;
+    font-size: 1.2rem;
+}
+
