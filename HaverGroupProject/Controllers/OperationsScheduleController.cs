@@ -394,13 +394,13 @@ namespace HaverGroupProject.Controllers
                             {
                                 SalesOrder = os.SalesOrdNum,
                                 Customer = os.Customer.CustomerName,
-                                Date = os.KickoffMeeting.ToString("yyyy-MM-dd"),
+                                Date = os.KickoffMeeting.HasValue ? os.KickoffMeeting.Value.ToString("yyyy-MM-dd") : "N/A",
                                 Machine = os.MachineDesc,
                                 SerialNumber = os.SerialNum,
                                 Engineer = os.PackageReleaseName,
                                 Vendor = os.Vendor.VendorName,
                                 PONum = os.PONum,
-                                DeliveryDate = os.DeliveryDate.ToString("yyyy-MM-dd")
+                                DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value.ToString("yyyy-MM-dd") : "N/A"
 
                             };
             //How many rows?
