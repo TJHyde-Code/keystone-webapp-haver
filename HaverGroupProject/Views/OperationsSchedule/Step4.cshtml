@@ -13,6 +13,18 @@
         <label asp-for="SelectedVendorIDs" class="control-label">Vendors</label>
         <select asp-for="SelectedVendorIDs" class="form-control" asp-items="Model.Vendors"></select>
         <span asp-validation-for="SelectedVendorIDs" class="text-danger"></span>
+        <div class="form-group">
+            <label asp-for="PODueDate" class="control-label"></label>
+            <input asp-for="PODueDate" class="form-control" type="date" />
+            <span asp-validation-for="PODueDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="DeliveryDate" class="control-label"></label>
+            <input asp-for="DeliveryDate" class="form-control" type="date" />
+            <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+        </div>
+
+
     </div>
 
     <button type="submit" class="btn btn-success">Create Operations Schedule</button>

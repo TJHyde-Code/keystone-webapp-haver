@@ -16,6 +16,12 @@ namespace HaverGroupProject.ViewModels
 
         public DateOnly? ReleaseApprovalDrawing { get; set; }
 
+        //Vendor fields
+        public DateOnly? PODueDate { get; set; }
+
+        public DateOnly? DeliveryDate { get; set; }
+
+
         public int? MachineDescriptionID { get; set; }
         public List<SelectListItem>? Machines { get; set; }
 
