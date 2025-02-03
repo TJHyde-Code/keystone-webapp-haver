@@ -13,6 +13,7 @@ using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace HaverGroupProject.Controllers
 {
@@ -348,7 +349,11 @@ namespace HaverGroupProject.Controllers
                     .Select(v => new SelectListItem { Value = v.ID.ToString(), Text = v.VendorName })
                     .ToList(),
                 SelectedVendorIDs = operationsSchedule.OperationsScheduleVendors
-                    .Select(ov => ov.VendorID.ToString()).ToArray()
+                    .Select(ov => ov.VendorID.ToString()).ToArray(),
+
+                PODueDate = operationsSchedule.PODueDate,
+                DeliveryDate = operationsSchedule.DeliveryDate
+
             };
             return View(viewModel);
         }
@@ -379,6 +384,10 @@ namespace HaverGroupProject.Controllers
                         });
                     }
                 }
+
+                operationsSchedule.PODueDate = model.PODueDate;
+                operationsSchedule.DeliveryDate = model.DeliveryDate;
+
                 _context.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
 
