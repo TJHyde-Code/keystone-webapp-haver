@@ -17,6 +17,8 @@ namespace HaverGroupProject.ViewModels
         public DateOnly? ReleaseApprovalDrawing { get; set; }
 
         //Vendor fields
+        public string? ProductionOrderNumber { get; set; }
+
         public DateOnly? PODueDate { get; set; }
 
         public DateOnly? DeliveryDate { get; set; }

@@ -43,7 +43,7 @@
                 @Html.DisplayNameFor(model => model.OperationsScheduleVendors)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PONum)
+                @Html.DisplayNameFor(model => model.ProductionOrderNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PODueDate)
@@ -118,7 +118,7 @@
                     }
                 </td>
                 <td>
-                    @(item.PONum ?? "N/A")
+                    @(item.ProductionOrderNumber ?? "N/A")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.PODueDate)

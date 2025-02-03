@@ -351,6 +351,7 @@ namespace HaverGroupProject.Controllers
                 SelectedVendorIDs = operationsSchedule.OperationsScheduleVendors
                     .Select(ov => ov.VendorID.ToString()).ToArray(),
 
+                ProductionOrderNumber = operationsSchedule.ProductionOrderNumber,
                 PODueDate = operationsSchedule.PODueDate,
                 DeliveryDate = operationsSchedule.DeliveryDate
 
@@ -385,6 +386,7 @@ namespace HaverGroupProject.Controllers
                     }
                 }
 
+                operationsSchedule.ProductionOrderNumber = model.ProductionOrderNumber;
                 operationsSchedule.PODueDate = model.PODueDate;
                 operationsSchedule.DeliveryDate = model.DeliveryDate;
 
