@@ -239,7 +239,11 @@ namespace HaverGroupProject.Controllers
             {
                 var operationsSchedule = new OperationsSchedule
                 {
-                    SalesOrdNum = model.SalesOrdNum
+                    SalesOrdNum = model.SalesOrdNum,
+                    ExtSalesOrdNum = model.ExtSalesOrdNum,
+                    PackageReleaseName = model.PackageReleaseName,
+                    KickoffMeeting = model.KickoffMeeting,
+                    ReleaseApprovalDrawing = model.ReleaseApprovalDrawing
                 };
 
                 _context.OperationsSchedules.Add(operationsSchedule);
