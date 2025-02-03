@@ -1,0 +1,59 @@
+﻿@model HaverGroupProject.ViewModels.MultiStepOperationsScheduleViewModel
+
+@{
+    ViewData["Title"] = "Step 4 - Select or Create Vendor";
+}
+
+<h2>Step 4: Select or Create a Vendor</h2>
+
+<form asp-action="Step4" method="post">
+    <input type="hidden" asp-for="ID" />
+
+    <div class="form-group">
+        <label asp-for="SelectedVendorIDs" class="control-label">Vendors</label>
+        <select asp-for="SelectedVendorIDs" class="form-control" asp-items="Model.Vendors"></select>
+        <span asp-validation-for="SelectedVendorIDs" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create Operations Schedule</button>
+</form>
+
+<!-- Button to Open the Create Vendor Modal -->
+<button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#vendorModal">
+    Add New Vendor
+</button>
+
+<!-- Vendor Modal -->
+<div class="modal fade" id="vendorModal" tabindex="-1" aria-labelledby="vendorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Vendor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="vendorForm">
+                    <div class="mb-3">
+                        <label for="vendorName" class="form-label">Vendor Name</label>
+                        <input type="text" class="form-control" id="vendorName">
+                    </div>
+                    <button type="button" class="btn btn-success" id="saveVendor">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#saveVendor').click(function () {
+        event.preventDefault();
+
+        var vendorName = $('#vendorName').val();
+        $.post('/Vendor/Create', { VendorName: vendorName }, function (response) {
+            if (response.success) {
+                $('#vendorModal').modal('hide');
+                location.reload(); // Refresh dropdown options
+            }
+        });
+    });
+</script>

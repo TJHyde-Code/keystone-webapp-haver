@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HaverGroupProject.Data.HaverMigrations
 {
     [DbContext(typeof(HaverContext))]
-    [Migration("20250201170807_Initial")]
+    [Migration("20250203000218_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -186,9 +186,6 @@ namespace HaverGroupProject.Data.HaverMigrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("OperationsScheduleID")
-                        .IsUnique();
-
                     b.ToTable("Notes");
                 });
 
@@ -204,7 +201,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<DateOnly>("DeliveryDate")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("EngineerID")
+                    b.Property<int?>("EngineerID")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("ExtSalesOrdNum")
@@ -216,7 +213,10 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<string>("MachineDesc")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MachineDescriptionID")
+                    b.Property<int?>("MachineDescriptionID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("NoteID")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateOnly>("PODueDate")
@@ -250,6 +250,9 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.HasIndex("EngineerID");
 
                     b.HasIndex("MachineDescriptionID");
+
+                    b.HasIndex("NoteID")
+                        .IsUnique();
 
                     b.HasIndex("VendorID");
 
@@ -298,17 +301,6 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.ToTable("Vendors");
                 });
 
-            modelBuilder.Entity("HaverGroupProject.Models.Note", b =>
-                {
-                    b.HasOne("HaverGroupProject.Models.OperationsSchedule", "OperationsSchedule")
-                        .WithOne("Note")
-                        .HasForeignKey("HaverGroupProject.Models.Note", "OperationsScheduleID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OperationsSchedule");
-                });
-
             modelBuilder.Entity("HaverGroupProject.Models.OperationsSchedule", b =>
                 {
                     b.HasOne("HaverGroupProject.Models.Customer", "Customer")
@@ -317,26 +309,27 @@ namespace HaverGroupProject.Data.HaverMigrations
 
                     b.HasOne("HaverGroupProject.Models.Engineer", "Engineer")
                         .WithMany("OperationsSchedules")
-                        .HasForeignKey("EngineerID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EngineerID");
 
                     b.HasOne("HaverGroupProject.Models.MachineDescription", "MachineDescription")
                         .WithMany("OperationsSchedules")
-                        .HasForeignKey("MachineDescriptionID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MachineDescriptionID");
+
+                    b.HasOne("HaverGroupProject.Models.Note", "Note")
+                        .WithOne("OperationsSchedule")
+                        .HasForeignKey("HaverGroupProject.Models.OperationsSchedule", "NoteID");
 
                     b.HasOne("HaverGroupProject.Models.Vendor", "Vendor")
                         .WithMany("OperationsSchedules")
-                        .HasForeignKey("VendorID")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .HasForeignKey("VendorID");
 
                     b.Navigation("Customer");
 
                     b.Navigation("Engineer");
 
                     b.Navigation("MachineDescription");
+
+                    b.Navigation("Note");
 
                     b.Navigation("Vendor");
                 });
@@ -375,10 +368,13 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Navigation("OperationsSchedules");
                 });
 
+            modelBuilder.Entity("HaverGroupProject.Models.Note", b =>
+                {
+                    b.Navigation("OperationsSchedule");
+                });
+
             modelBuilder.Entity("HaverGroupProject.Models.OperationsSchedule", b =>
                 {
-                    b.Navigation("Note");
-
                     b.Navigation("OperationsScheduleVendors");
                 });
 

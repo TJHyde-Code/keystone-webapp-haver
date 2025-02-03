@@ -54,15 +54,18 @@ namespace HaverGroupProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CustomerName,ReleaseDate")] Customer customer)
+        public async Task<IActionResult> Create([Bind("ID,CustomerName,ReleaseDate")] Customer customer, string CustomerName)
         {
-            if (ModelState.IsValid)
+            if (string.IsNullOrEmpty(CustomerName))
             {
-                _context.Add(customer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return Json(new { success = false, message = "Customer Name is required." });
             }
-            return View(customer);
+
+            var newCustomer = new Customer { CustomerName = CustomerName };
+
+            _context.Add(newCustomer);
+            await _context.SaveChangesAsync();
+            return Json(new { success = true });
         }
 
         // GET: Customer/Edit/5

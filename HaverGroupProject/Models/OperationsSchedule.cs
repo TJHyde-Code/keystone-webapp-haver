@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
 
 namespace HaverGroupProject.Models
@@ -14,6 +15,7 @@ namespace HaverGroupProject.Models
         public int ExtSalesOrdNum { get; set; }
 
         [Display(Name = "Customer")]
+        [ForeignKey("Customer")]
         public int? CustomerID { get; set; }
         public Customer? Customer { get; set; }
 
@@ -38,6 +40,7 @@ namespace HaverGroupProject.Models
         public DateOnly ReleaseApprovalDrawing { get; set; }
 
         [Display(Name = "Vendor")]
+        [ForeignKey("Vendor")]
         public int? VendorID { get; set; }
         public Vendor? Vendor { get; set; }
 
@@ -55,14 +58,18 @@ namespace HaverGroupProject.Models
         public DateOnly DeliveryDate { get; set; }
 
         [Display(Name = "Engineer")]
-        public int EngineerID { get; set; }
+        [ForeignKey("Engineer")]
+        public int? EngineerID { get; set; }
         public Engineer? Engineer { get; set; }
 
         [Display(Name = "Machine Desc.")]
-        public int MachineDescriptionID { get; set; }
+        [ForeignKey("MachineDescription")]
+        public int? MachineDescriptionID { get; set; }
         public MachineDescription? MachineDescription { get; set; }
 
         [Display(Name = "Notes")]
+        [ForeignKey("Note")]
+        public int? NoteID { get; set; }
         public Note? Note { get; set; }
 
         [Display(Name = "Vendors")]

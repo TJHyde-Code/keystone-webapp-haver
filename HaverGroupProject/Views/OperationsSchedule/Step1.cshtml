@@ -1,0 +1,19 @@
+﻿@model HaverGroupProject.ViewModels.MultiStepOperationsScheduleViewModel
+
+@{
+    ViewData["Title"] = "Step 1 - Create Operations Schedule";
+}
+
+<h2>Step 1: Enter Operations Schedule Details</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Step1" method="post">
+    <div class="form-group">
+        <label asp-for="SalesOrdNum" class="control-label"></label>
+        <input asp-for="SalesOrdNum" class="form-control" />
+        <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>

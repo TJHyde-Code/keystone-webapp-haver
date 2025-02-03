@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using OfficeOpenXml.Style;
 using OfficeOpenXml;
 using System.Drawing;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
 namespace HaverGroupProject.Controllers
 {
@@ -216,6 +217,170 @@ namespace HaverGroupProject.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+
+        //STEP 1
+        //This loads the form where the user fills out the OperationsSchedule details
+        //GET
+        public IActionResult Step1()
+        {
+            var viewModel = new MultiStepOperationsScheduleViewModel();
+            return View(viewModel);
+        }
+
+        //This saves the partial data and redirects to Step 2
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Step1(MultiStepOperationsScheduleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var operationsSchedule = new OperationsSchedule
+                {
+                    SalesOrdNum = model.SalesOrdNum
+                };
+
+                _context.OperationsSchedules.Add(operationsSchedule);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Step2", new { id = operationsSchedule.ID });
+            }
+            return View(model);
+        }
+
+        //STEP 2
+        //This loads the form to select or create a customer
+        //GET
+        public async Task<IActionResult> Step2(int id)
+        {
+            var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
+            if (operationsSchedule == null) return NotFound();
+
+            var viewModel = new MultiStepOperationsScheduleViewModel
+            {
+                ID = operationsSchedule.ID,
+                Customers = _context.Customers
+                    .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
+                    .ToList()
+            };
+            return View(viewModel);
+        }
+
+        //This saves the partial data and redirects to Step 3
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Step2(MultiStepOperationsScheduleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var operationsSchedule = await _context.OperationsSchedules.FindAsync(model.ID);
+                if (operationsSchedule == null) return NotFound();
+
+                operationsSchedule.CustomerID = model.CustomerID;
+                _context.Update(operationsSchedule);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Step3", new { id = operationsSchedule.ID });
+            }
+            return View(model);
+        }
+
+        //STEP 3
+        //This loads the form to select or create a Machine
+        //GET
+        public async Task<IActionResult> Step3(int id)
+        {
+            var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
+            if (operationsSchedule == null) return NotFound();
+
+            var viewModel = new MultiStepOperationsScheduleViewModel
+            {
+                ID = operationsSchedule.ID,
+                Machines = _context.MachineDescriptions
+                    .Select(m => new SelectListItem { Value = m.ID.ToString(), Text = $"{m.SerialNumber} - {m.Size} - {m.Class} - {m.Deck}" })
+                    .ToList()
+            };
+            return View(viewModel);
+        }
+
+        //This saves the partial data and redirects to Step 4
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Step3(MultiStepOperationsScheduleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var operationsSchedule = await _context.OperationsSchedules.FindAsync(model.ID);
+                if (operationsSchedule == null) return NotFound();
+
+                operationsSchedule.MachineDescriptionID = model.MachineDescriptionID ?? 0;
+                _context.Update(operationsSchedule);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Step4", new { id = operationsSchedule.ID });
+            }
+            return View(model);
+        }
+
+        //STEP 4
+        //This loads the form to select or create a Vendor
+        //GET
+        public async Task<IActionResult> Step4(int id)
+        {
+            var operationsSchedule = await _context.OperationsSchedules
+                .Include(o => o.OperationsScheduleVendors)
+                .FirstOrDefaultAsync(o => o.ID == id);
+            
+            if (operationsSchedule == null) return NotFound();
+
+            var viewModel = new MultiStepOperationsScheduleViewModel
+            {
+                ID = operationsSchedule.ID,
+                Vendors = _context.Vendors
+                    .Select(v => new SelectListItem { Value = v.ID.ToString(), Text = v.VendorName })
+                    .ToList(),
+                SelectedVendorIDs = operationsSchedule.OperationsScheduleVendors
+                    .Select(ov => ov.VendorID.ToString()).ToArray()
+            };
+            return View(viewModel);
+        }
+
+
+        //This saves the partial data and redirects to the index page
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Step4(MultiStepOperationsScheduleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var operationsSchedule = await _context.OperationsSchedules
+                    .Include(o => o.OperationsScheduleVendors)
+                    .FirstOrDefaultAsync(o => o.ID == model.ID);
+
+                if (operationsSchedule == null) return NotFound();
+
+                if (model.SelectedVendorIDs != null)
+                {
+                    foreach (var vendorID in model.SelectedVendorIDs)
+                    {
+                        operationsSchedule.OperationsScheduleVendors.Add(new OperationsScheduleVendor
+                        {
+                            OperationsScheduleID = operationsSchedule.ID,
+                            VendorID = int.Parse(vendorID)
+                        });
+                    }
+                }
+                _context.Update(operationsSchedule);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         public IActionResult DownloadOperationsSchedules()

@@ -1,0 +1,74 @@
+﻿@model HaverGroupProject.ViewModels.MultiStepOperationsScheduleViewModel
+
+@{
+    ViewData["Title"] = "Step 3 - Select or Create Machine";
+}
+
+<h2>Step 3: Select or Create a Machine</h2>
+
+<form asp-action="Step3" method="post">
+    <div class="form-group">
+        <label asp-for="MachineDescriptionID" class="control-label"></label>
+        <select asp-for="MachineDescriptionID" class="form-control" asp-items="Model.Machines">
+            <option value="">-- Select a Machine --</option>
+        </select>
+        <span asp-validation-for="MachineDescriptionID" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
+
+<!-- Button to Open the Create Machine Modal -->
+<button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#machineModal">
+    Add New Machine
+</button>
+
+<!-- Machine Modal -->
+<div class="modal fade" id="machineModal" tabindex="-1" aria-labelledby="machineModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Machine</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="machineForm">
+                    <div class="mb-3">
+                        <label for="serialNumber" class="form-label">Serial Number</label>
+                        <input type="text" class="form-control" id="serialNumber">
+
+                        <label for="size" class="form-label">Size</label>
+                        <input type="text" class="form-control" id="size">
+
+                        <label for="class" class="form-label">Class</label>
+                        <input type="text" class="form-control" id="class">
+
+                        <label for="deck" class="form-label">Deck</label>
+                        <input type="text" class="form-control" id="deck">
+                    </div>
+                    <button type="button" class="btn btn-success" id="saveMachine">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#saveMachine').click(function () {
+        event.preventDefault();
+
+        var machineData = {
+            SerialNumber: $('#serialNumber').val(),
+            Size: $('#size').val(),
+            Class: $('#class').val(),
+            Deck: $('#deck').val()
+        };
+
+        $.post('/MachineDescription/Create', machineData, function (response) {
+            if (response.success) {
+                $('#machineModal').modal('hide');
+                location.reload(); // Refresh dropdown options
+            }
+        });
+    });
+</script>

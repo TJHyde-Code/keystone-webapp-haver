@@ -1,0 +1,75 @@
+﻿@model HaverGroupProject.ViewModels.MultiStepOperationsScheduleViewModel
+
+@{
+    ViewData["Title"] = "Step 2 - Select or Create Customer";
+}
+
+<h2>Step 2: Select or Create a Customer</h2>
+
+<form asp-action="Step2" method="post">
+    <div class="form-group">
+        <label asp-for="CustomerID" class="control-label"></label>
+        <select asp-for="CustomerID" class="form-control" asp-items="Model.Customers">
+            <option value="">-- Select a Customer --</option>
+        </select>
+        <span asp-validation-for="CustomerID" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
+
+<!-- Button to Open the Create Customer Modal-->
+<button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#customerModal">
+    Add New Customer
+</button>
+
+<!-- Customer Modal-->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Create New Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="customerForm">
+                    <div class="mb-3">
+                        <label for="customerName" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="customerName">
+                    </div>
+                    <button type="button" class="btn btn-success" id="saveCustomer">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#saveCustomer').click(function () {
+            var customerName = $('#customerName').val();
+
+            if (customerName.trim() === "") {
+                alert("Customer Name cannot be empty.");
+                return;
+            }
+
+            $.ajax({
+                url: '/Customer/Create',
+                type: 'POST',
+                data: { CustomerName: customerName },
+                success: function (response) {
+                    if (response.success) {
+                        $('#customerModal').modal('hide');
+                        location.reload(); 
+                    } else {
+                        alert("Failed to save customer.");
+                    }
+                },
+                error: function () {
+                    alert("An error occurred while saving the customer.");
+                }
+            });
+        });
+    });
+</script>

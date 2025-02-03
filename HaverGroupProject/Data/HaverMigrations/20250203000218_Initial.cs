@@ -71,6 +71,26 @@ namespace HaverGroupProject.Data.HaverMigrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    PreOrder = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Scope = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    BudgetAssembHrs = table.Column<string>(type: "TEXT", nullable: false),
+                    ActualAssembHours = table.Column<int>(type: "INTEGER", nullable: false),
+                    ActualReworkHours = table.Column<int>(type: "INTEGER", nullable: false),
+                    OtherComments = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
+                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
+                    OperationsScheduleID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Vendors",
                 columns: table => new
                 {
@@ -106,8 +126,9 @@ namespace HaverGroupProject.Data.HaverMigrations
                     ProductionOrderNumber = table.Column<string>(type: "TEXT", nullable: true),
                     PODueDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
                     DeliveryDate = table.Column<DateOnly>(type: "TEXT", nullable: false),
-                    EngineerID = table.Column<int>(type: "INTEGER", nullable: false),
-                    MachineDescriptionID = table.Column<int>(type: "INTEGER", nullable: false)
+                    EngineerID = table.Column<int>(type: "INTEGER", nullable: true),
+                    MachineDescriptionID = table.Column<int>(type: "INTEGER", nullable: true),
+                    NoteID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -121,46 +142,22 @@ namespace HaverGroupProject.Data.HaverMigrations
                         name: "FK_OperationsSchedules_Engineers_EngineerID",
                         column: x => x.EngineerID,
                         principalTable: "Engineers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_OperationsSchedules_MachineDescriptions_MachineDescriptionID",
                         column: x => x.MachineDescriptionID,
                         principalTable: "MachineDescriptions",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
+                    table.ForeignKey(
+                        name: "FK_OperationsSchedules_Notes_NoteID",
+                        column: x => x.NoteID,
+                        principalTable: "Notes",
+                        principalColumn: "ID");
                     table.ForeignKey(
                         name: "FK_OperationsSchedules_Vendors_VendorID",
                         column: x => x.VendorID,
                         principalTable: "Vendors",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Notes",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    PreOrder = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
-                    Scope = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    BudgetAssembHrs = table.Column<string>(type: "TEXT", nullable: false),
-                    ActualAssembHours = table.Column<int>(type: "INTEGER", nullable: false),
-                    ActualReworkHours = table.Column<int>(type: "INTEGER", nullable: false),
-                    OtherComments = table.Column<string>(type: "TEXT", maxLength: 500, nullable: false),
-                    RowVersion = table.Column<byte[]>(type: "BLOB", rowVersion: true, nullable: true),
-                    OperationsScheduleID = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notes", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Notes_OperationsSchedules_OperationsScheduleID",
-                        column: x => x.OperationsScheduleID,
-                        principalTable: "OperationsSchedules",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "ID");
                 });
 
             migrationBuilder.CreateTable(
@@ -188,12 +185,6 @@ namespace HaverGroupProject.Data.HaverMigrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Notes_OperationsScheduleID",
-                table: "Notes",
-                column: "OperationsScheduleID",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OperationsSchedules_CustomerID",
                 table: "OperationsSchedules",
                 column: "CustomerID");
@@ -207,6 +198,12 @@ namespace HaverGroupProject.Data.HaverMigrations
                 name: "IX_OperationsSchedules_MachineDescriptionID",
                 table: "OperationsSchedules",
                 column: "MachineDescriptionID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OperationsSchedules_NoteID",
+                table: "OperationsSchedules",
+                column: "NoteID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OperationsSchedules_VendorID",
@@ -223,9 +220,6 @@ namespace HaverGroupProject.Data.HaverMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Notes");
-
-            migrationBuilder.DropTable(
                 name: "OperationsScheduleVendors");
 
             migrationBuilder.DropTable(
@@ -239,6 +233,9 @@ namespace HaverGroupProject.Data.HaverMigrations
 
             migrationBuilder.DropTable(
                 name: "MachineDescriptions");
+
+            migrationBuilder.DropTable(
+                name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "Vendors");

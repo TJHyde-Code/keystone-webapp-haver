@@ -10,7 +10,7 @@
 <h1>Operations Schedule</h1>
 
 <p>
-    <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
+    <a asp-action="Step1" class="btn btn-success" style="font-size: 12px;">Create New</a>
 </p>
 <table class="table table-bordered table-striped table-hover ">
     <thead class=" table-col" style="font-size: 0.86rem;">
@@ -68,10 +68,10 @@
                     @(item.Customer != null ? item.Customer.CustomerName : "N/A")
                 </td>
                 <td>
-                    @(item.MachineDesc ?? "N/A")
+                    @(item.MachineDescription != null ? item.MachineDescription.DescriptionSummary : "N/A")
                 </td>
                 <td>
-                    @(item.SerialNum ?? "N/A")
+                    @(item.MachineDescription != null ? item.MachineDescription.SerialNumber : "N/A")
                 </td>
                 <td>
                     @(item.PackageReleaseName ?? "N/A")
