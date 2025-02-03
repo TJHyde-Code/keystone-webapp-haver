@@ -8,6 +8,14 @@ namespace HaverGroupProject.ViewModels
 
         public int SalesOrdNum { get; set; }
 
+        public int ExtSalesOrdNum { get; set; }
+
+        public string? PackageReleaseName { get; set; }
+
+        public DateOnly? KickoffMeeting { get; set; }
+
+        public DateOnly? ReleaseApprovalDrawing { get; set; }
+
         public int? MachineDescriptionID { get; set; }
         public List<SelectListItem>? Machines { get; set; }
 
