@@ -393,7 +393,98 @@ namespace HaverGroupProject.Controllers
                 _context.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Step5", new { id = operationsSchedule.ID });
+            }
+            return View(model);
+        }
+
+        //STEP 5
+        //This loads the form to update machineDescription bool fields and add notes fields
+        //GET
+        public async Task<IActionResult> Step5(int id)
+        {
+            var operationsSchedule = await _context.OperationsSchedules
+                .Include(o => o.MachineDescription)
+                .Include(o => o.Note)
+                .FirstOrDefaultAsync(o => o.ID == id);
+
+            if (operationsSchedule == null) return NotFound();
+
+            var viewModel = new MultiStepOperationsScheduleViewModel
+            {
+                ID = operationsSchedule.ID,
+                NamePlateOrdered = operationsSchedule.MachineDescription?.NamePlateOrdered ?? false,
+                NameplateRecieved = operationsSchedule.MachineDescription?.NameplateRecieved ?? false,
+                InstalledMedia = operationsSchedule.MachineDescription?.InstalledMedia ?? false,
+                SparePartsSpareMedia = operationsSchedule.MachineDescription?.SparePartsSpareMedia ?? false,
+                BaseFrame = operationsSchedule.MachineDescription?.BaseFrame ?? false,
+                AirSeal = operationsSchedule.MachineDescription?.AirSeal ?? false,
+                CoatingLining = operationsSchedule.MachineDescription?.CoatingLining ?? false,
+                Disassembly = operationsSchedule.MachineDescription?.Disassembly ?? false,
+
+                PreOrder = operationsSchedule.Note?.PreOrder,
+                Scope = operationsSchedule.Note?.Scope,
+                BudgetAssembHrs = operationsSchedule.Note?.BudgetAssembHrs,
+                ActualAssembHours = operationsSchedule.Note?.ActualAssembHours,
+                ActualReworkHours = operationsSchedule.Note?.ActualReworkHours,
+                OtherComments = operationsSchedule.Note?.OtherComments
+            };
+            return View(viewModel);
+        }
+
+        //This saves the updated MachineDescriptions fields and notes and redirects to index
+        //POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Step5(MultiStepOperationsScheduleViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var operationsSchedule = await _context.OperationsSchedules
+                    .Include(o => o.MachineDescription)
+                    .Include(o => o.Note)
+                    .FirstOrDefaultAsync(o => o.ID == model.ID);
+
+                if (operationsSchedule == null) return NotFound();
+
+                if (operationsSchedule.MachineDescription != null)
+                {
+                    operationsSchedule.MachineDescription.NamePlateOrdered = model.NamePlateOrdered;
+                    operationsSchedule.MachineDescription.NameplateRecieved = model.NameplateRecieved;
+                    operationsSchedule.MachineDescription.InstalledMedia = model.InstalledMedia;
+                    operationsSchedule.MachineDescription.SparePartsSpareMedia = model.SparePartsSpareMedia;
+                    operationsSchedule.MachineDescription.BaseFrame = model.BaseFrame;
+                    operationsSchedule.MachineDescription.AirSeal = model.AirSeal;
+                    operationsSchedule.MachineDescription.CoatingLining = model.CoatingLining;
+                    operationsSchedule.MachineDescription.Disassembly = model.Disassembly;
+                }
+
+                if (operationsSchedule.Note == null)
+                {
+                    operationsSchedule.Note = new Note
+                    {
+                        PreOrder = model.PreOrder ?? "",
+                        Scope = model.Scope ?? "",
+                        BudgetAssembHrs = model.BudgetAssembHrs ?? "",
+                        ActualAssembHours = model.ActualAssembHours ?? 0,
+                        ActualReworkHours = model.ActualReworkHours ?? 0,
+                        OtherComments = model.OtherComments ?? ""
+                    };
+                }
+                else
+                {
+                    operationsSchedule.Note.PreOrder = model.PreOrder ?? "";
+                    operationsSchedule.Note.Scope = model.Scope ?? "";
+                    operationsSchedule.Note.BudgetAssembHrs = model.BudgetAssembHrs ?? "";
+                    operationsSchedule.Note.ActualAssembHours = model.ActualAssembHours ?? 0;
+                    operationsSchedule.Note.ActualReworkHours = model.ActualReworkHours ?? 0;
+                    operationsSchedule.Note.OtherComments = model.OtherComments ?? "";
+                }
+
+                _context.Update(operationsSchedule);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");  
             }
             return View(model);
         }
