@@ -29,7 +29,7 @@ namespace HaverGroupProject.Controllers
         // GET: OperationsSchedule
         public async Task<IActionResult> Index()
         {
-            var haverContext = _context.OperationsSchedules
+                var haverContext = _context.OperationsSchedules
                 .Include(o => o.Customer)
                 .Include(o => o.Vendor)
                 .Include(o => o.Engineer)

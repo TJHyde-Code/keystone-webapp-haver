@@ -53,9 +53,21 @@ table {
 }
 
 .logo {
-    height: 100px; /* Adjust size as needed */
+    height: 20px; /* Adjust size as needed */
     width: auto;
    
+}
+
+.splash-logo {
+    height: 400px;
+    width: auto;
+}
+
+.start-new-button {
+    background-color: #0A2240;
+    color: whitesmoke;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 footer {
