@@ -9,11 +9,12 @@
 
 <h1>Operations Schedule</h1>
 
+
 <p>
     <a asp-action="Step1" class="btn btn-success" style="font-size: 12px;">Create New</a>
 </p>
-<table class="table table-bordered table-striped table-hover ">
-    <thead class=" table-col" style="font-size: 0.86rem;">
+    <table class="table table-bordered table-striped table-hover">
+        <thead class=" table-col">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.SalesOrdNum)
@@ -33,6 +34,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.MachineDescription.SerialNumber)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.PackageReleaseName)
             </th>
@@ -71,7 +73,7 @@
                     @(item.Customer != null ? item.Customer.CustomerName : "N/A")
                 </td>
                 <td>
-                   @Html.DisplayFor(modelItem => item.Engineer.EngSummary)
+                    @(item.Engineer != null ? item.Engineer.EngSummary : "N/A")
                 </td>
                 <td>
                     @(item.MachineDescription != null ? item.MachineDescription.DescriptionSummary : "N/A")
@@ -92,24 +94,23 @@
                     @{
                         if (item.OperationsScheduleVendors != null && item.OperationsScheduleVendors.Any())
                         {
-                            int vendorCount = item.OperationsScheduleVendors.Count;
-                            string firstVendor = item.OperationsScheduleVendors.FirstOrDefault()?.Vendor?.VendorName ?? "Unknown Vendor";
+                            var vendors = item.OperationsScheduleVendors.Select(v => v?.Vendor?.VendorName ?? "Unknown Vendor").ToList();
+                            string firstVendor = vendors.First();
+                            int vendorCount = vendors.Count;
 
                             if (vendorCount > 1)
                             {
-                                string vendorList = "";
-                                var v = item.OperationsScheduleVendors.ToList();
-                                for (int i = 1; i < vendorCount; i++)
-                                {
-                                    vendorList += (v[i]?.Vendor?.VendorName ?? "Unknown Vendor") + " <br />";
-                                }
-
                                 <a class="" role="button" data-bs-toggle="collapse" href="#collapseVendor@(item.ID)"
                                    aria-expanded="false" aria-controls="collapseVendor@(item.ID)">
                                     @firstVendor <span class="badge bg-info">@vendorCount</span>
                                 </a>
                                 <div class="collapse" id="collapseVendor@(item.ID)">
-                                    @Html.Raw(vendorList)
+                                    @foreach (var vendor in vendors.Skip(1))
+                                    {
+                                        <span>@vendor</span>
+
+                                        <br />
+                                    }
                                 </div>
                             }
                             else
@@ -122,6 +123,7 @@
                             @:No Vendors
                         }
                     }
+
                 </td>
                 <td>
                     @(item.ProductionOrderNumber ?? "N/A")
@@ -131,13 +133,65 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DeliveryDate)
-                </td>                
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
                 </td>
+                <td>
+                    <div class="btn-group">
+                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </td>
+
             </tr>
         }
     </tbody>
 </table>
+
+
+
+<div class="d-flex justify-content-center my-sm-1">
+    <button id="prev" class="btn btn-success"> Previous </button>
+    <span id="page-info"></span>
+    <button id="next" class="btn btn-success">Next Page</button>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const rowsPerPage = 10; 
+        let currentPage = 1;
+        const tableRows = document.querySelectorAll("tbody tr"); 
+        const totalPages = Math.ceil(tableRows.length / rowsPerPage);
+        const prevBtn = document.getElementById("prev");
+        const nextBtn = document.getElementById("next");
+        const pageInfo = document.getElementById("page-info");
+
+        function renderTable() {
+            tableRows.forEach((row, index) => {
+                row.style.display = (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage)
+                    ? ""
+                    : "none";
+            });
+
+            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+            prevBtn.disabled = currentPage === 1;
+            nextBtn.disabled = currentPage === totalPages;
+        }
+
+        prevBtn.addEventListener("click", function () {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        });
+
+        nextBtn.addEventListener("click", function () {
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderTable();
+            }
+        });
+
+        renderTable(); 
+    });
+</script>
+
