@@ -38,6 +38,16 @@
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
+                <!--Added lines to help distinguish nav menu items MT-->
+                <style>
+                    .navbar-nav .nav-item {
+                        border-right: 3px solid #ccc;
+                        padding-right: 10px;
+                    }
+                    .navbar-nav .nav-item:lastchild {
+                        border-right: none;
+                    }
+                </style>
             </div>
         </nav>
     </header>
