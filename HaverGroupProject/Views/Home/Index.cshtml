@@ -1,8 +1,12 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Operations Management";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to Operations Management</h1>
+    <img src="~/img/HNG_pos_mono_P289.png" class="splash-logo" />
+    <br />
+    <a asp-controller="OperationsSchedule" asp-action="Step1">
+        <input type="button" class="start-new-button" value="Start a new Sales Order" />
+    </a>
 </div>
