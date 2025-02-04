@@ -501,11 +501,11 @@ namespace HaverGroupProject.Controllers
                                 SalesOrder = os.SalesOrdNum,
                                 Customer = os.Customer.CustomerName,
                                 Date = os.KickoffMeeting.HasValue ? os.KickoffMeeting.Value.ToString("yyyy-MM-dd") : "N/A",
-                                Machine = os.MachineDesc,
-                                SerialNumber = os.SerialNum,
+                                Machine = os.MachineDescription.DescriptionSummary,
+                                Serial_Number = os.MachineDescription.SerialNumber,
                                 Engineer = os.PackageReleaseName,
                                 Vendor = os.Vendor.VendorName,
-                                PONum = os.PONum,
+                                PO_Num = os.PONum,
                                 DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value.ToString("yyyy-MM-dd") : "N/A"
 
                             };

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HaverGroupProject.Data.HaverMigrations
 {
     [DbContext(typeof(HaverContext))]
-    [Migration("20250203000218_Initial")]
+    [Migration("20250204031206_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -198,7 +198,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<int?>("CustomerID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("DeliveryDate")
+                    b.Property<DateOnly?>("DeliveryDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("EngineerID")
@@ -207,10 +207,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<int>("ExtSalesOrdNum")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("KickoffMeeting")
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("MachineDesc")
+                    b.Property<DateOnly?>("KickoffMeeting")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("MachineDescriptionID")
@@ -219,7 +216,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<int?>("NoteID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly>("PODueDate")
+                    b.Property<DateOnly?>("PODueDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PONum")
@@ -231,14 +228,11 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<string>("ProductionOrderNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly>("ReleaseApprovalDrawing")
+                    b.Property<DateOnly?>("ReleaseApprovalDrawing")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("SalesOrdNum")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("SerialNum")
-                        .HasColumnType("TEXT");
 
                     b.Property<int?>("VendorID")
                         .HasColumnType("INTEGER");
