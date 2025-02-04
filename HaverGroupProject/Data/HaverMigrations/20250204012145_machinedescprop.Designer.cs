@@ -3,6 +3,7 @@ using System;
 using HaverGroupProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HaverGroupProject.Data.HaverMigrations
 {
     [DbContext(typeof(HaverContext))]
-    partial class HaverContextModelSnapshot : ModelSnapshot
+    [Migration("20250204012145_machinedescprop")]
+    partial class machinedescprop
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
@@ -195,7 +198,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<int?>("CustomerID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly?>("DeliveryDate")
+                    b.Property<DateOnly>("DeliveryDate")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("EngineerID")
@@ -204,7 +207,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<int>("ExtSalesOrdNum")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly?>("KickoffMeeting")
+                    b.Property<DateOnly>("KickoffMeeting")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("MachineDescriptionID")
@@ -213,7 +216,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<int?>("NoteID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateOnly?>("PODueDate")
+                    b.Property<DateOnly>("PODueDate")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PONum")
@@ -225,7 +228,7 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<string>("ProductionOrderNumber")
                         .HasColumnType("TEXT");
 
-                    b.Property<DateOnly?>("ReleaseApprovalDrawing")
+                    b.Property<DateOnly>("ReleaseApprovalDrawing")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("SalesOrdNum")

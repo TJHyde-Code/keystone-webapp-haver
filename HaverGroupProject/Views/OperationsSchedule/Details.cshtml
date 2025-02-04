@@ -29,16 +29,16 @@
             @Model.Customer?.CustomerName
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MachineDesc)
+            @Html.DisplayNameFor(model => model.MachineDescription)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MachineDesc)
+            @Html.DisplayFor(model => model.MachineDescription.DescriptionSummary)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SerialNum)
+            @Html.DisplayNameFor(model => model.MachineDescription.SerialNumber)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SerialNum)
+            @Html.DisplayFor(model => model.MachineDescription.SerialNumber)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PackageReleaseName)
