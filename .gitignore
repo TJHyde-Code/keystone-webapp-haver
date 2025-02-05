@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/HaverGroupProject/Haver1.db-shm
+/HaverGroupProject/Haver1.db-wal
