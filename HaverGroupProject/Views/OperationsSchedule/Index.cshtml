@@ -114,13 +114,14 @@
                                 </div>
                             }
                             else
-                            {
+                            {                                
                                 @firstVendor
                             }
                         }
                         else
                         {
-                            @:No Vendors
+                            var seededVendor = item.Vendor?.VendorName ?? "No Vendor";
+                            @: @seededVendor
                         }
                     }
 
@@ -138,7 +139,7 @@
                     <div class="btn-group">
                         <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
                         <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
-                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Delete</a>
+                        @* <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Delete</a> *@
                     </div>
                 </td>
 
