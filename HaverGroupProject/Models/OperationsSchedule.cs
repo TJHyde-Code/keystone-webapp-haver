@@ -33,11 +33,11 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Kickoff Meeting")]
         [DataType(DataType.Date)]
-        public DateOnly? KickoffMeeting { get; set; }
+        public DateTime? KickoffMeeting { get; set; }
 
         [Display(Name = "Approval Drawing")]
         [DataType(DataType.Date)]
-        public DateOnly? ReleaseApprovalDrawing { get; set; }
+        public DateTime? ReleaseApprovalDrawing { get; set; }
 
         [Display(Name = "Vendor")]
         [ForeignKey("Vendor")]
@@ -51,11 +51,11 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "PO Due Date")]
         [DataType(DataType.Date)]
-        public DateOnly? PODueDate { get; set; }
+        public DateTime? PODueDate { get; set; }
 
         [Display(Name = "Delivery Date")]
         [DataType(DataType.Date)]
-        public DateOnly? DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
 
         [Display(Name = "Engineer")]
         [ForeignKey("Engineer")]
