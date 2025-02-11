@@ -489,64 +489,47 @@ namespace HaverGroupProject.Controllers
             return View(model);
         }
 
+        //Excel Download
+        //
         public IActionResult DownloadOperationsSchedules()
         {
-            //Get the appointments
+            // Get the appointments
             var schedules = from os in _context.OperationsSchedules
-                        .Include(os => os.Customer)
-                        .Include(os => os.Vendor)
+                            .Include(os => os.Customer)
+                            .Include(os => os.Vendor)
                             orderby os.KickoffMeeting descending
                             select new
                             {
                                 SalesOrder = os.SalesOrdNum,
                                 Customer = os.Customer.CustomerName,
-                                Date = os.KickoffMeeting.HasValue ? os.KickoffMeeting.Value.ToString("yyyy-MM-dd") : "N/A",
+                                Date = os.KickoffMeeting.HasValue ? os.KickoffMeeting.Value : (DateTime?)null, // Keep as DateTime
                                 Machine = os.MachineDescription.DescriptionSummary,
                                 Serial_Number = os.MachineDescription.SerialNumber,
                                 Engineer = os.PackageReleaseName,
                                 Vendor = os.Vendor.VendorName,
                                 PO_Num = os.PONum,
-                                DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value.ToString("yyyy-MM-dd") : "N/A"
-
+                                DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value : (DateTime?)null // Keep as DateTime
                             };
-            //How many rows?
+
+            // How many rows?
             int numRows = schedules.Count();
 
-            if (numRows > 0) //We have data
+            if (numRows > 0) // We have data
             {
-                //Create a new spreadsheet from scratch.
+                // Create a new spreadsheet from scratch.
                 using (ExcelPackage excel = new ExcelPackage())
                 {
-
-                    //Note: you can also pull a spreadsheet out of the database if you
-                    //have saved it in the normal way we do, as a Byte Array in a Model
-                    //such as the UploadedFile class.
-                    //
-                    // Suppose...
-                    //
-                    // var theSpreadsheet = _context.UploadedFiles.Include(f => f.FileContent).Where(f => f.ID == id).SingleOrDefault();
-                    //
-                    //    //Pass the Byte[] FileContent to a MemoryStream
-                    //
-                    // using (MemoryStream memStream = new MemoryStream(theSpreadsheet.FileContent.Content))
-                    // {
-                    //     ExcelPackage package = new ExcelPackage(memStream);
-                    // }
-
                     var workSheet = excel.Workbook.Worksheets.Add("OperationsSchedules");
 
-                    //Note: Cells[row, column]
+                    // Load data into the worksheet
                     workSheet.Cells[3, 1].LoadFromCollection(schedules, true);
 
-                    //Style first column for dates
-                    workSheet.Column(1).Style.Numberformat.Format = "yyyy-mm-dd";
+                    // Apply formatting for date columns only
+                    FormatDateColumn(workSheet, 3, "Date");  // Column 3 for KickoffMeeting (Date)
+                    FormatDateColumn(workSheet, 9, "DeliveryDate");  // Column 9 for DeliveryDate
 
-                    //Style fee column for currency
-                    workSheet.Column(8).Style.Numberformat.Format = "yyyy-MM-dd";
-
-                    //Note: these are fine if you are only 'doing' one thing to the range of cells.
-                    //Otherwise you should USE a range object for efficiency
-                    using (ExcelRange headings = workSheet.Cells[3, 1, 3, 9])//
+                    // Style the headings
+                    using (ExcelRange headings = workSheet.Cells[3, 1, 3, 9])
                     {
                         headings.Style.Font.Bold = true;
                         var fill = headings.Style.Fill;
@@ -581,12 +564,30 @@ namespace HaverGroupProject.Controllers
                     }
                     catch (Exception)
                     {
-
                         return BadRequest("Could not build and download the file.");
                     }
                 }
             }
             return NotFound("No data available.");
+        }
+
+        // Helper method to apply date formatting to columns
+        private void FormatDateColumn(ExcelWorksheet worksheet, int columnIndex, string columnName)
+        {
+            for (int row = 4; row <= worksheet.Dimension.End.Row; row++) // Starting from row 4, as row 3 contains headers
+            {
+                var cellValue = worksheet.Cells[row, columnIndex].Value;
+                if (cellValue is DateTime dateValue)
+                {
+                    // Apply a date format if the value is a valid DateTime
+                    worksheet.Cells[row, columnIndex].Style.Numberformat.Format = "yyyy-mm-dd";
+                }
+                else
+                {
+                    // If not a date, set it to "N/A" or handle any non-date values
+                    worksheet.Cells[row, columnIndex].Value = "N/A";
+                }
+            }
         }
 
         private void PopulateAssignedVendorData(OperationsSchedule operationsSchedule)

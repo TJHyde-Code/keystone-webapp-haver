@@ -12,16 +12,16 @@ namespace HaverGroupProject.ViewModels
 
         public string? PackageReleaseName { get; set; }
 
-        public DateOnly? KickoffMeeting { get; set; }
+        public DateTime? KickoffMeeting { get; set; }
 
-        public DateOnly? ReleaseApprovalDrawing { get; set; }
+        public DateTime? ReleaseApprovalDrawing { get; set; }
 
         //Vendor fields
         public string? ProductionOrderNumber { get; set; }
 
-        public DateOnly? PODueDate { get; set; }
+        public DateTime? PODueDate { get; set; }
 
-        public DateOnly? DeliveryDate { get; set; }
+        public DateTime? DeliveryDate { get; set; }
 
         //Bool fields for machine description
         public bool NamePlateOrdered { get; set; } = false;
