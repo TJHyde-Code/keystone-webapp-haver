@@ -16,6 +16,10 @@ h1 {
     font-size: 13px;
 }
 
+.input-width {
+    width: 300px;
+}
+
 
 html {
     position: relative;

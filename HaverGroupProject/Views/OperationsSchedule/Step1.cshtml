@@ -11,19 +11,23 @@
 <form asp-action="Step1" method="post">
     <div class="form-group">
         <label asp-for="SalesOrdNum" class="control-label"></label>
-        <input asp-for="SalesOrdNum" class="form-control" />
+        <input asp-for="SalesOrdNum" class="form-control input-width", placeholder="0" value="" />
         <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
+
         <label asp-for="ExtSalesOrdNum" class="control-label"></label>
-        <input asp-for="ExtSalesOrdNum" class="form-control" />
+        <input asp-for="ExtSalesOrdNum" class="form-control input-width" , placeholder="0" value="" />
         <span asp-validation-for="ExtSalesOrdNum" class="text-danger"></span>
+
         <label asp-for="PackageReleaseName" class="control-label"></label>
-        <input asp-for="PackageReleaseName" class="form-control" />
+        <input asp-for="PackageReleaseName" class="form-control input-width" , placeholder="Enter Package Release Number here" />
         <span asp-validation-for="PackageReleaseName" class="text-danger"></span>
+
         <label asp-for="KickoffMeeting" class="control-label"></label>
-        <input asp-for="KickoffMeeting" class="form-control" />
+        <input asp-for="KickoffMeeting" class="form-control input-width" />
         <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
+
         <label asp-for="ReleaseApprovalDrawing" class="control-label"></label>
-        <input asp-for="ReleaseApprovalDrawing" class="form-control" />
+        <input asp-for="ReleaseApprovalDrawing" class="form-control input-width" />
         <span asp-validation-for="ReleaseApprovalDrawing" class="text-danger"></span>
 
 

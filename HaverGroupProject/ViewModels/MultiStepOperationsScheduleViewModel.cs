@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System.ComponentModel.DataAnnotations;
 
 namespace HaverGroupProject.ViewModels
 {
@@ -6,21 +7,34 @@ namespace HaverGroupProject.ViewModels
     {
         public int ID { get; set; }
 
+        [Display (Name ="Sales Order #")]
         public int SalesOrdNum { get; set; }
 
+        [Display(Name = "External Sales Order #")]
         public int ExtSalesOrdNum { get; set; }
 
+        [Display(Name = "Package Release Name")]
         public string? PackageReleaseName { get; set; }
 
+        //MT added format so no minutes/seconds gets displayed
+        [Display (Name = "Kick-off Meeting Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? KickoffMeeting { get; set; }
 
+        [Display(Name = "Release Approval Drawing Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? ReleaseApprovalDrawing { get; set; }
 
         //Vendor fields
+        [Display(Name = "Production Order Number")]
         public string? ProductionOrderNumber { get; set; }
 
+        [Display(Name = "PO Due Date")]
         public DateTime? PODueDate { get; set; }
 
+        [Display(Name = "Delivery Date")]
         public DateTime? DeliveryDate { get; set; }
 
         //Bool fields for machine description
@@ -41,12 +55,15 @@ namespace HaverGroupProject.ViewModels
         public int? ActualReworkHours { get; set; }
         public string? OtherComments { get; set; }
 
+        [Display(Name = "Machine Description")]
         public int? MachineDescriptionID { get; set; }
         public List<SelectListItem>? Machines { get; set; }
 
+        [Display(Name = "Customer Name")]
         public int? CustomerID { get; set; }
         public List<SelectListItem>? Customers { get; set; }
 
+        [Display(Name = "Vendors")]
         public List<SelectListItem>? Vendors { get; set; }
         public string[]? SelectedVendorIDs { get; set; }
     }
