@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Linq;
 using Microsoft.Extensions.Hosting;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
 namespace HaverGroupProject.Data
 {
@@ -244,14 +245,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x20'",
                                 Class = "T-330",
                                 Deck = "1D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -259,14 +260,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x22'",
                                 Class = "T-350",
                                 Deck = "2D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
-                                AirSeal = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
                                 CoatingLining = false,
-                                Disassembly = true
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -275,13 +276,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-440",
                                 Deck = "3D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
-                                InstalledMedia = true,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -289,13 +290,13 @@ namespace HaverGroupProject.Data
                                 Size = "6'x20'",
                                 Class = "T-330",
                                 Deck = "1D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
-                                SparePartsSpareMedia = true,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
                                 BaseFrame = false,
-                                AirSeal = true,
-                                CoatingLining = true,
+                                AirSeal = false,
+                                CoatingLining = false,
                                 Disassembly = false
                             },
                             new MachineDescription
@@ -305,13 +306,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-550",
                                 Deck = "4D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
+                                NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
-                                AirSeal = true,
-                                CoatingLining = true,
-                                Disassembly = true
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -319,13 +320,13 @@ namespace HaverGroupProject.Data
                                 Size = "7'x22'",
                                 Class = "T-370",
                                 Deck = "2D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
+                                CoatingLining = false,
                                 Disassembly = false
                             },
                             new MachineDescription
@@ -334,14 +335,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x20'",
                                 Class = "T-400",
                                 Deck = "3D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
                                 BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -350,13 +351,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-320",
                                 Deck = "1D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
+                                NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
-                                AirSeal = true,
-                                CoatingLining = true,
-                                Disassembly = true
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -364,13 +365,13 @@ namespace HaverGroupProject.Data
                                 Size = "7'x25'",
                                 Class = "T-500",
                                 Deck = "2D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
+                                CoatingLining = false,
                                 Disassembly = false
                             },
                             new MachineDescription
@@ -380,13 +381,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-430",
                                 Deck = "3D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
-                                InstalledMedia = true,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
-                                AirSeal = true,
+                                BaseFrame = false,
+                                AirSeal = false,
                                 CoatingLining = false,
-                                Disassembly = true
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -394,14 +395,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x22'",
                                 Class = "T-330",
                                 Deck = "1D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
-                                AirSeal = true,
+                                BaseFrame = false,
+                                AirSeal = false,
                                 CoatingLining = false,
-                                Disassembly = true
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -409,14 +410,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x20'",
                                 Class = "T-390",
                                 Deck = "4D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -425,13 +426,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-350",
                                 Deck = "2D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
-                                InstalledMedia = true,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
                                 BaseFrame = false,
-                                AirSeal = true,
-                                CoatingLining = true,
-                                Disassembly = true
+                                AirSeal = false,
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -439,13 +440,13 @@ namespace HaverGroupProject.Data
                                 Size = "6'x24'",
                                 Class = "T-420",
                                 Deck = "1D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
+                                CoatingLining = false,
                                 Disassembly = false
                             },
                             new MachineDescription
@@ -455,13 +456,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-400",
                                 Deck = "3D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
-                                InstalledMedia = true,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -469,14 +470,14 @@ namespace HaverGroupProject.Data
                                 Size = "8'x26'",
                                 Class = "T-380",
                                 Deck = "2D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -484,14 +485,14 @@ namespace HaverGroupProject.Data
                                 Size = "7'x30'",
                                 Class = "T-550",
                                 Deck = "4D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
-                                SparePartsSpareMedia = true,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
                                 BaseFrame = false,
-                                AirSeal = true,
+                                AirSeal = false,
                                 CoatingLining = false,
-                                Disassembly = true
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -500,12 +501,12 @@ namespace HaverGroupProject.Data
                                 Class = "T-370",
                                 Deck = "1D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
-                                InstalledMedia = true,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
-                                AirSeal = true,
-                                CoatingLining = true,
+                                BaseFrame = false,
+                                AirSeal = false,
+                                CoatingLining = false,
                                 Disassembly = false
                             },
                             new MachineDescription
@@ -514,14 +515,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x25'",
                                 Class = "T-310",
                                 Deck = "3D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
-                                AirSeal = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
                                 CoatingLining = false,
-                                Disassembly = true
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -530,13 +531,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-330",
                                 Deck = "2D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
-                                InstalledMedia = true,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -544,13 +545,13 @@ namespace HaverGroupProject.Data
                                 Size = "6'x20'",
                                 Class = "T-450",
                                 Deck = "4D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
-                                SparePartsSpareMedia = true,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
                                 BaseFrame = false,
-                                AirSeal = true,
-                                CoatingLining = true,
+                                AirSeal = false,
+                                CoatingLining = false,
                                 Disassembly = false
                             },
                             new MachineDescription
@@ -559,14 +560,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x26'",
                                 Class = "T-400",
                                 Deck = "1D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -575,13 +576,13 @@ namespace HaverGroupProject.Data
                                 Class = "T-370",
                                 Deck = "3D",
                                 NamePlateOrdered = false,
-                                NameplateRecieved = true,
-                                InstalledMedia = true,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
-                                AirSeal = true,
+                                BaseFrame = false,
+                                AirSeal = false,
                                 CoatingLining = false,
-                                Disassembly = true
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -589,14 +590,14 @@ namespace HaverGroupProject.Data
                                 Size = "7'x20'",
                                 Class = "T-500",
                                 Deck = "2D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
                                 InstalledMedia = false,
-                                SparePartsSpareMedia = true,
-                                BaseFrame = true,
-                                AirSeal = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
                                 CoatingLining = false,
-                                Disassembly = true
+                                Disassembly = false
                             },
                             new MachineDescription
                             {
@@ -604,14 +605,14 @@ namespace HaverGroupProject.Data
                                 Size = "6'x22'",
                                 Class = "T-330",
                                 Deck = "4D",
-                                NamePlateOrdered = true,
+                                NamePlateOrdered = false,
                                 NameplateRecieved = false,
-                                InstalledMedia = true,
+                                InstalledMedia = false,
                                 SparePartsSpareMedia = false,
-                                BaseFrame = true,
+                                BaseFrame = false,
                                 AirSeal = false,
-                                CoatingLining = true,
-                                Disassembly = true
+                                CoatingLining = false,
+                                Disassembly = false
                             },
                              new MachineDescription
                              {
@@ -619,14 +620,14 @@ namespace HaverGroupProject.Data
                                  Size = "6'x22'",
                                  Class = "T-330",
                                  Deck = "4D",
-                                 NamePlateOrdered = true,
+                                 NamePlateOrdered = false,
                                  NameplateRecieved = false,
-                                 InstalledMedia = true,
+                                 InstalledMedia = false,
                                  SparePartsSpareMedia = false,
-                                 BaseFrame = true,
+                                 BaseFrame = false,
                                  AirSeal = false,
-                                 CoatingLining = true,
-                                 Disassembly = true
+                                 CoatingLining = false,
+                                 Disassembly = false
                              },
                               new MachineDescription
                               {
@@ -634,14 +635,14 @@ namespace HaverGroupProject.Data
                                   Size = "6'x22'",
                                   Class = "T-330",
                                   Deck = "4D",
-                                  NamePlateOrdered = true,
+                                  NamePlateOrdered = false,
                                   NameplateRecieved = false,
-                                  InstalledMedia = true,
+                                  InstalledMedia = false,
                                   SparePartsSpareMedia = false,
-                                  BaseFrame = true,
+                                  BaseFrame = false,
                                   AirSeal = false,
-                                  CoatingLining = true,
-                                  Disassembly = true
+                                  CoatingLining = false,
+                                  Disassembly = false
                               },
                                new MachineDescription
                                {
@@ -649,14 +650,14 @@ namespace HaverGroupProject.Data
                                    Size = "6'x22'",
                                    Class = "T-330",
                                    Deck = "4D",
-                                   NamePlateOrdered = true,
+                                   NamePlateOrdered = false,
                                    NameplateRecieved = false,
-                                   InstalledMedia = true,
+                                   InstalledMedia = false,
                                    SparePartsSpareMedia = false,
-                                   BaseFrame = true,
+                                   BaseFrame = false,
                                    AirSeal = false,
-                                   CoatingLining = true,
-                                   Disassembly = true
+                                   CoatingLining = false,
+                                   Disassembly = false
                                },
                                 new MachineDescription
                                 {
@@ -664,14 +665,14 @@ namespace HaverGroupProject.Data
                                     Size = "6'x22'",
                                     Class = "T-330",
                                     Deck = "4D",
-                                    NamePlateOrdered = true,
+                                    NamePlateOrdered = false,
                                     NameplateRecieved = false,
-                                    InstalledMedia = true,
+                                    InstalledMedia = false,
                                     SparePartsSpareMedia = false,
-                                    BaseFrame = true,
+                                    BaseFrame = false,
                                     AirSeal = false,
-                                    CoatingLining = true,
-                                    Disassembly = true
+                                    CoatingLining = false,
+                                    Disassembly = false
                                 }
 
                         );
