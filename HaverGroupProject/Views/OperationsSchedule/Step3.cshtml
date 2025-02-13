@@ -9,7 +9,7 @@
 <form asp-action="Step3" method="post">
     <div class="form-group">
         <label asp-for="MachineDescriptionID" class="control-label"></label>
-        <select asp-for="MachineDescriptionID" class="form-control" asp-items="Model.Machines">
+        <select asp-for="MachineDescriptionID" class="form-control input-width" asp-items="Model.Machines">
             <option value="">-- Select a Machine --</option>
         </select>
         <span asp-validation-for="MachineDescriptionID" class="text-danger"></span>
