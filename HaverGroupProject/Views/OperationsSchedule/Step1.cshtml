@@ -6,32 +6,51 @@
 
 <h2>Step 1: Enter Operations Schedule Details</h2>
 
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
 <div asp-validation-summary="All" class="text-danger"></div>
 
 <form asp-action="Step1" method="post">
-    <div class="form-group">
-        <label asp-for="SalesOrdNum" class="control-label"></label>
-        <input asp-for="SalesOrdNum" class="form-control input-width", placeholder="0" value="" />
-        <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
 
-        <label asp-for="ExtSalesOrdNum" class="control-label"></label>
-        <input asp-for="ExtSalesOrdNum" class="form-control input-width" , placeholder="0" value="" />
-        <span asp-validation-for="ExtSalesOrdNum" class="text-danger"></span>
+      <div class="row">
+            <div class="col-md-6">
 
-        <label asp-for="PackageReleaseName" class="control-label"></label>
-        <input asp-for="PackageReleaseName" class="form-control input-width" , placeholder="Enter Package Release Number here" />
-        <span asp-validation-for="PackageReleaseName" class="text-danger"></span>
+            <div class="form-group mb-3">
+                <label asp-for="SalesOrdNum" class="form-label fw-bold">Sales Order Number</label>
+                <input asp-for="SalesOrdNum" class="form-control border-primary " , placeholder="0" value="" />
+                <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
+            </div>
 
-        <label asp-for="KickoffMeeting" class="control-label"></label>
-        <input asp-for="KickoffMeeting" class="form-control input-width" />
-        <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
+            <div class="form-group mb-3">
+                <label asp-for="ExtSalesOrdNum" class="form-label fw-bold">Ext Sales Order Number</label>
+                <input asp-for="ExtSalesOrdNum" class="form-control border-primary " , placeholder="0" value="" />
+                <span asp-validation-for="ExtSalesOrdNum" class="text-danger"></span>
+            </div>
 
-        <label asp-for="ReleaseApprovalDrawing" class="control-label"></label>
-        <input asp-for="ReleaseApprovalDrawing" class="form-control input-width" />
-        <span asp-validation-for="ReleaseApprovalDrawing" class="text-danger"></span>
+            <div class="form-group mb-3">
+                <label asp-for="PackageReleaseName" class="form-label fw-bold"> Package Release Name</label>
+                <input asp-for="PackageReleaseName" class="form-control border-primary " , placeholder="Enter Package Release Number here" />
+                <span asp-validation-for="PackageReleaseName" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="KickoffMeeting" class="form-label fw-bold"> Kickoff Meeting</label>
+                    <input asp-for="KickoffMeeting" type="date" class="form-control border-primary " />
+                    <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
+                </div>
 
+                <div class="form-group mb-3">
+                    <label asp-for="ReleaseApprovalDrawing" class="form-label fw-bold">Release Approval Drawing </label>
+                    <input asp-for="ReleaseApprovalDrawing" type="date" class="form-control border-primary " />
+                    <span asp-validation-for="ReleaseApprovalDrawing" class="text-danger"></span>
+                </div>
 
     </div>
+        </div>
+  
 
-    <button type="submit" class="btn btn-primary">Next</button>
+    <div class="text-center mt-4">
+        <button type="submit" class="btn btn-primary" px-5">Next</button>
+    </div>
 </form>
+</div>

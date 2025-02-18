@@ -5,41 +5,54 @@
 }
 
 <h2>Step 4: Select or Create a Vendor</h2>
+<div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
 
 <form asp-action="Step4" method="post">
     <input type="hidden" asp-for="ID" />
 
-    <div class="form-group">
-        <label asp-for="SelectedVendorIDs" class="control-label">Vendors</label>
-        <select asp-for="SelectedVendorIDs" class="form-control input-width" asp-items="Model.Vendors"></select>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="SelectedVendorIDs" class="control-label fw-bold ">Vendors</label>
+                    <select asp-for="SelectedVendorIDs" class="form-control border-primary" asp-items="Model.Vendors"></select>
         <span asp-validation-for="SelectedVendorIDs" class="text-danger"></span>
-        <div class="form-group">
-            <label asp-for="ProductionOrderNumber" class="control-label"></label>
-            <input asp-for="ProductionOrderNumber" class="form-control input-width" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ProductionOrderNumber" class="control-label fw-bold">Production Order Number</label>
+                    <input asp-for="ProductionOrderNumber" class="form-control border-primary" />
             <span asp-validation-for="ProductionOrderNumber" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="PODueDate" class="control-label"></label>
-            <input asp-for="PODueDate" class="form-control input-width" type="date" />
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="PODueDate" class="control-label fw-bold"> PO Due Date</label>
+                    <input asp-for="PODueDate" class="form-control border-primary" type="date" />
             <span asp-validation-for="PODueDate" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="DeliveryDate" class="control-label"></label>
-            <input asp-for="DeliveryDate" class="form-control input-width" type="date" />
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="DeliveryDate" class="control-label fw-bold">Delivery Date</label>
+                    <input asp-for="DeliveryDate" class="form-control border-primary" type="date" />
             <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+                </div>
+            </div>
         </div>
 
-
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success mt-2">Create Operations Schedule</button>
+            <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#vendorModal">
+                Add New Vendor
+            </button>
     </div>
-
-    <button type="submit" class="btn btn-success">Create Operations Schedule</button>
 </form>
-
-<!-- Button to Open the Create Vendor Modal -->
+</div>
+@* <!-- Button to Open the Create Vendor Modal -->
 <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#vendorModal">
     Add New Vendor
 </button>
-
+ *@
 <!-- Vendor Modal -->
 <div class="modal fade" id="vendorModal" tabindex="-1" aria-labelledby="vendorModalLabel" aria-hidden="true">
     <div class="modal-dialog">

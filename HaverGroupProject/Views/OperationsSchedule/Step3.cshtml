@@ -5,23 +5,30 @@
 }
 
 <h2>Step 3: Select or Create a Machine</h2>
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
 
 <form asp-action="Step3" method="post">
     <div class="form-group">
-        <label asp-for="MachineDescriptionID" class="control-label"></label>
-        <select asp-for="MachineDescriptionID" class="form-control input-width" asp-items="Model.Machines">
+            <label asp-for="MachineDescriptionID" class="control-label fw-bold">Machine Description</label>
+            <select asp-for="MachineDescriptionID" class="form-control border-primary input-width" asp-items="Model.Machines">
             <option value="">-- Select a Machine --</option>
         </select>
         <span asp-validation-for="MachineDescriptionID" class="text-danger"></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Next</button>
+        <div >
+            <button type="submit" class="btn btn-primary mt-2">Next</button>
+            <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#machineModal">
+                Add New Machine
+            </button>
+        </div>
 </form>
+</div>
 
-<!-- Button to Open the Create Machine Modal -->
+@* <!-- Button to Open the Create Machine Modal -->
 <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#machineModal">
     Add New Machine
-</button>
+</button> *@
 
 <!-- Machine Modal -->
 <div class="modal fade" id="machineModal" tabindex="-1" aria-labelledby="machineModalLabel" aria-hidden="true">
