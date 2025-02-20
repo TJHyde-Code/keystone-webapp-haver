@@ -6,6 +6,7 @@
 
 <h1>Edit</h1>
 
+<div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
 <h4>Vendor</h4>
 <hr />
 <div class="row">
@@ -14,8 +15,8 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <label asp-for="VendorName" class="control-label"></label>
-                <input asp-for="VendorName" class="form-control" />
+                    <label asp-for="VendorName" class="control-label fw-bold"></label>
+                    <input asp-for="VendorName" class="form-control input-width" />
                 <span asp-validation-for="VendorName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,7 +25,7 @@
         </form>
     </div>
 </div>
-
+</div>
 <div>
     <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>

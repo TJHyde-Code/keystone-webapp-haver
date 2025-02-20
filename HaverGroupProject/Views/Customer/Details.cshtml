@@ -6,6 +6,8 @@
 
 <h1>Details</h1>
 
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
 <div>
     <h4>Customer</h4>
     <hr />
@@ -23,6 +25,7 @@
             @Html.DisplayFor(model => model.ReleaseDate)
         </dd>
     </dl>
+</div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary">Edit</a> |
