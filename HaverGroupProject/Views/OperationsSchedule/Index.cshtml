@@ -1,7 +1,4 @@
-﻿
-
-
- @model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
+﻿@model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
 
 @{
     ViewData["Title"] = "Operations Schedule";
@@ -9,206 +6,90 @@
 
 <h1>Operations Schedule</h1>
 
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <p>
+        <a asp-action="Step1" class="btn btn-success" style="font-size: 12px;">Create New</a>
+    </p>
 
-<p>
-    <a asp-action="Step1" class="btn btn-success" style="font-size: 12px;">Create New</a>
-</p>
-    <table class="table table-bordered table-striped table-hover">
-        <thead class=" table-col">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SalesOrdNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExtSalesOrdNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Customer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Engineer)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MachineDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MachineDescription.SerialNumber)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.PackageReleaseName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KickoffMeeting)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseApprovalDrawing)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OperationsScheduleVendors)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductionOrderNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PODueDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DeliveryDate)
-            </th>
-            <th>Extras</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SalesOrdNum)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExtSalesOrdNum)
-                </td>
-                <td>
-                    @(item.Customer != null ? item.Customer.CustomerName : "N/A")
-                </td>
-                <td>
-                    @(item.Engineer != null ? item.Engineer.EngSummary : "N/A")
-                </td>
-                <td>
-                    @(item.MachineDescription != null ? item.MachineDescription.DescriptionSummary : "N/A")
-                </td>
-                <td>
-                    @(item.MachineDescription != null ? item.MachineDescription.SerialNumber : "N/A")
-                </td>
-                <td>
-                    @(item.PackageReleaseName ?? "N/A")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KickoffMeeting)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ReleaseApprovalDrawing)
-                </td>
-                <td>
-                    @{
-                        if (item.OperationsScheduleVendors != null && item.OperationsScheduleVendors.Any())
-                        {
-                            var vendors = item.OperationsScheduleVendors.Select(v => v?.Vendor?.VendorName ?? "Unknown Vendor").ToList();
-                            string firstVendor = vendors.First();
-                            int vendorCount = vendors.Count;
-
-                            if (vendorCount > 1)
-                            {
-                                <a class="" role="button" data-bs-toggle="collapse" href="#collapseVendor@(item.ID)"
-                                   aria-expanded="false" aria-controls="collapseVendor@(item.ID)">
-                                    @firstVendor <span class="badge bg-info">@vendorCount</span>
-                                </a>
-                                <div class="collapse" id="collapseVendor@(item.ID)">
-                                    @foreach (var vendor in vendors.Skip(1))
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead class="table-col">
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
+                    <th>@Html.DisplayNameFor(model => model.ExtSalesOrdNum)</th>
+                    <th>@Html.DisplayNameFor(model => model.Customer)</th>
+                    <th>@Html.DisplayNameFor(model => model.Engineer)</th>
+                    <th>@Html.DisplayNameFor(model => model.MachineDescription)</th>
+                    <th>@Html.DisplayNameFor(model => model.MachineDescription.SerialNumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.PackageReleaseName)</th>
+                    <th>@Html.DisplayNameFor(model => model.KickoffMeeting)</th>
+                    <th>@Html.DisplayNameFor(model => model.ReleaseApprovalDrawing)</th>
+                    <th>@Html.DisplayNameFor(model => model.OperationsScheduleVendors)</th>
+                    <th>@Html.DisplayNameFor(model => model.ProductionOrderNumber)</th>
+                    <th>@Html.DisplayNameFor(model => model.PODueDate)</th>
+                    <th>@Html.DisplayNameFor(model => model.DeliveryDate)</th>
+                    <th>Extras</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.SalesOrdNum)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ExtSalesOrdNum)</td>
+                        <td>@(item.Customer != null ? item.Customer.CustomerName : "N/A")</td>
+                        <td>@(item.Engineer != null ? item.Engineer.EngSummary : "N/A")</td>
+                        <td>@(item.MachineDescription != null ? item.MachineDescription.DescriptionSummary : "N/A")</td>
+                        <td>@(item.MachineDescription != null ? item.MachineDescription.SerialNumber : "N/A")</td>
+                        <td>@(item.PackageReleaseName ?? "N/A")</td>
+                        <td>@Html.DisplayFor(modelItem => item.KickoffMeeting)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ReleaseApprovalDrawing)</td>
+                        <td>
+                            @{
+                                var vendors = item.OperationsScheduleVendors?.Select(v => v?.Vendor?.VendorName ?? "Unknown Vendor").ToList() ?? new List<string>();
+                                if (vendors.Any())
+                                {
+                                    <span>@vendors.First()</span>
+                                    if (vendors.Count > 1)
                                     {
-                                        <span>@vendor</span>
-
-                                        <br />
+                                        <span class="badge bg-info">+@(vendors.Count - 1)</span>
                                     }
-                                </div>
+                                }
+                                else
+                                {
+                                    @:No Vendor
+                                }
                             }
-                            else
-                            {                                
-                                @firstVendor
-                            }
-                        }
-                        else
-                        {
-                            var seededVendor = item.Vendor?.VendorName ?? "No Vendor";
-                            @: @seededVendor
-                        }
-                    }
+                        </td>
+                        <td>@(item.ProductionOrderNumber ?? "N/A")</td>
+                        <td>@Html.DisplayFor(modelItem => item.PODueDate)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DeliveryDate)</td>
+                        <td>@(item.MachineDescription != null && item.MachineDescription.InstalledMedia ? "Installed Media" : "No Extras")</td>
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 
-                </td>
-                <td>
-                    @(item.ProductionOrderNumber ?? "N/A")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PODueDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DeliveryDate)
-                </td>
-                <td>
-                    @{                        
-                        var trueExtras = new List<string>();
-                        //Add to the list of Extras if true
-                        if (item.MachineDescription.NamePlateOrdered) trueExtras.Add("Nameplate Ordered");
-                        if (item.MachineDescription.NameplateRecieved) trueExtras.Add("Nameplate Received");
-                        if (item.MachineDescription.InstalledMedia) trueExtras.Add("Installed Media");
-                        if (item.MachineDescription.SparePartsSpareMedia) trueExtras.Add("Spare Parts / Media");
-                        if (item.MachineDescription.BaseFrame) trueExtras.Add("Base Frame");
-                        if (item.MachineDescription.AirSeal) trueExtras.Add("Air Seal");
-                        if (item.MachineDescription.CoatingLining) trueExtras.Add("Coating / Lining");
-                        if (item.MachineDescription.Disassembly) trueExtras.Add("Disassembly");
-
-                        // Check if there are any true properties
-                        if (trueExtras.Any())
-                        {
-                            // Get the count of true properties
-                            int trueExtrasCount = trueExtras.Count;
-
-                            // If there are multiple, show a collapsible list
-                            if (trueExtrasCount > 1)
-                            {
-                                <a class="btn btn-link" role="button" data-bs-toggle="collapse" href="#collapseProperties@(item.ID)"
-                                   aria-expanded="false" aria-controls="collapseProperties@(item.ID)">
-                                    Extras <span class="badge bg-info">@trueExtrasCount</span>
-                                </a>
-                                <div class="collapse" id="collapseProperties@(item.ID)">
-                                    @foreach (var property in trueExtras)
-                                    {
-                                        <span>@property</span>
-
-                                        <br />
-                                    }
-                                </div>
-                            }
-                            // If only one true property, just display it
-                            else
-                            {
-                                @trueExtras.First()
-                            }
-                        }
-                        else
-                        {
-                            @:No Extras
-                        }
-                    }
-                </td>
-                <td>
-                    <div class="btn-group">
-                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
-                        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
-                        @* <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Delete</a> *@
-                    </div>
-                </td>
-
-            </tr>
-        }
-    </tbody>
-</table>
-
-
-
-<div class="d-flex justify-content-center my-sm-1">
-    <button id="prev" class="btn btn-success"> Previous </button>
-    <span id="page-info"></span>
-    <button id="next" class="btn btn-success">Next Page</button>
+    <div class="d-flex justify-content-center my-3">
+        <button id="prev" class="btn btn-success me-2">Previous</button>
+        <span id="page-info" class="mx-2"></span>
+        <button id="next" class="btn btn-success ms-2">Next</button>
+    </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const rowsPerPage = 10; 
+        const rowsPerPage = 10;
         let currentPage = 1;
-        const tableRows = document.querySelectorAll("tbody tr"); 
+        const tableRows = document.querySelectorAll("tbody tr");
         const totalPages = Math.ceil(tableRows.length / rowsPerPage);
         const prevBtn = document.getElementById("prev");
         const nextBtn = document.getElementById("next");
@@ -240,7 +121,6 @@
             }
         });
 
-        renderTable(); 
+        renderTable();
     });
 </script>
-

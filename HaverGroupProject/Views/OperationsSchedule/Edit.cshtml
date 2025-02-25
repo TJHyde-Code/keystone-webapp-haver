@@ -6,6 +6,7 @@
 
 <h1>Edit</h1>
 
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
 <h4>OperationsSchedule</h4>
 <hr />
 <form asp-action="Edit">
@@ -90,9 +91,11 @@
     <div class="form-group">
         <input type="submit" id="btnSubmit" value="Save" class="btn btn-primary" />
     </div>
+
 </form>
+</div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>
 
 @section Scripts {

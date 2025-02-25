@@ -6,49 +6,93 @@
 
 <h2>Step 5: Machine Details & Notes</h2>
 
+<div class="container">
+    <div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
+        <div class="card-body">
+            <div asp-validation-summary="All" class="text-danger"></div>
 <form asp-action="Step5" method="post">
     <input type="hidden" asp-for="ID" />
 
-    <h4>Machine Details</h4>
-    <div class="form-group">
-        <div class="form-check">
-            <input asp-for="NamePlateOrdered" class="form-check-input" type="checkbox">
-            <label asp-for="NamePlateOrdered" class="form-check-label">Name Plate Ordered</label>
-        </div>
+                <h4 class="mb-3">Machine Details</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input asp-for="NamePlateOrdered" class="form-check-input">
+                            <label asp-for="NamePlateOrdered" class="form-check-label">Name Plate Ordered</label>
+                        </div>
 
-        <div class="form-check">
-            <input asp-for="NameplateRecieved" class="form-check-input" type="checkbox">
-            <label asp-for="NameplateRecieved" class="form-check-label">Nameplate Received</label>
-        </div>
+                        <div class="form-check">
+                            <input asp-for="NameplateRecieved" class="form-check-input">
+                            <label asp-for="NameplateRecieved" class="form-check-label">Nameplate Received</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="InstalledMedia" class="form-check-input">
+                            <label asp-for="InstalledMedia" class="form-check-label">Installed Media</label>
+                        </div>
+                        <div class="form-check">
+                            <input asp-for="SparePartsSpareMedia" class="form-check-input">
+                            <label asp-for="SparePartsSpareMedia" class="form-check-label">Spare Parts & Spare Media</label>
+                        </div>
+                        </div>
 
-        <div class="form-check">
-            <input asp-for="InstalledMedia" class="form-check-input" type="checkbox">
-            <label asp-for="InstalledMedia" class="form-check-label">Installed Media</label>
-        </div>
+                           <div class="col-md-6">
+                            <div class="form-check">
+                                <input asp-for="BaseFrame" class="form-check-input">
+                                <label asp-for="BaseFrame" class="form-check-label">Base Frame</label>
+                            </div>
+                            <div class="form-check">
+                                <input asp-for="AirSeal" class="form-check-input">
+                                <label asp-for="AirSeal" class="form-check-label">Air Seal</label>
+                            </div>
+                            <div class="form-check">
+                                <input asp-for="CoatingLining" class="form-check-input">
+                                <label asp-for="CoatingLining" class="form-check-label">Coating/Lining</label>
+                            </div>
+                            <div class="form-check">
+                                <input asp-for="Disassembly" class="form-check-input">
+                                <label asp-for="Disassembly" class="form-check-label">Disassembly</label>
+                            </div>
+                        </div>
+                        </div>
+              
 
-        <div class="form-check">
-            <input asp-for="SparePartsSpareMedia" class="form-check-input" type="checkbox">
-            <label asp-for="SparePartsSpareMedia" class="form-check-label">Spare Parts & Spare Media</label>
-        </div>
+                <h4 class="mt-4 mb-3">Notes</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="PreOrder" class="form-label fw-bold">Pre-Order Notes</label>
+                            <input asp-for="PreOrder" class="form-control border-primary" placeholder="Enter Pre-Order Notes">
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Scope" class="form-label fw-bold">Scope</label>
+                            <input asp-for="Scope" class="form-control border-primary" placeholder="Enter Scope">
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="BudgetAssembHrs" class="form-label fw-bold">Budget Assembly Hours</label>
+                            <input asp-for="BudgetAssembHrs" class="form-control border-primary" type="number" placeholder="Enter Hours">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="ActualAssembHours" class="form-label fw-bold">Actual Assembly Hours</label>
+                            <input asp-for="ActualAssembHours" class="form-control border-primary" type="number" placeholder="Enter Hours">
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="ActualReworkHours" class="form-label fw-bold">Actual Rework Hours</label>
+                            <input asp-for="ActualReworkHours" class="form-control border-primary" type="number" placeholder="Enter Hours">
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="OtherComments" class="form-label fw-bold">Other Comments</label>
+                            <textarea asp-for="OtherComments" class="form-control border-primary" rows="4" placeholder="Enter additional comments"></textarea>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="form-check">
-            <input asp-for="BaseFrame" class="form-check-input" type="checkbox">
-            <label asp-for="BaseFrame" class="form-check-label">Base Frame</label>
-        </div>
-
-        <div class="form-check">
-            <input asp-for="AirSeal" class="form-check-input" type="checkbox">
-            <label asp-for="AirSeal" class="form-check-label">Air Seal</label>
-        </div>
-
-        <div class="form-check">
-            <input asp-for="CoatingLining" class="form-check-input" type="checkbox">
-            <label asp-for="CoatingLining" class="form-check-label">Coating/Lining</label>
-        </div>
-
-        <div class="form-check">
-            <input asp-for="Disassembly" class="form-check-input" type="checkbox">
-            <label asp-for="Disassembly" class="form-check-label">Disassembly</label>
+                <!-- Submit Button -->
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-success px-4">Finish & Save</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -77,3 +121,4 @@
 
     <button type="button" class="btn btn-primary" onclick="window.history.back()">Go Back</button>
 </form>
+</div>

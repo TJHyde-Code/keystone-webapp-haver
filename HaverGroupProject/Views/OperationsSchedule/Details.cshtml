@@ -6,6 +6,7 @@
 
 <h1>Details</h1>
 
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
 <div>
     <h4>OperationsSchedule</h4>
     <hr />
@@ -110,7 +111,8 @@
         </dd>
     </dl>
 </div>
+</div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary btn-sm">Edit</a> |
+    <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>

@@ -6,24 +6,45 @@
 
 <h2>Step 2: Select or Create a Customer</h2>
 
+
+  <div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
+
 <form asp-action="Step2" method="post">
-    <div class="form-group">
-        <label asp-for="CustomerID" class="control-label"></label>
-        <select asp-for="CustomerID" class="form-control input-width" asp-items="Model.Customers">
+        <div class="form-group mb-3">
+            <label asp-for="CustomerID" class="control-label fw-bold"></label>
+            <select asp-for="CustomerID" class="form-control border-primary input-width" asp-items="Model.Customers">
             <option value="">-- Select a Customer --</option>
         </select>
         <span asp-validation-for="CustomerID" class="text-danger"></span>
     </div>
 
+
     <button type="submit" class="btn btn-primary">Next</button>
 
     <button type="button" class="btn btn-primary" onclick="window.history.back()">Go Back</button>
+
+
+<div >
+    <button type="submit" class="btn btn-primary mt-2">Next</button>
+    <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#customerModal">
+        Add New Customer
+    </button>
+</div>
+
 </form>
 
+  
+   </div>
+
+<div>
+    <a asp-action="Step1" class="btn btn-success">Previous</a>
+</div>
+
+
 <!-- Button to Open the Create Customer Modal-->
-<button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#customerModal">
+@* <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#customerModal">
     Add New Customer
-</button>
+</button> *@
 
 <!-- Customer Modal-->
 <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
