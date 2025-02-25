@@ -95,4 +95,30 @@
             </form>
         </div>
     </div>
+
+    <h4>Notes</h4>
+    <div class="form-group">
+        <label asp-for="PreOrder" class="control-label">Pre-Order Notes</label>
+        <input asp-for="PreOrder" class="form-control input-width" />
+
+        <label asp-for="Scope" class="control-label">Scope</label>
+        <input asp-for="Scope" class="form-control input-width" />
+
+        <label asp-for="BudgetAssembHrs" class="control-label">Budget Assembly Hours</label>
+        <input asp-for="BudgetAssembHrs" class="form-control input-width" />
+
+        <label asp-for="ActualAssembHours" class="control-label">Actual Assembly Hours</label>
+        <input asp-for="ActualAssembHours" class="form-control input-width" type="number" />
+
+        <label asp-for="ActualReworkHours" class="control-label">Actual Rework Hours</label>
+        <input asp-for="ActualReworkHours" class="form-control input-width" type="number" />
+
+        <label asp-for="OtherComments" class="control-label">Other Comments</label>
+        <textarea asp-for="OtherComments" class="form-control" rows="4"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-success">Finish & Save</button>
+
+    <button type="button" class="btn btn-primary" onclick="window.history.back()">Go Back</button>
+</form>
 </div>
