@@ -94,3 +94,10 @@ footer {
     font-size: 1.2rem;
 }
 
+/*Adding dark blue color to details page*/
+.details-header {
+    background-color: #0A2240; 
+    color: white; 
+    font-weight: bold; 
+    text-transform: uppercase;
+}
