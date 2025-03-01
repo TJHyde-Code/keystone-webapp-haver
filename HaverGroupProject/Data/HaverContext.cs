@@ -23,6 +23,8 @@ namespace HaverGroupProject.Data
 
         public DbSet<Note> Notes { get; set; }
         public DbSet<MachineDescription> MachineDescriptions { get; set; }
+
+        public DbSet<HaverGantt> HaverGantts { get; set; }
         
        
 
