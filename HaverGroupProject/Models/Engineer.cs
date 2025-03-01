@@ -19,6 +19,16 @@ namespace HaverGroupProject.Models
             }
         }
 
+        public string EngInitial
+        {
+            get
+            {
+                return (EngFirstName?[0].ToString().ToUpper() ?? "")
+                    + (string.IsNullOrEmpty(EngMiddleName) ? "" : " " + EngMiddleName[0].ToString().ToUpper() + ".")
+                    + (EngLastName?[0].ToString().ToUpper() ?? "");
+            }
+        }
+
 
         [Display(Name = "Phone")]
         public string PhoneFormatted => "(" + EngPhone?.Substring(0, 3) + ") "
@@ -61,5 +71,7 @@ namespace HaverGroupProject.Models
 
         //Navigations
         public ICollection<OperationsSchedule> OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
+
+        public ICollection<HaverGantt> HaverGantts { get; set; } = new HashSet<HaverGantt>();
     }
 }

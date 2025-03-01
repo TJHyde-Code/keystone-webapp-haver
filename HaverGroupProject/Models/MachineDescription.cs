@@ -65,5 +65,7 @@ namespace HaverGroupProject.Models
         public bool Disassembly { get; set; }
         //Navigations. 
         public ICollection<OperationsSchedule> OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
+
+        public ICollection<HaverGantt> HaverGantts { get; set; } = new HashSet<HaverGantt>();
     }
 }
