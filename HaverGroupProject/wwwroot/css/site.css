@@ -100,4 +100,12 @@ footer {
     color: white; 
     font-weight: bold; 
     text-transform: uppercase;
+    margin: 0rem;
+}
+
+/*Adding some space around the print button on details page*/
+.btn-print {
+    margin-top: -55px; /* Moves the button UP */
+    margin-left: 20px; /* Adds space between the button and panel */
+    display: inline-block; /* Ensures correct placement */
 }
