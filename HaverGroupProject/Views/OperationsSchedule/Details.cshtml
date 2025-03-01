@@ -4,91 +4,99 @@
     ViewData["Title"] = "Details";
 }
 
-<h1 class="text-center">Details</h1>
+<div id="printArea">
 
-<div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
+    <h1 class="text-center">Details</h1>
 
-    <!-- Customer Details -->
-    <div class="card mb-3">
-        <div class="card-header details-header text-white">Customer Details</div>
-        <div class="card-body">
-            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerName):</strong> @Model.Customer?.CustomerName</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerAddress):</strong> @Model.Customer?.CustomerAddress</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerContactName):</strong> @Model.Customer?.CustomerContactName</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerEmail):</strong> @Model.Customer?.CustomerEmail</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerPhone):</strong> @Model.Customer?.CustomerPhone</p>
+    <input id="btnPrint" class="btn btn-info btn-print float-end" type="button"
+                     value="Print Details" onclick="PrintView()" />
+
+
+    <div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
+
+        <!-- Customer Details -->
+        <div class="card mb-3">
+            <div class="card-header details-header text-white">Customer Details</div>
+            <div class="card-body">
+                <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerName):</strong> @Model.Customer?.CustomerName</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerAddress):</strong> @Model.Customer?.CustomerAddress</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerContactName):</strong> @Model.Customer?.CustomerContactName</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerEmail):</strong> @Model.Customer?.CustomerEmail</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerPhone):</strong> @Model.Customer?.CustomerPhone</p>
+            </div>
         </div>
-    </div>
 
-    <!-- Engineer Details -->
-    <div class="card mb-3">
-        <div class="card-header details-header text-white">Engineer Details</div>
-        <div class="card-body">
-            <p><strong>@Html.DisplayNameFor(model => model.Engineer.EngSummary):</strong> @Model.Engineer?.EngSummary</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Engineer.EngEmail):</strong> @Model.Engineer?.EngEmail</p>
-            <p><strong>@Html.DisplayNameFor(model => model.Engineer.PhoneFormatted):</strong> @Model.Engineer?.PhoneFormatted</p>
+        <!-- Engineer Details -->
+        <div class="card mb-3">
+            <div class="card-header details-header text-white">Engineer Details</div>
+            <div class="card-body">
+                <p><strong>@Html.DisplayNameFor(model => model.Engineer.EngSummary):</strong> @Model.Engineer?.EngSummary</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Engineer.EngEmail):</strong> @Model.Engineer?.EngEmail</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Engineer.PhoneFormatted):</strong> @Model.Engineer?.PhoneFormatted</p>
+            </div>
         </div>
-    </div>
 
-    <!-- Machine Description -->
-    <div class="card mb-3">
-        <div class="card-header details-header text-white">Machine Description</div>
-        <div class="card-body">
-            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.DescriptionSummary):</strong> @Model.MachineDescription?.DescriptionSummary</p>
-            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.SerialNumber):</strong> @Model.MachineDescription?.SerialNumber</p>
-            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Size):</strong> @Model.MachineDescription?.Size</p>
-            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Class):</strong> @Model.MachineDescription?.Class</p>
-            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Deck):</strong> @Model.MachineDescription?.Deck</p>
+        <!-- Machine Description -->
+        <div class="card mb-3">
+            <div class="card-header details-header text-white">Machine Description</div>
+            <div class="card-body">
+                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.DescriptionSummary):</strong> @Model.MachineDescription?.DescriptionSummary</p>
+                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.SerialNumber):</strong> @Model.MachineDescription?.SerialNumber</p>
+                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Size):</strong> @Model.MachineDescription?.Size</p>
+                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Class):</strong> @Model.MachineDescription?.Class</p>
+                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Deck):</strong> @Model.MachineDescription?.Deck</p>
+            </div>
         </div>
-    </div>
 
-    <!-- Operations Schedule -->
-    <div class="card mb-3">
-        <div class="card-header details-header">Operations Schedule</div>
-        <div class="card-body">
-            <p><strong>@Html.DisplayNameFor(model => model.SalesOrdNum):</strong> @Html.DisplayFor(model => model.SalesOrdNum)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.ExtSalesOrdNum):</strong> @Html.DisplayFor(model => model.ExtSalesOrdNum)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.PackageReleaseName):</strong> @Html.DisplayFor(model => model.PackageReleaseName)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.KickoffMeeting):</strong> @Html.DisplayFor(model => model.KickoffMeeting)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.ReleaseApprovalDrawing):</strong> @Html.DisplayFor(model => model.ReleaseApprovalDrawing)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.PONum):</strong> @Html.DisplayFor(model => model.PONum)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.ProductionOrderNumber):</strong> @Html.DisplayFor(model => model.ProductionOrderNumber)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.PODueDate):</strong> @Html.DisplayFor(model => model.PODueDate)</p>
-            <p><strong>@Html.DisplayNameFor(model => model.DeliveryDate):</strong> @Html.DisplayFor(model => model.DeliveryDate)</p>
+        <!-- Operations Schedule -->
+        <div class="card mb-3">
+            <div class="card-header details-header">Operations Schedule</div>
+            <div class="card-body">
+                <p><strong>@Html.DisplayNameFor(model => model.SalesOrdNum):</strong> @Html.DisplayFor(model => model.SalesOrdNum)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.ExtSalesOrdNum):</strong> @Html.DisplayFor(model => model.ExtSalesOrdNum)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.PackageReleaseName):</strong> @Html.DisplayFor(model => model.PackageReleaseName)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.KickoffMeeting):</strong> @Html.DisplayFor(model => model.KickoffMeeting)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.ReleaseApprovalDrawing):</strong> @Html.DisplayFor(model => model.ReleaseApprovalDrawing)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.PONum):</strong> @Html.DisplayFor(model => model.PONum)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.ProductionOrderNumber):</strong> @Html.DisplayFor(model => model.ProductionOrderNumber)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.PODueDate):</strong> @Html.DisplayFor(model => model.PODueDate)</p>
+                <p><strong>@Html.DisplayNameFor(model => model.DeliveryDate):</strong> @Html.DisplayFor(model => model.DeliveryDate)</p>
+            </div>
         </div>
-    </div>
 
-    <!-- Vendor List -->
-    <div class="card mb-3">
-        <div class="card-header details-header text-white">Vendors</div>
-        <div class="card-body">
-            @if (Model.OperationsScheduleVendors.Any())
-            {
-                <ul class="list-group">
-                    @foreach (var vendor in Model.OperationsScheduleVendors)
-                    {
-                        <li class="list-group-item">@vendor.Vendor.VendorName - @vendor.Vendor.VendorPhone</li>
-                    }
-                </ul>
-            }
-            else
-            {
-                <p>No vendors associated with this schedule.</p>
-            }
+        <!-- Vendor List -->
+        <div class="card mb-3">
+            <div class="card-header details-header text-white">Vendors</div>
+            <div class="card-body">
+                @if (Model.OperationsScheduleVendors.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var vendor in Model.OperationsScheduleVendors)
+                        {
+                            <li class="list-group-item">@vendor.Vendor.VendorName - @vendor.Vendor.VendorPhone</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No vendors associated with this schedule.</p>
+                }
+            </div>
         </div>
-    </div>
 
-    <!-- Notes Section -->
-    <div class="card mb-3">
-        <div class="card-header details-header text-white">Notes</div>
-        <div class="card-body">
-            <p><strong>Pre-Order:</strong> @Model.Note?.PreOrder</p>
-            <p><strong>Scope:</strong> @Model.Note?.Scope</p>
-            <p><strong>Budget Assembly Hours:</strong> @Model.Note?.BudgetAssembHrs</p>
-            <p><strong>Actual Assembly Hours:</strong> @Model.Note?.ActualAssembHours</p>
-            <p><strong>Actual Rework Hours:</strong> @Model.Note?.ActualReworkHours</p>
-            <p><strong>Other Comments:</strong> @Model.Note?.OtherComments</p>
+        <!-- Notes Section -->
+        <div class="card mb-3">
+            <div class="card-header details-header text-white">Notes</div>
+            <div class="card-body">
+                <p><strong>Pre-Order:</strong> @Model.Note?.PreOrder</p>
+                <p><strong>Scope:</strong> @Model.Note?.Scope</p>
+                <p><strong>Budget Assembly Hours:</strong> @Model.Note?.BudgetAssembHrs</p>
+                <p><strong>Actual Assembly Hours:</strong> @Model.Note?.ActualAssembHours</p>
+                <p><strong>Actual Rework Hours:</strong> @Model.Note?.ActualReworkHours</p>
+                <p><strong>Other Comments:</strong> @Model.Note?.OtherComments</p>
+            </div>
         </div>
+
     </div>
 
 </div>
@@ -98,3 +106,41 @@
     <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary btn-sm">Edit</a>
     <a asp-action="Index" class="btn btn-success btn-sm">Back to List</a>
 </div>
+@section Scripts {
+    <script type="text/javascript">
+        function PrintView() {
+            // Referencing the Print Button.
+            var btnPrint = document.getElementById("btnPrint");
+
+            // Hiding the Print Button.
+            btnPrint.style.display = "none";
+
+            // Referencing the HTML Body.
+            var printArea = document.getElementById("printArea");
+
+            // Creating a new window.
+            var printWindow = window.open('', '_blank', 'top=100, left=200, height=500, width=700');
+            // Write content to the new window
+            // Note: Some browsers add a header and footer but some do not.
+            // We will suppress them for consistent output by setting the margin to zero
+            printWindow.document.write('<html><head><title>Order Details</title>');
+            printWindow.document.write('<style>@@media print { @@page { margin: 0; } body { margin: 1cm; } }</style>');
+            printWindow.document.write('</head><body>');
+
+            // Writting the contents of Body in window.
+            printWindow.document.write(printArea.innerHTML);
+
+            // Closing the document.
+            printWindow.document.close();
+
+            // Printing the window.
+            printWindow.print();
+
+            // Showing the Print Button.
+            btnPrint.style.display = "block";
+
+            // Close the new window after printing
+            printWindow.close();
+        }
+    </script>
+}	
