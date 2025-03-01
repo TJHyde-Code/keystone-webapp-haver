@@ -21,13 +21,8 @@
                     <th>@Html.DisplayNameFor(model => model.Engineer)</th>
                     <th>@Html.DisplayNameFor(model => model.MachineDescription)</th>
                     <th>@Html.DisplayNameFor(model => model.MachineDescription.SerialNumber)</th>
-                    <th>@Html.DisplayNameFor(model => model.PackageReleaseName)</th>
-                    <th>@Html.DisplayNameFor(model => model.KickoffMeeting)</th>
-                    <th>@Html.DisplayNameFor(model => model.ReleaseApprovalDrawing)</th>
                     <th>@Html.DisplayNameFor(model => model.OperationsScheduleVendors)</th>
                     <th>@Html.DisplayNameFor(model => model.ProductionOrderNumber)</th>
-                    <th>@Html.DisplayNameFor(model => model.PODueDate)</th>
-                    <th>@Html.DisplayNameFor(model => model.DeliveryDate)</th>
                     <th>Extras</th>
                     <th>Actions</th>
                 </tr>
@@ -42,9 +37,6 @@
                         <td>@(item.Engineer != null ? item.Engineer.EngSummary : "N/A")</td>
                         <td>@(item.MachineDescription != null ? item.MachineDescription.DescriptionSummary : "N/A")</td>
                         <td>@(item.MachineDescription != null ? item.MachineDescription.SerialNumber : "N/A")</td>
-                        <td>@(item.PackageReleaseName ?? "N/A")</td>
-                        <td>@Html.DisplayFor(modelItem => item.KickoffMeeting)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ReleaseApprovalDrawing)</td>
                         <td>
                             @{
                                 var vendors = item.OperationsScheduleVendors?.Select(v => v?.Vendor?.VendorName ?? "Unknown Vendor").ToList() ?? new List<string>();
@@ -63,8 +55,6 @@
                             }
                         </td>
                         <td>@(item.ProductionOrderNumber ?? "N/A")</td>
-                        <td>@Html.DisplayFor(modelItem => item.PODueDate)</td>
-                        <td>@Html.DisplayFor(modelItem => item.DeliveryDate)</td>
                         <td>@(item.MachineDescription != null && item.MachineDescription.InstalledMedia ? "Installed Media" : "No Extras")</td>
                         <td>
                             <div class="btn-group">

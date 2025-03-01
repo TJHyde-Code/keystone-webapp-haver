@@ -4,115 +4,97 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1 class="text-center">Details</h1>
 
-<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-<div>
-    <h4>OperationsSchedule</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SalesOrdNum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SalesOrdNum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ExtSalesOrdNum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ExtSalesOrdNum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Model.Customer?.CustomerName
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MachineDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MachineDescription.DescriptionSummary)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MachineDescription.SerialNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MachineDescription.SerialNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PackageReleaseName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PackageReleaseName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.KickoffMeeting)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.KickoffMeeting)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ReleaseApprovalDrawing)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ReleaseApprovalDrawing)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OperationsScheduleVendors)
-        </dt>
-        <dd class="col-sm-10">
-            @{
-                int vendorCount = Model.OperationsScheduleVendors.Count;
-                if (vendorCount > 0)
-                {
-                    string firstVendor = Model.OperationsScheduleVendors.FirstOrDefault().Vendor.VendorName;
-                    if (vendorCount > 1)
+<div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
+
+    <!-- Customer Details -->
+    <div class="card mb-3">
+        <div class="card-header details-header text-white">Customer Details</div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerName):</strong> @Model.Customer?.CustomerName</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerAddress):</strong> @Model.Customer?.CustomerAddress</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerContactName):</strong> @Model.Customer?.CustomerContactName</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerEmail):</strong> @Model.Customer?.CustomerEmail</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Customer.CustomerPhone):</strong> @Model.Customer?.CustomerPhone</p>
+        </div>
+    </div>
+
+    <!-- Engineer Details -->
+    <div class="card mb-3">
+        <div class="card-header details-header text-white">Engineer Details</div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.Engineer.EngSummary):</strong> @Model.Engineer?.EngSummary</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Engineer.EngEmail):</strong> @Model.Engineer?.EngEmail</p>
+            <p><strong>@Html.DisplayNameFor(model => model.Engineer.PhoneFormatted):</strong> @Model.Engineer?.PhoneFormatted</p>
+        </div>
+    </div>
+
+    <!-- Machine Description -->
+    <div class="card mb-3">
+        <div class="card-header details-header text-white">Machine Description</div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.DescriptionSummary):</strong> @Model.MachineDescription?.DescriptionSummary</p>
+            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.SerialNumber):</strong> @Model.MachineDescription?.SerialNumber</p>
+            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Size):</strong> @Model.MachineDescription?.Size</p>
+            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Class):</strong> @Model.MachineDescription?.Class</p>
+            <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Deck):</strong> @Model.MachineDescription?.Deck</p>
+        </div>
+    </div>
+
+    <!-- Operations Schedule -->
+    <div class="card mb-3">
+        <div class="card-header details-header">Operations Schedule</div>
+        <div class="card-body">
+            <p><strong>@Html.DisplayNameFor(model => model.SalesOrdNum):</strong> @Html.DisplayFor(model => model.SalesOrdNum)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.ExtSalesOrdNum):</strong> @Html.DisplayFor(model => model.ExtSalesOrdNum)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.PackageReleaseName):</strong> @Html.DisplayFor(model => model.PackageReleaseName)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.KickoffMeeting):</strong> @Html.DisplayFor(model => model.KickoffMeeting)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.ReleaseApprovalDrawing):</strong> @Html.DisplayFor(model => model.ReleaseApprovalDrawing)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.PONum):</strong> @Html.DisplayFor(model => model.PONum)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.ProductionOrderNumber):</strong> @Html.DisplayFor(model => model.ProductionOrderNumber)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.PODueDate):</strong> @Html.DisplayFor(model => model.PODueDate)</p>
+            <p><strong>@Html.DisplayNameFor(model => model.DeliveryDate):</strong> @Html.DisplayFor(model => model.DeliveryDate)</p>
+        </div>
+    </div>
+
+    <!-- Vendor List -->
+    <div class="card mb-3">
+        <div class="card-header details-header text-white">Vendors</div>
+        <div class="card-body">
+            @if (Model.OperationsScheduleVendors.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var vendor in Model.OperationsScheduleVendors)
                     {
-                        string vendorList = "";
-                        var v = Model.OperationsScheduleVendors.ToList();
-                        for (int i = 1; i < vendorCount; i++)
-                        {
-                            vendorList += v[i].Vendor.VendorName + " <br />";
-                        }
-                        <a class="" role="button" data-bs-toggle="collapse" href="#collapseVendor@(Model.ID)"
-                           aria-expanded="false" aria-controls="collapseVendor@(Model.ID)">
-                            @firstVendor <span class="badge bg-info">@vendorCount</span>
-                        </a>
-                        <div class="collapse" id="collapseVendor@(Model.ID)">
-                            @Html.Raw(vendorList)
-                        </div>
+                        <li class="list-group-item">@vendor.Vendor.VendorName - @vendor.Vendor.VendorPhone</li>
                     }
-                    else
-                    {
-                        @firstVendor
-                    }
-                }
+                </ul>
             }
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PONum)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PONum)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PODueDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PODueDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DeliveryDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DeliveryDate)
-        </dd>
-    </dl>
+            else
+            {
+                <p>No vendors associated with this schedule.</p>
+            }
+        </div>
+    </div>
+
+    <!-- Notes Section -->
+    <div class="card mb-3">
+        <div class="card-header details-header text-white">Notes</div>
+        <div class="card-body">
+            <p><strong>Pre-Order:</strong> @Model.Note?.PreOrder</p>
+            <p><strong>Scope:</strong> @Model.Note?.Scope</p>
+            <p><strong>Budget Assembly Hours:</strong> @Model.Note?.BudgetAssembHrs</p>
+            <p><strong>Actual Assembly Hours:</strong> @Model.Note?.ActualAssembHours</p>
+            <p><strong>Actual Rework Hours:</strong> @Model.Note?.ActualReworkHours</p>
+            <p><strong>Other Comments:</strong> @Model.Note?.OtherComments</p>
+        </div>
+    </div>
+
 </div>
-</div>
+
+<!-- Buttons -->
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary btn-sm">Edit</a> |
-    <a asp-action="Index" class="btn btn-success">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary btn-sm">Edit</a>
+    <a asp-action="Index" class="btn btn-success btn-sm">Back to List</a>
 </div>
