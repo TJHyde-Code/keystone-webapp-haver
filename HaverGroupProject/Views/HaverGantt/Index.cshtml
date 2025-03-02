@@ -23,7 +23,7 @@
                         <th>@Html.DisplayNameFor(model => model.MachineDescription)</th>
                         <th>@Html.DisplayNameFor(model => model.ApprvDwgRecvd)</th>
                         <th>@Html.DisplayNameFor(model => model.MachineDescription.InstalledMedia)</th
-                        <th>@Html.DisplayNameFor(model => model.MachineDescription.SparePartsSpareMedia)</th>
+                        <th>@Html.DisplayNameFor(model => model.MachineDescription.SpareParts)</th>
                         
                     </tr>
                 </thead>
@@ -52,7 +52,7 @@
                             <td>@item.MachineDescription.DescriptionSummary</td>
                             <td>@item.ApprvDwgRecvd?.ToString("yyyy-MM-dd")</td>
                             <td>@item.MachineDescription.InstalledMedia</td>
-                            <td>@item.MachineDescription.SparePartsSpareMedia</td>
+                            <td>@item.MachineDescription.SpareParts</td>
 
 
                         </tr>

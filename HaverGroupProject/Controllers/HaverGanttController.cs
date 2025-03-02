@@ -202,7 +202,7 @@ namespace HaverGroupProject.Controllers
             var formattedTasks = tasks.Select(t => new
             {
                 id = t.ID.ToString(),
-                customer = t.CustomerID,
+                customer = t.Customer,
                 start = t.StartDate.ToString("yyyy-MM-dd"),
                 end = t.PromiseDate.ToString("yyyy-MM-dd"),
                 progress = t.Progress * 100
