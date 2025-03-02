@@ -26,6 +26,9 @@ namespace HaverGroupProject.Models
         [Display(Name = "Vendor Email")]
         public string? VendorEmail { get; set; }
 
+        //Inserting Archive for Vendors property
+        public bool VendorArchived { get; set; }
+
         public ICollection<OperationsSchedule>? OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
 
         public ICollection<OperationsScheduleVendor>? OperationsScheduleVendors { get; set; } = new HashSet<OperationsScheduleVendor>();

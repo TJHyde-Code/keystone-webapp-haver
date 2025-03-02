@@ -23,8 +23,31 @@ namespace HaverGroupProject.Data
 
         public DbSet<Note> Notes { get; set; }
         public DbSet<MachineDescription> MachineDescriptions { get; set; }
-        
-       
+
+        //Added override so instead of deleting it simply switches Archived to true
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<Vendor>())
+            {
+                if (entry.State == EntityState.Deleted)
+                {
+                    entry.State = EntityState.Modified;
+                    entry.Entity.VendorArchived = true;
+                }
+
+            }
+            foreach (var entry in ChangeTracker.Entries<Customer>())
+            {
+                if (entry.State == EntityState.Deleted)
+                {
+                    entry.State = EntityState.Modified;
+                    entry.Entity.CustomerArchived = true;
+                }
+            }
+            return base.SaveChanges();
+        }
+
+
 
         //ModelBuilder        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -85,6 +108,14 @@ namespace HaverGroupProject.Data
             //Many to Many OperationsScheduleVendor Primary Key
             modelBuilder.Entity<OperationsScheduleVendor>()
                 .HasKey(t => new { t.VendorID, t.OperationsScheduleID });
+
+            //Any Vendors that has Archived = true will not show up in queries
+            modelBuilder.Entity<Vendor>().HasQueryFilter(v => !v.VendorArchived);
+            base.OnModelCreating(modelBuilder);
+
+            //Any Customers that has Archived = true will not show in queries
+            modelBuilder.Entity<Customer>().HasQueryFilter(c => !c.CustomerArchived);
+            base.OnModelCreating(modelBuilder);
 
 
             base.OnModelCreating(modelBuilder);
