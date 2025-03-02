@@ -12,7 +12,7 @@ namespace HaverGroupProject.Models
         {
             get
             {
-                return Customer.CustomerName + "(" + Vendor.VendorName + ")";   
+                return Customer?.CustomerName + "(" + Vendor?.VendorName + ")";   
             }
         }
 
