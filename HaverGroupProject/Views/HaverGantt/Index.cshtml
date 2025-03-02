@@ -1,0 +1,137 @@
+﻿@model IEnumerable<HaverGroupProject.Models.HaverGantt>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Active Gantts</h1>
+
+<div>
+    <a asp-action="Create">Create New Gantt</a>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-3 col-lg-2 task-table-wrapper">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.PurchaseOrderNum)</th>
+                        <th>@Html.DisplayNameFor(model => model.Customer)</th>
+                        <th>@Html.DisplayNameFor(Model => Model.Engineer)</th>
+                        <th>@Html.DisplayNameFor(model => model.Quantity)</th>
+                        <th>@Html.DisplayNameFor(model => model.MachineDescription)</th>
+                        <th>@Html.DisplayNameFor(model => model.ApprvDwgRecvd)</th>
+                        <th>@Html.DisplayNameFor(model => model.MachineDescription.InstalledMedia)</th
+                        <th>@Html.DisplayNameFor(model => model.MachineDescription.SparePartsSpareMedia)</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <!-- PO Number Column -->
+                            <td>@item.PurchaseOrderNum</td>
+                            
+                            
+                            <!-- Gantt Task Column -->
+                            <td class="d-flex justify-content-between align-items-center">
+                                <span>@item.CustomerTask</span>
+                                <div class="action-icons">
+                                    <a asp-action="Edit" asp-route-id="@item.ID" class="icon-link">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.ID" class="icon-link">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </div>
+                            </td>
+                            <td>@item.Engineer.EngInitial</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.MachineDescription.DescriptionSummary</td>
+                            <td>@item.ApprvDwgRecvd?.ToString("yyyy-MM-dd")</td>
+                            <td>@item.MachineDescription.InstalledMedia</td>
+                            <td>@item.MachineDescription.SparePartsSpareMedia</td>
+
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        @* GANTT CHART DIV *@
+        <div class="col-9 col-lg-10 gantt-chart-wrapper">
+            <div id="gantt_chart" class="gantt-chart"></div>
+        </div>
+    </div>
+</div>
+
+@section stylesheets {
+    @* stylesheet for Gantt charts *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.css">
+}
+
+@section Scripts {
+    @* Script for Gantt charts *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Fetch task data from the server and convert it into JSON format
+            fetch("@Url.Action("GetTasks", "HaverGantt")")
+                .then(response => response.json())
+                .then(tasks => {
+                    if (!tasks || tasks.length === 0) {
+                        console.error("No tasks found.");
+                        return;
+                    }
+
+                    ///////////////////////////////////////////////////////////////////////////////////////////////
+                    // This is optional: It slightly increases the progress for tasks with 0% completion
+                    // (sets them to 0.1 instead of 0) to make the progress toggle more visible in the Gantt chart.
+                    tasks = tasks.map(task => ({
+                        ...task,
+                        progress: task.progress === 0 ? 0.1 : task.progress
+                    }));
+                    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+                    // Initializes the Gantt chart with tasks, sets event handlers for task interactions, and defines a custom popup display
+                    let gantt = new Gantt("#gantt_chart", tasks, {
+                        view_mode: 'Day',
+                        on_click: task => console.log("Clicked:", task),
+                        on_date_change: (task, start, end) => updateTask(task, start, end),
+                        on_progress_change: (task, progress) => updateTask(task, null, null, progress),
+                        custom_popup_html: task => `<b>${task.customer}</b> - ${task.progress}%`
+                    });
+
+                    // Updates the task details on the server by sending a POST request with the modified task data.
+                    // Converts date formats to 'yyyy-MM-dd' and ensures progress is in decimal format (0.0 - 1.0)
+                    function updateTask(task, start = null, end = null, progress = null) {
+                        let updatedTask = {
+                            ID: task.id,
+                            Customer: task.customer,
+                            StartDate: start ? start.toLocaleDateString('en-CA') : task.start,
+                            PromiseDate: end ? end.toLocaleDateString('en-CA') : task.end,
+                            Progress: progress !== null ? progress / 100 : task.progress / 100
+                        };
+
+                        // The request body contains the modified task details in JSON format.
+                        // Logs the server response on success and captures any errors.
+                        fetch("@Url.Action("UpdateTask", "HaverGantt")", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(updatedTask)
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log("Task Updated:", data))
+                        .catch(error => console.error("Error updating task:", error));
+                    }
+                })
+
+                .catch(error => console.error("Error fetching tasks:", error));
+        });
+    </script>
+}

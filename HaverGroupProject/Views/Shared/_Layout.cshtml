@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HaverGroupProject.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    @await RenderSectionAsync("Stylesheets", required: false)
     
 </head>
 <body>
@@ -35,6 +39,7 @@
                         <li><a class="dropdown-item" asp-controller="Vendor" asp-action="Index">Vendors</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" asp-controller="OperationsSchedule" asp-action="DownloadOperationsSchedules">Download Operations Schedules</a></li>
+                        <li><a class="dropdown-item" asp-controller="HaverGantt" asp-action="Index">Gantts</a></li>
                     </ul>
                 </li>
             </ul>
@@ -60,6 +65,7 @@
             @RenderBody()
         </main>
     </div>
+    
 
     <footer class="border-top footer text-muted">
         <div class="container">
