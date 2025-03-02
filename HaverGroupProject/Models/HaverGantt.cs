@@ -39,6 +39,7 @@ namespace HaverGroupProject.Models
         public int Quantity { get; set; }
 
         [Display(Name ="Approved Dwg Rec'd")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public DateTime? ApprvDwgRecvd { get; set; }
 
@@ -75,7 +76,7 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Vendor")]
         [ForeignKey("Vendor")]
-        public int? VendorId { get; set; }
+        public int? VendorID { get; set; }
         public Vendor? Vendor { get; set; }
 
         //public ICollection<HaverGantt> HaverGantts { get; set; } = new HashSet<HaverGantt>();

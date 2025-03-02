@@ -1342,6 +1342,42 @@ namespace HaverGroupProject.Data
                     Console.WriteLine($"An error occurred while seeding operations schedule vendors: {ex.Message}");
                 }
 
+                try
+                {
+                    if (!context.HaverGantts.Any())
+                    {
+
+                        var today = DateTime.Today;
+
+
+                        var gantts = new List<HaverGantt>
+                        {
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746528",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
+                                Quantity = 2,
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-7),
+                                StartDate = today.AddDays(0),
+                                PromiseDate= today.AddDays(7),
+                                Progress = 0.6m
+                            }
+                        };               
+                        
+                        context.HaverGantts.AddRange(gantts);  
+                        context.SaveChanges();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"An error occured while seeding Gantts: {ex.Message}");
+                }
+
 
                 #endregion
 
