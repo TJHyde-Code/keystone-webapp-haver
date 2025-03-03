@@ -59,6 +59,8 @@ namespace HaverGroupProject.Controllers
             ViewData["EngineerID"] = new SelectList(_context.Engineers, "ID", "EngEmail");
             ViewData["MachineDescriptionID"] = new SelectList(_context.MachineDescriptions, "ID", "Class");
             ViewData["VendorId"] = new SelectList(_context.Vendors, "ID", "VendorName");
+
+            PopulateDropDownLists();
             return View();
         }
 
@@ -79,6 +81,8 @@ namespace HaverGroupProject.Controllers
             ViewData["EngineerID"] = new SelectList(_context.Engineers, "ID", "EngEmail", haverGantt.EngineerID);
             ViewData["MachineDescriptionID"] = new SelectList(_context.MachineDescriptions, "ID", "Class", haverGantt.MachineDescriptionID);
             ViewData["VendorId"] = new SelectList(_context.Vendors, "ID", "VendorName", haverGantt.VendorID);
+
+            PopulateDropDownLists(haverGantt);
             return View(haverGantt);
         }
 
@@ -138,6 +142,9 @@ namespace HaverGroupProject.Controllers
             ViewData["EngineerID"] = new SelectList(_context.Engineers, "ID", "EngEmail", haverGantt.EngineerID);
             ViewData["MachineDescriptionID"] = new SelectList(_context.MachineDescriptions, "ID", "Class", haverGantt.MachineDescriptionID);
             ViewData["VendorId"] = new SelectList(_context.Vendors, "ID", "VendorName", haverGantt.VendorID);
+
+            PopulateDropDownLists(haverGantt);
+
             return View(haverGantt);
         }
 
@@ -239,6 +246,26 @@ namespace HaverGroupProject.Controllers
             return Json(new { success = true, message = "Task updated successfully." });
         }
 
+
+        private SelectList MachineDescList(int? selectedId)
+        {
+            return new SelectList(_context.MachineDescriptions
+                .OrderBy(d => d.Class), "ID", "DescriptionSummary", selectedId);                
+        }
+
+        private SelectList EngineerList(int? selectedId)
+        {
+            return new SelectList(_context.Engineers
+                .OrderBy(d => d.EngLastName)
+                .ThenBy(d=> d.EngFirstName), "ID", "EngSummary", selectedId);
+        }
+
+        private void PopulateDropDownLists(HaverGantt? haverGantt = null)
+        {
+            ViewData["EngineerID"]= EngineerList(haverGantt?.EngineerID);
+            ViewData["MachineDescriptionID"] = MachineDescList(haverGantt?.MachineDescriptionID)
+            ;
+        }
         private bool HaverGanttExists(int id)
         {
             return _context.HaverGantts.Any(e => e.ID == id);
