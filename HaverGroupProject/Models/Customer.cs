@@ -39,6 +39,9 @@ namespace HaverGroupProject.Models
         [MaxLength(10)]
         public string CustomerPhone { get; set; } = "";
 
+        //Inserting Archive for Customers property
+        public bool CustomerArchived { get; set; }
+
         public ICollection<OperationsSchedule>? OperationsSchedule { get; set; } = new HashSet<OperationsSchedule>();
 
         public ICollection<HaverGantt> HaverGantts { get; set; } = new HashSet<HaverGantt>();
