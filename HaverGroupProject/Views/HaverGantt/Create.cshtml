@@ -6,6 +6,12 @@
 
 <h1>Create New Gantt</h1>
 
+@*For Demo purposes*@
+<div>    
+    <button type="button" class="btn btn-primary mt-3" onclick="autofillForm()">Demo</button>
+</div>
+
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -64,7 +70,7 @@
 
             <div class="form-group">
                 <label asp-for="GanttNotes" class="control-label"></label>
-                <textarea asp-for="GanttNotes" class="form-control"></textarea>
+                <textarea asp-for="GanttNotes" class="form-control" placeholder="e.g. Order on hold pending payment"></textarea>
                 <span asp-validation-for="GanttNotes" class="text-danger"></span>
             </div>
 
@@ -88,6 +94,9 @@
             <input type="submit" value="Create" class="button-link" /> |
             <a asp-action="Index">Back to List</a>
         </form>
+        
+       
+
     </div>
 </div>
 
@@ -99,4 +108,25 @@
     }
 
     <script src="~/js/progress.js"></script>
+
+
+    @* For demo purposes only *@
+    <script>
+        function autofillForm() {
+            // Set demo values for the fields
+            document.getElementById('PurchaseOrderNum').value = '97862543';
+            document.getElementById('CustomerID').value = '3'; 
+            document.getElementById('StartDate').value = '2025-03-03';
+            document.getElementById('PromiseDate').value = '2025-03-11';
+            document.getElementById('Quantity').value = '3'; 
+            document.getElementById('ApprvDwgRecvd').value = '2025-01-01';
+            document.getElementById('GanttNotes').value = 'Autofilled for demo purposes.';
+            document.getElementById('MachineDescriptionID').selectedIndex = 2;
+            document.getElementById('EngineerID').selectedIndex = 2; 
+            document.getElementById('VendorID').selectedIndex = 2;
+        }
+    </script>
+
 }
+
+
