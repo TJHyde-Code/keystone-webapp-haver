@@ -7,12 +7,12 @@
 <h1>Active Gantts</h1>
 
 <div>
-    <a asp-action="Create">Create New Gantt</a>
+    <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New Gantt</a>
 </div>
 
 <div class="container-fluid">
     <div class="row">
-        <!-- Adjust column widths as needed (col-12 is full width) -->
+       
         <div class="col task-table-wrapper">
             <table class="table table-bordered">
                 <thead class="table-light">
@@ -29,10 +29,8 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <!-- PO Number Column -->
-                            <td>@item.PurchaseOrderNum</td>
-                            <!-- Task Column -->
+                        <tr>                            
+                            <td>@item.PurchaseOrderNum</td>                            
                             <td class="d-flex justify-content-between align-items-center">
                                 <span>@item.CustomerTask</span>
                                 <div class="action-icons">

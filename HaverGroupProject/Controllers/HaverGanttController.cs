@@ -103,6 +103,8 @@ namespace HaverGroupProject.Controllers
             ViewData["EngineerID"] = new SelectList(_context.Engineers, "ID", "EngEmail", haverGantt.EngineerID);
             ViewData["MachineDescriptionID"] = new SelectList(_context.MachineDescriptions, "ID", "Class", haverGantt.MachineDescriptionID);
             ViewData["VendorId"] = new SelectList(_context.Vendors, "ID", "VendorName", haverGantt.VendorID);
+
+            PopulateDropDownLists(haverGantt);
             return View(haverGantt);
         }
 
