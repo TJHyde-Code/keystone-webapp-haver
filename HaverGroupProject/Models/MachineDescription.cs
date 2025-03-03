@@ -51,6 +51,9 @@ namespace HaverGroupProject.Models
         [Display(Name = "Spare Parts / Media")]
         public bool SparePartsSpareMedia { get; set; }
 
+        [Display(Name = "Spare Parts")]
+        public bool SpareParts { get; set; }
+
         [Display(Name = "Base")]
         public bool BaseFrame { get; set; }
 
@@ -65,5 +68,7 @@ namespace HaverGroupProject.Models
         public bool Disassembly { get; set; }
         //Navigations. 
         public ICollection<OperationsSchedule> OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
+
+        public ICollection<HaverGantt> HaverGantts { get; set; } = new HashSet<HaverGantt>();
     }
 }

@@ -1342,6 +1342,176 @@ namespace HaverGroupProject.Data
                     Console.WriteLine($"An error occurred while seeding operations schedule vendors: {ex.Message}");
                 }
 
+                try
+                {
+                    if (!context.HaverGantts.Any())
+                    {
+
+                        var today = DateTime.Today;
+
+
+                        var gantts = new List<HaverGantt>
+                        {
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746528",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
+                                Quantity = 2,
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-7),
+                                StartDate = today.AddDays(0),
+                                PromiseDate= today.AddDays(7),
+                                Progress = 0.6m
+                            },
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746537",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Thompson Machining").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123462").ID,  // Changed to SN123462
+                                Quantity = 2,
+                                GanttNotes = "Design changes completed. Awaiting final review.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-5),
+                                StartDate = today.AddDays(2),
+                                PromiseDate = today.AddDays(9),
+                                Progress = 0.6m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746538",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123467").ID,  // Changed to SN123467
+                                Quantity = 3,
+                                GanttNotes = "Approval pending for final design. Expected this week.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-7),
+                                StartDate = today.AddDays(4),
+                                PromiseDate = today.AddDays(12),
+                                Progress = 0.8m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746539",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123466").ID,  // Changed to SN123466
+                                Quantity = 1,
+                                GanttNotes = "Mechanical issues fixed. Project on track.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-10),
+                                StartDate = today.AddDays(5),
+                                PromiseDate = today.AddDays(15),
+                                Progress = 0.5m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746540",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123463").ID,  // Changed to SN123463
+                                Quantity = 4,
+                                GanttNotes = "Awaiting components from supplier. Potential delay.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-3),
+                                StartDate = today.AddDays(6),
+                                PromiseDate = today.AddDays(13),
+                                Progress = 0.4m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746541",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123468").ID,  // Changed to SN123468
+                                Quantity = 2,
+                                GanttNotes = "Design review completed, starting implementation phase.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-2),
+                                StartDate = today.AddDays(3),
+                                PromiseDate = today.AddDays(10),
+                                Progress = 0.7m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746542",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123464").ID,  // Changed to SN123464
+                                Quantity = 6,
+                                GanttNotes = "Progressing smoothly. Some minor adjustments needed.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-8),
+                                StartDate = today.AddDays(2),
+                                PromiseDate = today.AddDays(10),
+                                Progress = 0.9m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746543",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123469").ID,  // Changed to SN123469
+                                Quantity = 3,
+                                GanttNotes = "Design approval needed. Waiting for client's feedback.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-6),
+                                StartDate = today.AddDays(3),
+                                PromiseDate = today.AddDays(12),
+                                Progress = 0.5m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746544",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123470").ID,  // Changed to SN123470
+                                Quantity = 2,
+                                GanttNotes = "Materials sourced, awaiting delivery.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-4),
+                                StartDate = today.AddDays(7),
+                                PromiseDate = today.AddDays(14),
+                                Progress = 0.6m
+                            },
+
+                            new HaverGantt
+                            {
+                                PurchaseOrderNum = "18746545",
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,  // Changed to SN123471
+                                Quantity = 5,
+                                GanttNotes = "Awaiting supplier confirmation for delivery dates.",
+                                ApprvDwgRecvd = DateTime.Today.AddDays(-9),
+                                StartDate = today.AddDays(4),
+                                PromiseDate = today.AddDays(11),
+                                Progress = 0.3m
+                            }
+                        };               
+                        
+                        context.HaverGantts.AddRange(gantts);  
+                        context.SaveChanges();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"An error occured while seeding Gantts: {ex.Message}");
+                }
+
 
                 #endregion
 

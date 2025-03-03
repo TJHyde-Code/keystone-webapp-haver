@@ -3,6 +3,7 @@ using System;
 using HaverGroupProject.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HaverGroupProject.Data.HaverMigrations
 {
     [DbContext(typeof(HaverContext))]
-    partial class HaverContextModelSnapshot : ModelSnapshot
+    [Migration("20250302021131_annotationupdate")]
+    partial class annotationupdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
@@ -26,9 +29,6 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Property<string>("CustomerAddress")
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("CustomerArchived")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("CustomerContactName")
                         .HasMaxLength(50)
@@ -192,9 +192,6 @@ namespace HaverGroupProject.Data.HaverMigrations
                         .HasMaxLength(6)
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("SpareParts")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("SparePartsSpareMedia")
                         .HasColumnType("INTEGER");
 
@@ -334,9 +331,6 @@ namespace HaverGroupProject.Data.HaverMigrations
 
                     b.Property<string>("VendorAddress")
                         .HasColumnType("TEXT");
-
-                    b.Property<bool>("VendorArchived")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("VendorContactName")
                         .HasColumnType("TEXT");

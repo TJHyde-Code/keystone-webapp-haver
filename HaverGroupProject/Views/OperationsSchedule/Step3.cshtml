@@ -16,13 +16,10 @@
         <span asp-validation-for="MachineDescriptionID" class="text-danger"></span>
     </div>
 
-
+    <a asp-action="Step2" class="btn btn-success">Previous</a>
     <button type="submit" class="btn btn-primary">Next</button>
 
-    <button type="button" class="btn btn-primary" onclick="window.history.back()">Go Back</button>
-
         <div >
-            <button type="submit" class="btn btn-primary mt-2">Next</button>
             <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#machineModal">
                 Add New Machine
             </button>

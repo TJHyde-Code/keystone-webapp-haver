@@ -94,3 +94,175 @@ footer {
     font-size: 1.2rem;
 }
 
+/*Adding dark blue color to details page*/
+.details-header {
+    background-color: #0A2240; 
+    color: white; 
+    font-weight: bold; 
+    text-transform: uppercase;
+    margin: 0rem;
+}
+
+/*Adding some space around the print button on details page*/
+.btn-print {
+    margin-top: -55px; /* Moves the button UP */
+    margin-left: 20px; /* Adds space between the button and panel */
+    display: inline-block; /* Ensures correct placement */
+}
+/*Anastasias Styling for the Gantt portion*/
+
+
+
+.gantt-container {
+    margin-left: -10px;
+    margin-top: 0;
+    padding: 10px 20px;
+    padding-left: 30px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.task-table-wrapper {
+    position: relative;
+    left: 0;
+    top: 0;
+    padding: 9px 0px;
+    background-color: #f8f9fa;
+    z-index: 10;
+    overflow-y: hidden;
+}
+
+    .task-table-wrapper table {
+        border-collapse: collapse;
+        width: 100%;
+        
+    }
+
+    .task-table-wrapper th,
+    .task-table-wrapper td {
+        padding: 9px;
+        text-align: left;
+        border: 1px solid #f5f5f5;
+        border-top: none;
+        font-size: 12px;
+        white-space: nowrap;
+        overflow:hidden;
+        
+        
+    }
+
+
+    .task-table-wrapper tbody tr:nth-child(odd) {
+        background-color: #ffffff;
+    }
+
+    .task-table-wrapper tbody tr:nth-child(even) {
+        background-color: #f5f5f5;
+    }
+
+    .task-table-wrapper th {
+        background-color: white !important;
+        height: 45px;
+        padding: 19px;
+        font-size: 14px;
+        position: sticky;
+        top: 0;
+        background-color: #f8f9fa;
+        z-index: 11;
+    }
+
+.gantt-chart-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    flex-grow: 1;
+    height: auto;
+}
+
+.gantt-chart {
+    min-width: 200px;
+}
+
+.table > :not(:last-child) > :last-child > * {
+    border-bottom-color: #ddd;
+}
+
+.button-link {
+    appearance: none;
+    background-color: #fafbfc;
+    border: 1px solid rgba(27, 31, 35, 0.15);
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292e;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    list-style: none;
+    padding: 6px 16px;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    text-decoration: none;
+}
+
+    .button-link:hover {
+        background-color: #f3f4f6;
+        text-decoration: none;
+        transition-duration: 0.1s;
+    }
+
+    .button-link:disabled {
+        background-color: #fafbfc;
+        border-color: rgba(27, 31, 35, 0.15);
+        color: #959da5;
+        cursor: default;
+    }
+
+    .button-link:active {
+        background-color: #edeff2;
+        box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+        transition: none 0s;
+    }
+
+    .button-link:focus {
+        outline: 1px transparent;
+    }
+
+    .button-link:before {
+        display: none;
+    }
+
+.icon-link {
+    appearance: none;
+    background-color: #fafbfc;
+    border-radius: 6px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0 1px 0, rgba(255, 255, 255, 0.25) 0 1px 0 inset;
+    box-sizing: border-box;
+    color: #24292e;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 500;
+    line-height: 10px;
+    list-style: none;
+    position: relative;
+    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+    white-space: nowrap;
+    word-wrap: break-word;
+    text-decoration: none;
+    padding: 0 5px;
+}
+

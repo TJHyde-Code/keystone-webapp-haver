@@ -20,13 +20,6 @@ namespace HaverGroupProject.Models
         public Customer? Customer { get; set; }
 
 
-        ////Comment this out after seeding data updated to use the Machine Desc table
-        //[Display(Name = "Machine Description")]
-        //public string? MachineDesc { get; set; }
-
-        ////Comment this out
-        //[Display(Name = "Serial #")]
-        //public string? SerialNum { get; set; }
 
         [Display(Name = "Package Release Name")]
         public string? PackageReleaseName { get; set; }

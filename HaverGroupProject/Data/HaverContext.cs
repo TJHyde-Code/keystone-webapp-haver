@@ -24,6 +24,7 @@ namespace HaverGroupProject.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<MachineDescription> MachineDescriptions { get; set; }
 
+
         //Added override so instead of deleting it simply switches Archived to true
         public override int SaveChanges()
         {
@@ -47,6 +48,11 @@ namespace HaverGroupProject.Data
             return base.SaveChanges();
         }
 
+
+
+        public DbSet<HaverGantt> HaverGantts { get; set; }
+        
+       
 
 
         //ModelBuilder        
@@ -88,6 +94,8 @@ namespace HaverGroupProject.Data
             //    .WithMany()
             //    .HasForeignKey(o => o.NoteID)
             //    .OnDelete(DeleteBehavior.Restrict);
+
+            
 
 
             //Many-to-many RelationShip (OperationSchedule <-> Vendor)
