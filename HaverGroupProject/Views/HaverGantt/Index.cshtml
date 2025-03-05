@@ -10,10 +10,12 @@
     <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New Gantt</a>
 </div>
 
+
+
 <div class="container-fluid">
     <div class="row">
        
-        <div class="col task-table-wrapper">
+        <div class="col  col-12 col-lg-4 task-table-wrapper">
             <table class="table table-bordered">
                 <thead class="table-light">
                     <tr>
@@ -96,7 +98,8 @@
                         on_click: task => console.log("Clicked:", task),
                         on_date_change: (task, start, end) => updateTask(task, start, end),
                         on_progress_change: (task, progress) => updateTask(task, null, null, progress),
-                        custom_popup_html: task => `<b>${task.customer}</b> - ${task.progress}%`
+                        custom_popup_html: task => `<b>${task.customer}</b> - ${task.progress}%`,
+                        date_format: "YYYY-WW"  // This formats the display to show the week number (e.g., 2025-W01)
                     });
 
                     // Updates the task details on the server by sending a POST request with the modified task data.
