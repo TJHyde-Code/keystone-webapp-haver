@@ -111,6 +111,11 @@ footer {
 }
 /*Anastasias Styling for the Gantt portion*/
 
+.container task-table-wrapper {
+    margin-left: 0rem;
+    margin-right: 0rem;
+    max-width: 100%;
+}
 
 
 .gantt-container {
@@ -121,6 +126,7 @@ footer {
     background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    max-width:100%;
 }
 
 .task-table-wrapper {
@@ -266,3 +272,9 @@ footer {
     padding: 0 5px;
 }
 
+.gantt-index-container {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
