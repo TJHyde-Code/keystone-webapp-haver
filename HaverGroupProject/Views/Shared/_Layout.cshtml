@@ -11,71 +11,173 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     @await RenderSectionAsync("Stylesheets", required: false)
-    
+
+    <!-- Custom CSS for Sidebar -->
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #0A2240; /* Dark background */
+            color: #ecf0f1; /* Light text */
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 1000; /* Ensure sidebar stays above other content */
+        }
+
+            .sidebar.collapsed {
+                transform: translateX(-250px); /* Hide sidebar */
+            }
+
+        .sidebar-header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #34495e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+            .sidebar-header h3 {
+                margin: 0;
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
+
+            .sidebar-header .toggle-icon {
+                cursor: pointer;
+                font-size: 1.5rem;
+            }
+
+        .sidebar .nav-link {
+            color: #ecf0f1;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+            .sidebar .nav-link:hover {
+                background-color: #34495e; /* Hover effect */
+            }
+
+            .sidebar .nav-link i {
+                margin-right: 10px;
+                font-size: 1.2rem;
+            }
+
+        .main-content {
+            margin-left: 250px; /* Adjust for sidebar width */
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+            .main-content.collapsed {
+                margin-left: 0; /* Adjust when sidebar is collapsed */
+            }
+    </style>
 </head>
 <body>
-    <header>
-       <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="@Url.Action("Index", "Home")">
-            <img src="~/img/LOGO NIAGARA_SIDE SHIELD-BLUE.png" asp-append-version="true" alt="Company Logo" class="logo" style="height: 50px; width:auto;" />
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-            <ul class="navbar-nav flex-grow-1">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <!-- Sidebar Header -->
+        <div class="sidebar-header">
+            <h3>Dashboard</h3>
+            <div>
+                <!-- Close icon (visible when sidebar is open) -->
+                <i class="bi bi-x-lg toggle-icon close-icon" onclick="toggleSidebar()" aria-label="Close sidebar"></i>
                
+            </div>
+        </div>
 
-                <!-- Dropdown for Customers & Vendors -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Menu
+        <!-- Navigation Links -->
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a asp-controller="Home" asp-action="Index" class="nav-link">
+                    <i class="bi bi-house"></i> Home
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="OperationsSchedule" asp-action="Index" class="nav-link">
+                    <i class="bi bi-speedometer2"></i> Operations Schedule
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Customer" asp-action="Index" class="nav-link">
+                    <i class="bi bi-people"></i> Customers
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="Vendor" asp-action="Index" class="nav-link">
+                    <i class="bi bi-building"></i> Vendors
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="OperationsSchedule" asp-action="DownloadOperationsSchedules" class="nav-link">
+                    <i class="bi bi-download"></i> Download Schedules
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="HaverGantt" asp-action="Index" class="nav-link">
+                    <i class="bi bi-bar-chart-line"></i> Gantt Charts
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                
+                <div class="container-fluid">
+                    <!-- Logo (Moved to the left) -->
+                    <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                        <img src="~/img/LOGO NIAGARA_SIDE SHIELD-BLUE.png" asp-append-version="true" alt="Company Logo" class="logo" style="height: 50px; width:auto;" />
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" asp-controller="OperationsSchedule" asp-action="Index">Operations Schedule</a></li>
-                        <li><a class="dropdown-item" asp-controller="Customer" asp-action="Index">Customers</a></li>
-                        <li><a class="dropdown-item" asp-controller="Vendor" asp-action="Index">Vendors</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" asp-controller="OperationsSchedule" asp-action="DownloadOperationsSchedules">Download Operations Schedules</a></li>
-                        <li><a class="dropdown-item" asp-controller="HaverGantt" asp-action="Index">Gantts</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <partial name="_LoginPartial" />
-        </div>
+
+                    <!-- Rest of the navbar code -->
+                </div>
+            </nav>
+        </header>
         
-        <style>
-            .navbar-nav .nav-item {
-                border-right: 3px solid #ccc;
-                padding-right: 10px;
-            }
-            .navbar-nav .nav-item:last-child {
-                border-right: none;
-            }
-        </style>
-    </div>
-</nav>
-
-    </header>
-
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-   
-    
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Quasar Innovations for Haver Boecker Niagara @* - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+        <div>
+            <!-- Open icon (visible when sidebar is closed) -->
+            <i class="bi bi-list toggle-icon open-icon" onclick="toggleSidebar()" aria-label="Open sidebar"></i>
         </div>
-    </footer>
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+
+        <footer class="border-top footer text-muted">
+            <div class="container">
+                &copy; 2025 - Quasar Innovations for Haver Boecker Niagara
+            </div>
+        </footer>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        // JavaScript to Toggle Sidebar
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            if (sidebar && mainContent) {
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('collapsed');
+            }
+        }
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
