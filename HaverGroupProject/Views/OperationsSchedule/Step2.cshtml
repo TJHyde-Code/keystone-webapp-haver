@@ -18,7 +18,7 @@
             <span asp-validation-for="CustomerID" class="text-danger"></span>
         </div>
 
-        <a asp-action="Step1" class="btn btn-success">Previous</a>
+        <a asp-action="Step1" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
         <button type="submit" class="btn btn-primary">Next</button>
 
         <div>

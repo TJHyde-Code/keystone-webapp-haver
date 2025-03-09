@@ -16,19 +16,19 @@
 
             <div class="form-group mb-3">
                 <label asp-for="SalesOrdNum" class="form-label fw-bold">Sales Order Number</label>
-                <input asp-for="SalesOrdNum" class="form-control border-primary " , placeholder="0" value="" />
+                <input asp-for="SalesOrdNum" class="form-control border-primary " placeholder="0" />
                 <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="ExtSalesOrdNum" class="form-label fw-bold">Ext Sales Order Number</label>
-                <input asp-for="ExtSalesOrdNum" class="form-control border-primary " , placeholder="0" value="" />
+                <input asp-for="ExtSalesOrdNum" class="form-control border-primary " placeholder="0" />
                 <span asp-validation-for="ExtSalesOrdNum" class="text-danger"></span>
             </div>
 
             <div class="form-group mb-3">
                 <label asp-for="PackageReleaseName" class="form-label fw-bold"> Package Release Name</label>
-                <input asp-for="PackageReleaseName" class="form-control border-primary " , placeholder="Enter Package Release Number here" />
+                <input asp-for="PackageReleaseName" class="form-control border-primary " placeholder="Enter Package Release Number here" />
                 <span asp-validation-for="PackageReleaseName" class="text-danger"></span>
             </div>
             </div>
@@ -48,12 +48,7 @@
     </div>
         </div>
   
-
-    <button type="submit" class="btn btn-primary">Next</button>
-
     <button type="button" class="btn btn-primary" onclick="window.history.back()">Go Back</button>
-    <div class="text-center mt-4">
-        <button type="submit" class="btn btn-primary" px-5">Next</button>
-    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
     </form>
 </div>
