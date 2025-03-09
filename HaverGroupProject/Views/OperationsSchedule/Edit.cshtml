@@ -1,96 +1,150 @@
-﻿@model HaverGroupProject.Models.OperationsSchedule
+﻿@model HaverGroupProject.ViewModels.MultiStepOperationsScheduleViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Operations Schedule";
 }
 
-<h1>Edit</h1>
+<h2>Edit Operations Schedule</h2>
 
-<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-<h4>OperationsSchedule</h4>
-<hr />
-<form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Edit" method="post">
     <input type="hidden" asp-for="ID" />
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="SalesOrdNum" class="control-label"></label>
-                <input asp-for="SalesOrdNum" class="form-control" />
-                <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ExtSalesOrdNum" class="control-label"></label>
-                <input asp-for="ExtSalesOrdNum" class="form-control" />
-                <span asp-validation-for="ExtSalesOrdNum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerID" class="control-label"></label>
-                <select asp-for="CustomerID" class="form-control" asp-items="ViewBag.CustomerID"></select>
-                <span asp-validation-for="CustomerID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MachineDescriptionID" class="control-label"></label>
-                <input asp-for="MachineDescription" class="form-control" />
-                <span asp-validation-for="MachineDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MachineDescriptionID" class="control-label"></label>
-                <input asp-for="MachineDescription.SerialNumber" class="form-control" />
-                <span asp-validation-for="MachineDescription.SerialNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PackageReleaseName" class="control-label"></label>
-                <input asp-for="PackageReleaseName" class="form-control" />
-                <span asp-validation-for="PackageReleaseName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="KickoffMeeting" class="control-label"></label>
-                <input asp-for="KickoffMeeting" class="form-control" />
-                <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ReleaseApprovalDrawing" class="control-label"></label>
-                <input asp-for="ReleaseApprovalDrawing" class="form-control" />
-                <span asp-validation-for="ReleaseApprovalDrawing" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PONum" class="control-label"></label>
-                <input asp-for="PONum" class="form-control" />
-                <span asp-validation-for="PONum" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PODueDate" class="control-label"></label>
-                <input asp-for="PODueDate" class="form-control" />
-                <span asp-validation-for="PODueDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DeliveryDate" class="control-label"></label>
-                <input asp-for="DeliveryDate" class="form-control" />
-                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-8">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <label class="control-label"> Remove Vendor</label> <button type="button" id="btnRight" class="btn btn-danger btn-sm">
-                        <strong>-</strong>
-                    </button>
-                    @Html.ListBox("selectedOptions", (MultiSelectList)ViewBag.selOpts, new { @size = 10, @class = "form-control" })
-                </div>
 
-                <div class="form-group col-md-6">
-                    <label class="control-label"> Choose Vendor </label> <button type="button" id="btnLeft" class="btn btn-success btn-sm">
-                        <strong>+</strong>
-                    </button>
-                    @Html.ListBox("availOptions", (MultiSelectList)ViewBag.availOpts, new { @size = 10, @class = "form-control" })
+    <div class="accordion" id="editAccordion">
+        <!-- Step 1: Operations Schedule Details -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                    Step 1: Operations Schedule Details
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                    <div class="mb-3">
+                        <label asp-for="SalesOrdNum" class="form-label">Sales Order Number</label>
+                        <input asp-for="SalesOrdNum" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ExtSalesOrdNum" class="form-label">External Sales Order Number</label>
+                        <input asp-for="ExtSalesOrdNum" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="PackageReleaseName" class="form-label">Package Release Name</label>
+                        <input asp-for="PackageReleaseName" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="KickoffMeeting" class="form-label">Kickoff Meeting</label>
+                        <input asp-for="KickoffMeeting" type="date" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label asp-for="ReleaseApprovalDrawing" class="form-label">Release Approval Drawing</label>
+                        <input asp-for="ReleaseApprovalDrawing" type="date" class="form-control" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <input type="submit" id="btnSubmit" value="Save" class="btn btn-primary" />
-    </div>
+
+        <!-- Step 2: Customer Selection -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                    Step 2: Select Customer
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label asp-for="CustomerID" class="form-label">Customer</label>
+                    <select asp-for="CustomerID" class="form-control" asp-items="Model.Customers">
+                        <option value="">-- Select Customer --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Machine Description -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                    Step 3: Machine Description
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label asp-for="MachineDescriptionID" class="form-label">Machine</label>
+                    <select asp-for="MachineDescriptionID" class="form-control" asp-items="Model.Machines">
+                        <option value="">-- Select Machine --</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Vendors -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                    Step 4: Vendors
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <label asp-for="SelectedVendorIDs" class="form-label">Vendors</label>
+                    <select asp-for="SelectedVendorIDs" class="form-control" asp-items="Model.Vendors" multiple></select>
+
+                    <div class="mb-3 mt-3">
+                        <label asp-for="ProductionOrderNumber" class="form-label">Production Order Number</label>
+                        <input asp-for="ProductionOrderNumber" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="PODueDate" class="form-label">PO Due Date</label>
+                        <input asp-for="PODueDate" type="date" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="DeliveryDate" class="form-label">Delivery Date</label>
+                        <input asp-for="DeliveryDate" type="date" class="form-control" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Additional Details -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive">
+                    Step 5: Additional Details
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <div class="mb-3">
+                        <label asp-for="Scope" class="form-label">Scope</label>
+                        <input asp-for="Scope" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="BudgetAssembHrs" class="form-label">Budget Assembly Hours</label>
+                        <input asp-for="BudgetAssembHrs" class="form-control" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ActualAssembHours" class="form-label">Actual Assembly Hours</label>
+                        <input asp-for="ActualAssembHours" class="form-control" type="number" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="ActualReworkHours" class="form-label">Actual Rework Hours</label>
+                        <input asp-for="ActualReworkHours" class="form-control" type="number" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="OtherComments" class="form-label">Other Comments</label>
+                        <textarea asp-for="OtherComments" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
 
 </form>
 </div>
