@@ -249,7 +249,7 @@ namespace HaverGroupProject.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Step1(MultiStepOperationsScheduleViewModel model)
+        public async Task<IActionResult> Step1(MultiStepOperationsScheduleViewModel model, string? save)
         {
             if (ModelState.IsValid)
             {
@@ -279,6 +279,12 @@ namespace HaverGroupProject.Controllers
                 }
 
                 await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrEmpty(save))
+                {
+                    return RedirectToAction("Index");
+                }
+
                 return RedirectToAction("Step2", new { id = operationsSchedule.ID });
             }
             return View(model);
@@ -308,7 +314,7 @@ namespace HaverGroupProject.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Step2(MultiStepOperationsScheduleViewModel model)
+        public async Task<IActionResult> Step2(MultiStepOperationsScheduleViewModel model, string? save)
         {
             if (ModelState.IsValid)
             {
@@ -319,6 +325,11 @@ namespace HaverGroupProject.Controllers
 
                 _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrEmpty(save))
+                {
+                    return RedirectToAction("Index");
+                }
 
                 return RedirectToAction("Step3", new { id = operationsSchedule.ID });
             }
@@ -352,7 +363,7 @@ namespace HaverGroupProject.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Step3(MultiStepOperationsScheduleViewModel model)
+        public async Task<IActionResult> Step3(MultiStepOperationsScheduleViewModel model, string? save)
         {
             if (ModelState.IsValid)
             {
@@ -363,6 +374,11 @@ namespace HaverGroupProject.Controllers
 
                 _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrEmpty(save))
+                {
+                    return RedirectToAction("Index");
+                }
 
                 return RedirectToAction("Step4", new { id = operationsSchedule.ID });
             }
@@ -407,7 +423,7 @@ namespace HaverGroupProject.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Step4(MultiStepOperationsScheduleViewModel model)
+        public async Task<IActionResult> Step4(MultiStepOperationsScheduleViewModel model, string? save)
         {
             if (ModelState.IsValid)
             {
@@ -437,6 +453,11 @@ namespace HaverGroupProject.Controllers
 
                 _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrEmpty(save))
+                {
+                    return RedirectToAction("Index");
+                }
 
                 return RedirectToAction("Step5", new { id = operationsSchedule.ID });
             }
@@ -485,7 +506,7 @@ namespace HaverGroupProject.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Step5(MultiStepOperationsScheduleViewModel model)
+        public async Task<IActionResult> Step5(MultiStepOperationsScheduleViewModel model, string? save)
         {
             if (ModelState.IsValid)
             {
@@ -522,6 +543,11 @@ namespace HaverGroupProject.Controllers
 
                 _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
+
+                if (!string.IsNullOrEmpty(save))
+                {
+                    return RedirectToAction("Index");
+                }
 
                 return RedirectToAction("Index");  
             }
