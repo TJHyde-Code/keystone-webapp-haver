@@ -224,10 +224,25 @@ namespace HaverGroupProject.Controllers
         //STEP 1
         //This loads the form where the user fills out the OperationsSchedule details
         //GET
-        public IActionResult Step1()
+        public async Task<IActionResult> Step1(int? id)
         {
-            var viewModel = new MultiStepOperationsScheduleViewModel();
-            return View(viewModel);
+            if (id.HasValue)
+            {
+                var operationsSchedule = await _context.OperationsSchedules.FindAsync(id.Value);
+                if (operationsSchedule == null) return NotFound();
+
+                var viewModel = new MultiStepOperationsScheduleViewModel
+                {
+                    ID = operationsSchedule.ID,
+                    SalesOrdNum = operationsSchedule.SalesOrdNum,
+                    ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
+                    PackageReleaseName = operationsSchedule.PackageReleaseName,
+                    KickoffMeeting = operationsSchedule.KickoffMeeting,
+                    ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing
+                };
+                return View(viewModel);
+            }
+            return View(new MultiStepOperationsScheduleViewModel());
         }
 
         //This saves the partial data and redirects to Step 2
@@ -238,18 +253,32 @@ namespace HaverGroupProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                var operationsSchedule = new OperationsSchedule
+                var operationsSchedule = await _context.OperationsSchedules.FindAsync(model.ID);
+
+                if (operationsSchedule == null)
                 {
-                    SalesOrdNum = model.SalesOrdNum,
-                    ExtSalesOrdNum = model.ExtSalesOrdNum,
-                    PackageReleaseName = model.PackageReleaseName,
-                    KickoffMeeting = model.KickoffMeeting,
-                    ReleaseApprovalDrawing = model.ReleaseApprovalDrawing
-                };
+                    operationsSchedule = new OperationsSchedule
+                    {
+                        SalesOrdNum = model.SalesOrdNum,
+                        ExtSalesOrdNum = model.ExtSalesOrdNum,
+                        PackageReleaseName = model.PackageReleaseName,
+                        KickoffMeeting = model.KickoffMeeting,
+                        ReleaseApprovalDrawing = model.ReleaseApprovalDrawing
+                    };
+                    _context.OperationsSchedules.Add(operationsSchedule);
+                }
+                else
+                {
+                    operationsSchedule.SalesOrdNum = model.SalesOrdNum;
+                    operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
+                    operationsSchedule.PackageReleaseName = model.PackageReleaseName;
+                    operationsSchedule.KickoffMeeting = model.KickoffMeeting;
+                    operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
 
-                _context.OperationsSchedules.Add(operationsSchedule);
+                    _context.OperationsSchedules.Update(operationsSchedule);
+                }
+
                 await _context.SaveChangesAsync();
-
                 return RedirectToAction("Step2", new { id = operationsSchedule.ID });
             }
             return View(model);
@@ -258,19 +287,21 @@ namespace HaverGroupProject.Controllers
         //STEP 2
         //This loads the form to select or create a customer
         //GET
-        public async Task<IActionResult> Step2(int id)
+        public async Task<IActionResult> Step2(int? id)
         {
-            var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
-            if (operationsSchedule == null) return NotFound();
+                var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
+                if (operationsSchedule == null) return NotFound();
 
-            var viewModel = new MultiStepOperationsScheduleViewModel
-            {
-                ID = operationsSchedule.ID,
-                Customers = _context.Customers
+                var viewModel = new MultiStepOperationsScheduleViewModel
+                {
+                    ID = operationsSchedule.ID,
+                    CustomerID = operationsSchedule.CustomerID,
+                    Customers = _context.Customers
                     .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
                     .ToList()
-            };
-            return View(viewModel);
+                };
+                return View(viewModel);
+
         }
 
         //This saves the partial data and redirects to Step 3
@@ -285,11 +316,16 @@ namespace HaverGroupProject.Controllers
                 if (operationsSchedule == null) return NotFound();
 
                 operationsSchedule.CustomerID = model.CustomerID;
-                _context.Update(operationsSchedule);
+
+                _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Step3", new { id = operationsSchedule.ID });
             }
+            model.Customers = _context.Customers
+                .Select(c => new SelectListItem {  Value = c.ID.ToString(), Text = c.CustomerName })
+                .ToList();
+
             return View(model);
         }
 
@@ -304,6 +340,7 @@ namespace HaverGroupProject.Controllers
             var viewModel = new MultiStepOperationsScheduleViewModel
             {
                 ID = operationsSchedule.ID,
+                MachineDescriptionID = operationsSchedule.MachineDescriptionID,
                 Machines = _context.MachineDescriptions
                     .Select(m => new SelectListItem { Value = m.ID.ToString(), Text = $"{m.SerialNumber} - {m.Size} - {m.Class} - {m.Deck}" })
                     .ToList()
@@ -322,12 +359,17 @@ namespace HaverGroupProject.Controllers
                 var operationsSchedule = await _context.OperationsSchedules.FindAsync(model.ID);
                 if (operationsSchedule == null) return NotFound();
 
-                operationsSchedule.MachineDescriptionID = model.MachineDescriptionID ?? 0;
-                _context.Update(operationsSchedule);
+                operationsSchedule.MachineDescriptionID = model.MachineDescriptionID;
+
+                _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Step4", new { id = operationsSchedule.ID });
             }
+            model.Machines = _context.MachineDescriptions
+                .Select(m => new SelectListItem { Value = m.ID.ToString(), Text = $"{m.SerialNumber} - {m.Size} - {m.Class} - {m.Deck}"})
+                .ToList();
+
             return View(model);
         }
 
@@ -345,11 +387,12 @@ namespace HaverGroupProject.Controllers
             var viewModel = new MultiStepOperationsScheduleViewModel
             {
                 ID = operationsSchedule.ID,
+                SelectedVendorIDs = operationsSchedule.OperationsScheduleVendors
+                    .Select(ov => ov.VendorID.ToString()).ToArray(),
+
                 Vendors = _context.Vendors
                     .Select(v => new SelectListItem { Value = v.ID.ToString(), Text = v.VendorName })
                     .ToList(),
-                SelectedVendorIDs = operationsSchedule.OperationsScheduleVendors
-                    .Select(ov => ov.VendorID.ToString()).ToArray(),
 
                 ProductionOrderNumber = operationsSchedule.ProductionOrderNumber,
                 PODueDate = operationsSchedule.PODueDate,
@@ -374,6 +417,8 @@ namespace HaverGroupProject.Controllers
 
                 if (operationsSchedule == null) return NotFound();
 
+                operationsSchedule.OperationsScheduleVendors.Clear();
+
                 if (model.SelectedVendorIDs != null)
                 {
                     foreach (var vendorID in model.SelectedVendorIDs)
@@ -390,11 +435,15 @@ namespace HaverGroupProject.Controllers
                 operationsSchedule.PODueDate = model.PODueDate;
                 operationsSchedule.DeliveryDate = model.DeliveryDate;
 
-                _context.Update(operationsSchedule);
+                _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Step5", new { id = operationsSchedule.ID });
             }
+            model.Vendors = _context.Vendors
+                .Select(v => new SelectListItem {  Value = v.ID.ToString(), Text = v.VendorName })
+                .ToList();
+
             return View(model);
         }
 
@@ -461,27 +510,17 @@ namespace HaverGroupProject.Controllers
 
                 if (operationsSchedule.Note == null)
                 {
-                    operationsSchedule.Note = new Note
-                    {
-                        PreOrder = model.PreOrder ?? "",
-                        Scope = model.Scope ?? "",
-                        BudgetAssembHrs = model.BudgetAssembHrs ?? "",
-                        ActualAssembHours = model.ActualAssembHours ?? 0,
-                        ActualReworkHours = model.ActualReworkHours ?? 0,
-                        OtherComments = model.OtherComments ?? ""
-                    };
+                    operationsSchedule.Note = new Note();
                 }
-                else
-                {
-                    operationsSchedule.Note.PreOrder = model.PreOrder ?? "";
-                    operationsSchedule.Note.Scope = model.Scope ?? "";
-                    operationsSchedule.Note.BudgetAssembHrs = model.BudgetAssembHrs ?? "";
-                    operationsSchedule.Note.ActualAssembHours = model.ActualAssembHours ?? 0;
-                    operationsSchedule.Note.ActualReworkHours = model.ActualReworkHours ?? 0;
-                    operationsSchedule.Note.OtherComments = model.OtherComments ?? "";
-                }
+                
+                operationsSchedule.Note.PreOrder = model.PreOrder ?? "";
+                operationsSchedule.Note.Scope = model.Scope ?? "";
+                operationsSchedule.Note.BudgetAssembHrs = model.BudgetAssembHrs ?? "";
+                operationsSchedule.Note.ActualAssembHours = model.ActualAssembHours ?? 0;
+                operationsSchedule.Note.ActualReworkHours = model.ActualReworkHours ?? 0;
+                operationsSchedule.Note.OtherComments = model.OtherComments ?? "";
 
-                _context.Update(operationsSchedule);
+                _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("Index");  
