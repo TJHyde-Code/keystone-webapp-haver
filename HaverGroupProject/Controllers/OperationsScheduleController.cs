@@ -112,25 +112,51 @@ namespace HaverGroupProject.Controllers
         // GET: OperationsSchedule/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var operationsSchedule = await _context.OperationsSchedules
-                .Include(o => o.OperationsScheduleVendors).ThenInclude(o => o.Vendor)
+                .Include(o => o.Customer)
+                .Include(o => o.Engineer)
+                .Include(o => o.MachineDescription)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(v => v.Vendor)
+                .Include(o => o.Note)
                 .FirstOrDefaultAsync(o => o.ID == id);
 
-            if (operationsSchedule == null)
+            if (operationsSchedule == null) return NotFound();
+
+            var viewModel = new MultiStepOperationsScheduleViewModel
             {
-                return NotFound();
-            }
+                ID = operationsSchedule.ID,
+                SalesOrdNum = operationsSchedule.SalesOrdNum,
+                ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
+                PackageReleaseName = operationsSchedule.PackageReleaseName,
+                KickoffMeeting = operationsSchedule.KickoffMeeting,
+                ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing,
 
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "CustomerName", operationsSchedule.CustomerID);
-            ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID", operationsSchedule.VendorID);
+                CustomerID = operationsSchedule.CustomerID,
+                Customers = _context.Customers
+                    .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
+                    .ToList(),
 
-            PopulateAssignedVendorData(operationsSchedule);
-            return View(operationsSchedule);
+                MachineDescriptionID = operationsSchedule.MachineDescriptionID,
+                Machines = _context.MachineDescriptions
+                    .Select(m => new SelectListItem { Value = m.ID.ToString(), Text = $"{m.SerialNumber} - {m.Size} - {m.Class} - {m.Deck}" })
+                    .ToList(),
+
+                SelectedVendorIDs = operationsSchedule.OperationsScheduleVendors
+                    .Select(ov => ov.VendorID.ToString()).ToArray(),
+                Vendors = _context.Vendors
+                    .Select(v => new SelectListItem { Value = v.ID.ToString(), Text = v.VendorName })
+                    .ToList(),
+
+                ProductionOrderNumber = operationsSchedule.ProductionOrderNumber,
+                PODueDate = operationsSchedule.PODueDate,
+                DeliveryDate = operationsSchedule.DeliveryDate,
+
+                PreOrder = operationsSchedule.Note?.PreOrder,
+                Scope = operationsSchedule.Note?.Scope,
+                BudgetAssembHrs = operationsSchedule.Note?.OtherComments
+            };
+
+            return View(viewModel);
         }
 
         // POST: OperationsSchedule/Edit/5
@@ -138,48 +164,69 @@ namespace HaverGroupProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,SalesOrdNum,ExtSalesOrdNum,CustomerID,MachineDesc,SerialNum,PackageReleaseName,KickoffMeeting,ReleaseApprovalDrawing,VendorID,PONum,PODueDate,DeliveryDate,InstalledMedia,SparePartsSpareMedia,BaseFrame,AirSeal,CoatingLining,Disassebmly")] OperationsSchedule operationsSchedule, string[] selectedOptions)
+        public async Task<IActionResult> Edit(MultiStepOperationsScheduleViewModel model)
         {
-            var operationsScheduleToUpdate = await _context.OperationsSchedules
-                .Include(o => o.Customer)
-                .Include(o => o.OperationsScheduleVendors).ThenInclude(o => o.Vendor)
-                .FirstOrDefaultAsync (o => o.ID == id);
-
-            if (operationsScheduleToUpdate == null)
+            if (ModelState.IsValid)
             {
-                return NotFound();
+                var operationsSchedule = await _context.OperationsSchedules
+                    .Include(o => o.OperationsScheduleVendors)
+                    .FirstOrDefaultAsync(o => o.ID == model.ID);
+
+                if (operationsSchedule == null) return NotFound();
+
+                operationsSchedule.SalesOrdNum = model.SalesOrdNum;
+                operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
+                operationsSchedule.PackageReleaseName = model.PackageReleaseName;
+                operationsSchedule.KickoffMeeting = model.KickoffMeeting;
+                operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
+                operationsSchedule.CustomerID = model.CustomerID;
+                operationsSchedule.MachineDescriptionID = model.MachineDescriptionID;
+                operationsSchedule.ProductionOrderNumber = model.ProductionOrderNumber;
+                operationsSchedule.PODueDate = model.PODueDate;
+                operationsSchedule.DeliveryDate = model.DeliveryDate;
+
+                if (operationsSchedule.Note == null)
+                {
+                    operationsSchedule.Note = new Note
+                    {
+                        PreOrder = model.PreOrder ?? "",
+                        Scope = model.Scope ?? "",
+                        BudgetAssembHrs = model.BudgetAssembHrs ?? "",
+                        ActualAssembHours = model.ActualAssembHours ?? 0,
+                        ActualReworkHours = model.ActualReworkHours ?? 0,
+                        OtherComments = model.OtherComments ?? ""
+                    };
+                }
+                else
+                {
+                    operationsSchedule.Note.PreOrder = model.PreOrder ?? "";
+                    operationsSchedule.Note.Scope = model.Scope ?? "";
+                    operationsSchedule.Note.BudgetAssembHrs = model.BudgetAssembHrs ?? "";
+                    operationsSchedule.Note.ActualAssembHours = model.ActualAssembHours ?? 0;
+                    operationsSchedule.Note.ActualReworkHours = model.ActualReworkHours ?? 0;
+                    operationsSchedule.Note.OtherComments = model.OtherComments ?? "";
+                }
+
+                _context.Update(operationsSchedule);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+
             }
 
-            UpdateOperationsScheduleVendors(selectedOptions, operationsScheduleToUpdate);
+            model.Customers = _context.Customers
+                .Select(c => new SelectListItem {  Value = c.ID.ToString(), Text = c.CustomerName })
+                .ToList();
 
-            if (await TryUpdateModelAsync<OperationsSchedule>(operationsScheduleToUpdate, "", o => o.Vendor))
-            {
-                try
-                {
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction("Details", new { operationsScheduleToUpdate.ID });
-                }
-                catch(RetryLimitExceededException)
-                {
-                    ModelState.AddModelError("", "Unable to save changes after multiple attemtps.");
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OperationsScheduleExists(operationsScheduleToUpdate.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-            }
-            ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "ID", operationsScheduleToUpdate.CustomerID);
-            ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID", operationsScheduleToUpdate.VendorID);
+            model.Machines = _context.MachineDescriptions
+                .Select(m => new SelectListItem { Value = m.ID.ToString(), Text = $"{m.SerialNumber} - {m.Size} - {m.Class} - {m.Deck}" })
+                .ToList();
 
-            PopulateAssignedVendorData(operationsScheduleToUpdate);
-            return View(operationsScheduleToUpdate);
+            model.Vendors = _context.Vendors
+                .Select(v => new SelectListItem { Value = v.ID.ToString(), Text = v.VendorName })
+                .ToList();
+
+            return View(model);
         }
 
         // GET: OperationsSchedule/Delete/5
