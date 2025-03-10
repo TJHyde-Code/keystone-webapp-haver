@@ -104,8 +104,9 @@
 
                 <!-- Submit Button -->
                 <div class="text-center mt-3">
-                    <a asp-action="Step4" class="btn btn-success">Previous</a>
+                    <a asp-action="Step4" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
                     <button type="submit" class="btn btn-success px-4">Finish & Save</button>
+                    <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
                 </div>
             </form>
         </div>

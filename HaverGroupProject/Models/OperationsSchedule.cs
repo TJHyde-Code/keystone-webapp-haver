@@ -68,5 +68,8 @@ namespace HaverGroupProject.Models
         [Display(Name = "Vendors")]
         public ICollection<OperationsScheduleVendor> OperationsScheduleVendors { get; set; } = new HashSet<OperationsScheduleVendor>();
 
+        [Display(Name = "Machines")]
+        public ICollection<OperationsScheduleMachine> OperationsScheduleMachines { get; set; } = new HashSet<OperationsScheduleMachine>();
+
     }
 }

@@ -16,8 +16,9 @@
         <span asp-validation-for="MachineDescriptionID" class="text-danger"></span>
     </div>
 
-    <a asp-action="Step2" class="btn btn-success">Previous</a>
+    <a asp-action="Step2" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
     <button type="submit" class="btn btn-primary">Next</button>
+    <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
 
         <div >
             <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#machineModal">

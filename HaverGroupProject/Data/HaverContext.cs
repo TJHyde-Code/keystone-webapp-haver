@@ -17,6 +17,7 @@ namespace HaverGroupProject.Data
         public DbSet<Vendor> Vendors { get; set; }
 
         public DbSet<OperationsScheduleVendor> OperationsScheduleVendors { get; set; }
+        public DbSet<OperationsScheduleMachine> OperationsScheduleMachines { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Engineer> Engineers { get; set; }     
@@ -116,6 +117,11 @@ namespace HaverGroupProject.Data
             //Many to Many OperationsScheduleVendor Primary Key
             modelBuilder.Entity<OperationsScheduleVendor>()
                 .HasKey(t => new { t.VendorID, t.OperationsScheduleID });
+
+            //Many to Many OperationsScheduleMachine Primary Key
+            modelBuilder.Entity<OperationsScheduleMachine>()
+                .HasKey(t => new { t.MachineDescriptionID, t.OperationsScheduleID });
+            
 
             //Any Vendors that has Archived = true will not show up in queries
             modelBuilder.Entity<Vendor>().HasQueryFilter(v => !v.VendorArchived);

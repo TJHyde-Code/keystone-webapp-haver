@@ -52,8 +52,9 @@
             </button>
     </div>
 
-    <a asp-action="Step3" class="btn btn-success">Previous</a>
+    <a asp-action="Step3" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
     <button type="submit" class="btn btn-success">Next</button>
+    <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
 
 </form>
 </div>
