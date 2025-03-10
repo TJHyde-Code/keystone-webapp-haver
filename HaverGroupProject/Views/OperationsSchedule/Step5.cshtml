@@ -6,6 +6,12 @@
 
 <h2>Step 5: Machine Details & Notes</h2>
 
+
+@*For Demo purposes(MT)*@
+<div>
+    <button type="button" class="btn btn-primary mt-3" onclick="autofillForm()">Demo</button>
+</div>
+
 <div class="container">
     <div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
         <div class="card-body">
@@ -81,9 +87,17 @@
                             <label asp-for="ActualReworkHours" class="form-label fw-bold">Actual Rework Hours</label>
                             <input asp-for="ActualReworkHours" class="form-control border-primary" type="number" placeholder="Enter Hours">
                         </div>
+                        <!-- Comment out previous note section
                         <div class="mb-3">
                             <label asp-for="OtherComments" class="form-label fw-bold">Other Comments</label>
                             <textarea asp-for="OtherComments" class="form-control border-primary" rows="4" placeholder="Enter additional comments"></textarea>
+                        </div>
+                        -->
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="OtherComments" class="form-label fw-bold">Other Comments</label>
+                            <textarea asp-for="OtherComments" class="form-control border-primary" rows="15" placeholder="Enter additional comments"></textarea>
                         </div>
                     </div>
                 </div>
@@ -98,3 +112,34 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/progress.js"></script>
+
+
+    @* For demo purposes only *@
+    <script>
+        function autofillForm() {
+            // Set demo values for the fields
+            document.getElementById('NamePlateOrdered').checked = true;
+            document.getElementById('NameplateRecieved').checked = true;
+            document.getElementById('InstalledMedia').checked = false;
+            document.getElementById('SparePartsSpareMedia').checked = false;
+            document.getElementById('BaseFrame').checked = true;
+            document.getElementById('AirSeal').checked = false;
+            document.getElementById('CoatingLining').checked = false;
+            document.getElementById('Disassembly').checked = false;
+            document.getElementById('PreOrder').value = 'Notes have been added';
+            document.getElementById('Scope').value = 'Scope has been added';
+            document.getElementById('BudgetAssembHrs').value = '25';
+            document.getElementById('ActualAssembHours').value = '28';
+            document.getElementById('ActualReworkHours').value = '5';
+            document.getElementById('OtherComments').value = 'Here is where the additional comments will go';
+        }
+    </script>
+
+}
