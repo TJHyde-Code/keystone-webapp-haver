@@ -28,7 +28,7 @@ namespace HaverGroupProject.ViewModels
         public DateTime? ReleaseApprovalDrawing { get; set; }
 
         //Vendor fields
-        [Display(Name = "Production Order Number")]
+        [Display(Name = "Purchase Order Number")]
         public string? ProductionOrderNumber { get; set; }
 
         [Display(Name = "PO Due Date")]
