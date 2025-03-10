@@ -66,5 +66,9 @@ namespace HaverGroupProject.ViewModels
         [Display(Name = "Vendors")]
         public List<SelectListItem>? Vendors { get; set; }
         public string[]? SelectedVendorIDs { get; set; }
+
+        [Display(Name = "Machines")]
+        public List<SelectListItem>? SelectMachines { get; set; }
+        public string[]? SelectedMachineID { get; set; }
     }
 }

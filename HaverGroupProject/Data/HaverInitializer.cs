@@ -1342,6 +1342,28 @@ namespace HaverGroupProject.Data
                     Console.WriteLine($"An error occurred while seeding operations schedule vendors: {ex.Message}");
                 }
 
+                //Seed Data for OperationShecduleMachine M:M
+                try
+                {
+                    if (!context.OperationsScheduleMachines.Any())
+                    {
+                        context.OperationsScheduleMachines.AddRange(
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 1,
+                                MachineDescriptionID = 1,
+                            }
+                        );
+                        context.SaveChanges();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine($"An error occured while seeding Operation Schedule Machines: {ex.Message}");
+                }
+
                 try
                 {
                     if (!context.HaverGantts.Any())
