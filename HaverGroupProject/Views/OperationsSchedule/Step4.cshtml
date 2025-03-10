@@ -5,6 +5,12 @@
 }
 
 <h2>Step 4: Select or Create a Vendor</h2>
+
+@*For Demo purposes(MT)*@
+<div>
+    <button type="button" class="btn btn-primary mt-3" onclick="autofillForm()">Demo</button>
+</div>
+
 <div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
 
 <form asp-action="Step4" method="post">
@@ -90,3 +96,24 @@
         });
     });
 </script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script src="~/js/progress.js"></script>
+
+
+    @* For demo purposes only *@
+    <script>
+        function autofillForm() {
+            // Set demo values for the fields
+            document.getElementById('SelectedVendorIDs').value = '3';
+            document.getElementById('ProductionOrderNumber').value = '12345678';
+            document.getElementById('PODueDate').value = '2025-03-19';
+            document.getElementById('DeliveryDate').value = '2025-03-26';
+        }
+    </script>
+
+}
