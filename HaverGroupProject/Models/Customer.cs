@@ -8,7 +8,7 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Customer's Name")]
         [Required(ErrorMessage = "Customer Name is required")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
+        [RegularExpression(@"^[a-zA-Z ]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         [StringLength(30, ErrorMessage = "Customer's Name cannot be longer than 30 characters long. ")]
         public string? CustomerName { get; set; }
 
