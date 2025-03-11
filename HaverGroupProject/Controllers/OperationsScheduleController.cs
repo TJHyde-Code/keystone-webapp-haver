@@ -436,6 +436,36 @@ namespace HaverGroupProject.Controllers
             return View(model);
         }
 
+        // POST: AddMachineToSchedule
+    [HttpPost]
+    public async Task<IActionResult> AddMachineToSchedule(int machineDescriptionId, int operationsScheduleId)
+    {
+        // Find the operations schedule by ID
+        var operationsSchedule = await _context.OperationsSchedules.FindAsync(operationsScheduleId);
+        if (operationsSchedule == null)
+        {
+            return NotFound(); // If the operations schedule is not found
+        }
+
+        // Find the machine description by ID
+        var machineDescription = await _context.MachineDescriptions.FindAsync(machineDescriptionId);
+        if (machineDescription == null)
+        {
+            return NotFound(); // If the machine description is not found
+        }
+
+        // Link the machine description to the operations schedule
+        operationsSchedule.MachineDescriptionID = machineDescription.ID;
+
+        // Save the changes to the database
+        _context.Update(operationsSchedule);
+        await _context.SaveChangesAsync();
+
+        // Optionally, return a success status or redirect to the next step
+        return Json(new { success = true });
+    }
+
+
         //STEP 4
         //This loads the form to select or create a Vendor
         //GET
