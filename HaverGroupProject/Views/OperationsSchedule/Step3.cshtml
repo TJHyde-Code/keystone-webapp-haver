@@ -29,9 +29,12 @@
     </form>
 </div>
 
-<!-- Display the newly added machine -->
+<!-- Display the list of newly added machines -->
 <div class="mt-3">
-    <label id="machineLabel" class="fw-bold">No machine added yet.</label>
+    <h3>Machines Added:</h3>
+    <ul id="machinesList" class="list-group">
+        <!-- New machine items will be appended here -->
+    </ul>
 </div>
 
 <!-- Machine Modal -->
@@ -115,6 +118,12 @@
     $(document).ready(function () {
         console.log("jQuery is loaded and working!");
 
+        // Clear validation errors and reset the form when the modal is shown
+        $('#machineModal').on('shown.bs.modal', function () {
+            $('#serialNumberError, #sizeError, #classError, #deckError').text(''); // Clear error messages
+            $('#machineForm')[0].reset(); // Reset the form fields
+        });
+
         // When the "Save" button inside the modal is clicked
         $('#saveMachine').click(function (event) {
             event.preventDefault(); // Prevent form submission
@@ -161,17 +170,37 @@
             }
 
             // AJAX request to create the machine
+            var token = $('input[name="__RequestVerificationToken"]').val();
             $.ajax({
                 url: '/MachineDescription/CreateMachineModal',
                 type: 'POST',
                 data: JSON.stringify(machineData), // Send data as JSON
                 contentType: 'application/json',
+                Headers: {
+                    'RequestVerificationToken':token
+                },
                 success: function (response) {
                     if (response.success) {
                         // Close the modal
                         $('#machineModal').modal('hide');
-                        // Update the label with the new machine's details
-                        $('#machineLabel').text("New Machine Added: " + response.newMachineDescription);
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+
+                        // // Update the label with the new machine's details
+                        // $('#machineLabel').text("New Machine Added: " + response.newMachineDescription);
+
+                        // Append new machine to the machines list
+                        var machineHtml = `
+                                <li class="list-group-item">
+                                    <strong>Machine:</strong> ${response.newMachineDescription}<br>
+                                    <strong>Serial Number:</strong> ${machineData.SerialNumber}<br>
+                                    <strong>Size:</strong> ${machineData.Size}<br>
+                                    <strong>Class:</strong> ${machineData.Class}<br>
+                                    <strong>Deck:</strong> ${machineData.Deck}
+                                </li>
+                            `;
+                        $('#machinesList').append(machineHtml); // Add the new machine to the list
+                        
                         // Reset the modal form
                         $('#machineForm')[0].reset();
 
@@ -208,6 +237,13 @@
                     alert('An error occurred: ' + xhr.responseText);  // Display more detailed error info
                 }
             });
+        });
+
+        // Reset form and validation errors when the modal is hidden
+        $('#machineModal').on('hidden.bs.modal', function () {
+            // Clear validation errors and reset form when modal is closed
+            $('#serialNumberError, #sizeError, #classError, #deckError').text('');
+            $('#machineForm')[0].reset(); // Reset the form fields
         });
     });
 </script>

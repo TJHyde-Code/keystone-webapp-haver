@@ -68,7 +68,7 @@ namespace HaverGroupProject.Controllers
 
         //POST: MachineDescription/Create
         //Modal       
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult CreateMachineModal([FromBody] MultiStepOperationsScheduleViewModel viewModel)
         {
