@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HaverGroupProject.Data;
 using HaverGroupProject.Models;
+using HaverGroupProject.ViewModels;
 
 namespace HaverGroupProject.Controllers
 {
@@ -64,6 +65,56 @@ namespace HaverGroupProject.Controllers
             }
             return View(machineDescription);
         }
+
+        //POST: MachineDescription/Create
+        //Modal       
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public IActionResult CreateMachineModal([FromBody] MultiStepOperationsScheduleViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Create a new machine description from the view model
+                    var newMachine = new MachineDescription
+                    {
+                        SerialNumber = viewModel.SerialNumber,
+                        Size = viewModel.Size,
+                        Class = viewModel.Class,
+                        Deck = viewModel.Deck,
+                        NamePlateOrdered = viewModel.NamePlateOrdered,
+                        NameplateRecieved = viewModel.NameplateRecieved,
+                        InstalledMedia = viewModel.InstalledMedia,
+                        SparePartsSpareMedia = viewModel.SparePartsSpareMedia,
+                        BaseFrame = viewModel.BaseFrame,
+                        AirSeal = viewModel.AirSeal,
+                        CoatingLining = viewModel.CoatingLining,
+                        Disassembly = viewModel.Disassembly
+                    };
+
+                    // Add the new machine description to the database context
+                    _context.MachineDescriptions.Add(newMachine);
+                    _context.SaveChanges();
+
+                    // Return the ID of the newly created machine
+                    var newMachineID = newMachine.ID;
+
+                    // Optionally, you could store the newMachineID in the session, TempData, or return it directly
+                    return Json(new { success = true, newMachineDescription = newMachine.SerialNumber, newMachineID });
+                }
+                catch (Exception ex)
+                {
+                    // Handle errors
+                    return Json(new { success = false, errorMessage = ex.Message });
+                }
+            }
+
+            return BadRequest(new { success = false, errorMessage = "Invalid data." });
+        }
+
+
+
 
         // GET: MachineDescription/Edit/5
         public async Task<IActionResult> Edit(int? id)
