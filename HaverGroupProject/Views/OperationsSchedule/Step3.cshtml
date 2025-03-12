@@ -7,13 +7,13 @@
 <h2>Step 3: Select or Create a Machine</h2>
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
     <form asp-action="Step3" method="post">
-        <div class="form-group">
+        @* <div class="form-group">
             <label asp-for="MachineDescriptionID" class="control-label fw-bold">Machine Description</label>
             <select asp-for="MachineDescriptionID" class="form-control border-primary input-width" asp-items="Model.Machines">
                 <option value="">-- Select a Machine --</option>
             </select>
             <span asp-validation-for="MachineDescriptionID" class="text-danger"></span>
-        </div>
+        </div> *@
 
         <a asp-action="Step2" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
         <button type="submit" class="btn btn-primary">Next</button>

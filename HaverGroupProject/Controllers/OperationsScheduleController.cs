@@ -51,7 +51,7 @@ namespace HaverGroupProject.Controllers
                 .Include(o => o.Customer)
                 .Include(o => o.Vendor)
                 .Include(o => o.Engineer)
-                .Include(o => o.MachineDescription)
+                .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
                 .Include(o => o.Note)
                 .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
                 .FirstOrDefaultAsync(m => m.ID == id);
@@ -429,9 +429,9 @@ namespace HaverGroupProject.Controllers
 
                 return RedirectToAction("Step4", new { id = operationsSchedule.ID });
             }
-            model.Machines = _context.MachineDescriptions
-                .Select(m => new SelectListItem { Value = m.ID.ToString(), Text = $"{m.SerialNumber} - {m.Size} - {m.Class} - {m.Deck}"})
-                .ToList();
+            //model.Machines = _context.MachineDescriptions
+            //    .Select(m => new SelectListItem { Value = m.ID.ToString(), Text = $"{m.SerialNumber} - {m.Size} - {m.Class} - {m.Deck}"})
+            //    .ToList();
 
             return View(model);
         }

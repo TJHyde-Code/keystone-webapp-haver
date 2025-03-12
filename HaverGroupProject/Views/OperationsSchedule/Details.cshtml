@@ -36,15 +36,24 @@
             </div>
         </div>
 
-        <!-- Machine Description -->
+       
+        <!-- Machine List -->
         <div class="card mb-3">
-            <div class="card-header details-header text-white">Machine Description</div>
+            <div class="card-header details-header text-white">Machines(s)</div>
             <div class="card-body">
-                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.DescriptionSummary):</strong> @Model.MachineDescription?.DescriptionSummary</p>
-                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.SerialNumber):</strong> @Model.MachineDescription?.SerialNumber</p>
-                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Size):</strong> @Model.MachineDescription?.Size</p>
-                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Class):</strong> @Model.MachineDescription?.Class</p>
-                <p><strong>@Html.DisplayNameFor(model => model.MachineDescription.Deck):</strong> @Model.MachineDescription?.Deck</p>
+                @if (Model.OperationsScheduleMachines.Any())
+                {
+                    <ul class="list-group">
+                        @foreach (var machine in Model.OperationsScheduleMachines)
+                        {
+                            <li class="list-group-item">@machine.MachineDescription.SerialNumber - @machine.MachineDescription.DescriptionSummary</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No vendors associated with this schedule.</p>
+                }
             </div>
         </div>
 
