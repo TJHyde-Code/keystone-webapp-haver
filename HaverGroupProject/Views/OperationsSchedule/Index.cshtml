@@ -19,7 +19,7 @@
                     <th>@Html.DisplayNameFor(model => model.ExtSalesOrdNum)</th>
                     <th>@Html.DisplayNameFor(model => model.Customer)</th>
                     <th>@Html.DisplayNameFor(model => model.Engineer)</th>
-                    <th>@Html.DisplayNameFor(model => model.MachineDescription)</th>
+                    <th>@Html.DisplayNameFor(model => model.OperationsScheduleMachines)</th>
                     <th>@Html.DisplayNameFor(model => model.MachineDescription.SerialNumber)</th>
                     <th>@Html.DisplayNameFor(model => model.OperationsScheduleVendors)</th>
                     <th>@Html.DisplayNameFor(model => model.ProductionOrderNumber)</th>
@@ -35,7 +35,23 @@
                         <td>@Html.DisplayFor(modelItem => item.ExtSalesOrdNum)</td>
                         <td>@(item.Customer != null ? item.Customer.CustomerName : "N/A")</td>
                         <td>@(item.Engineer != null ? item.Engineer.EngSummary : "N/A")</td>
-                        <td>@(item.MachineDescription != null ? item.MachineDescription.DescriptionSummary : "N/A")</td>
+                        <td>
+                            @{
+                                var machines = item.OperationsScheduleMachines?.Select(m => m?.MachineDescription.DescriptionSummary ?? "No Machines").ToList() ?? new List<string>();
+                                if (machines.Any())
+                                {
+                                    <span>@machines.First()</span>
+                                    if (machines.Count > 1)
+                                    {
+                                        <span class="badge bg-info">+@(machines.Count - 1)</span>
+                                    }
+                                }
+                                else
+                                {
+                                    @:No Machine
+                                }
+                            }
+                        </td>
                         <td>@(item.MachineDescription != null ? item.MachineDescription.SerialNumber : "N/A")</td>
                         <td>
                             @{

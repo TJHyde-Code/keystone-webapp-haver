@@ -33,7 +33,7 @@ namespace HaverGroupProject.Controllers
                 .Include(o => o.Customer)
                 .Include(o => o.Vendor)
                 .Include(o => o.Engineer)
-                .Include(o => o.MachineDescription)
+                .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
                 .Include(o => o.Note)
                 .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor);
             return View(await haverContext.ToListAsync());
@@ -437,33 +437,36 @@ namespace HaverGroupProject.Controllers
         }
 
         // POST: AddMachineToSchedule
-    [HttpPost]
-    public async Task<IActionResult> AddMachineToSchedule(int machineDescriptionId, int operationsScheduleId)
-    {
-        // Find the operations schedule by ID
-        var operationsSchedule = await _context.OperationsSchedules.FindAsync(operationsScheduleId);
-        if (operationsSchedule == null)
+        [HttpPost]
+        public async Task<IActionResult> AddMachineToSchedule(int machineDescriptionId, int operationsScheduleId)
         {
-            return NotFound(); // If the operations schedule is not found
+            // Find the operations schedule by ID
+            var operationsSchedule = await _context.OperationsSchedules.FindAsync(operationsScheduleId);
+            if (operationsSchedule == null)
+            {
+                return NotFound(); // If the operations schedule is not found
+            }
+
+            // Find the machine description by ID
+            var machineDescription = await _context.MachineDescriptions.FindAsync(machineDescriptionId);
+            if (machineDescription == null)
+            {
+                return NotFound(); // If the machine description is not found
+            }
+
+            var newLink = new OperationsScheduleMachine
+            {
+                OperationsScheduleID = operationsSchedule.ID,
+                MachineDescriptionID = machineDescription.ID
+            };
+
+            // Save the changes to the database
+            _context.OperationsScheduleMachines.Add(newLink);
+            await _context.SaveChangesAsync();
+
+            // Optionally, return a success status or redirect to the next step
+            return Json(new { success = true });
         }
-
-        // Find the machine description by ID
-        var machineDescription = await _context.MachineDescriptions.FindAsync(machineDescriptionId);
-        if (machineDescription == null)
-        {
-            return NotFound(); // If the machine description is not found
-        }
-
-        // Link the machine description to the operations schedule
-        operationsSchedule.MachineDescriptionID = machineDescription.ID;
-
-        // Save the changes to the database
-        _context.Update(operationsSchedule);
-        await _context.SaveChangesAsync();
-
-        // Optionally, return a success status or redirect to the next step
-        return Json(new { success = true });
-    }
 
 
         //STEP 4
