@@ -551,7 +551,6 @@ namespace HaverGroupProject.Controllers
         public async Task<IActionResult> Step5(int id)
         {
             var operationsSchedule = await _context.OperationsSchedules
-                .Include(o => o.MachineDescription)
                 .Include(o => o.Note)
                 .FirstOrDefaultAsync(o => o.ID == id);
 
@@ -560,15 +559,6 @@ namespace HaverGroupProject.Controllers
             var viewModel = new MultiStepOperationsScheduleViewModel
             {
                 ID = operationsSchedule.ID,
-                NamePlateOrdered = operationsSchedule.MachineDescription?.NamePlateOrdered ?? false,
-                NameplateRecieved = operationsSchedule.MachineDescription?.NameplateRecieved ?? false,
-                InstalledMedia = operationsSchedule.MachineDescription?.InstalledMedia ?? false,
-                SparePartsSpareMedia = operationsSchedule.MachineDescription?.SparePartsSpareMedia ?? false,
-                BaseFrame = operationsSchedule.MachineDescription?.BaseFrame ?? false,
-                AirSeal = operationsSchedule.MachineDescription?.AirSeal ?? false,
-                CoatingLining = operationsSchedule.MachineDescription?.CoatingLining ?? false,
-                Disassembly = operationsSchedule.MachineDescription?.Disassembly ?? false,
-
                 PreOrder = operationsSchedule.Note?.PreOrder,
                 Scope = operationsSchedule.Note?.Scope,
                 BudgetAssembHrs = operationsSchedule.Note?.BudgetAssembHrs,
@@ -588,23 +578,11 @@ namespace HaverGroupProject.Controllers
             if (ModelState.IsValid)
             {
                 var operationsSchedule = await _context.OperationsSchedules
-                    .Include(o => o.MachineDescription)
                     .Include(o => o.Note)
                     .FirstOrDefaultAsync(o => o.ID == model.ID);
 
                 if (operationsSchedule == null) return NotFound();
 
-                if (operationsSchedule.MachineDescription != null)
-                {
-                    operationsSchedule.MachineDescription.NamePlateOrdered = model.NamePlateOrdered;
-                    operationsSchedule.MachineDescription.NameplateRecieved = model.NameplateRecieved;
-                    operationsSchedule.MachineDescription.InstalledMedia = model.InstalledMedia;
-                    operationsSchedule.MachineDescription.SparePartsSpareMedia = model.SparePartsSpareMedia;
-                    operationsSchedule.MachineDescription.BaseFrame = model.BaseFrame;
-                    operationsSchedule.MachineDescription.AirSeal = model.AirSeal;
-                    operationsSchedule.MachineDescription.CoatingLining = model.CoatingLining;
-                    operationsSchedule.MachineDescription.Disassembly = model.Disassembly;
-                }
 
                 if (operationsSchedule.Note == null)
                 {
