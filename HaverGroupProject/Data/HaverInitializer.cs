@@ -42,90 +42,90 @@ namespace HaverGroupProject.Data
                         context.Customers.AddRange(
                            new Customer
                            {
-                               CustomerName = "Connor Company",
-                               ReleaseDate = DateTime.UtcNow,
+                               CustomerName = "Connor Company",                               
                                CustomerAddress = "404 Spruce Court",
-                               CustomerContactName = "Emma Johnson",
+                               CustContactFirst = "Emma",
+                               CustContactLastName = "Johnson",                               
                                CustomerEmail = "EJohnson@hotmail.com",
                                CustomerPhone = "5197890777"
                            },
                             new Customer
                             {
                                 CustomerName = "Potato Shakers",
-                                ReleaseDate = DateTime.UtcNow,
-                                CustomerAddress = "404 Knotfound Rd.",
-                                CustomerContactName = "Jesse Lopez",
+                                CustomerAddress = "404 Knotfound Rd.",                                
+                                CustContactFirst = "Jesse",
+                                CustContactLastName = "Lopez",
                                 CustomerEmail = "JLopez@hotmail.com",
                                 CustomerPhone = "5197590747"
                             },
                             new Customer
                             {
                                 CustomerName = "Centenial Grinding",
-                                ReleaseDate = DateTime.UtcNow,
-                                CustomerAddress = "1708 Pickard Rd",
-                                CustomerContactName = "Jean Luc",
+                                CustomerAddress = "1708 Pickard Rd",                                
+                                CustContactFirst = "Jean",
+                                CustContactLastName = "Luc",
                                 CustomerEmail = "JLuc@hotmail.com",
                                 CustomerPhone = "5195890677"
                             },
                             new Customer
                             {
                                 CustomerName = "Honest Jays",
-                                ReleaseDate = DateTime.UtcNow,
                                 CustomerAddress = "14 Palmer Crescent",
-                                CustomerContactName = "Mario Mario",
+                                CustContactFirst = "Mario",
+                                CustContactLastName = "Mario",
                                 CustomerEmail = "MMario@hotmail.com",
                                 CustomerPhone = "5397830777"
                             }, new Customer
                             {
                                 CustomerName = "Masher McMash",
-                                ReleaseDate = DateTime.UtcNow,
-                                CustomerAddress = "20 Crush St",
-                                CustomerContactName = "Emma Johnson",
+                                CustomerAddress = "20 Crush St",                                
+                                CustContactFirst = "Emma",
+                                CustContactLastName = "Johnson",
                                 CustomerEmail = "EJohnson@hotmail.com",
                                 CustomerPhone = "5197890777"
                             },
                             new Customer
                             {
                                 CustomerName = "We Dig Holes",
-                                ReleaseDate = DateTime.UtcNow,
                                 CustomerAddress = "1952 Sunken Blvrd",
-                                CustomerContactName = "Doug Dig",
+                                CustContactFirst = "Doug",
+                                CustContactLastName = "Dig",
                                 CustomerEmail = "DDig@hotmail.com",
                                 CustomerPhone = "5192890577"
                             },
                             new Customer
                             {
                                 CustomerName = "Sifting Made Easy",
-                                ReleaseDate = DateTime.UtcNow,
                                 CustomerAddress = "456 Swish Street",
-                                CustomerContactName = "Allan Swazze",
+                                CustContactFirst = "Allan",
+                                CustContactLastName = "Swazze",
                                 CustomerEmail = "ASwayze@hotmail.com",
                                 CustomerPhone = "5137890677"
                             },
                             new Customer
                             {
                                 CustomerName = "Pinnacle Pellet",
-                                ReleaseDate = DateTime.UtcNow,
                                 CustomerAddress = "22 Highland",
-                                CustomerContactName = "Janet Jones",
+                                CustContactFirst = "Janet",
+                                CustContactLastName = "Jones",
                                 CustomerEmail = "JJones@hotmail.com",
                                 CustomerPhone = "5137890757"
                             },
                             new Customer
                             {
                                 CustomerName = "Farland Outfitters",
-                                ReleaseDate = DateTime.UtcNow,
                                 CustomerAddress = "Fairway Crescent",
-                                CustomerContactName = "Peter Montabelo",
+                                CustContactFirst = "Peter",
+                                CustContactLastName = "Montabelo",
                                 CustomerEmail = "PMontabelo@hotmail.com",
                                 CustomerPhone = "5167890775"
                             },
                             new Customer
                             {
                                 CustomerName = "Windsor Contracting",
-                                ReleaseDate = DateTime.UtcNow,
                                 CustomerAddress = "7765 Blower Street",
-                                CustomerContactName = "Hudson James",
+                                CustContactFirst = "Hudson",
+                                CustContactLastName = "James",
                                 CustomerEmail = "HJames@hotmail.com",
                                 CustomerPhone = "5197860707"
                             }

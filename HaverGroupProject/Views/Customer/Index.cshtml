@@ -1,46 +1,92 @@
 ﻿@model IEnumerable<HaverGroupProject.Models.Customer>
 
 @{
-    ViewData["Title"] = "Customers";
+	ViewData["Title"] = "Customers";
 }
 
 <h1 style="text-align: center;">Customer</h1>
 
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-<p>
-    <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
-</p>
-<table class="table table-bordered table-striped table-hover">
-    <thead class="table-col">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CustomerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-            <tr >
-                <td >
-                @Html.DisplayFor(modelItem => item.CustomerName)
-            </td>
-                <td>
-                @Html.DisplayFor(modelItem => item.ReleaseDate)
-            </td>
-                    <td>
-                        <div class="btn-group">
-                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
-                            <!--Changing Delete to Archive-->
-                            <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Archive</a>
-                        </div>
-                    </td>
-        </tr>
-}
-    </tbody>
-</table>
+	<p>
+		<a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
+	</p>
+	<table class="table table-bordered table-striped table-hover">
+		<thead class="table-col">
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.CustomerName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.CustConSummary)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.CustomerAddress)
+				</th>
+				<th>
+					@Html.DisplayNameFor(Model => Model.CustomerPhone)
+				</th>
+				<th>
+				@Html.DisplayNameFor(Model => Model.CustomerEmail)
+				</th>
+				<th>
+					Orders
+				</th>
+
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustConSummary)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerAddress)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerPhone)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.CustomerEmail)
+					</td>
+
+					<td>@{
+							
+							var activeOrdersCount = item.OperationsSchedule
+							.Where(c => c.KickoffMeeting.HasValue) 
+							.Count();
+
+							if (activeOrdersCount >1)
+							{
+								<a href="@Url.Action("Details", "Customer", new { id = item.ID })"
+								   class="badge bg-info"
+								   title="View Customer Details">
+									+@(activeOrdersCount)
+								</a>
+
+							}
+							else
+							{								
+								@:No Active Orders
+							}
+						}	
+					</td>
+
+					<td>
+						<div class="btn-group">
+							<a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
+							<a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
+							<!--Changing Delete to Archive-->
+							<a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Archive</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>
