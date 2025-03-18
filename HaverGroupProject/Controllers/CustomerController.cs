@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HaverGroupProject.Data;
 using HaverGroupProject.Models;
+using HaverGroupProject.ViewModels;
 
 namespace HaverGroupProject.Controllers
 {
@@ -22,7 +23,9 @@ namespace HaverGroupProject.Controllers
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Customers.ToListAsync());
+            return View(await _context.Customers
+                .Include(o => o.OperationsSchedule)
+                .ToListAsync());
         }
 
         // GET: Customer/Details/5
@@ -34,13 +37,27 @@ namespace HaverGroupProject.Controllers
             }
 
             var customer = await _context.Customers
+                .Include(c =>c.OperationsSchedule)
                 .FirstOrDefaultAsync(m => m.ID == id);
+
             if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(customer);
+            var activeOrders = customer.OperationsSchedule
+                .Where(os => os.KickoffMeeting.HasValue)  // Check if KickoffMeeting is set (active order)
+            .ToList();
+
+            // Prepare data to pass to the view
+            var viewModel = new CustomerDetailsViewModel
+            {
+                Customer = customer,
+                ActiveOrdersCount = activeOrders.Count,
+                ActiveOrders = activeOrders
+            };
+
+            return View(viewModel);
         }
 
         // GET: Customer/Create

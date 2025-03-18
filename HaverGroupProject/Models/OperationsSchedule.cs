@@ -11,18 +11,17 @@ namespace HaverGroupProject.Models
         [Display(Name = "Sales Order")]
         public int SalesOrdNum { get; set; }
 
+
+        //Remove
         [Display(Name = "External Sales Order")]
         public int ExtSalesOrdNum { get; set; }
 
-        [Display(Name = "Customer")]
-        [ForeignKey("Customer")]
-        public int? CustomerID { get; set; }
-        public Customer? Customer { get; set; }
 
-
-
+        //Remove as it's not needed (Including in seed data)
         [Display(Name = "Package Release Name")]
         public string? PackageReleaseName { get; set; }
+
+        //Additional data capture dates added here.
 
         [Display(Name = "Kickoff Meeting")]
         [DataType(DataType.Date)]
@@ -32,10 +31,7 @@ namespace HaverGroupProject.Models
         [DataType(DataType.Date)]
         public DateTime? ReleaseApprovalDrawing { get; set; }
 
-        [Display(Name = "Vendor")]
-        [ForeignKey("Vendor")]
-        public int? VendorID { get; set; }
-        public Vendor? Vendor { get; set; }
+        
 
         [Display(Name = "PO#")]
         public string? PONum { get; set; }
@@ -50,6 +46,11 @@ namespace HaverGroupProject.Models
         [DataType(DataType.Date)]
         public DateTime? DeliveryDate { get; set; }
 
+
+        /// <summary>
+        /// Navigations
+        /// </summary>
+        #region Navigaions
         [Display(Name = "Engineer")]
         [ForeignKey("Engineer")]
         public int? EngineerID { get; set; }
@@ -59,6 +60,16 @@ namespace HaverGroupProject.Models
         [ForeignKey("MachineDescription")]
         public int? MachineDescriptionID { get; set; }
         public MachineDescription? MachineDescription { get; set; }
+
+        [Display(Name = "Customer")]
+        [ForeignKey("Customer")]
+        public int? CustomerID { get; set; }
+        public Customer? Customer { get; set; }
+
+        [Display(Name = "Vendor")]
+        [ForeignKey("Vendor")]
+        public int? VendorID { get; set; }
+        public Vendor? Vendor { get; set; }
 
         [Display(Name = "Notes")]
         [ForeignKey("Note")]
@@ -70,6 +81,9 @@ namespace HaverGroupProject.Models
 
         [Display(Name = "Machines")]
         public ICollection<OperationsScheduleMachine> OperationsScheduleMachines { get; set; } = new HashSet<OperationsScheduleMachine>();
+
+        
+        #endregion
 
     }
 }
