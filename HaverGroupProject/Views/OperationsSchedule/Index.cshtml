@@ -16,7 +16,7 @@
             <thead class="table-col">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
-                    <th>@Html.DisplayNameFor(model => model.ExtSalesOrdNum)</th>
+                   
                     <th>@Html.DisplayNameFor(model => model.Customer)</th>
                     <th>@Html.DisplayNameFor(model => model.Engineer)</th>
                     <th>@Html.DisplayNameFor(model => model.OperationsScheduleMachines)</th>
@@ -32,7 +32,7 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.SalesOrdNum)</td>
-                        <td>@Html.DisplayFor(modelItem => item.ExtSalesOrdNum)</td>
+                        
                         <td>@(item.Customer != null ? item.Customer.CustomerName : "N/A")</td>
                         <td>@(item.Engineer != null ? item.Engineer.EngSummary : "N/A")</td>
                         <td>

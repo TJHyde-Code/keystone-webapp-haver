@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div class="col-md-6">
+            @* <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label asp-for="PODueDate" class="control-label fw-bold"> PO Due Date</label>
                     <input asp-for="PODueDate" class="form-control border-primary" type="date" />
@@ -43,7 +43,7 @@
                     <input asp-for="DeliveryDate" class="form-control border-primary" type="date" />
             <span asp-validation-for="DeliveryDate" class="text-danger"></span>
                 </div>
-            </div>
+            </div> *@
         </div>
 
         <div class="text-center mt-3">
@@ -112,8 +112,8 @@
             // Set demo values for the fields
             document.getElementById('SelectedVendorIDs').value = '3';
             document.getElementById('ProductionOrderNumber').value = '12345678';
-            document.getElementById('PODueDate').value = '2025-03-19';
-            document.getElementById('DeliveryDate').value = '2025-03-26';
+            // document.getElementById('PODueDate').value = '2025-03-19';
+            // document.getElementById('DeliveryDate').value = '2025-03-26';
         }
     </script>
 

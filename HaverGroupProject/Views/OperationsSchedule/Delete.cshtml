@@ -17,12 +17,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SalesOrdNum)
         </dd>
-        <dt class = "col-sm-2">
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ExtSalesOrdNum)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ExtSalesOrdNum)
-        </dd>
+        </dd> *@
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Customer)
         </dt>
@@ -41,11 +41,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.SerialNum) *@
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PackageReleaseName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PackageReleaseName)
+        
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.KickoffMeeting)
@@ -53,12 +49,12 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.KickoffMeeting)
         </dd>
-        <dt class = "col-sm-2">
+        @* <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.ReleaseApprovalDrawing)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.ReleaseApprovalDrawing)
-        </dd>
+        </dd> *@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.OperationsScheduleVendors)
         </dt>
@@ -97,7 +93,7 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PONum)
         </dd>
-        <dt class = "col-sm-2">
+       @*  <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.PODueDate)
         </dt>
         <dd class = "col-sm-10">
@@ -108,7 +104,7 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.DeliveryDate)
-        </dd>
+        </dd> *@
     </dl>
     
     <form asp-action="Delete">
