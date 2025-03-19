@@ -750,540 +750,479 @@ namespace HaverGroupProject.Data
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465896,
-                                ExtSalesOrdNum = 3934999,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123456").ID,
-                                //SerialNum = "SN123456",
-                                PackageReleaseName = "Package Alpha",
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123456").ID,                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798688",
                                 ProductionOrderNumber = "PO987654",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465897,
-                                ExtSalesOrdNum = 3935000,
+                               
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123457").ID,
-                                //SerialNum = "SN123456",
-                                PackageReleaseName = "Package Alpha",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                               
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
                                 PONum = "4500798689",
                                 ProductionOrderNumber = "PO987655",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465898,
-                                ExtSalesOrdNum = 3935001,
+                               
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123458").ID,
-                                //SerialNum = "SN123456",
-                                PackageReleaseName = "Package Alpha",
+                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798689",
                                 ProductionOrderNumber = "PO987656",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465899,
-                                ExtSalesOrdNum = 3935002,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123459").ID,
-                                //SerialNum = "SN123456",
-                                PackageReleaseName = "Package Alpha",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
                                 PONum = "4500798690",
                                 ProductionOrderNumber = "PO987657",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465900,
-                                ExtSalesOrdNum = 3935003,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123460").ID,
-                                //SerialNum = "SN123457",
-                                PackageReleaseName = "Package Beta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                               
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
                                 PONum = "4500798691",
                                 ProductionOrderNumber = "PO987658",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465901,
-                                ExtSalesOrdNum = 3935004,
+                               
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123461").ID,
-                                //SerialNum = "SN123457",
-                                PackageReleaseName = "Package Beta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID,
                                 PONum = "4500798692",
                                 ProductionOrderNumber = "PO987659",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465902,
-                                ExtSalesOrdNum = 3935005,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123462").ID,
-                                //SerialNum = "SN123457",
-                                PackageReleaseName = "Package Gamma",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
                                 PONum = "4500798693",
                                 ProductionOrderNumber = "PO987660",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465903,
-                                ExtSalesOrdNum = 3935006,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123463").ID,
-                                //SerialNum = "SN123457",
-                                PackageReleaseName = "Package Gamma",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                 PONum = "4500798694",
                                 ProductionOrderNumber = "PO987661",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465904,
-                                ExtSalesOrdNum = 3935007,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123464").ID,
-                                //SerialNum = "SN123786",
-                                PackageReleaseName = "Package Alpha",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                 PONum = "4500798695",
                                 ProductionOrderNumber = "PO987662",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465905,
-                                ExtSalesOrdNum = 3935008,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123465").ID,
-                                //SerialNum = "SN123786",
-                                PackageReleaseName = "Package Beta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                 PONum = "4500798696",
                                 ProductionOrderNumber = "PO987663",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465906,
-                                ExtSalesOrdNum = 3935009,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123466").ID,
-                                //SerialNum = "SN123786",
-                                PackageReleaseName = "Package Beta",
+                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
                                 PONum = "4500798697",
                                 ProductionOrderNumber = "PO987664",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465908,
-                                ExtSalesOrdNum = 3935010,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123467").ID,
-                                //SerialNum = "SN123786",
-                                PackageReleaseName = "Package Beta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                 PONum = "4500798699",
                                 ProductionOrderNumber = "PO987666",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465909,
-                                ExtSalesOrdNum = 3935011,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123468").ID,
-                                //SerialNum = "SN123786",
-                                PackageReleaseName = "Package Beta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
                                 PONum = "4500798700",
                                 ProductionOrderNumber = "PO987667",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465910,
-                                ExtSalesOrdNum = 3935012,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123469").ID,
-                                //SerialNum = "SN123797",
-                                PackageReleaseName = "Package Beta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                 PONum = "4500798701",
                                 ProductionOrderNumber = "PO987668",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465911,
-                                ExtSalesOrdNum = 3935013,
+                               
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123470").ID,
-                                //SerialNum = "SN127497",
-                                PackageReleaseName = "Package Alpha",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
                                 PONum = "4500798702",
                                 ProductionOrderNumber = "PO987668",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465912,
-                                ExtSalesOrdNum = 3935014,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
-                                //SerialNum = "SN127497",
-                                PackageReleaseName = "Package Alpha",
+                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
                                 PONum = "4500798703",
                                 ProductionOrderNumber = "PO987668",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465913,
-                                ExtSalesOrdNum = 3935015,
+                               
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
-                                //SerialNum = "SN127497",
-                                PackageReleaseName = "Package Alpha",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID,
                                 PONum = "4500798704",
                                 ProductionOrderNumber = "PO987669",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465914,
-                                ExtSalesOrdNum = 3935016,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123472").ID,
-                                //SerialNum = "SN127497",
-                                PackageReleaseName = "Package Zeta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798705",
                                 ProductionOrderNumber = "PO987670",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465915,
-                                ExtSalesOrdNum = 3935017,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123473").ID,
-                                //SerialNum = "SN127498",
-                                PackageReleaseName = "Package Zeta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798706",
                                 ProductionOrderNumber = "PO987671",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465916,
-                                ExtSalesOrdNum = 3935018,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123474").ID,
-                                //SerialNum = "SN127498",
-                                PackageReleaseName = "Package Zeta",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                 PONum = "4500798707",
                                 ProductionOrderNumber = "PO987672",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465917,
-                                ExtSalesOrdNum = 3935019,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123475").ID,
-                                //SerialNum = "SN127498",
-                                PackageReleaseName = "Package Zeta",
+                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                 PONum = "4500798708",
                                 ProductionOrderNumber = "PO987673",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465918,
-                                ExtSalesOrdNum = 3935020,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123476").ID,
-                                //SerialNum = "SN127498",
-                                PackageReleaseName = "Package Zeta",
+                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                 PONum = "4500798709",
                                 ProductionOrderNumber = "PO987674",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465919,
-                                ExtSalesOrdNum = 3935021,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123477").ID,
-                                //SerialNum = "SN127498",
-                                PackageReleaseName = "Package John",
+                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798710",
                                 ProductionOrderNumber = "PO987676",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465920,
-                                ExtSalesOrdNum = 3935022,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123478").ID,
-                                //SerialNum = "SN127498",
-                                PackageReleaseName = "Package James",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
                                 PONum = "4500798711",
                                 ProductionOrderNumber = "PO987677",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465921,
-                                ExtSalesOrdNum = 3935023,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123479").ID,
-                                //SerialNum = "SN127498",
-                                PackageReleaseName = "Package Collin",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                 PONum = "4500798712",
                                 ProductionOrderNumber = "PO987678",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465922,
-                                ExtSalesOrdNum = 3935024,
+                               
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123480").ID,
-                                //SerialNum = "SN156498",
-                                PackageReleaseName = "Package Holly",
+                               
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                 PONum = "4500798713",
                                 ProductionOrderNumber = "PO987679",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465923,
-                                ExtSalesOrdNum = 3935025,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123481").ID,
-                                //SerialNum = "SN156499",
-                                PackageReleaseName = "Package Holly",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
                                 PONum = "4500798714",
                                 ProductionOrderNumber = "PO987680",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465924,
-                                ExtSalesOrdNum = 3935026,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123482").ID,
-                                //SerialNum = "SN156499",
-                                PackageReleaseName = "Package Holly",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798715",
                                 ProductionOrderNumber = "PO987681",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465925,
-                                ExtSalesOrdNum = 3935027,
+                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123483").ID,
-                                //SerialNum = "SN178499",
-                                PackageReleaseName = "Package Holly",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                 PONum = "4500798716",
                                 ProductionOrderNumber = "PO987682",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465926,
-                                ExtSalesOrdNum = 3935028,
+                               
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
-                                //SerialNum = "SN178455",
-                                PackageReleaseName = "Package Thomas",
+                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ReleaseApprovalDrawing = DateTime.Parse("2024-11-14"),
+                                
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                 PONum = "4500798717",
                                 ProductionOrderNumber = "PO987682",
-                                PODueDate = DateTime.Parse("2024-12-03"),
-                                DeliveryDate = DateTime.Parse("2024-12-14"),
+                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                 //NoteID = 1
                             }

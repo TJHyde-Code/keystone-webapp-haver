@@ -11,47 +11,108 @@ namespace HaverGroupProject.Models
         [Display(Name = "Sales Order")]
         public int SalesOrdNum { get; set; }
 
+		[Display(Name = "PO#")]
+		public string? PONum { get; set; }
+		[Display(Name = "Production Order #")]
+		public string? ProductionOrderNumber { get; set; }
 
-        //Remove
-        [Display(Name = "External Sales Order")]
-        public int ExtSalesOrdNum { get; set; }
+        //New properties start here down to Navigations!!!!
+        [Display(Name ="QI Completed")]
+        public bool QIComplete { get; set; }
 
+        [Display(Name = "NCR Raised")]
+        public bool NCRRaised { get; set; }
 
-        //Remove as it's not needed (Including in seed data)
-        [Display(Name = "Package Release Name")]
-        public string? PackageReleaseName { get; set; }
+        [Display(Name ="Value")]
+        [DataType(DataType.Currency)]
+        public double? Value { get; set; }
 
-        //Additional data capture dates added here.
-
-        [Display(Name = "Kickoff Meeting")]
-        [DataType(DataType.Date)]
-        public DateTime? KickoffMeeting { get; set; }
-
-        [Display(Name = "Approval Drawing")]
-        [DataType(DataType.Date)]
-        public DateTime? ReleaseApprovalDrawing { get; set; }
-
-        
-
-        [Display(Name = "PO#")]
-        public string? PONum { get; set; }
-        [Display(Name = "Production Order #")]
-        public string? ProductionOrderNumber { get; set; }
-
-        [Display(Name = "PO Due Date")]
-        [DataType(DataType.Date)]
-        public DateTime? PODueDate { get; set; }
-
-        [Display(Name = "Delivery Date")]
-        [DataType(DataType.Date)]
-        public DateTime? DeliveryDate { get; set; }
-
-
+        //If Date has "Expected" it's from a Kick off Meeting and is a required field in Schedule creation.
+        //Dates with name of "Released" or "Returns" in them are NOT required for creation but will be milestones for Gantt creation        
+		#region Date Data Captures
         /// <summary>
-        /// Navigations
+        /// KickoffMeeting is used as a flag in some views ex. HasValue() for listing active orders
         /// </summary>
-        #region Navigaions
-        [Display(Name = "Engineer")]
+		[Display(Name = "Kickoff Meeting")]
+        [DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? KickoffMeeting { get; set; }
+
+        [Display(Name = "Expected Approval Drawing")]
+        [Required(ErrorMessage ="The Expected Approval drawing date is required")]
+        [DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ApprovalDrawingExpected { get; set; }
+
+        [Display(Name = "Approval Drawings Released")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ApprovalDrawingReleased { get; set; }
+
+		[Display(Name = "Approval Drawings Returned")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ApprovalDrawingReturned { get; set; }
+
+
+		[Display(Name = "Pre-Order Expected")]
+		[Required(ErrorMessage = "The Expected Pre-Order date is required")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PreOrderExpected { get; set; }
+
+		[Display(Name = "Pre-Order Released")]		
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PreOrderReleased { get; set; }
+
+        [Display(Name ="Eng Package Expected")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage ="Expected Engineer package date is a required date")]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? EngineerPackageExpected { get; set; }
+
+		[Display(Name = "Eng Package Released")]
+        [DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? EngineerPackageReleased { get; set; }
+
+		[Display(Name = "Purchase order /n Expected")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage ="Expected Purchase Order date is required")]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PurchaseOrderExpected { get; set; }
+
+		[Display(Name = "Purchase Orders Due")]
+        [DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PurchaseOrderDueDate { get; set; }
+
+		[Display(Name = "Purchase Order Recieved")]
+        [DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PUrchaseOrderRecieved { get; set; }
+
+		[Display(Name = "RTS Expected")]
+        [DataType(DataType.Date)]
+        [Required(ErrorMessage ="The Expected RTS date is required")]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ReadinessToShipExpected { get; set; }
+
+        [Display(Name ="Actual RTS")]
+        [DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ReadinessToShipActual { get; set; }
+
+		#endregion
+
+
+
+		/// <summary>
+		/// Navigations
+		/// </summary>
+		#region Navigaions
+		[Display(Name = "Engineer")]
         [ForeignKey("Engineer")]
         public int? EngineerID { get; set; }
         public Engineer? Engineer { get; set; }

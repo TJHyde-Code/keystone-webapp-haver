@@ -126,10 +126,10 @@ namespace HaverGroupProject.Controllers
             {
                 ID = operationsSchedule.ID,
                 SalesOrdNum = operationsSchedule.SalesOrdNum,
-                ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
-                PackageReleaseName = operationsSchedule.PackageReleaseName,
+                //ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
+                //PackageReleaseName = operationsSchedule.PackageReleaseName,
                 KickoffMeeting = operationsSchedule.KickoffMeeting,
-                ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing,
+                //ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing,
 
                 CustomerID = operationsSchedule.CustomerID,
                 Customers = _context.Customers
@@ -148,8 +148,8 @@ namespace HaverGroupProject.Controllers
                     .ToList(),
 
                 ProductionOrderNumber = operationsSchedule.ProductionOrderNumber,
-                PODueDate = operationsSchedule.PODueDate,
-                DeliveryDate = operationsSchedule.DeliveryDate,
+                //PODueDate = operationsSchedule.PODueDate,
+                //DeliveryDate = operationsSchedule.DeliveryDate,
 
                 PreOrder = operationsSchedule.Note?.PreOrder,
                 Scope = operationsSchedule.Note?.Scope,
@@ -175,15 +175,15 @@ namespace HaverGroupProject.Controllers
                 if (operationsSchedule == null) return NotFound();
 
                 operationsSchedule.SalesOrdNum = model.SalesOrdNum;
-                operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
-                operationsSchedule.PackageReleaseName = model.PackageReleaseName;
+                //operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
+                //operationsSchedule.PackageReleaseName = model.PackageReleaseName;
                 operationsSchedule.KickoffMeeting = model.KickoffMeeting;
-                operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
+                //operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
                 operationsSchedule.CustomerID = model.CustomerID;
                 operationsSchedule.MachineDescriptionID = model.MachineDescriptionID;
                 operationsSchedule.ProductionOrderNumber = model.ProductionOrderNumber;
-                operationsSchedule.PODueDate = model.PODueDate;
-                operationsSchedule.DeliveryDate = model.DeliveryDate;
+                //operationsSchedule.PODueDate = model.PODueDate;
+                //operationsSchedule.DeliveryDate = model.DeliveryDate;
 
                 if (operationsSchedule.Note == null)
                 {
@@ -282,10 +282,10 @@ namespace HaverGroupProject.Controllers
                 {
                     ID = operationsSchedule.ID,
                     SalesOrdNum = operationsSchedule.SalesOrdNum,
-                    ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
-                    PackageReleaseName = operationsSchedule.PackageReleaseName,
+                    //ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
+                    //PackageReleaseName = operationsSchedule.PackageReleaseName,
                     KickoffMeeting = operationsSchedule.KickoffMeeting,
-                    ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing
+                    //ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing
                 };
                 return View(viewModel);
             }
@@ -307,20 +307,20 @@ namespace HaverGroupProject.Controllers
                     operationsSchedule = new OperationsSchedule
                     {
                         SalesOrdNum = model.SalesOrdNum,
-                        ExtSalesOrdNum = model.ExtSalesOrdNum,
-                        PackageReleaseName = model.PackageReleaseName,
+                        //ExtSalesOrdNum = model.ExtSalesOrdNum,
+                        //PackageReleaseName = model.PackageReleaseName,
                         KickoffMeeting = model.KickoffMeeting,
-                        ReleaseApprovalDrawing = model.ReleaseApprovalDrawing
+                        //ReleaseApprovalDrawing = model.ReleaseApprovalDrawing
                     };
                     _context.OperationsSchedules.Add(operationsSchedule);
                 }
                 else
                 {
                     operationsSchedule.SalesOrdNum = model.SalesOrdNum;
-                    operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
-                    operationsSchedule.PackageReleaseName = model.PackageReleaseName;
+                    //operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
+                    //operationsSchedule.PackageReleaseName = model.PackageReleaseName;
                     operationsSchedule.KickoffMeeting = model.KickoffMeeting;
-                    operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
+                    //operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
 
                     _context.OperationsSchedules.Update(operationsSchedule);
                 }
@@ -491,8 +491,8 @@ namespace HaverGroupProject.Controllers
                     .ToList(),
 
                 ProductionOrderNumber = operationsSchedule.ProductionOrderNumber,
-                PODueDate = operationsSchedule.PODueDate,
-                DeliveryDate = operationsSchedule.DeliveryDate
+                //PODueDate = operationsSchedule.PODueDate,
+                //DeliveryDate = operationsSchedule.DeliveryDate
 
             };
             return View(viewModel);
@@ -528,8 +528,8 @@ namespace HaverGroupProject.Controllers
                 }
 
                 operationsSchedule.ProductionOrderNumber = model.ProductionOrderNumber;
-                operationsSchedule.PODueDate = model.PODueDate;
-                operationsSchedule.DeliveryDate = model.DeliveryDate;
+                //operationsSchedule.PODueDate = model.PODueDate;
+                //operationsSchedule.DeliveryDate = model.DeliveryDate;
 
                 _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
@@ -628,10 +628,10 @@ namespace HaverGroupProject.Controllers
                                 Date = os.KickoffMeeting.HasValue ? os.KickoffMeeting.Value : (DateTime?)null, // Keep as DateTime
                                 Machine = os.MachineDescription.DescriptionSummary,
                                 Serial_Number = os.MachineDescription.SerialNumber,
-                                Engineer = os.PackageReleaseName,
+                                Engineer = os.Engineer.EngSummary,
                                 Vendor = os.Vendor.VendorName,
                                 PO_Num = os.PONum,
-                                DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value : (DateTime?)null // Keep as DateTime
+                                /*DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value : (DateTime?)null // Keep as DateTime*/ 
                             };
 
             // How many rows?

@@ -10,14 +10,94 @@ namespace HaverGroupProject.ViewModels
         [Display (Name ="Sales Order #")]
         public int SalesOrdNum { get; set; }
 
-        [Display(Name = "External Sales Order #")]
-        public int ExtSalesOrdNum { get; set; }
+        		
 
-        [Display(Name = "Package Release Name")]
-        public string? PackageReleaseName { get; set; }
+		[Display(Name = "QI Completed")]
+		public bool QIComplete { get; set; }
 
-        //MT added format so no minutes/seconds gets displayed
-        [Display (Name = "Kick-off Meeting Date")]
+		[Display(Name = "NCR Raised")]
+		public bool NCRRaised { get; set; }
+
+		[Display(Name = "Value")]
+		[DataType(DataType.Currency)]
+		public double? Value { get; set; }
+
+		//If Date has "Expected" it's from a Kick off Meeting and is a required field in Schedule creation.
+		//Dates with name of "Released" or "Returns" in them are NOT required for creation but will be milestones for Gantt creation
+		#region Date Data Captures
+		/// <summary>
+		/// KickoffMeeting is used as a flag in some views HasValue() for listing active orders
+		/// </summary>
+		
+
+		[Display(Name = "Expected Approval Drawing")]		
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ApprovalDrawingExpected { get; set; }
+
+		[Display(Name = "Approval Drawings Released")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ApprovalDrawingReleased { get; set; }
+
+		[Display(Name = "Approval Drawings Returned")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ApprovalDrawingReturned { get; set; }
+
+
+		[Display(Name = "Pre-Order Expected")]		
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PreOrderExpected { get; set; }
+
+		[Display(Name = "Pre-Order Released")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PreOrderReleased { get; set; }
+
+		[Display(Name = "Eng Package Expected")]
+		[DataType(DataType.Date)]
+		[Required(ErrorMessage = "Expected Engineer package date is a required date")]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? EngineerPackageExpected { get; set; }
+
+		[Display(Name = "Eng Package Released")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? EngineerPackageReleased { get; set; }
+
+		[Display(Name = "Purchase order /n Expected")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+
+		public DateTime? PurchaseOrderExpected { get; set; }
+
+		[Display(Name = "Purchase Orders Due")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PurchaseOrderDueDate { get; set; }
+
+		[Display(Name = "Purchase Order Recieved")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? PUrchaseOrderRecieved { get; set; }
+
+		[Display(Name = "RTS Expected")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ReadinessToShipExpected { get; set; }
+
+		[Display(Name = "Actual RTS")]
+		[DataType(DataType.Date)]
+		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime? ReadinessToShipActual { get; set; }
+
+		#endregion
+
+
+		//MT added format so no minutes/seconds gets displayed
+		[Display (Name = "Kick-off Meeting Date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? KickoffMeeting { get; set; }
