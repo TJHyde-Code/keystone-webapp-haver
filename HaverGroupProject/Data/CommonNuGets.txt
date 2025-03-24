@@ -3,7 +3,7 @@
 Add-Migration -Context ApplicationDbContext -o Data\Migrations Initial
 
 
-Add-Migration -Context HaverContext -o Data\HaverMigrations Engineer
+Add-Migration -Context HaverContext -o Data\HaverMigrations TestingFix4NW
 Update-Database -Context HaverContext
 
 

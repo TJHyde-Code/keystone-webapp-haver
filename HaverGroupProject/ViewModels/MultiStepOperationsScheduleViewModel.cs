@@ -22,20 +22,20 @@ namespace HaverGroupProject.ViewModels
 		[DataType(DataType.Currency)]
 		public double? Value { get; set; }
 
-		//If Date has "Expected" it's from a Kick off Meeting and is a required field in Schedule creation.
-		//Dates with name of "Released" or "Returns" in them are NOT required for creation but will be milestones for Gantt creation
-		#region Date Data Captures
-		/// <summary>
-		/// KickoffMeeting is used as a flag in some views HasValue() for listing active orders
-		/// </summary>
-		
+        //If Date has "Expected" it's from a Kick off Meeting and is a required field in Schedule creation.
+        //Dates with name of "Released" or "Returns" in them are NOT required for creation but will be milestones for Gantt creation
+        #region Date Data Captures
+        /// <summary>
+        /// KickoffMeeting is used as a flag in some views HasValue() for listing active orders
+        /// </summary>
 
-		[Display(Name = "Expected Approval Drawing")]		
-		[DataType(DataType.Date)]
-		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-		public DateTime? ApprovalDrawingExpected { get; set; }
 
-		[Display(Name = "Approval Drawings Released")]
+        [Display(Name = "Expected Approval Drawing")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime? ApprovalDrawingExpected { get; set; }
+
+        [Display(Name = "Approval Drawings Released")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? ApprovalDrawingReleased { get; set; }
@@ -58,7 +58,6 @@ namespace HaverGroupProject.ViewModels
 
 		[Display(Name = "Eng Package Expected")]
 		[DataType(DataType.Date)]
-		[Required(ErrorMessage = "Expected Engineer package date is a required date")]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? EngineerPackageExpected { get; set; }
 
