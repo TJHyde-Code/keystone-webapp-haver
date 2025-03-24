@@ -39,10 +39,10 @@ namespace HaverGroupProject.Models
 		public DateTime? KickoffMeeting { get; set; }
 
         [Display(Name = "Expected Approval Drawing")]
-        [Required(ErrorMessage ="The Expected Approval drawing date is required")]
+        [Required(ErrorMessage = "The Expected Approval drawing date is required")]
         [DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-		public DateTime? ApprovalDrawingExpected { get; set; }
+		public DateTime ApprovalDrawingExpected { get; set; }
 
         [Display(Name = "Approval Drawings Released")]
 		[DataType(DataType.Date)]
@@ -59,7 +59,7 @@ namespace HaverGroupProject.Models
 		[Required(ErrorMessage = "The Expected Pre-Order date is required")]
 		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-		public DateTime? PreOrderExpected { get; set; }
+		public DateTime PreOrderExpected { get; set; }
 
 		[Display(Name = "Pre-Order Released")]		
 		[DataType(DataType.Date)]
@@ -68,9 +68,9 @@ namespace HaverGroupProject.Models
 
         [Display(Name ="Eng Package Expected")]
         [DataType(DataType.Date)]
-        [Required(ErrorMessage ="Expected Engineer package date is a required date")]
-		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-		public DateTime? EngineerPackageExpected { get; set; }
+        [Required(ErrorMessage = "Expected Engineer package date is a required date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+		public DateTime EngineerPackageExpected { get; set; }
 
 		[Display(Name = "Eng Package Released")]
         [DataType(DataType.Date)]
@@ -81,7 +81,7 @@ namespace HaverGroupProject.Models
         [DataType(DataType.Date)]
         [Required(ErrorMessage ="Expected Purchase Order date is required")]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-		public DateTime? PurchaseOrderExpected { get; set; }
+		public DateTime PurchaseOrderExpected { get; set; }
 
 		[Display(Name = "Purchase Orders Due")]
         [DataType(DataType.Date)]
@@ -97,7 +97,7 @@ namespace HaverGroupProject.Models
         [DataType(DataType.Date)]
         [Required(ErrorMessage ="The Expected RTS date is required")]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-		public DateTime? ReadinessToShipExpected { get; set; }
+		public DateTime ReadinessToShipExpected { get; set; }
 
         [Display(Name ="Actual RTS")]
         [DataType(DataType.Date)]
