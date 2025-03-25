@@ -784,5 +784,83 @@ namespace HaverGroupProject.Controllers
         {
             return _context.OperationsSchedules.Any(e => e.ID == id);
         }
+
+        [HttpGet]
+        public IActionResult GetVendors()
+        {
+            var vendors = _context.Vendors
+                .Select(v => new SelectListItem
+                {
+                    Value = v.ID.ToString(),
+                    Text = v.VendorName
+                })
+                .ToList();
+
+            return Json(vendors);
+        }
+
+      
+
+        [HttpPost]
+        public async Task<IActionResult> CreateVendor(string vendorName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(vendorName))
+                {
+                    return Json(new { success = false, message = "Vendor name is required" });
+                }
+
+                var vendor = new Vendor { VendorName = vendorName };
+                _context.Vendors.Add(vendor);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    success = true,
+                    vendorId = vendor.ID,
+                    vendorName = vendor.VendorName
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error creating vendor: " + ex.Message
+                });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateCustomer(string customerName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(customerName))
+                {
+                    return Json(new { success = false, message = "Customer name is required" });
+                }
+
+                var customer = new Customer { CustomerName = customerName };
+                _context.Customers.Add(customer);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    success = true,
+                    customerId = customer.ID,
+                    customerName = customer.CustomerName
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Error creating customer: " + ex.Message
+                });
+            }
+        }
     }
 }

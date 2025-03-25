@@ -5,33 +5,31 @@
 }
 
 <h2>Step 3: Select or Create a Machine</h2>
-
-<img src="~/img/ProgressBarStep3.png" asp-append-version="true" alt="Progress bar step three" class="PBar3" style="height: 50px; width:auto;" />
-
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
     <form asp-action="Step3" method="post">
-        @* <div class="form-group">
+        <div class="form-group">
             <label asp-for="MachineDescriptionID" class="control-label fw-bold">Machine Description</label>
             <select asp-for="MachineDescriptionID" class="form-control border-primary input-width" asp-items="Model.Machines">
                 <option value="">-- Select a Machine --</option>
             </select>
             <span asp-validation-for="MachineDescriptionID" class="text-danger"></span>
-        </div> *@
+        </div>
 
         <a asp-action="Step2" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
         <button type="submit" class="btn btn-primary">Next</button>
         <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
 
-        <div>
-            <!-- Add the modal trigger button inside the form -->
-            <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#machineModal">
-                Add New Machine
-            </button>
-        </div>
+
 
     </form>
 </div>
 
+<div>
+    <!-- Add the modal trigger button inside the form -->
+    <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#machineModal">
+        Add New Machine
+    </button>
+</div>
 <!-- Display the list of newly added machines -->
 <div class="mt-3">
     <h3>Machines Added:</h3>
@@ -52,19 +50,19 @@
                 <form id="machineForm">
                     <div class="mb-3">
                         <label for="serialNumber" class="form-label">Serial Number</label>
-                        <input type="text" class="form-control" id="serialNumber" placeholder="SN123456" required>
+                        <input type="text" class="form-control" id="serialNumber" required>
                         <span class="text-danger" id="serialNumberError"></span>
 
-                        <label for="size" class="form-label">Size (Size must be supplied in the format of #'x##')</label>
-                        <input type="text" class="form-control" id="size" placeholder="6'x20'" required>
+                        <label for="size" class="form-label">Size</label>
+                        <input type="text" class="form-control" id="size" required>
                         <span class="text-danger" id="sizeError"></span>
 
-                        <label for="class" class="form-label">Class (Class must be in the format of [A-Z]-###)</label>
-                        <input type="text" class="form-control" id="class" placeholder="T-220" required>
+                        <label for="class" class="form-label">Class</label>
+                        <input type="text" class="form-control" id="class" required>
                         <span class="text-danger" id="classError"></span>
 
-                        <label for="deck" class="form-label">Deck (Deck must be in the given as #D)</label>
-                        <input type="text" class="form-control" id="deck" placeholder="3D" required>
+                        <label for="deck" class="form-label">Deck</label>
+                        <input type="text" class="form-control" id="deck" required>
                         <span class="text-danger" id="deckError"></span>
 
                         <div class="form-check">
@@ -180,7 +178,7 @@
                 data: JSON.stringify(machineData), // Send data as JSON
                 contentType: 'application/json',
                 Headers: {
-                    'RequestVerificationToken':token
+                    'RequestVerificationToken': token
                 },
                 success: function (response) {
                     if (response.success) {
@@ -190,20 +188,20 @@
                         $('.modal-backdrop').remove();
 
                         // // Update the label with the new machine's details
-                        // $('#machineLabel').text("New Machine Added: " + response.newMachineDescription);
+                        $('#machineLabel').text("New Machine Added: " + response.newMachineDescription);
 
                         // Append new machine to the machines list
                         var machineHtml = `
-                                <li class="list-group-item">
-                                    <strong>Machine:</strong> ${response.newMachineDescription}<br>
-                                    <strong>Serial Number:</strong> ${machineData.SerialNumber}<br>
-                                    <strong>Size:</strong> ${machineData.Size}<br>
-                                    <strong>Class:</strong> ${machineData.Class}<br>
-                                    <strong>Deck:</strong> ${machineData.Deck}
-                                </li>
-                            `;
+                                    <li class="list-group-item">
+                                        <strong>Machine:</strong> ${response.newMachineDescription}<br>
+                                        <strong>Serial Number:</strong> ${machineData.SerialNumber}<br>
+                                        <strong>Size:</strong> ${machineData.Size}<br>
+                                        <strong>Class:</strong> ${machineData.Class}<br>
+                                        <strong>Deck:</strong> ${machineData.Deck}
+                                    </li>
+                                `;
                         $('#machinesList').append(machineHtml); // Add the new machine to the list
-                        
+
                         // Reset the modal form
                         $('#machineForm')[0].reset();
 

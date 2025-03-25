@@ -6,28 +6,28 @@
 
 <h2>Step 1: Enter Operations Schedule Details</h2>
 
-<img src="~/img/ProgressBarStep1.png" asp-append-version="true" alt="Progress bar step one" class="PBar1" style="height: 50px; width:auto;" />
-
 @*For Demo purposes(MT)*@
-<div>
-    <button type="button" class="btn btn-primary mt-3" onclick="autofillForm()">Demo</button>
+<div class="mb-4">
+    <button type="button" class="btn btn-success ms-2" onclick="autofillForm()">Demo</button>
+
 </div>
 
+
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-<div asp-validation-summary="All" class="text-danger"></div>
+    <div asp-validation-summary="All" class="text-danger"></div>
 
-<form asp-action="Step1" method="post">
+    <form asp-action="Step1" method="post">
 
-      <div class="row">
+        <div class="row">
             <div class="col-md-6">
 
-            <div class="form-group mb-3">
-                <label asp-for="SalesOrdNum" class="form-label fw-bold">Sales Order Number</label>
-                <input asp-for="SalesOrdNum" class="form-control border-primary " placeholder="0" />
-                <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
-            </div>
+                <div class="form-group mb-3">
+                    <label asp-for="SalesOrdNum" class="form-label fw-bold">Sales Order Number</label>
+                    <input asp-for="SalesOrdNum" class="form-control border-primary " placeholder="0" />
+                    <span asp-validation-for="SalesOrdNum" class="text-danger"></span>
+                </div>
 
-            
+
             </div>
             <div class="col-md-6">
                 <div class="form-group mb-3">
@@ -37,17 +37,18 @@
                 </div>
 
                 @* <div class="form-group mb-3">
-                    <label asp-for="ReleaseApprovalDrawing" class="form-label fw-bold">Release Approval Drawing </label>
-                    <input asp-for="ReleaseApprovalDrawing" type="date" class="form-control border-primary " />
-                    <span asp-validation-for="ReleaseApprovalDrawing" class="text-danger"></span>
+                <label asp-for="ReleaseApprovalDrawing" class="form-label fw-bold">Release Approval Drawing </label>
+                <input asp-for="ReleaseApprovalDrawing" type="date" class="form-control border-primary " />
+                <span asp-validation-for="ReleaseApprovalDrawing" class="text-danger"></span>
                 </div> *@
 
-    </div>
+            </div>
         </div>
-  
-    <button type="button" class="btn btn-primary" onclick="window.history.back()">Go Back</button>
-    <button type="submit" class="btn btn-primary">Next</button>
-    <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
+
+        <button type="button" class="btn btn-success ms-2" onclick="window.history.back()">Back to List </button>
+        <button type="submit" class="btn btn-primary">Next</button>
+        <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
+
     </form>
 </div>
 
@@ -66,7 +67,7 @@
             document.getElementById('SalesOrdNum').value = '10475555';
             // document.getElementById('ExtSalesOrdNum').value = '33941234';
             // document.getElementById('PackageReleaseName').value = 'Package Alpha';
-            document.getElementById('KickoffMeeting').value = '2025-03-25';
+            document.getElementById('KickoffMeeting').value = '2025-03-12';
             // document.getElementById('ReleaseApprovalDrawing').value = '2025-03-15';
         }
     </script>

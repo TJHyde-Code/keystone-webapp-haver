@@ -6,85 +6,92 @@
 
 <h2>Step 2: Select or Create a Customer</h2>
 
-<img src="~/img/ProgressBarStep2.png" asp-append-version="true" alt="Progress bar step two" class="PBar2" style="height: 50px; width:auto;" />
-
-
 <div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
-
     <form asp-action="Step2" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ID" />
+
         <div class="form-group mb-3">
-            <label asp-for="CustomerID" class="control-label fw-bold"></label>
-            <select asp-for="CustomerID" class="form-control border-primary input-width" asp-items="Model.Customers">
+            <label asp-for="CustomerID" class="control-label fw-bold">Customer</label>
+            <select asp-for="CustomerID" class="form-control" asp-items="Model.Customers">
                 <option value="">-- Select a Customer --</option>
             </select>
             <span asp-validation-for="CustomerID" class="text-danger"></span>
         </div>
 
-        <a asp-action="Step1" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
-        <button type="submit" class="btn btn-primary">Next</button>
-        <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
 
-        <div>
-            <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#customerModal">
-                Add New Customer
-            </button>
+
+        <div class="mt-4">
+            <a asp-action="Step1" asp-route-id="@Model.ID" class="btn btn-secondary">Previous</a>
+            <button type="submit" class="btn btn-primary">Next</button>
+            <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
         </div>
     </form>
 </div>
 
+<div class="mt-3">
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#customerModal">
+        Add New Customer
+    </button>
+</div>
 
-<!-- Button to Open the Create Customer Modal-->
-@* <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#customerModal">
-    Add New Customer
-</button> *@
-
-<!-- Customer Modal-->
-<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+<!-- Customer Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Create New Customer</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">New Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="customerForm">
-                    <div class="mb-3">
-                        <label for="customerName" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control" id="customerName">
-                    </div>
-                    <button type="button" class="btn btn-success" id="saveCustomer">Save</button>
-                </form>
+                <div id="customerErrors" class="alert alert-danger d-none"></div>
+                <div class="mb-3">
+                    <label class="form-label">Customer Name</label>
+                    <input type="text" id="newCustomerName" class="form-control" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="saveCustomerBtn" class="btn btn-primary">Save Customer</button>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('#saveCustomer').click(function () {
-            var customerName = $('#customerName').val();
+@section Scripts {
+    <script>
+        $(function () {
+            $('#saveCustomerBtn').click(function () {
+                var customerName = $('#newCustomerName').val().trim();
 
-            if (customerName.trim() === "") {
-                alert("Customer Name cannot be empty.");
-                return;
-            }
-
-            $.ajax({
-                url: '/Customer/Create',
-                type: 'POST',
-                data: { CustomerName: customerName },
-                success: function (response) {
-                    if (response.success) {
-                        $('#customerModal').modal('hide');
-                        location.reload();
-                    } else {
-                        alert("Failed to save customer.");
-                    }
-                },
-                error: function () {
-                    alert("An error occurred while saving the customer.");
+                if (!customerName) {
+                    $('#customerErrors').text('Customer name is required').removeClass('d-none');
+                    return;
                 }
+
+                $.ajax({
+                    url: '@Url.Action("CreateCustomer", "OperationsSchedule")',
+                    type: 'POST',
+                    data: { customerName: customerName },
+                    success: function (response) {
+                        if (response.success) {
+                            // Add new option to select list
+                            var select = $('#CustomerID');
+                            select.append(new Option(response.customerName, response.customerId, true, true));
+
+                            // Close modal and clear input
+                            $('#customerModal').modal('hide');
+                            $('#newCustomerName').val('');
+                            $('#customerErrors').addClass('d-none');
+                        } else {
+                            $('#customerErrors').text(response.message).removeClass('d-none');
+                        }
+                    },
+                    error: function () {
+                        $('#customerErrors').text('Error saving customer').removeClass('d-none');
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
+}

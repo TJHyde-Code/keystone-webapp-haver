@@ -6,118 +6,93 @@
 
 <h2>Step 4: Create Procurement Info</h2>
 
-<img src="~/img/ProgressBarStep4.png" asp-append-version="true" alt="Progress bar step four" class="PBar4" style="height: 50px; width:auto;" />
-
-
-@*For Demo purposes(MT)*@
-<div>
-    <button type="button" class="btn btn-primary mt-3" onclick="autofillForm()">Demo</button>
-</div>
-
 <div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
-
-<form asp-action="Step4" method="post">
-    <input type="hidden" asp-for="ID" />
+    <form asp-action="Step4" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="ID" />
 
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group mb-3">
-                    <label asp-for="SelectedVendorIDs" class="control-label fw-bold ">Vendors</label>
-                    <select asp-for="SelectedVendorIDs" class="form-control border-primary" asp-items="Model.Vendors"></select>
-        <span asp-validation-for="SelectedVendorIDs" class="text-danger"></span>
+                    <label asp-for="SelectedVendorIDs" class="control-label fw-bold">Vendors</label>
+                    <select asp-for="SelectedVendorIDs" class="form-control" asp-items="Model.Vendors"></select>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="ProductionOrderNumber" class="control-label fw-bold">Purchase Order Number</label>
-                    <input asp-for="ProductionOrderNumber" class="form-control border-primary" />
-            <span asp-validation-for="ProductionOrderNumber" class="text-danger"></span>
+                    <input asp-for="ProductionOrderNumber" class="form-control" />
                 </div>
             </div>
-
-            @* <div class="col-md-6">
-                <div class="form-group mb-3">
-                    <label asp-for="PODueDate" class="control-label fw-bold"> PO Due Date</label>
-                    <input asp-for="PODueDate" class="form-control border-primary" type="date" />
-            <span asp-validation-for="PODueDate" class="text-danger"></span>
-                </div>
-
-                <div class="form-group mb-3">
-                    <label asp-for="DeliveryDate" class="control-label fw-bold">Delivery Date</label>
-                    <input asp-for="DeliveryDate" class="form-control border-primary" type="date" />
-            <span asp-validation-for="DeliveryDate" class="text-danger"></span>
-                </div>
-            </div> *@
         </div>
 
-        <div class="text-center mt-3">
-            <button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#vendorModal">
-                Add New Vendor
-            </button>
-    </div>
 
-    <a asp-action="Step3" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
-    <button type="submit" class="btn btn-success">Next</button>
-    <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
 
-</form>
+        <a asp-action="Step3" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
+        <button type="submit" class="btn btn-success">Next</button>
+        <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
+    </form>
+
+
 </div>
-@* <!-- Button to Open the Create Vendor Modal -->
-<button type="button" class="btn btn-success mt-2" data-bs-toggle="modal" data-bs-target="#vendorModal">
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#vendorModal">
     Add New Vendor
 </button>
- *@
 <!-- Vendor Modal -->
-<div class="modal fade" id="vendorModal" tabindex="-1" aria-labelledby="vendorModalLabel" aria-hidden="true">
+<div class="modal fade" id="vendorModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Create New Vendor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">New Vendor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <form id="vendorForm">
-                    <div class="mb-3">
-                        <label for="vendorName" class="form-label">Vendor Name</label>
-                        <input type="text" class="form-control" id="vendorName">
-                    </div>
-                    <button type="button" class="btn btn-success" id="saveVendor">Save</button>
-                </form>
+                <div id="vendorErrors" class="alert alert-danger d-none"></div>
+                <div class="mb-3">
+                    <label class="form-label">Vendor Name</label>
+                    <input type="text" id="newVendorName" class="form-control" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" id="saveVendorBtn" class="btn btn-primary">Save Vendor</button>
             </div>
         </div>
     </div>
 </div>
 
-<script>
-    $('#saveVendor').click(function () {
-        event.preventDefault();
-
-        var vendorName = $('#vendorName').val();
-        $.post('/Vendor/Create', { VendorName: vendorName }, function (response) {
-            if (response.success) {
-                $('#vendorModal').modal('hide');
-                location.reload(); // Refresh dropdown options
-            }
-        });
-    });
-</script>
-
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-
-    <script src="~/js/progress.js"></script>
-
-
-    @* For demo purposes only *@
     <script>
-        function autofillForm() {
-            // Set demo values for the fields
-            document.getElementById('SelectedVendorIDs').value = '3';
-            document.getElementById('ProductionOrderNumber').value = '12345678';
-            // document.getElementById('PODueDate').value = '2025-03-19';
-            // document.getElementById('DeliveryDate').value = '2025-03-26';
-        }
-    </script>
+        $(function () {
+            $('#saveVendorBtn').click(function () {
+                var vendorName = $('#newVendorName').val().trim();
 
+                if (!vendorName) {
+                    $('#vendorErrors').text('Vendor name is required').removeClass('d-none');
+                    return;
+                }
+
+                $.ajax({
+                    url: '@Url.Action("CreateVendor", "OperationsSchedule")',
+                    type: 'POST',
+                    data: { vendorName: vendorName },
+                    success: function (response) {
+                        if (response.success) {
+                            // Add new option to select list
+                            var select = $('#SelectedVendorIDs');
+                            select.append(new Option(response.vendorName, response.vendorId, true, true));
+
+                            // Close modal and clear input
+                            $('#vendorModal').modal('hide');
+                            $('#newVendorName').val('');
+                        } else {
+                            $('#vendorErrors').text(response.message).removeClass('d-none');
+                        }
+                    },
+                    error: function () {
+                        $('#vendorErrors').text('Error saving vendor').removeClass('d-none');
+                    }
+                });
+            });
+        });
+    </script>
 }

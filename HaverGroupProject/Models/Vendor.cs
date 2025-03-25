@@ -7,8 +7,8 @@ namespace HaverGroupProject.Models
         public int ID { get; set; }
 
         [Display(Name = "Vendor Name ")]
-        [Required(ErrorMessage = "Vendor Name is Required")]
-        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Only alphabetic characters are allowed")]
+        [Required(ErrorMessage = "Vendor name is required")]
+        [RegularExpression(@"^[a-zA-Z\s]+$", ErrorMessage = "Only alphabetic characters are allowed")]
         public string? VendorName { get; set; }
 
         [Display(Name = "Vendor Address")]
