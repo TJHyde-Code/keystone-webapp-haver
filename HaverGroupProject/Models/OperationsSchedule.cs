@@ -4,7 +4,7 @@ using System.Numerics;
 
 namespace HaverGroupProject.Models
 {
-    public class OperationsSchedule
+    public class OperationsSchedule : IValidatableObject
     {
         public int ID { get; set; }
 
@@ -104,15 +104,88 @@ namespace HaverGroupProject.Models
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? ReadinessToShipActual { get; set; }
 
-		#endregion
+        #endregion
 
 
+        #region Date Validation
+        //First, simple validation to ensure dates are not chosen from the past
+        // The .GetValueOrDefault is because the dates can be nullable (at least for now)
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
 
-		/// <summary>
-		/// Navigations
-		/// </summary>
-		#region Navigaions
-		[Display(Name = "Engineer")]
+            if (KickoffMeeting.GetValueOrDefault() < DateTime.Now)
+            {
+                yield return new ValidationResult("Kick off meeting date must not be set in the past", ["KickoffMeeting"]);
+            }
+
+            if (ApprovalDrawingExpected < DateTime.Now)
+            {
+                yield return new ValidationResult("Approval drawing expected date must not be set in the past", ["ApprovalDrawingExpected"]);
+            }
+
+            if (ApprovalDrawingReleased.GetValueOrDefault() < DateTime.Now)
+            {
+                yield return new ValidationResult("Approval drawing released date must not be set in the past", ["ApprovalDrawingReleased"]);
+            }
+
+            if (ApprovalDrawingReturned.GetValueOrDefault() < DateTime.Now)
+            {
+                yield return new ValidationResult("Approval drawing returned date must not be set in the past", ["ApprovalDrawingReturned"]);
+            }
+
+            if (PreOrderExpected < DateTime.Now)
+            {
+                yield return new ValidationResult("Pre-order expected date must not be set in the past", ["PreOrderExpected"]);
+            }
+
+            if (PreOrderReleased.GetValueOrDefault() < DateTime.Now)
+            {
+                yield return new ValidationResult("Pre-order released date must not be set in the past", ["PreOrderReleased"]);
+            }
+
+            if (EngineerPackageExpected < DateTime.Now)
+            {
+                yield return new ValidationResult("Engineer package expected date must not be set in the past", ["EngineerPackageExpected"]);
+            }
+
+            if (EngineerPackageReleased.GetValueOrDefault() < DateTime.Now)
+            {
+                yield return new ValidationResult("Engineer package released date must not be set in the past", ["EngineerPackageReleased"]);
+            }
+
+            if (PurchaseOrderExpected < DateTime.Now)
+            {
+                yield return new ValidationResult("Purchase orders expected date must not be set in the past", ["PurchaseOrderExpected"]);
+            }
+
+            if (PurchaseOrderDueDate.GetValueOrDefault() < DateTime.Now)
+            {
+                yield return new ValidationResult("Purchase orders due date must not be set in the past", ["PurchaseOrderDueDate"]);
+            }
+
+            if (PUrchaseOrderRecieved < DateTime.Now)
+            {
+                yield return new ValidationResult("Purchase orders received date must not be set in the past", ["PurchaseOrderRecieved"]);
+            }
+
+            if (ReadinessToShipExpected < DateTime.Now)
+            {
+                yield return new ValidationResult("Readiness to ship expected date must not be set in the past", ["ReadinessToShipExpected"]);
+            }
+
+            if (ReadinessToShipActual.GetValueOrDefault() < DateTime.Now)
+            {
+                yield return new ValidationResult("Readiness to ship actual date must not be set in the past", ["ReadinessToShipActual"]);
+            }
+        }
+
+        #endregion
+
+        /// <summary>
+        /// Navigations
+        /// </summary>
+        #region Navigaions
+        [Display(Name = "Engineer")]
         [ForeignKey("Engineer")]
         public int? EngineerID { get; set; }
         public Engineer? Engineer { get; set; }
