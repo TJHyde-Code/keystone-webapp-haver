@@ -1,0 +1,287 @@
+﻿@model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
+
+@{
+    ViewData["Title"] = "Gantt";
+}
+
+<h1>Active Gantts</h1>
+
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+    <div>
+        <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New Gantt</a>
+    </div>
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col  col-12 col-lg-4 task-table-wrapper">
+                <table class="table table-bordered">
+                    <thead class="table-light">
+                        <tr>
+                            
+                            <th>@Html.DisplayNameFor(model => model.Customer)</th>                                                 
+                            
+                            
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                
+                                <td class="d-flex justify-content-between align-items-center">
+                                    <span>@item.Customer.CustomerName </span>
+                                    <div class="action-icons">
+                                        <a asp-action="Edit" asp-route-id="@item.ID" class="icon-link">
+                                            <i class="bi bi-pencil-fill"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.ID" class="icon-link">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </a>
+                                    </div>
+                                </td> 
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- GANTT CHART DIV -->
+            <div class="col-12 col-lg-8 gantt-chart-wrapper">
+                <div id="gantt_chart" class="gantt-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section stylesheets {
+    @* stylesheet for Gantt charts *@
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.css">
+}
+
+@section Scripts {
+    @* Script for Gantt charts *@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Fetch task data from the server and convert it into JSON format
+            fetch("@Url.Action("GetTasks", "OperationsSchedule")")
+                .then(response => response.json())
+                .then(tasks => {
+                    console.log(tasks)
+
+                    console.log("Feched tasks", tasks)
+
+                    if (!tasks || tasks.length === 0) {
+                        console.error("No tasks found.");
+                        return;
+                    }
+
+
+                    // Process tasks to calculate date ranges based on the Kickoff Meeting
+                    const ganttTasks = tasks.map(task => {
+                        const kickoffMeetingDate = new Date(task.kickoffmeeting); // Base start date for each customer task
+
+                        return {
+                            id: task.id,
+                            customer: task.customer,
+                            name: task.customer, // Use customer name as the task name
+                            ranges: task.dateRanges.map(dateRange => {
+
+                                // Use the Kickoff Meeting as the base start date
+                                const startDate = new Date(kickoffMeetingDate);
+
+                                // Use the expected date as the end date
+                                const endDate = new Date(dateRange.endDate);  
+
+                                return {
+                                    name: dateRange.name,
+                                    start: startDate.toISOString(),  
+                                    end: endDate.toISOString(),      
+                                    color: dateRange.color
+                                };
+                            })
+                        };
+                    });
+
+                    // Flatten the array to pass the correct format to the Gantt chart
+                    const flatGanttTasks = ganttTasks.map(task => {
+                        return task.ranges.map(range => ({
+                            id: task.id,
+                            customer: task.customer,
+                            name: range.name,
+                            start: new Date(range.start),
+                            end: new Date(range.end),
+                            color: range.color,
+                            _row: task.id //Collapse task related objects to the id row(OperationsScheduleID)
+                        }));
+                    }).flat(); // Flatten all ranges
+
+                    console.log(flatGanttTasks);
+
+                    // Initializes the Gantt chart with tasks, sets event handlers for task interactions, and defines a custom popup display
+                    let gantt = new Gantt("#gantt_chart", flatGanttTasks, {
+                        view_mode: 'Week',
+                        on_click: task => console.log("Clicked:", task),
+                        on_date_change: (task, start, end) => updateTask(task, start, end),
+                        custom_popup_html: task => `<b>${task.customer} - ${task.name}</b>`,
+                        date_format: "yyyy-MM-dd" // Make sure the date format is consistent
+                    });
+
+                    console.log(`Task: ${task.id}, Start: ${range.start}, End: ${range.end}`);
+
+                    //Anastasiia's Code.
+                    //MANUALLY ADJUST ALL TASKS RECORDS, GANNT ATTRIBUTES AND PROPERTIES TO APPEAR ON THE SAME ROW
+                    setTimeout(() => {
+
+                        // YOFFSET - POSITION OF ALIGNMENT (CURRENTLY HARDCODED - ADJUST AS NEEDED)
+                        const yOffset = 23;
+
+                        // HELPER FUNCTION TO APPLY AN OFFSET ( For SVG rects and polygons, set the "y" or "points" attribute)
+                        //USE BROWSER TOOLS TO EXPLORE THE ELEMENTS
+
+                        function applyYOffset(el, yOffset) {
+                            const tag = el.tagName.toLowerCase();
+                            if (tag === "rect" || tag === "polygon") {
+                                if (tag === "rect") {
+                                    el.setAttribute("y", yOffset);
+                                } else if (tag === "polygon") {
+                                    let points = el.getAttribute("points");
+                                    if (points) {
+                                        let updatedPoints = points
+                                            .split(" ")
+                                            .map(point => {
+                                                let [x, y] = point.split(",").map(Number);
+                                                return `${x},${y + yOffset}`;
+                                            })
+                                            .join(" ");
+                                        el.setAttribute("points", updatedPoints);
+                                    }
+                                }
+                                //FOR SVG GROUP ELEMENTS - g
+                            } else if (tag === "g") {
+                                el.setAttribute("transform", `translate(0, ${yOffset})`);
+                            } else {
+                                // STANDARD HTML ELEMENTS  *use css transform
+                                el.style.transform = `translateY(${yOffset}px)`;
+                            }
+                        }
+
+                        // MOVE ALL TASK BARS
+                        document.querySelectorAll(".bar").forEach(bar => {
+                            applyYOffset(bar, yOffset);
+                        });
+
+                        // FOR THIS EXAMPLE, DECLARING AN ARRAY OF COLORS TO OVERRIDE NATIVE PURPLE
+                        // const colors = [
+                        //     "#FFD700",
+                        //     "#FF8C00",
+                        //     "#32CD32",
+                        //     "#1E90FF",
+                        //     "#FF69B4",
+                        //     "#8A2BE2",
+                        //     "#228B22"
+                        // ];
+
+                        //MOVE PURPLE BARS (PURPLE FILL) INSIDE THE BARS (when changing a progress)
+                        document.querySelectorAll(".bar-progress").forEach((progress, index) => {
+                            // Cycle through colors
+                            const color = colors[index % colors.length];
+
+                            // Apply color as an SVG attribute
+                            progress.setAttribute("fill", color);
+
+                            // Apply color as inline CSS style
+                            progress.style.fill = color;
+
+                            //Apply offset
+                            applyYOffset(progress, yOffset);
+                        });
+
+
+                        // MOVE PROGRESS POLYGONS (PROGRESS TOGGLE)
+                        document.querySelectorAll(".progress-polygon").forEach(polygon => {
+                            applyYOffset(polygon, yOffset);
+                        });
+
+                        // MOVE BAR LABELS
+                        document.querySelectorAll(".bar-label").forEach(label => {
+                            applyYOffset(label, yOffset);
+                        });
+
+                        //MOVE PARENT SUMMARY BARS (GREY ONES)
+                        document.querySelectorAll(".bar:not(.bar-progress)").forEach(parentBar => {
+                            applyYOffset(parentBar, yOffset);
+                        });
+
+                        //MOVE BAR WRAPPERS (WHICH CONTAIN BARS & PROGRESS)
+                        document.querySelectorAll(".bar-wrapper").forEach(wrapper => {
+                            applyYOffset(wrapper, yOffset);
+                        });
+
+                        //MOVE DRAG HANDLES (START AND END OF TASKS)
+                        document.querySelectorAll(".handle").forEach(handle => {
+                            applyYOffset(handle, yOffset);
+                        });
+
+                        //MOVE ALL TASK GROUPS (WHICH CONTAIN BARS, PROGRESS, AND HANDLES)
+                        document.querySelectorAll("g.task").forEach(taskGroup => {
+                            applyYOffset(taskGroup, yOffset);
+                        });
+
+                        //ALIGN THE ROW HEIGHTS TO ENSURE THAT EVERYTHING FITS
+                        document.querySelectorAll(".gantt .row").forEach(row => {
+                            row.style.height = "40px";
+                            row.style.display = "flex";
+                            row.style.alignItems = "center";
+                            row.style.borderBottom = "none";
+                        });
+
+                        //ADJUST GRID AND BACKGROUND HEIGHTS
+                        document.querySelectorAll(".grid-row, .grid-background").forEach(grid => {
+                            grid.style.height = "40px";
+                        });
+
+
+                        loader.style.display = "none";
+                        ganttContainer.style.display = "block";
+
+                        //CALL FUNCTION TO SCROLL TO TODAY'S DATE (optional)
+                        showCurrentDay();
+
+                    }, 500); /////HERE
+                    
+
+                    //This may be useless as updating/editing will be handled by the Edit Get/Post of the OpperationsSchedule Controller.
+
+                    // Updates the task details on the server by sending a POST request with the modified task data.
+                    // Converts date formats to 'yyyy-MM-dd' and ensures progress is in decimal format (0.0 - 1.0)
+                    // Updates the task details on the server by sending a POST request with the modified task data.
+                    function updateTask(task, start = null, end = null, progress = null) {
+                        let updatedTask = {
+                            ID: task.id,
+                            Customer: task.customer,
+                            KickoffMeeting: task.kickoffmeeting ? task.kickoffmeeting.toLocaleDateString('en-CA') : task.kickoffmeeting,
+                            
+                        };
+
+                        fetch("@Url.Action("UpdateTask","OperationsSchedule")", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(updatedTask)
+                        })
+                            .then(response => response.json())
+                            .then(data => console.log("Task Updated:", data))
+                            .catch(error => console.error("Error updating task:", error));
+                    }
+                })
+                .catch(error => console.error("Error fetching tasks:", error));
+        });
+    </script>
+}

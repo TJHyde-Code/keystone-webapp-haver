@@ -70,5 +70,7 @@ namespace HaverGroupProject.Models
         public ICollection<OperationsSchedule> OperationsSchedules { get; set; } = new HashSet<OperationsSchedule>();
 
         public ICollection<HaverGantt> HaverGantts { get; set; } = new HashSet<HaverGantt>();
+
+        public ICollection<OperationsScheduleMachine>? OperationsScheduleMachines { get; set; } = new HashSet<OperationsScheduleMachine>();
     }
 }

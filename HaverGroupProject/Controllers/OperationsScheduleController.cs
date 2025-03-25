@@ -29,13 +29,13 @@ namespace HaverGroupProject.Controllers
         // GET: OperationsSchedule
         public async Task<IActionResult> Index()
         {
-                var haverContext = _context.OperationsSchedules
-                .Include(o => o.Customer)
-                .Include(o => o.Vendor)
-                .Include(o => o.Engineer)
-                .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
-                .Include(o => o.Note)
-                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor);
+            var haverContext = _context.OperationsSchedules
+            .Include(o => o.Customer)
+            .Include(o => o.Vendor)
+            .Include(o => o.Engineer)
+            .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
+            .Include(o => o.Note)
+            .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor);
             return View(await haverContext.ToListAsync());
         }
 
@@ -101,7 +101,7 @@ namespace HaverGroupProject.Controllers
             {
                 ModelState.AddModelError("", "Unable to save changes.");
             }
-            
+
             ViewData["CustomerID"] = new SelectList(_context.Customers, "ID", "CustomerName", operationsSchedule.CustomerID);
             ViewData["VendorID"] = new SelectList(_context.Vendors, "ID", "ID", operationsSchedule.VendorID);
 
@@ -215,7 +215,7 @@ namespace HaverGroupProject.Controllers
             }
 
             model.Customers = _context.Customers
-                .Select(c => new SelectListItem {  Value = c.ID.ToString(), Text = c.CustomerName })
+                .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
                 .ToList();
 
             model.Machines = _context.MachineDescriptions
@@ -342,18 +342,18 @@ namespace HaverGroupProject.Controllers
         //GET
         public async Task<IActionResult> Step2(int? id)
         {
-                var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
-                if (operationsSchedule == null) return NotFound();
+            var operationsSchedule = await _context.OperationsSchedules.FindAsync(id);
+            if (operationsSchedule == null) return NotFound();
 
-                var viewModel = new MultiStepOperationsScheduleViewModel
-                {
-                    ID = operationsSchedule.ID,
-                    CustomerID = operationsSchedule.CustomerID,
-                    Customers = _context.Customers
-                    .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
-                    .ToList()
-                };
-                return View(viewModel);
+            var viewModel = new MultiStepOperationsScheduleViewModel
+            {
+                ID = operationsSchedule.ID,
+                CustomerID = operationsSchedule.CustomerID,
+                Customers = _context.Customers
+                .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
+                .ToList()
+            };
+            return View(viewModel);
 
         }
 
@@ -381,7 +381,7 @@ namespace HaverGroupProject.Controllers
                 return RedirectToAction("Step3", new { id = operationsSchedule.ID });
             }
             model.Customers = _context.Customers
-                .Select(c => new SelectListItem {  Value = c.ID.ToString(), Text = c.CustomerName })
+                .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
                 .ToList();
 
             return View(model);
@@ -477,7 +477,7 @@ namespace HaverGroupProject.Controllers
             var operationsSchedule = await _context.OperationsSchedules
                 .Include(o => o.OperationsScheduleVendors)
                 .FirstOrDefaultAsync(o => o.ID == id);
-            
+
             if (operationsSchedule == null) return NotFound();
 
             var viewModel = new MultiStepOperationsScheduleViewModel
@@ -542,7 +542,7 @@ namespace HaverGroupProject.Controllers
                 return RedirectToAction("Step5", new { id = operationsSchedule.ID });
             }
             model.Vendors = _context.Vendors
-                .Select(v => new SelectListItem {  Value = v.ID.ToString(), Text = v.VendorName })
+                .Select(v => new SelectListItem { Value = v.ID.ToString(), Text = v.VendorName })
                 .ToList();
 
             return View(model);
@@ -591,7 +591,7 @@ namespace HaverGroupProject.Controllers
                 {
                     operationsSchedule.Note = new Note();
                 }
-                
+
                 operationsSchedule.Note.PreOrder = model.PreOrder ?? "";
                 operationsSchedule.Note.Scope = model.Scope ?? "";
                 operationsSchedule.Note.BudgetAssembHrs = model.BudgetAssembHrs ?? "";
@@ -607,7 +607,7 @@ namespace HaverGroupProject.Controllers
                     return RedirectToAction("Index");
                 }
 
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
             return View(model);
         }
@@ -631,7 +631,7 @@ namespace HaverGroupProject.Controllers
                                 Engineer = os.Engineer.EngSummary,
                                 Vendor = os.Vendor.VendorName,
                                 PO_Num = os.PONum,
-                                /*DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value : (DateTime?)null // Keep as DateTime*/ 
+                                /*DeliveryDate = os.DeliveryDate.HasValue ? os.DeliveryDate.Value : (DateTime?)null // Keep as DateTime*/
                             };
 
             // How many rows?
@@ -694,6 +694,134 @@ namespace HaverGroupProject.Controllers
             return NotFound("No data available.");
         }
 
+
+        /// <summary>
+        /// Gantt Methods for auto generating the Gantt view. (update task may or may not be removed)
+        /// </summary>
+        /// <returns></returns>
+        #region Gantt Methods
+
+        [HttpGet]
+        public async Task<IActionResult> Gantt()
+        {
+
+            // Fetch data from the database for the OperationsSchedule
+            var operationsScheduleList = _context.OperationsSchedules
+                 .Include(o => o.Customer)
+                .Include(o => o.Vendor)
+                .Include(o => o.Engineer)
+                .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
+                .Include(o => o.Note)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor);
+
+
+            // Return the Gantt view with the data model
+            return View(await operationsScheduleList.ToListAsync());
+        }
+
+
+
+        /// <summary>
+        /// Retrieves all Gantt tasks from the database and formats them for the frontend.
+        /// Converts task properties to the expected format for the Gantt chart.        
+        /// *IMPORTANTANT* Property names should be in lowercase for consistency with JavaScript expectations.
+        /// </summary>
+        /// <returns>JSON response with formatted tasks</returns>
+        [HttpGet]
+        public async Task<IActionResult> GetTasks()
+        {
+            var tasks = await _context.OperationsSchedules
+                .Include(g => g.Customer)
+                .ToListAsync();
+
+            var formattedTasks = tasks.Select(t => new
+            {
+                id = t.ID,
+                customer = t.Customer.CustomerName,
+                kickoffmeeting = t.KickoffMeeting?.ToString("yyyy-MM-dd"),
+
+                dateRanges = new[]
+                {
+                    new {
+                     name = "Approval Drawing Expected",
+                     startDate = t.KickoffMeeting,  
+                     endDate = t.ApprovalDrawingExpected,
+                     color = "#ff9f89"
+                    },
+                    new {
+                        name = "PreOrder Expected",
+                        startDate = t.KickoffMeeting,
+                        endDate = t.PreOrderExpected,
+                        color = "#85d1f2"
+                    },
+                    new {
+                        name = "Engineer Package Expected",
+                        startDate = t.KickoffMeeting,
+                        endDate = t.EngineerPackageExpected,
+                        color = "#f6ff7c"
+                    },
+                    new {
+                        name = "Purchase Order Expected",
+                        startDate = t.KickoffMeeting,
+                        endDate = t.PurchaseOrderExpected,
+                        color = "#90e39d"
+                    },
+                    new {
+                        name = "Readiness to Ship Expected",
+                        startDate = t.KickoffMeeting,
+                        endDate = t.ReadinessToShipExpected,
+                        color = "#f3c8f1"
+                    }
+                 }
+
+                
+
+
+
+
+            }).ToList();
+
+            return Json(formattedTasks);
+        }
+
+
+        /// <summary>
+        /// Updates an existing Gantt task with new values from the request body.
+        /// Finds the task by ID, updates its start date, end date, and progress.
+        /// Progress should be passed as a decimal (0.0 - 1.0).
+        /// Returns a JSON response indicating success or failure.
+        /// </summary>
+        /// <param name="updatedTask">The task object containing updated values.</param>
+        /// <returns>JSON response with success status and message.</returns>
+        [HttpPost]
+        public async Task<IActionResult> UpdateTask([FromBody] OperationsSchedule updatedTask)
+        {
+            var existingTask = await _context.OperationsSchedules.FindAsync(updatedTask.ID);
+            if (existingTask == null)
+            {
+                return NotFound();
+            }
+
+            // Update all the date properties
+            existingTask.ApprovalDrawingExpected = updatedTask.ApprovalDrawingExpected;
+            existingTask.ApprovalDrawingReleased = updatedTask.ApprovalDrawingReleased;
+            existingTask.PreOrderExpected = updatedTask.PreOrderExpected;
+            existingTask.PreOrderReleased = updatedTask.PreOrderReleased;
+            existingTask.EngineerPackageExpected = updatedTask.EngineerPackageExpected;
+            existingTask.EngineerPackageReleased = updatedTask.EngineerPackageReleased;
+            existingTask.PurchaseOrderExpected = updatedTask.PurchaseOrderExpected;
+            existingTask.PurchaseOrderDueDate = updatedTask.PurchaseOrderDueDate;
+            existingTask.PUrchaseOrderRecieved = updatedTask.PUrchaseOrderRecieved;
+            existingTask.ReadinessToShipExpected = updatedTask.ReadinessToShipExpected;
+            existingTask.ReadinessToShipActual = updatedTask.ReadinessToShipActual;
+
+            _context.OperationsSchedules.Update(existingTask);
+            await _context.SaveChangesAsync();
+
+            return Json(new { success = true, message = "Task updated successfully." });
+        }
+        #endregion
+
         // Helper method to apply date formatting to columns
         private void FormatDateColumn(ExcelWorksheet worksheet, int columnIndex, string columnName)
         {
@@ -753,7 +881,7 @@ namespace HaverGroupProject.Controllers
 
             var selectedOptionsHS = new HashSet<string>(selectedOptions);
             var currentOptionsHS = new HashSet<int>(operationsScheduleToUpdate.OperationsScheduleVendors.Select(b => b.VendorID));
-            foreach (var o in _context.Vendors) 
+            foreach (var o in _context.Vendors)
             {
                 if (selectedOptionsHS.Contains(o.ID.ToString()))
                 {
