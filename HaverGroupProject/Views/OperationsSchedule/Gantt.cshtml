@@ -119,6 +119,7 @@
                             start: new Date(range.start),
                             end: new Date(range.end),
                             color: range.color,
+                            // progress: range.progress ?? 100,
                             _row: task.id //Collapse task related objects to the id row(OperationsScheduleID)
                         }));
                     }).flat(); // Flatten all ranges
