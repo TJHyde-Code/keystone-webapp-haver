@@ -750,842 +750,910 @@ namespace HaverGroupProject.Data
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465896,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123456").ID,                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
 
+                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
+                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123456").ID,
+                                KickoffMeeting = DateTime.Parse("2024-11-11"),
+                                ApprovalDrawingExpected = DateTime.Now.AddDays(7),
+                                ApprovalDrawingReleased = DateTime.Now.AddDays(9),
+                                ProgressApprovalDrawing = 70,
+                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                                PreOrderExpected = DateTime.Now.AddDays(12),
+                                PreOrderReleased = DateTime.Now.AddDays(14),
+                                ProgressPreOrder = 85,
+                                EngineerPackageExpected = DateTime.Now.AddDays(16),
+                                EngineerPackageReleased = DateTime.Now.AddDays(20),
+                                ProgressEngineerPackage = 50,
+                                PurchaseOrderExpected = DateTime.Now.AddDays(22),
+                                PurchaseOrderDueDate = DateTime.Now.AddDays(28),
+                                ProgressPurchaseOrder = 45,
+                                PUrchaseOrderRecieved = DateTime.Now.AddDays(30),
+                                ReadinessToShipExpected = DateTime.Now.AddDays(38),
+                                ReadinessToShipActual = DateTime.Now.AddDays(40),
+                                ProgressReadinesstoShip = 30,
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798688",
                                 ProductionOrderNumber = "PO987654",
-                               
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465897,
-                               
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123457").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                             new OperationsSchedule
+                             {
+                                 SalesOrdNum = 10465897,
+                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
+                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123457").ID,
+                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
+                                 ApprovalDrawingExpected = DateTime.Now.AddDays(1),
+                                 ApprovalDrawingReleased = DateTime.Now.AddDays(14),
+                                 ProgressApprovalDrawing = 70,
+                                 ApprovalDrawingReturned = DateTime.Now.AddDays(16),
+                                 PreOrderExpected = DateTime.Now.AddDays(18),
+                                 PreOrderReleased = DateTime.Now.AddDays(20),
+                                 ProgressPreOrder = 50,
+                                 EngineerPackageExpected = DateTime.Now.AddDays(21),
+                                 EngineerPackageReleased = DateTime.Now.AddDays(25),
+                                 ProgressEngineerPackage= 25,
+                                 PurchaseOrderExpected = DateTime.Now.AddDays(25),
+                                 PurchaseOrderDueDate = DateTime.Now.AddDays(28),
+                                 ProgressPurchaseOrder = 15,
+                                 PUrchaseOrderRecieved = DateTime.Now.AddDays(30),
+                                 ReadinessToShipExpected = DateTime.Now.AddDays(38),
+                                 ReadinessToShipActual = DateTime.Now.AddDays(45),
+                                 ProgressReadinesstoShip =20,
+                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                 PONum = "4500798689",
+                                 ProductionOrderNumber = "PO987655",
+                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
+                                 //NoteID = 1
+                             },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465898,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
-                                PONum = "4500798689",
-                                ProductionOrderNumber = "PO987655",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465898,
-                               
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123458").ID,
-                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123458").ID,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
-                                PONum = "4500798689",
-                                ProductionOrderNumber = "PO987656",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465899,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123459").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(2),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(4),
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            ProgressApprovalDrawing = 30,
+                            PreOrderExpected = DateTime.Now.AddDays(5),
+                            PreOrderReleased = DateTime.Now.AddDays(8),
+                            ProgressPreOrder = 80,
+                            EngineerPackageExpected = DateTime.Now.AddDays(9),
+                            EngineerPackageReleased = DateTime.Now.AddDays(13),
+                            ProgressEngineerPackage = 25
+,                           PurchaseOrderExpected = DateTime.Now.AddDays(10),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(13),
+                            ProgressPurchaseOrder = 75,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(13),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(14),
+                            ReadinessToShipActual = DateTime.Now.AddDays(22),
+                            ProgressReadinesstoShip = 25,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                            PONum = "4500798689",
+                            ProductionOrderNumber = "PO987656",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
-                                PONum = "4500798690",
-                                ProductionOrderNumber = "PO987657",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465900,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123460").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465899,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
-                                PONum = "4500798691",
-                                ProductionOrderNumber = "PO987658",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465901,
-                               
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123461").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123459").ID,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID,
-                                PONum = "4500798692",
-                                ProductionOrderNumber = "PO987659",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465902,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123462").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(5),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(9),
+                            ProgressApprovalDrawing = 100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            PreOrderExpected = DateTime.Now.AddDays(16),
+                            PreOrderReleased = DateTime.Now.AddDays(20),
+                            ProgressPreOrder = 40,
+                            EngineerPackageExpected = DateTime.Now.AddDays(25),
+                            EngineerPackageReleased = DateTime.Now.AddDays(30),
+                            ProgressEngineerPackage = 60,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(31),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(33),
+                            ProgressPurchaseOrder = 70,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(32),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(33),
+                            ReadinessToShipActual = DateTime.Now.AddDays(27),
+                            ProgressReadinesstoShip = 40,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                            PONum = "4500798690",
+                            ProductionOrderNumber = "PO987657",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
-                                PONum = "4500798693",
-                                ProductionOrderNumber = "PO987660",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465903,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123463").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465900,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123460").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(1),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(5),
+                            ProgressApprovalDrawing = 75,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(8),
+                            PreOrderExpected = DateTime.Now.AddDays(9),
+                            PreOrderReleased = DateTime.Now.AddDays(13),
+                            ProgressPreOrder =80,
+                            EngineerPackageExpected = DateTime.Now.AddDays(17),
+                            EngineerPackageReleased = DateTime.Now.AddDays(19),
+                            ProgressEngineerPackage = 40,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(20),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(23),
+                            ProgressPurchaseOrder = 20,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(25),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(30),
+                            ReadinessToShipActual = DateTime.Now.AddDays(31),
+                            ProgressReadinesstoShip = 100,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
+                            PONum = "4500798691",
+                            ProductionOrderNumber = "PO987658",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465901,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123461").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-13),
+                            ProgressApprovalDrawing = 100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            PreOrderExpected = DateTime.Now.AddDays(-9),
+                            PreOrderReleased = DateTime.Now.AddDays(-4),
+                            ProgressPreOrder = 100,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-1),
+                            EngineerPackageReleased = DateTime.Now.AddDays(3),
+                            ProgressEngineerPackage = 90,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(4),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(8),
+                            ProgressPurchaseOrder = 55,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(10),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(14),
+                            ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            ProgressReadinesstoShip = 25,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID,
+                            PONum = "4500798692",
+                            ProductionOrderNumber = "PO987659",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465902,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
-                                PONum = "4500798694",
-                                ProductionOrderNumber = "PO987661",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465904,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123464").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123462").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-20),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
+                            ProgressApprovalDrawing = 90,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-11),
+                            PreOrderExpected = DateTime.Now.AddDays(-9),
+                            PreOrderReleased = DateTime.Now.AddDays(-6),
+                            ProgressPreOrder = 90,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-4),
+                            EngineerPackageReleased = DateTime.Now.AddDays(-1),
+                            ProgressEngineerPackage = 85,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(2),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(4),
+                            ProgressPurchaseOrder = 75,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(6),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(10),
+                            ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            ProgressReadinesstoShip = 25,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
+                            PONum = "4500798693",
+                            ProductionOrderNumber = "PO987660",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465903,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123463").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(1),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(3),
+                            ProgressApprovalDrawing = 15,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(7),
+                            PreOrderExpected = DateTime.Now.AddDays(9),
+                            PreOrderReleased = DateTime.Now.AddDays(18),
+                            ProgressPreOrder = 90,
+                            EngineerPackageExpected = DateTime.Now.AddDays(20),
+                            EngineerPackageReleased = DateTime.Now.AddDays(27),
+                            ProgressEngineerPackage = 70,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(28),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(30),
+                            ProgressPurchaseOrder = 80,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(31),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(33),
+                            ReadinessToShipActual = DateTime.Now.AddDays(35),
+                            ProgressReadinesstoShip = 55,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                            PONum = "4500798694",
+                            ProductionOrderNumber = "PO987661",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465904,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
-                                PONum = "4500798695",
-                                ProductionOrderNumber = "PO987662",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465905,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123465").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123464").ID,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
-                                PONum = "4500798696",
-                                ProductionOrderNumber = "PO987663",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465906,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123466").ID,
-                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(5),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(7),
+                            ProgressApprovalDrawing = 40,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            PreOrderExpected = DateTime.Now.AddDays(12),
+                            PreOrderReleased = DateTime.Now.AddDays(15),
+                            ProgressPreOrder = 60,
+                            EngineerPackageExpected = DateTime.Now.AddDays(18),
+                            EngineerPackageReleased = DateTime.Now.AddDays(22),
+                            ProgressEngineerPackage = 85,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(24),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(26),
+                            ProgressPurchaseOrder = 75,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(28),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(30),
+                            ReadinessToShipActual = DateTime.Now.AddDays(32),
+                            ProgressReadinesstoShip = 50,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
-                                PONum = "4500798697",
-                                ProductionOrderNumber = "PO987664",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465908,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123467").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                            PONum = "4500798695",
+                            ProductionOrderNumber = "PO987662",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798699",
-                                ProductionOrderNumber = "PO987666",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465909,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123468").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465905,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
-                                PONum = "4500798700",
-                                ProductionOrderNumber = "PO987667",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465910,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123469").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123465").ID,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798701",
-                                ProductionOrderNumber = "PO987668",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465911,
-                               
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123470").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(5),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(7),
+                            ProgressApprovalDrawing = 30,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            PreOrderExpected = DateTime.Now.AddDays(12),
+                            PreOrderReleased = DateTime.Now.AddDays(16),
+                            ProgressPreOrder = 55,
+                            EngineerPackageExpected = DateTime.Now.AddDays(18),
+                            EngineerPackageReleased = DateTime.Now.AddDays(21),
+                            ProgressEngineerPackage = 65,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(23),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(25),
+                            ProgressPurchaseOrder = 70,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(27),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(29),
+                            ReadinessToShipActual = DateTime.Now.AddDays(31),
+                            ProgressReadinesstoShip = 60,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
-                                PONum = "4500798702",
-                                ProductionOrderNumber = "PO987668",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465912,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
-                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                            PONum = "4500798696",
+                            ProductionOrderNumber = "PO987663",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
-                                PONum = "4500798703",
-                                ProductionOrderNumber = "PO987668",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465913,
-                               
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465906,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID,
-                                PONum = "4500798704",
-                                ProductionOrderNumber = "PO987669",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465914,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123472").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123466").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-28),
+                            ProgressApprovalDrawing = 25,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-25),
+                            PreOrderExpected = DateTime.Now.AddDays(-22),
+                            PreOrderReleased = DateTime.Now.AddDays(-18),
+                            ProgressPreOrder = 50,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-15),
+                            EngineerPackageReleased = DateTime.Now.AddDays(-12),
+                            ProgressEngineerPackage = 80,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(-10),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(-7),
+                            ProgressPurchaseOrder = 65,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(-5),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(-3),
+                            ReadinessToShipActual = DateTime.Now.AddDays(0),
+                            ProgressReadinesstoShip = 40,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                            PONum = "4500798697",
+                            ProductionOrderNumber = "PO987664",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
-                                PONum = "4500798705",
-                                ProductionOrderNumber = "PO987670",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465915,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123473").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465908,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
-                                PONum = "4500798706",
-                                ProductionOrderNumber = "PO987671",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465916,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123474").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123467").ID,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798707",
-                                ProductionOrderNumber = "PO987672",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465917,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123475").ID,
-                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-27),
+                            ProgressApprovalDrawing = 35,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-22),
+                            PreOrderExpected = DateTime.Now.AddDays(-19),
+                            PreOrderReleased = DateTime.Now.AddDays(-15),
+                            ProgressPreOrder = 50,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-12),
+                            EngineerPackageReleased = DateTime.Now.AddDays(-10),
+                            ProgressEngineerPackage = 60,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(-8),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(-5),
+                            ProgressPurchaseOrder = 70,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(-3),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(-1),
+                            ReadinessToShipActual = DateTime.Now.AddDays(2),
+                            ProgressReadinesstoShip = 50,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798708",
-                                ProductionOrderNumber = "PO987673",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465918,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123476").ID,
-                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                            PONum = "4500798699",
+                            ProductionOrderNumber = "PO987666",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798709",
-                                ProductionOrderNumber = "PO987674",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465919,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123477").ID,
-                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465909,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123468").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-22),
+                            ProgressApprovalDrawing = 45,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-18),
+                            PreOrderExpected = DateTime.Now.AddDays(-15),
+                            PreOrderReleased = DateTime.Now.AddDays(-10),
+                            ProgressPreOrder = 60,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-7),
+                            EngineerPackageReleased = DateTime.Now.AddDays(-3),
+                            ProgressEngineerPackage = 70,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(-1),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(2),
+                            ProgressPurchaseOrder = 80,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(4),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(6),
+                            ReadinessToShipActual = DateTime.Now.AddDays(8),
+                            ProgressReadinesstoShip = 50,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
+                            PONum = "4500798700",
+                            ProductionOrderNumber = "PO987667",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465910,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
-                                PONum = "4500798710",
-                                ProductionOrderNumber = "PO987676",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465920,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123478").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123469").ID,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
-                                PONum = "4500798711",
-                                ProductionOrderNumber = "PO987677",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465921,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123479").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-28),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
+                            ProgressApprovalDrawing = 40,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-20),
+                            PreOrderExpected = DateTime.Now.AddDays(-17),
+                            PreOrderReleased = DateTime.Now.AddDays(-12),
+                            ProgressPreOrder = 55,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-9),
+                            EngineerPackageReleased = DateTime.Now.AddDays(-6),
+                            ProgressEngineerPackage = 75,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(-3),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(1),
+                            ProgressPurchaseOrder = 80,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(3),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(5),
+                            ReadinessToShipActual = DateTime.Now.AddDays(7),
+                            ProgressReadinesstoShip = 65,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798712",
-                                ProductionOrderNumber = "PO987678",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465922,
-                               
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123480").ID,
-                               
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                            PONum = "4500798701",
+                            ProductionOrderNumber = "PO987668",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
-                                PONum = "4500798713",
-                                ProductionOrderNumber = "PO987679",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465923,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123481").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465911,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123470").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-22),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-19),
+                            ProgressApprovalDrawing = 35,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-14),
+                            PreOrderExpected = DateTime.Now.AddDays(-11),
+                            PreOrderReleased = DateTime.Now.AddDays(-6),
+                            ProgressPreOrder = 50,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-3),
+                            EngineerPackageReleased = DateTime.Now.AddDays(0),
+                            ProgressEngineerPackage = 70,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(2),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(5),
+                            ProgressPurchaseOrder = 80,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(8),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(10),
+                            ReadinessToShipActual = DateTime.Now.AddDays(12),
+                            ProgressReadinesstoShip = 65,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                            PONum = "4500798702",
+                            ProductionOrderNumber = "PO987668",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465912,
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
-                                PONum = "4500798714",
-                                ProductionOrderNumber = "PO987680",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
-                                //NoteID = 1
-                            },
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-18),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
+                            ProgressApprovalDrawing = 50,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-12),
+                            PreOrderExpected = DateTime.Now.AddDays(-9),
+                            PreOrderReleased = DateTime.Now.AddDays(-4),
+                            ProgressPreOrder = 60,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-1),
+                            EngineerPackageReleased = DateTime.Now.AddDays(3),
+                            ProgressEngineerPackage = 70,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(5),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(8),
+                            ProgressPurchaseOrder = 80,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(11),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(13),
+                            ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            ProgressReadinesstoShip = 65,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                            PONum = "4500798703",
+                            ProductionOrderNumber = "PO987668",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465913,
+
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-20),
+                            ProgressApprovalDrawing = 40,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-15),
+                            PreOrderExpected = DateTime.Now.AddDays(-10),
+                            PreOrderReleased = DateTime.Now.AddDays(-4),
+                            ProgressPreOrder = 60,
+                            EngineerPackageExpected = DateTime.Now.AddDays(1),
+                            EngineerPackageReleased = DateTime.Now.AddDays(5),
+                            ProgressEngineerPackage = 75,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(6),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(10),
+                            ProgressPurchaseOrder = 85,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(13),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(15),
+                            ReadinessToShipActual = DateTime.Now.AddDays(17),
+                            ProgressReadinesstoShip = 70,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID,
+                            PONum = "4500798704",
+                            ProductionOrderNumber = "PO987669",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465914,
+
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123472").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
+                            ProgressApprovalDrawing = 35,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-20),
+                            PreOrderExpected = DateTime.Now.AddDays(-16),
+                            PreOrderReleased = DateTime.Now.AddDays(-10),
+                            ProgressPreOrder = 55,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-5),
+                            EngineerPackageReleased = DateTime.Now.AddDays(0),
+                            ProgressEngineerPackage = 65,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(2),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(6),
+                            ProgressPurchaseOrder = 75,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(9),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(12),
+                            ReadinessToShipActual = DateTime.Now.AddDays(14),
+                            ProgressReadinesstoShip = 80,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                            PONum = "4500798705",
+                            ProductionOrderNumber = "PO987670",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465915,
+
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123473").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-20),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
+                            ProgressApprovalDrawing = 50,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-10),
+                            PreOrderExpected = DateTime.Now.AddDays(-5),
+                            PreOrderReleased = DateTime.Now.AddDays(0),
+                            ProgressPreOrder = 65,
+                            EngineerPackageExpected = DateTime.Now.AddDays(3),
+                            EngineerPackageReleased = DateTime.Now.AddDays(7),
+                            ProgressEngineerPackage = 80,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(9),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(13),
+                            ProgressPurchaseOrder = 90,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(14),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(16),
+                            ReadinessToShipActual = DateTime.Now.AddDays(18),
+                            ProgressReadinesstoShip = 85,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                            PONum = "4500798706",
+                            ProductionOrderNumber = "PO987671",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465916,
+
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123474").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-20),
+                            ProgressApprovalDrawing = 40,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-15),
+                            PreOrderExpected = DateTime.Now.AddDays(-10),
+                            PreOrderReleased = DateTime.Now.AddDays(-5),
+                            ProgressPreOrder = 55,
+                            EngineerPackageExpected = DateTime.Now.AddDays(2),
+                            EngineerPackageReleased = DateTime.Now.AddDays(6),
+                            ProgressEngineerPackage = 60,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(8),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(12),
+                            ProgressPurchaseOrder = 85,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(13),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(15),
+                            ReadinessToShipActual = DateTime.Now.AddDays(17),
+                            ProgressReadinesstoShip = 90,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                            PONum = "4500798707",
+                            ProductionOrderNumber = "PO987672",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465917,
+
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123475").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-10),
+                            ProgressApprovalDrawing = 50,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-5),
+                            PreOrderExpected = DateTime.Now.AddDays(1),
+                            PreOrderReleased = DateTime.Now.AddDays(4),
+                            ProgressPreOrder = 75,
+                            EngineerPackageExpected = DateTime.Now.AddDays(7),
+                            EngineerPackageReleased = DateTime.Now.AddDays(10),
+                            ProgressEngineerPackage = 60,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(12),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(15),
+                            ProgressPurchaseOrder = 90,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(16),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(20),
+                            ReadinessToShipActual = DateTime.Now.AddDays(22),
+                            ProgressReadinesstoShip = 95,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                            PONum = "4500798708",
+                            ProductionOrderNumber = "PO987673",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465918,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123476").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-10),
+                            ProgressApprovalDrawing = 50,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-5),
+                            PreOrderExpected = DateTime.Now.AddDays(1),
+                            PreOrderReleased = DateTime.Now.AddDays(4),
+                            ProgressPreOrder = 75,
+                            EngineerPackageExpected = DateTime.Now.AddDays(7),
+                            EngineerPackageReleased = DateTime.Now.AddDays(10),
+                            ProgressEngineerPackage = 60,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(12),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(15),
+                            ProgressPurchaseOrder = 90,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(16),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(20),
+                            ReadinessToShipActual = DateTime.Now.AddDays(22),
+                            ProgressReadinesstoShip = 95,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                            PONum = "4500798709",
+                            ProductionOrderNumber = "PO987674",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465919,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123477").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-1),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(3),
+                            ProgressApprovalDrawing = 50,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            PreOrderExpected = DateTime.Now.AddDays(3),
+                            PreOrderReleased = DateTime.Now.AddDays(6),
+                            ProgressPreOrder = 60,
+                            EngineerPackageExpected = DateTime.Now.AddDays(8),
+                            EngineerPackageReleased = DateTime.Now.AddDays(9),
+                            ProgressEngineerPackage = 40,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(4),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(11),
+                            ProgressPurchaseOrder = 85,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(14),
+                            ReadinessToShipActual = DateTime.Now.AddDays(15),
+                            ProgressReadinesstoShip = 90,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                            PONum = "4500798710",
+                            ProductionOrderNumber = "PO987676",
+
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465920,
+
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123478").ID,
+
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-3),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(4),
+                            ProgressApprovalDrawing = 100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(7),
+                            PreOrderExpected = DateTime.Now.AddDays(9),
+                            PreOrderReleased = DateTime.Now.AddDays(13),
+                            ProgressPreOrder = 75,
+                            EngineerPackageExpected = DateTime.Now.AddDays(18),
+                            EngineerPackageReleased = DateTime.Now.AddDays(25),
+                            ProgressEngineerPackage = 100,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(30),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(35),
+                            ProgressPurchaseOrder =50,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(40),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(41),
+                            ReadinessToShipActual = DateTime.Now.AddDays(44),
+                            ProgressReadinesstoShip = 25,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                            PONum = "4500798711",
+                            ProductionOrderNumber = "PO987677",
+
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465921,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123479").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(1),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(6),
+                            ProgressApprovalDrawing =100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            PreOrderExpected = DateTime.Now.AddDays(12),
+                            PreOrderReleased = DateTime.Now.AddDays(16),
+                            ProgressPreOrder = 100,
+                            EngineerPackageExpected = DateTime.Now.AddDays(19),
+                            EngineerPackageReleased = DateTime.Now.AddDays(22),
+                            ProgressEngineerPackage = 70,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(25),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(30),
+                            ProgressPurchaseOrder = 90,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(33),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(37),
+                            ReadinessToShipActual = DateTime.Now.AddDays(40),
+                            ProgressReadinesstoShip = 25,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                            PONum = "4500798712",
+                            ProductionOrderNumber = "PO987678",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465922,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123480").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-10),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-7),
+                            ProgressApprovalDrawing = 100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-5),
+                            PreOrderExpected = DateTime.Now.AddDays(-1),
+                            PreOrderReleased = DateTime.Now.AddDays(2),
+                            ProgressPreOrder = 100,
+                            EngineerPackageExpected = DateTime.Now.AddDays(5),
+                            EngineerPackageReleased = DateTime.Now.AddDays(8),
+                            ProgressEngineerPackage = 90,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(10),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(17),
+                            ProgressPurchaseOrder = 70,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(20),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(25),
+                            ReadinessToShipActual = DateTime.Now.AddDays(30),
+                            ProgressReadinesstoShip = 90,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                            PONum = "4500798713",
+                            ProductionOrderNumber = "PO987679",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465923,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123481").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
+                            ProgressApprovalDrawing = 100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-15),
+                            PreOrderExpected = DateTime.Now.AddDays(-14),
+                            PreOrderReleased = DateTime.Now.AddDays(-11),
+                            ProgressPreOrder = 100,
+                            EngineerPackageExpected = DateTime.Now.AddDays(-9),
+                            EngineerPackageReleased = DateTime.Now.AddDays(-1),
+                            ProgressEngineerPackage = 90,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(1),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(8),
+                            ProgressPurchaseOrder = 50,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(15),
+                            ReadinessToShipActual = DateTime.Now.AddDays(20),
+                            ProgressReadinesstoShip = 90,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
+                            PONum = "4500798714",
+                            ProductionOrderNumber = "PO987680",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID,
+                            NoteID = 1
+                        },
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465924,
-                                
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123482").ID,
-                                
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
-
+                                ApprovalDrawingExpected = DateTime.Now.AddDays(7),
+                                ApprovalDrawingReleased = DateTime.Now.AddDays(10),
+                                ProgressApprovalDrawing = 70,
+                                ApprovalDrawingReturned = DateTime.Now.AddDays(11),
+                                PreOrderExpected = DateTime.Now.AddDays(13),
+                                PreOrderReleased = DateTime.Now.AddDays(17),
+                                ProgressPreOrder = 100,
+                                EngineerPackageExpected = DateTime.Now.AddDays(20),
+                                EngineerPackageReleased = DateTime.Now.AddDays(25),
+                                ProgressEngineerPackage = 30,
+                                PurchaseOrderExpected = DateTime.Now.AddDays(28),
+                                PurchaseOrderDueDate = DateTime.Now.AddDays(30),
+                                ProgressPurchaseOrder = 100,
+                                PUrchaseOrderRecieved = DateTime.Now.AddDays(31),
+                                ReadinessToShipExpected = DateTime.Now.AddDays(32),
+                                ReadinessToShipActual = DateTime.Now.AddDays(35),
+                                ProgressReadinesstoShip = 100,
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798715",
                                 ProductionOrderNumber = "PO987681",
-                                
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                 //NoteID = 1
                             },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465925,
-                                
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123483").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465925,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123483").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(-12),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(-8),
+                            ProgressApprovalDrawing = 100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(-5),
+                            PreOrderExpected = DateTime.Now.AddDays(-1),
+                            PreOrderReleased = DateTime.Now.AddDays(2),
+                            ProgressPreOrder = 100,
+                            EngineerPackageExpected = DateTime.Now.AddDays(6),
+                            EngineerPackageReleased = DateTime.Now.AddDays(9),
+                            ProgressEngineerPackage = 90,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(14),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(20),
+                            ProgressPurchaseOrder = 50,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(25),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(30),
+                            ReadinessToShipActual = DateTime.Now.AddDays(35),
+                            ProgressReadinesstoShip = 25,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                            PONum = "4500798716",
+                            ProductionOrderNumber = "PO987682",
 
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
-                                PONum = "4500798716",
-                                ProductionOrderNumber = "PO987682",
-                               
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
-                                //NoteID = 1
-                            },
-                            new OperationsSchedule
-                            {
-                                SalesOrdNum = 10465926,
-                               
-                                CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
-                                
-                                KickoffMeeting = DateTime.Parse("2024-11-11"),
-                                ApprovalDrawingExpected = DateTime.Now.AddDays(5),
-                                ApprovalDrawingReleased = DateTime.Now.AddDays(7),
-                                ApprovalDrawingReturned = DateTime.Now.AddDays(10),
-                                PreOrderExpected = DateTime.Now.AddDays(3),
-                                PreOrderReleased = DateTime.Now.AddDays(6),
-                                EngineerPackageExpected = DateTime.Now.AddDays(8),
-                                EngineerPackageReleased = DateTime.Now.AddDays(9),
-                                PurchaseOrderExpected = DateTime.Now.AddDays(4),
-                                PurchaseOrderDueDate = DateTime.Now.AddDays(11),
-                                PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
-                                ReadinessToShipExpected = DateTime.Now.AddDays(14),
-                                ReadinessToShipActual = DateTime.Now.AddDays(15),
-
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
-                                PONum = "4500798717",
-                                ProductionOrderNumber = "PO987682",
-                                
-                                EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
-                                //NoteID = 1
-                            }
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
+                            //NoteID = 1
+                        },
+                        new OperationsSchedule
+                        {
+                            SalesOrdNum = 10465926,
+                            CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
+                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
+                            KickoffMeeting = DateTime.Parse("2024-11-11"),
+                            ApprovalDrawingExpected = DateTime.Now.AddDays(5),
+                            ApprovalDrawingReleased = DateTime.Now.AddDays(7),
+                            ProgressApprovalDrawing = 100,
+                            ApprovalDrawingReturned = DateTime.Now.AddDays(10),
+                            PreOrderExpected = DateTime.Now.AddDays(15),
+                            PreOrderReleased = DateTime.Now.AddDays(20),
+                            ProgressPreOrder = 90,
+                            EngineerPackageExpected = DateTime.Now.AddDays(21),
+                            EngineerPackageReleased = DateTime.Now.AddDays(25),
+                            ProgressEngineerPackage = 75,
+                            PurchaseOrderExpected = DateTime.Now.AddDays(27),
+                            PurchaseOrderDueDate = DateTime.Now.AddDays(30),
+                            ProgressPurchaseOrder = 55,
+                            PUrchaseOrderRecieved = DateTime.Now.AddDays(31),
+                            ReadinessToShipExpected = DateTime.Now.AddDays(35),
+                            ReadinessToShipActual = DateTime.Now.AddDays(40),
+                            ProgressReadinesstoShip = 100,
+                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                            PONum = "4500798717",
+                            ProductionOrderNumber = "PO987682",
+                            EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
+                            //NoteID = 1
+                        }
                         );
                         context.SaveChanges();
 

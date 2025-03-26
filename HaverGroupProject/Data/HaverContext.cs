@@ -12,8 +12,8 @@ namespace HaverGroupProject.Data
         }
 
         //DBSets
-        public DbSet<OperationsSchedule> OperationsSchedules { get; set; }
-
+        public DbSet<OperationsSchedule> OperationsSchedules { get; set; }       
+        
         public DbSet<Vendor> Vendors { get; set; }
 
         public DbSet<OperationsScheduleVendor> OperationsScheduleVendors { get; set; }
