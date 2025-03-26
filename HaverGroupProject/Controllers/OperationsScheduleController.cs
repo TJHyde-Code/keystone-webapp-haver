@@ -29,7 +29,7 @@ namespace HaverGroupProject.Controllers
         // GET: OperationsSchedule
         public async Task<IActionResult> Index()
         {
-            var haverContext = _context.OperationsSchedules
+            var haverContext = _context.OperationsSchedules             
             .Include(o => o.Customer)
             .Include(o => o.Vendor)
             .Include(o => o.Engineer)
@@ -731,54 +731,54 @@ namespace HaverGroupProject.Controllers
         public async Task<IActionResult> GetTasks()
         {
             var tasks = await _context.OperationsSchedules
-                .Include(g => g.Customer)
+                .Include(g => g.Customer)                
                 .ToListAsync();
 
             var formattedTasks = tasks.Select(t => new
             {
                 id = t.ID,
-                customer = t.Customer.CustomerName,
-                kickoffmeeting = t.KickoffMeeting?.ToString("yyyy-MM-dd"),
+                customer = t.Customer.CustomerName,         
 
-                dateRanges = new[]
+                dateRanges = new List<DateRange>
                 {
-                    new {
-                     name = "Approval Drawing Expected",
-                     startDate = t.KickoffMeeting,  
-                     endDate = t.ApprovalDrawingExpected,
-                     color = "#ff9f89"
+                    new DateRange
+                     {
+                     Name = "Approval Drawing ",
+                     StartDate = t.ApprovalDrawingExpected,
+                     EndDate = t.ApprovalDrawingReleased.GetValueOrDefault(),
+                     Color = "#ff9f89",
+                     Progress = t.ProgressApprovalDrawing ?? 0
+                     },
+                     new DateRange
+                     {
+                     Name = "PreOrder ",
+                     StartDate = t.PreOrderExpected,
+                     EndDate = t.PreOrderReleased.GetValueOrDefault(),
+                     Color = "#85d1f2",
+                     Progress = t.ProgressPreOrder ?? 0
+                     },
+                    new DateRange{
+                     Name = "Eng Pckg",
+                     StartDate = t.EngineerPackageExpected,
+                     EndDate = t.EngineerPackageReleased.GetValueOrDefault(),
+                     Color = "#f6ff7c",
+                     Progress = t.ProgressEngineerPackage ?? 0
                     },
-                    new {
-                        name = "PreOrder Expected",
-                        startDate = t.KickoffMeeting,
-                        endDate = t.PreOrderExpected,
-                        color = "#85d1f2"
+                    new DateRange{
+                     Name = "Purch Ord",
+                     StartDate = t.PurchaseOrderExpected,
+                     EndDate = t.PurchaseOrderDueDate.GetValueOrDefault(),
+                     Color = "#90e39d",
+                     Progress = t.ProgressPurchaseOrder ?? 0
                     },
-                    new {
-                        name = "Engineer Package Expected",
-                        startDate = t.KickoffMeeting,
-                        endDate = t.EngineerPackageExpected,
-                        color = "#f6ff7c"
-                    },
-                    new {
-                        name = "Purchase Order Expected",
-                        startDate = t.KickoffMeeting,
-                        endDate = t.PurchaseOrderExpected,
-                        color = "#90e39d"
-                    },
-                    new {
-                        name = "Readiness to Ship Expected",
-                        startDate = t.KickoffMeeting,
-                        endDate = t.ReadinessToShipExpected,
-                        color = "#f3c8f1"
+                    new DateRange{
+                     Name = "RTS",
+                     StartDate = t.ReadinessToShipExpected,
+                     EndDate = t.ReadinessToShipActual.GetValueOrDefault(),
+                     Color = "#f3c8f1",
+                     Progress = t.ProgressReadinesstoShip ?? 0
                     }
                  }
-
-                
-
-
-
-
             }).ToList();
 
             return Json(formattedTasks);
@@ -796,7 +796,8 @@ namespace HaverGroupProject.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateTask([FromBody] OperationsSchedule updatedTask)
         {
-            var existingTask = await _context.OperationsSchedules.FindAsync(updatedTask.ID);
+            var existingTask = await _context.OperationsSchedules
+              .FindAsync(updatedTask.ID);
             if (existingTask == null)
             {
                 return NotFound();

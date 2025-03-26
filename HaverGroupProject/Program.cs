@@ -52,7 +52,7 @@ using (var scope = app.Services.CreateScope())
 
     //Toggle 'DeleteDatabase true/false to persist DB during developement or not.
     //Primarily here for Seeding data during dev.
-    HaverInitializer.Initialize(serviceProvider: services, DeleteDatabase: false,
+    HaverInitializer.Initialize(serviceProvider: services, DeleteDatabase: true,
         UseMigrations: true, SeedSampleData: true);
 }
 

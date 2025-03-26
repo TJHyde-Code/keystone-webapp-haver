@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Numerics;
+using System.Security.Permissions;
 
 namespace HaverGroupProject.Models
 {
@@ -38,11 +39,15 @@ namespace HaverGroupProject.Models
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? KickoffMeeting { get; set; }
 
+        
+
         [Display(Name = "Expected Approval Drawing")]
         [Required(ErrorMessage = "The Expected Approval drawing date is required")]
         [DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime ApprovalDrawingExpected { get; set; }
+
+        public double? ProgressApprovalDrawing { get; set; }
 
         [Display(Name = "Approval Drawings Released")]
 		[DataType(DataType.Date)]
@@ -61,6 +66,8 @@ namespace HaverGroupProject.Models
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime PreOrderExpected { get; set; }
 
+        public double? ProgressPreOrder { get; set; }
+
 		[Display(Name = "Pre-Order Released")]		
 		[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -71,6 +78,8 @@ namespace HaverGroupProject.Models
         [Required(ErrorMessage = "Expected Engineer package date is a required date")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime EngineerPackageExpected { get; set; }
+
+        public double?ProgressEngineerPackage {  get; set; }
 
 		[Display(Name = "Eng Package Released")]
         [DataType(DataType.Date)]
@@ -83,10 +92,13 @@ namespace HaverGroupProject.Models
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime PurchaseOrderExpected { get; set; }
 
+        public double? ProgressPurchaseOrder { get; set; }   
+
 		[Display(Name = "Purchase Orders Due")]
         [DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? PurchaseOrderDueDate { get; set; }
+
 
 		[Display(Name = "Purchase Order Recieved")]
         [DataType(DataType.Date)]
@@ -99,14 +111,16 @@ namespace HaverGroupProject.Models
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime ReadinessToShipExpected { get; set; }
 
+        public double? ProgressReadinesstoShip {  get; set; }
+
         [Display(Name ="Actual RTS")]
         [DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 		public DateTime? ReadinessToShipActual { get; set; }
 
-		#endregion
-
-
+        #endregion
+        
+       
 
 		/// <summary>
 		/// Navigations
@@ -143,7 +157,10 @@ namespace HaverGroupProject.Models
         [Display(Name = "Machines")]
         public ICollection<OperationsScheduleMachine> OperationsScheduleMachines { get; set; } = new HashSet<OperationsScheduleMachine>();
 
-        
+
+       
+
+
         #endregion
 
     }
