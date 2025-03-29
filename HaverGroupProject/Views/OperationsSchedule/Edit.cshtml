@@ -87,7 +87,7 @@
             <div id="collapseFour" class="accordion-collapse collapse">
                 <div class="accordion-body">
                     <label asp-for="SelectedVendorIDs" class="form-label">Vendors</label>
-                    <select asp-for="SelectedVendorIDs" class="form-control" asp-items="Model.Vendors" multiple></select>
+                    <select id="SelectedVendorIDs" name="SelectedVendorIDs" class="form-control" multiple="multiple" asp-items="Model.Vendors" ></select>
 
                     <div class="mb-3 mt-3">
                         <label asp-for="ProductionOrderNumber" class="form-label">Production Order Number</label>
@@ -157,4 +157,25 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script src="~/js/multiselect.js"></script>
+
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <!-- jQuery (required for Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize Select2 on the vendor select box
+            $('#SelectedVendorIDs').select2({
+                placeholder: "Select or search vendors...",
+                tags: true,
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
 }
