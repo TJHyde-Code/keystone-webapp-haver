@@ -29,7 +29,8 @@ namespace HaverGroupProject.Controllers
         // GET: OperationsSchedule
         public async Task<IActionResult> Index()
         {
-            var haverContext = _context.OperationsSchedules             
+            var haverContext = _context.OperationsSchedules
+            .OrderByDescending(o => o.ID)//View defaults to show Newest records First.
             .Include(o => o.Customer)
             .Include(o => o.Vendor)
             .Include(o => o.Engineer)
