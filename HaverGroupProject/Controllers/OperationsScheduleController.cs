@@ -350,9 +350,16 @@ namespace HaverGroupProject.Controllers
             {
                 ID = operationsSchedule.ID,
                 CustomerID = operationsSchedule.CustomerID,
+
                 Customers = _context.Customers
                 .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
-                .ToList()
+                .ToList(),
+
+                EngineerID = operationsSchedule.EngineerID,
+                
+                Engineers = _context.Engineers
+                .Select(e => new SelectListItem { Value = e.ID.ToString(), Text = e.EngSummary })
+                .ToList(),
             };
             return View(viewModel);
 
@@ -370,6 +377,7 @@ namespace HaverGroupProject.Controllers
                 if (operationsSchedule == null) return NotFound();
 
                 operationsSchedule.CustomerID = model.CustomerID;
+                operationsSchedule.EngineerID = model.EngineerID;
 
                 _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
@@ -383,6 +391,10 @@ namespace HaverGroupProject.Controllers
             }
             model.Customers = _context.Customers
                 .Select(c => new SelectListItem { Value = c.ID.ToString(), Text = c.CustomerName })
+                .ToList();
+
+            model.Engineers = _context.Engineers
+                .Select(e => new SelectListItem { Value = e.ID.ToString(), Text = e.EngSummary })
                 .ToList();
 
             return View(model);
