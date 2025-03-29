@@ -78,7 +78,7 @@
 
                 // Set Sales Order and Kickoff Date to 1 week from now
                 function autofillForm() {
-                    document.getElementById('SalesOrdNum').value = '10475555';
+                    document.getElementById('SalesOrdNum').value = '10475587';
                     const kickoff = document.getElementById('kickoff-picker');
                     if (kickoff && kickoff._flatpickr) {
                         const oneWeekFromToday = new Date();
@@ -87,17 +87,4 @@
                     }
                 }
     </script>
-
-    @* For demo purposes only *@
-    <script>
-        function autofillForm() {
-            // Set demo values for the fields
-            document.getElementById('SalesOrdNum').value = '10475585';
-            // document.getElementById('ExtSalesOrdNum').value = '33941234';
-            // document.getElementById('PackageReleaseName').value = 'Package Alpha';
-            //document.getElementById('KickoffMeeting').value = '2025-03-12';
-            // document.getElementById('ReleaseApprovalDrawing').value = '2025-03-15';
-        }
-    </script>
-
 }
