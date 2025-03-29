@@ -35,13 +35,13 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label asp-for="KickoffMeeting" class="form-label fw-bold"> Kickoff Meeting</label>
-                    <input asp-for="KickoffMeeting" type="date" class="form-control border-primary " />
+                    <input id="kickoff-picker" asp-for="KickoffMeeting" type="date" class="form-control border-primary " />
                     <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
                 </div>
 
                 @* <div class="form-group mb-3">
                 <label asp-for="ReleaseApprovalDrawing" class="form-label fw-bold">Release Approval Drawing </label>
-                <input asp-for="ReleaseApprovalDrawing" type="date" class="form-control border-primary " />
+                <input id="ReleaseApprovalDrawing-picker" asp-for="ReleaseApprovalDrawing" type="date" class="form-control border-primary " />
                 <span asp-validation-for="ReleaseApprovalDrawing" class="text-danger"></span>
                 </div> *@
 
@@ -62,15 +62,40 @@
 
     <script src="~/js/progress.js"></script>
 
+    <!--Kickoff Date picker-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const kickoff = document.getElementById("kickoff-picker");
+            if (kickoff) {
+                flatpickr(kickoff, {
+                    dateFormat: "Y-m-d",       // format compatible with backend binding
+                    minDate: "today",          // prevent selecting past dates
+                    defaultDate: new Date(),   // show today's date by default
+                    disableMobile: true        // always use Flatpickr, not native input
+                    });
+                    }
+                });
+
+                // Set Sales Order and Kickoff Date to 1 week from now
+                function autofillForm() {
+                    document.getElementById('SalesOrdNum').value = '10475555';
+                    const kickoff = document.getElementById('kickoff-picker');
+                    if (kickoff && kickoff._flatpickr) {
+                        const oneWeekFromToday = new Date();
+                        oneWeekFromToday.setDate(oneWeekFromToday.getDate() + 7);
+                        kickoff._flatpickr.setDate(oneWeekFromToday);
+                    }
+                }
+    </script>
 
     @* For demo purposes only *@
     <script>
         function autofillForm() {
             // Set demo values for the fields
-            document.getElementById('SalesOrdNum').value = '10475555';
+            document.getElementById('SalesOrdNum').value = '10475585';
             // document.getElementById('ExtSalesOrdNum').value = '33941234';
             // document.getElementById('PackageReleaseName').value = 'Package Alpha';
-            document.getElementById('KickoffMeeting').value = '2025-03-12';
+            //document.getElementById('KickoffMeeting').value = '2025-03-12';
             // document.getElementById('ReleaseApprovalDrawing').value = '2025-03-15';
         }
     </script>
