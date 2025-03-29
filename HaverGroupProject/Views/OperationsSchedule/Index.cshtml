@@ -4,8 +4,13 @@
     ViewData["Title"] = "Operations Schedule";
 }
 
-<h1>Operations Schedule</h1>
+<div class="text-end mb-3">
 
+    <a asp-controller="OperationsSchedule" asp-action="DownloadOperationsSchedules" class="btn btn-success">
+        <i class="bi bi-download"></i> Download Schedules
+    </a>
+</div>
+<h1>Operations Schedule</h1>
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
     <p>
         <a asp-action="Step1" class="btn btn-success" style="font-size: 12px;">Create New</a>
@@ -16,7 +21,7 @@
             <thead class="table-col">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
-                   
+
                     <th>@Html.DisplayNameFor(model => model.Customer)</th>
                     <th>@Html.DisplayNameFor(model => model.Engineer)</th>
                     <th>@Html.DisplayNameFor(model => model.OperationsScheduleMachines)</th>
@@ -32,7 +37,7 @@
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.SalesOrdNum)</td>
-                        
+
                         <td>@(item.Customer != null ? item.Customer.CustomerName : "N/A")</td>
                         <td>@(item.Engineer != null ? item.Engineer.EngSummary : "N/A")</td>
                         <td>
