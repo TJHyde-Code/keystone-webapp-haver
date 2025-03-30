@@ -65,12 +65,11 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
-
                                 @if (!item.VendorArchived)
                                 {
-                                    <a asp-action="Archive" asp-controller="Vendor" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Archive</a>
+                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
+                                <a asp-action="Archive" asp-controller="Vendor" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Archive</a>
                                 }
                                 else
                                 {
