@@ -35,37 +35,37 @@
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label asp-for="KickoffMeeting" class="form-label fw-bold"> Kickoff Meeting</label>
-                    <input id="kickoff-picker" asp-for="KickoffMeeting" type="date" class="form-control border-primary " />
+                    <input id="KickoffPicker" asp-for="KickoffMeeting" type="date" class="form-control border-primary " />
                     <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="ApprovalDrawingExpected" class="control-label fw-bold">Expected Approval Drawing</label>
-                    <input asp-for="ApprovalDrawingExpected" class="form-control" type="date" />
+                    <input id="ApprovalDrawingPicker" asp-for="ApprovalDrawingExpected" class="form-control" type="date" />
                     <span asp-validation-for="ApprovalDrawingExpected" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="PreOrderExpected" class="control-label fw-bold">Expected Pre Order</label>
-                    <input asp-for="PreOrderExpected" class="form-control" type="date" />
+                    <input id="PreOrderPicker" asp-for="PreOrderExpected" class="form-control" type="date" />
                     <span asp-validation-for="PreOrderExpected" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="EngineerPackageExpected" class="control-label fw-bold">Expected Engineer Package</label>
-                    <input asp-for="EngineerPackageExpected" class="form-control" type="date" />
+                    <input id="EngineerPackagePicker" asp-for="EngineerPackageExpected" class="form-control" type="date" />
                     <span asp-validation-for="EngineerPackageExpected" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="PurchaseOrderExpected" class="control-label fw-bold">Expected Purchase Order</label>
-                    <input asp-for="PurchaseOrderExpected" class="form-control" type="date" />
+                    <input id="PurchaseOrderPicker" asp-for="PurchaseOrderExpected" class="form-control" type="date" />
                     <span asp-validation-for="PurchaseOrderExpected" class="text-danger"></span>
                 </div>
 
                 <div class="form-group mb-3">
                     <label asp-for="ReadinessToShipExpected" class="control-label fw-bold">Expected Readiness To Ship</label>
-                    <input asp-for="ReadinessToShipExpected" class="form-control" type="date" />
+                    <input id="ReadinessToShipPicker" asp-for="ReadinessToShipExpected" class="form-control" type="date" />
                     <span asp-validation-for="ReadinessToShipExpected" class="text-danger"></span>
                 </div>
             </div>
@@ -144,6 +144,96 @@
                     }
                 });
             });
+        });
+    </script>
+
+    <!--Kickoff Date picker-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const kickoff = document.getElementById("KickoffPicker");
+            if (kickoff) {
+                flatpickr(kickoff, {
+                    dateFormat: "Y-m-d",       // format compatible with backend binding
+                    minDate: "today",          // prevent selecting past dates
+                    defaultDate: new Date(),   // show today's date by default
+                    disableMobile: true        // always use Flatpickr, not native input
+                    });
+                    }
+                });
+    </script>
+
+    <!--Approval Drawing Expected picker-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const kickoff = document.getElementById("ApprovalDrawingPicker");
+            if (kickoff) {
+                flatpickr(kickoff, {
+                    dateFormat: "Y-m-d",       
+                    minDate: "today",          
+                    defaultDate: new Date(),   
+                    disableMobile: true        
+                });
+            }
+        });
+    </script>
+
+    <!--PreOrder Expected picker-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const kickoff = document.getElementById("PreOrderPicker");
+            if (kickoff) {
+                flatpickr(kickoff, {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    defaultDate: new Date(),
+                    disableMobile: true
+                });
+            }
+        });
+    </script>
+
+    <!--Engineer Package Expected picker-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const kickoff = document.getElementById("EngineerPackagePicker");
+            if (kickoff) {
+                flatpickr(kickoff, {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    defaultDate: new Date(),
+                    disableMobile: true
+                });
+            }
+        });
+    </script>
+
+    <!--Purchase Order Expected picker-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const kickoff = document.getElementById("PurchaseOrderPicker");
+            if (kickoff) {
+                flatpickr(kickoff, {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    defaultDate: new Date(),
+                    disableMobile: true
+                });
+            }
+        });
+    </script>
+
+    <!--Readiness To Ship Expected picker-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const kickoff = document.getElementById("ReadinessToShipPicker");
+            if (kickoff) {
+                flatpickr(kickoff, {
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    defaultDate: new Date(),
+                    disableMobile: true
+                });
+            }
         });
     </script>
 }
