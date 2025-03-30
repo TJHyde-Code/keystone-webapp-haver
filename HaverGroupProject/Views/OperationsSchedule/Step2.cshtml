@@ -31,6 +31,46 @@
             <span asp-validation-for="EngineerID" class="text-danger"></span>
         </div>
 
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <label asp-for="KickoffMeeting" class="form-label fw-bold"> Kickoff Meeting</label>
+                    <input id="kickoff-picker" asp-for="KickoffMeeting" type="date" class="form-control border-primary " />
+                    <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ApprovalDrawingExpected" class="control-label fw-bold">Expected Approval Drawing</label>
+                    <input asp-for="ApprovalDrawingExpected" class="form-control" type="date" />
+                    <span asp-validation-for="ApprovalDrawingExpected" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PreOrderExpected" class="control-label fw-bold">Expected Pre Order</label>
+                    <input asp-for="PreOrderExpected" class="form-control" type="date" />
+                    <span asp-validation-for="PreOrderExpected" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="EngineerPackageExpected" class="control-label fw-bold">Expected Engineer Package</label>
+                    <input asp-for="EngineerPackageExpected" class="form-control" type="date" />
+                    <span asp-validation-for="EngineerPackageExpected" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="PurchaseOrderExpected" class="control-label fw-bold">Expected Purchase Order</label>
+                    <input asp-for="PurchaseOrderExpected" class="form-control" type="date" />
+                    <span asp-validation-for="PurchaseOrderExpected" class="text-danger"></span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label asp-for="ReadinessToShipExpected" class="control-label fw-bold">Expected Readiness To Ship</label>
+                    <input asp-for="ReadinessToShipExpected" class="form-control" type="date" />
+                    <span asp-validation-for="ReadinessToShipExpected" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
 
 
         <div class="mt-4">
