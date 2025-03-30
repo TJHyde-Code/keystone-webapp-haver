@@ -33,11 +33,6 @@
 
             </div>
             <div class="col-md-6">
-                <div class="form-group mb-3">
-                    <label asp-for="KickoffMeeting" class="form-label fw-bold"> Kickoff Meeting</label>
-                    <input id="kickoff-picker" asp-for="KickoffMeeting" type="date" class="form-control border-primary " />
-                    <span asp-validation-for="KickoffMeeting" class="text-danger"></span>
-                </div>
 
                 @* <div class="form-group mb-3">
                 <label asp-for="ReleaseApprovalDrawing" class="form-label fw-bold">Release Approval Drawing </label>
@@ -48,7 +43,7 @@
             </div>
         </div>
 
-        <button type="button" class="btn btn-success ms-2" onclick="window.history.back()">Back to List </button>
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
         <button type="submit" class="btn btn-primary">Next</button>
         <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
 

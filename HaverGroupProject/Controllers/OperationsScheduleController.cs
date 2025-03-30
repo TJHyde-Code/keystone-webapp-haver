@@ -357,7 +357,7 @@ namespace HaverGroupProject.Controllers
                     SalesOrdNum = operationsSchedule.SalesOrdNum,
                     //ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
                     //PackageReleaseName = operationsSchedule.PackageReleaseName,
-                    KickoffMeeting = operationsSchedule.KickoffMeeting,
+                    //KickoffMeeting = operationsSchedule.KickoffMeeting,
                     //ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing
                 };
                 return View(viewModel);
@@ -382,7 +382,7 @@ namespace HaverGroupProject.Controllers
                         SalesOrdNum = model.SalesOrdNum,
                         //ExtSalesOrdNum = model.ExtSalesOrdNum,
                         //PackageReleaseName = model.PackageReleaseName,
-                        KickoffMeeting = model.KickoffMeeting,
+                        //KickoffMeeting = model.KickoffMeeting,
                         //ReleaseApprovalDrawing = model.ReleaseApprovalDrawing
                     };
                     _context.OperationsSchedules.Add(operationsSchedule);
@@ -392,7 +392,7 @@ namespace HaverGroupProject.Controllers
                     operationsSchedule.SalesOrdNum = model.SalesOrdNum;
                     //operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
                     //operationsSchedule.PackageReleaseName = model.PackageReleaseName;
-                    operationsSchedule.KickoffMeeting = model.KickoffMeeting;
+                    //operationsSchedule.KickoffMeeting = model.KickoffMeeting;
                     //operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
 
                     _context.OperationsSchedules.Update(operationsSchedule);
@@ -450,6 +450,12 @@ namespace HaverGroupProject.Controllers
 
                 operationsSchedule.CustomerID = model.CustomerID;
                 operationsSchedule.EngineerID = model.EngineerID;
+                operationsSchedule.KickoffMeeting = model.KickoffMeeting;
+                operationsSchedule.ApprovalDrawingExpected = model.ApprovalDrawingExpected.Value;
+                operationsSchedule.PreOrderExpected = model.PreOrderExpected.Value;
+                operationsSchedule.EngineerPackageExpected = model.EngineerPackageExpected.Value;
+                operationsSchedule.PurchaseOrderExpected = model.PurchaseOrderExpected.Value;
+                operationsSchedule.ReadinessToShipExpected = model.ReadinessToShipExpected.Value;
 
                 _context.OperationsSchedules.Update(operationsSchedule);
                 await _context.SaveChangesAsync();
