@@ -1,0 +1,26 @@
+﻿@model HaverGroupProject.Models.Vendor
+
+@{
+    ViewData["Title"] = "Unarchive Vendor";
+}
+
+<h1>Unarchive Vendor</h1>
+
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <h3>Are you sure you want to unarchive this vendor?</h3>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.VendorName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.VendorName)
+        </dd>
+    </dl>
+
+    <form asp-action="UnArchive" method="post">
+        <input type="hidden" asp-for="ID" />
+        <input type="submit" value="UnArchive" class="btn btn-danger" /> |
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
