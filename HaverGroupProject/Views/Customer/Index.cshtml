@@ -34,6 +34,30 @@
                asp-action="Index" asp-route-showArchived="true">Archived</a>
         </li>
     </ul>
+	<p>
+		<a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
+	</p>
+	<table class="table table-bordered table-striped table-hover">
+		<thead class="table-col">
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.CustomerName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.CustConSummary)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.CustomerAddress)
+				</th>
+				<th>
+					@Html.DisplayNameFor(Model => Model.CustomerPhone)
+				</th>
+				<th>
+					@Html.DisplayNameFor(Model => Model.CustomerEmail)
+				</th>
+				<th>
+					Orders
+				</th>
 
     <table class="table table-bordered table-striped table-hover">
         <thead class=" table-col">
@@ -53,7 +77,6 @@
             }
             else
             {
-
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -88,4 +111,55 @@
 
         </tbody>
     </table>
+					<td>
+						@{
+
+							var activeOrdersCount = item.OperationsSchedule
+							.Where(c => c.KickoffMeeting.HasValue)
+							.Count();
+
+							if (activeOrdersCount > 1)
+							{
+								<a href="@Url.Action("Details", "Customer", new { id = item.ID })"
+								   class="badge bg-info"
+								   title="View Customer Details">
+									+@(activeOrdersCount)
+								</a>
+
+							}
+							else
+							{
+								@:No Active Orders
+							}
+						}
+					</td>
+
+					<td>
+						<div class="btn-group" role="group">
+							<!-- Edit Button with Pencil Icon -->
+							<a asp-action="Edit" asp-route-id="@item.ID"
+							   class="btn btn-outline-primary btn-sm"
+							   title="Edit">
+								<i class="bi bi-pencil"></i> Edit
+							</a>
+
+							<!-- Details Button with Eye Icon -->
+							<a asp-action="Details" asp-route-id="@item.ID"
+							   class="btn btn-outline-info btn-sm"
+							   title="View Details">
+								<i class="bi bi-eye"></i> Details
+							</a>
+
+							<!-- Archive Button with Archive Box Icon -->
+							<a asp-action="Delete" asp-route-id="@item.ID"
+							   class="btn btn-outline-danger btn-sm"
+							   title="Archive Record">
+								<i class="bi bi-archive"></i> Archive
+							</a>
+						</div>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
 </div>

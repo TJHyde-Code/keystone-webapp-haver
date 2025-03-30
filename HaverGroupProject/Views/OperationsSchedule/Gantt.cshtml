@@ -120,7 +120,8 @@
                                 start: new Date(range.start),
                                 end: new Date(range.end),
                                 color: range.color,
-                                progress: range.progress,
+                                // progress: range.progress,
+                                progress: 100, //default progress to 100%, remove value from seeding.
                                 _row: range.custom_index  // Collapse task related objects to the custom_index.
                             });
                         });
@@ -140,15 +141,15 @@
                                 <strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
                                 <strong>Progress:</strong> ${task.progress}%
                             </div>`,
-                        date_format: "yyyy-MM-dd" // Ensure consistent date format
+                        date_format: "yyyy-MM-dd" // Ensure consistent date format                        
                     });
 
                      // // Wait for the Gantt chart to render completely before applying styles
                         gantt.refresh(flatGanttTasks);
 
                     setTimeout(() => {
-                        const rowHeight = 20;
-                        const topMargin = 20;
+                        const rowHeight =28;
+                        const topMargin = 4;
 
                         function applyYOffset(el, yOffset) {
                             if (!el) return;
@@ -209,6 +210,8 @@
                                 progressBars[index].setAttribute("fill", task.color);
                                 progressBars[index].style.fill = task.color;
                             }
+
+                            
                         });
 
                         // Handles: 2 per task (start and end)
@@ -224,11 +227,18 @@
                             row.style.display = "flex";
                             row.style.alignItems = "center";
                             row.style.borderBottom = "none";
+
+
                         });
 
-                        // Adjust grid backgrounds
-                        document.querySelectorAll(".grid-row, .grid-background").forEach(grid => {
-                            grid.style.height = `${rowHeight}px`;
+                        // // Adjust grid backgrounds
+                        // document.querySelectorAll(".grid-row, .grid-background").forEach(grid => {
+                        //     grid.style.height = `${rowHeight}px`;
+                        // });
+
+                        // Remove or hide only the background bars (the .bar class inside each .bar-wrapper)
+                        document.querySelectorAll(".bar-wrapper .bar").forEach(background => {
+                            background.style.display = 'none';  // Hide the background bar
                         });
 
                         console.log("All Gantt elements fully aligned with margin, colors, and handles.");

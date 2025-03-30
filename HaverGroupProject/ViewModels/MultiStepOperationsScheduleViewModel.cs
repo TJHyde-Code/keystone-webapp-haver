@@ -168,6 +168,10 @@ namespace HaverGroupProject.ViewModels
         public int? MachineDescriptionID { get; set; }
         public List<SelectListItem>? Machines { get; set; }
 
+        [Display(Name = "Engineer Name")]
+        public int? EngineerID { get; set; }
+        public List<SelectListItem>? Engineers { get; set; }
+
         [Display(Name = "Customer Name")]
         public int? CustomerID { get; set; }
         public List<SelectListItem>? Customers { get; set; }

@@ -20,17 +20,22 @@
                 <input asp-for="CustomerName" class="form-control" />
                 <span asp-validation-for="CustomerName" class="text-danger"></span>
             </div>
-            
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+
+                <div class="d-flex gap-2 mt-3 align-items-center">
+                    <div class="form-group mb-0">
+                        <input type="submit" value="Save" class="btn btn-primary" />
+                    </div>
+                    <div>
+                        <a asp-action="Index" class="btn btn-success" style="font-size: 12px;">
+                            <i class="bi bi-arrow-left me-1"></i>Back to List
+                        </a>
+                    </div>
+                </div>
         </form>
     </div>
 </div>
 </div>
-<div>
-    <a asp-action="Index" class="btn btn-success" style="font-size: 12px;">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
