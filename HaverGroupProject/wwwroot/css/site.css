@@ -27,7 +27,7 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 
@@ -45,7 +45,6 @@ table {
 .table-col {
     background-color: #0A2240;
     color: white;
-    
 }
 
 .btn {
@@ -55,8 +54,10 @@ table {
 }
 
 .btn-sm {
+    /* color:white;*/
     margin-right: 5px;
 }
+
 
 
 .btn-success {
@@ -64,14 +65,13 @@ table {
     color: #FFFFFF;
 }
 
-.btn-success:hover {
-    background-color: #2941e6;
-}
+    .btn-success:hover {
+        background-color: #2941e6;
+    }
 
 .logo {
     height: 20px; /* Adjust size as needed */
     width: auto;
-   
 }
 
 .splash-logo {
@@ -96,9 +96,9 @@ footer {
 
 /*Adding dark blue color to details page*/
 .details-header {
-    background-color: #0A2240; 
-    color: white; 
-    font-weight: bold; 
+    background-color: #0A2240;
+    color: white;
+    font-weight: bold;
     text-transform: uppercase;
     margin: 0rem;
 }
@@ -126,7 +126,7 @@ footer {
     background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-    max-width:100%;
+    max-width: 100%;
 }
 
 .task-table-wrapper {
@@ -142,7 +142,6 @@ footer {
     .task-table-wrapper table {
         border-collapse: collapse;
         width: 100%;
-        
     }
 
     .task-table-wrapper th,
@@ -153,9 +152,7 @@ footer {
         border-top: none;
         font-size: 12px;
         white-space: nowrap;
-        overflow:hidden;
-        
-        
+        overflow: hidden;
     }
 
 

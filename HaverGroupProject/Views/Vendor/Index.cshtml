@@ -7,35 +7,52 @@
 <h1 style="text-align: center;">Vendor</h1>
 
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-<p>
-    <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
-</p>
-<table class="table table-bordered table-striped table-hover">
-    <thead class=" table-col">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.VendorName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.VendorName)
-            </td>
+    <p>
+        <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
+    </p>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class=" table-col">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.VendorName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
                     <td>
-                        <div class="btn-group">
-                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
-                            <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
-                            <!--Changing Delete to Archive-->
-                            <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Archive</a>
+                        @Html.DisplayFor(modelItem => item.VendorName)
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <!-- Edit Button -->
+                            <a asp-action="Edit" asp-route-id="@item.ID"
+                               class="btn btn-outline-primary btn-sm"
+                               title="Edit Record">
+                                <i class="bi bi-pencil-square me-1"></i> Edit
+                            </a>
+
+                            <!-- Details Button -->
+                            <a asp-action="Details" asp-route-id="@item.ID"
+                               class="btn btn-outline-info btn-sm"
+                               title="View Details">
+                                <i class="bi bi-eye-fill me-1"></i> Details
+                            </a>
+
+                            <!-- Archive Button -->
+                            <a asp-action="Delete" asp-route-id="@item.ID"
+                               class="btn btn-outline-danger btn-sm"
+                               title="Archive Record">
+                                <i class="bi bi-archive me-1"></i> Archive
+                            </a>
                         </div>
                     </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 

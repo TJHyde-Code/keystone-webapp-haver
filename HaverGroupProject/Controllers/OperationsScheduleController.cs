@@ -27,19 +27,91 @@ namespace HaverGroupProject.Controllers
         }
 
         // GET: OperationsSchedule
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+     string SalesOrderNumber,
+     string CustomerName,
+     string EngineerFirstName,
+     string MachineSerialNumber,
+     string Vendor,
+     string ProductionOrderNumber)
         {
-            var haverContext = _context.OperationsSchedules
-            .OrderByDescending(o => o.ID)//View defaults to show Newest records First.
-            .Include(o => o.Customer)
-            .Include(o => o.Vendor)
-            .Include(o => o.Engineer)
-            .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
-            .Include(o => o.Note)
-            .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor);
-            return View(await haverContext.ToListAsync());
-        }
+            // First get all necessary data from database
+            var operationsSchedules = await _context.OperationsSchedules
+                .OrderByDescending(o => o.ID)
+                .Include(o => o.Customer)
+                .Include(o => o.Vendor)
+                .Include(o => o.Engineer)
+                .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
+                .Include(o => o.Note)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
+                .AsNoTracking()
+                .ToListAsync();
 
+            // Apply filters in memory
+            IEnumerable<OperationsSchedule> filteredResults = operationsSchedules;
+
+            if (!string.IsNullOrEmpty(SalesOrderNumber))
+            {
+                filteredResults = filteredResults.Where(o =>
+                    o.SalesOrdNum.ToString().Contains(SalesOrderNumber, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(CustomerName))
+            {
+                filteredResults = filteredResults.Where(o =>
+                    o.Customer != null &&
+                    o.Customer.CustomerName != null &&
+                    o.Customer.CustomerName.Contains(CustomerName, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(EngineerFirstName))
+            {
+                filteredResults = filteredResults.Where(o =>
+                    o.Engineer != null &&
+                    ((o.Engineer.EngFirstName != null &&
+                      o.Engineer.EngFirstName.Contains(EngineerFirstName, StringComparison.OrdinalIgnoreCase)) ||
+                     (o.Engineer.EngSummary != null &&
+                      o.Engineer.EngSummary.Contains(EngineerFirstName, StringComparison.OrdinalIgnoreCase))));
+            }
+
+            if (!string.IsNullOrEmpty(MachineSerialNumber))
+            {
+                filteredResults = filteredResults.Where(o =>
+                    o.MachineDescription != null &&
+                    o.MachineDescription.SerialNumber != null &&
+                    o.MachineDescription.SerialNumber.Contains(MachineSerialNumber, StringComparison.OrdinalIgnoreCase));
+            }
+
+            if (!string.IsNullOrEmpty(Vendor))
+            {
+                filteredResults = filteredResults.Where(o =>
+                    o.OperationsScheduleVendors != null &&
+                    o.OperationsScheduleVendors.Any(v =>
+                        v.Vendor != null &&
+                        v.Vendor.VendorName != null &&
+                        v.Vendor.VendorName.Contains(Vendor, StringComparison.OrdinalIgnoreCase)));
+            }
+
+            if (!string.IsNullOrEmpty(ProductionOrderNumber))
+            {
+                filteredResults = filteredResults.Where(o =>
+                    o.ProductionOrderNumber != null &&
+                    o.ProductionOrderNumber.Contains(ProductionOrderNumber, StringComparison.OrdinalIgnoreCase));
+            }
+
+            // Store filter values
+            ViewBag.Filter = new
+            {
+                SalesOrderNumber,
+                CustomerName,
+                EngineerFirstName,
+                MachineSerialNumber,
+                Vendor,
+                ProductionOrderNumber
+            };
+
+            return View(filteredResults.ToList());
+        }
         // GET: OperationsSchedule/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -356,7 +428,7 @@ namespace HaverGroupProject.Controllers
                 .ToList(),
 
                 EngineerID = operationsSchedule.EngineerID,
-                
+
                 Engineers = _context.Engineers
                 .Select(e => new SelectListItem { Value = e.ID.ToString(), Text = e.EngSummary })
                 .ToList(),
@@ -744,13 +816,13 @@ namespace HaverGroupProject.Controllers
         public async Task<IActionResult> GetTasks()
         {
             var tasks = await _context.OperationsSchedules
-                .Include(g => g.Customer)                
+                .Include(g => g.Customer)
                 .ToListAsync();
 
             var formattedTasks = tasks.Select(t => new
             {
                 id = t.ID,
-                customer = t.Customer.CustomerName,         
+                customer = t.Customer.CustomerName,
 
                 dateRanges = new List<DateRange>
                 {
@@ -941,7 +1013,7 @@ namespace HaverGroupProject.Controllers
             return Json(vendors);
         }
 
-      
+
 
         [HttpPost]
         public async Task<IActionResult> CreateVendor(string vendorName)
