@@ -1,27 +1,98 @@
 ﻿@model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
-
 @{
     ViewData["Title"] = "Operations Schedule";
 }
 
 <div class="text-end mb-3">
-
     <a asp-controller="OperationsSchedule" asp-action="DownloadOperationsSchedules" class="btn btn-success">
-        <i class="bi bi-download"></i> Download Schedules
+        <i class="bi bi-download"></i> Download Sales Orders
     </a>
 </div>
-<h1>Operations Schedule</h1>
+
+<h1>Sales Orders</h1>
+
+<!-- Collapsible Filter Card -->
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <div class="card mb-3">
+        <div class="card-header details-header text-white d-flex justify-content-between align-items-center">
+            <span>Filter Sales Orders</span>
+            <button class="btn btn-sm btn-light"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#filterCollapse"
+                    aria-expanded="true"
+                    aria-controls="filterCollapse"
+                    title="Toggle filters">
+                <i class="bi bi-funnel-fill" id="filterToggleIcon"></i>
+            </button>
+        </div>
+
+        <div class="collapse" id="filterCollapse">
+            <div class="card-body">
+                <form asp-action="Index" method="get" class="row g-3" id="filterForm">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label"><strong>@Html.DisplayNameFor(model => model.First().SalesOrdNum)</strong></label>
+                            <input name="SalesOrderNumber" value="@Context.Request.Query["SalesOrderNumber"]" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>@Html.DisplayNameFor(model => model.First().Customer.CustomerName)</strong></label>
+                            <input name="CustomerName" value="@Context.Request.Query["CustomerName"]" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Engineer</strong></label>
+                            <input name="EngineerFirstName" value="@Context.Request.Query["EngineerFirstName"]" class="form-control" placeholder="Search by first name" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Machine Serial Number</strong></label>
+                            <input name="MachineSerialNumber" value="@Context.Request.Query["MachineSerialNumber"]" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Vendor</strong></label>
+                            <input name="Vendor" value="@Context.Request.Query["Vendor"]" class="form-control" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><strong>Production Order #</strong></label>
+                            <input name="ProductionOrderNumber" value="@Context.Request.Query["ProductionOrderNumber"]" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-primary" id="filterButton">
+                                <i class="bi bi-search"></i> Apply Filters
+                                <span class="spinner-border spinner-border-sm d-none" id="loadingSpinner"></span>
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="bi bi-arrow-counterclockwise"></i> Clear Filters
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
     <p>
-        <a asp-action="Step1" class="btn btn-success" style="font-size: 12px;">Create New</a>
+        <a asp-action="Step1" class="btn btn-success" style="font-size: 12px;">
+            <i class="bi bi-plus-lg me-1"></i>Create New
+        </a>
     </p>
+
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead class="table-col">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
-
                     <th>@Html.DisplayNameFor(model => model.Customer)</th>
                     <th>@Html.DisplayNameFor(model => model.Engineer)</th>
                     <th>@Html.DisplayNameFor(model => model.OperationsScheduleMachines)</th>
@@ -33,11 +104,16 @@
                 </tr>
             </thead>
             <tbody>
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="9" class="text-center text-muted py-4">No records found matching your filters</td>
+                    </tr>
+                }
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.SalesOrdNum)</td>
-
                         <td>@(item.Customer != null ? item.Customer.CustomerName : "N/A")</td>
                         <td>@(item.Engineer != null ? item.Engineer.EngSummary : "N/A")</td>
                         <td>
@@ -78,9 +154,20 @@
                         <td>@(item.ProductionOrderNumber ?? "N/A")</td>
                         <td>@(item.MachineDescription != null && item.MachineDescription.InstalledMedia ? "Installed Media" : "No Extras")</td>
                         <td>
-                            <div class="btn-group">
-                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
+                            <div class="btn-group" role="group">
+                                <!-- Edit Button -->
+                                <a asp-action="Edit" asp-route-id="@item.ID"
+                                   class="btn btn-outline-primary btn-sm"
+                                   title="Edit Record">
+                                    <i class="bi bi-pencil-square me-1"></i> Edit
+                                </a>
+
+                                <!-- Details Button -->
+                                <a asp-action="Details" asp-route-id="@item.ID"
+                                   class="btn btn-outline-info btn-sm"
+                                   title="View Details">
+                                    <i class="bi bi-eye-fill me-1"></i> Details
+                                </a>
                             </div>
                         </td>
                     </tr>
@@ -88,50 +175,116 @@
             </tbody>
         </table>
     </div>
-
-    <div class="d-flex justify-content-center my-3">
-        <button id="prev" class="btn btn-success me-2">Previous</button>
-        <span id="page-info" class="mx-2"></span>
-        <button id="next" class="btn btn-success ms-2">Next</button>
-    </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const rowsPerPage = 10;
-        let currentPage = 1;
-        const tableRows = document.querySelectorAll("tbody tr");
-        const totalPages = Math.ceil(tableRows.length / rowsPerPage);
-        const prevBtn = document.getElementById("prev");
-        const nextBtn = document.getElementById("next");
-        const pageInfo = document.getElementById("page-info");
+@if (Model.Any())
+{
+    <div class="d-flex justify-content-center align-items-center my-4">
+        <!-- Previous Button -->
+        <button id="prev" class="btn btn-outline-success me-2" title="Previous Page">
+            <i class="bi bi-chevron-left me-1"></i> Previous
+        </button>
 
-        function renderTable() {
-            tableRows.forEach((row, index) => {
-                row.style.display = (index >= (currentPage - 1) * rowsPerPage && index < currentPage * rowsPerPage)
-                    ? ""
-                    : "none";
+        <!-- Page Info -->
+        <span id="page-info" class="mx-3 badge bg-light text-dark fs-6">
+            Page <span id="current-page">1</span> of <span id="total-pages">1</span>
+        </span>
+
+        <!-- Next Button -->
+        <button id="next" class="btn btn-outline-success ms-2" title="Next Page">
+            Next <i class="bi bi-chevron-right ms-1"></i>
+        </button>
+    </div>
+}
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initialize tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
             });
 
-            pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-            prevBtn.disabled = currentPage === 1;
-            nextBtn.disabled = currentPage === totalPages;
-        }
+            // Filter collapse functionality
+            const filterCollapse = document.getElementById('filterCollapse');
+            const toggleIcon = document.getElementById('filterToggleIcon');
 
-        prevBtn.addEventListener("click", function () {
-            if (currentPage > 1) {
-                currentPage--;
+            // Initialize based on localStorage
+            const savedState = localStorage.getItem('filterState');
+            if (savedState === 'collapsed') {
+                new bootstrap.Collapse(filterCollapse, { toggle: false });
+                toggleIcon.classList.replace('bi-funnel-fill', 'bi-funnel');
+            }
+
+            // Toggle icon and save state
+            filterCollapse.addEventListener('show.bs.collapse', function () {
+                toggleIcon.classList.replace('bi-funnel', 'bi-funnel-fill');
+                localStorage.setItem('filterState', 'expanded');
+            });
+
+            filterCollapse.addEventListener('hide.bs.collapse', function () {
+                toggleIcon.classList.replace('bi-funnel-fill', 'bi-funnel');
+                localStorage.setItem('filterState', 'collapsed');
+            });
+
+            // Form submission handling
+            const filterForm = document.getElementById('filterForm');
+            const filterButton = document.getElementById('filterButton');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            filterForm.addEventListener('submit', function () {
+                filterButton.disabled = true;
+                loadingSpinner.classList.remove('d-none');
+            });
+
+            // Pagination functionality
+            const rowsPerPage = 10;
+            let currentPage = 1;
+            let tableRows = document.querySelectorAll("tbody tr:not([style*='display: none'])");
+            let totalPages = Math.ceil(tableRows.length / rowsPerPage);
+            const prevBtn = document.getElementById("prev");
+            const nextBtn = document.getElementById("next");
+            const pageInfo = document.getElementById("page-info");
+
+            function renderTable() {
+                let visibleCount = 0;
+                tableRows.forEach((row, index) => {
+                    const shouldShow = (index >= (currentPage - 1) * rowsPerPage &&
+                        index < currentPage * rowsPerPage);
+                    row.style.display = shouldShow ? "" : "none";
+                    if (shouldShow) visibleCount++;
+                });
+
+                pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+                prevBtn.disabled = currentPage === 1;
+                nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+            }
+
+            prevBtn?.addEventListener("click", function () {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+
+            nextBtn?.addEventListener("click", function () {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+
+            // Initialize
+            updatePagination();
+
+            function updatePagination() {
+                tableRows = document.querySelectorAll("tbody tr:not([style*='display: none'])");
+                totalPages = Math.ceil(tableRows.length / rowsPerPage);
+                if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
                 renderTable();
             }
         });
-
-        nextBtn.addEventListener("click", function () {
-            if (currentPage < totalPages) {
-                currentPage++;
-                renderTable();
-            }
-        });
-
-        renderTable();
-    });
-</script>
+    </script>
+}
