@@ -20,6 +20,27 @@ namespace HaverGroupProject.Controllers
             _context = context;
         }
 
+        //Index includes Archive
+        public async Task<IActionResult> Index(bool showArchived = false)
+        {
+            ViewData["ShowArchived"] = showArchived;
+
+            var query = _context.Customers.IgnoreQueryFilters();
+
+            if (showArchived)
+            {
+                query = query.Where(c => c.CustomerArchived);
+            }
+            else
+            {
+                query = query.Where(c => !c.CustomerArchived);
+            }
+
+            var customers = await query.ToListAsync();
+            return View(customers);
+        }
+
+        /* commented out old index for now
         // GET: Customer
         public async Task<IActionResult> Index()
         {
@@ -27,6 +48,7 @@ namespace HaverGroupProject.Controllers
                 .Include(o => o.OperationsSchedule)
                 .ToListAsync());
         }
+        */
 
         // GET: Customer/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -173,5 +195,87 @@ namespace HaverGroupProject.Controllers
         {
             return _context.Customers.Any(e => e.ID == id);
         }
+
+        // GET: Customer/Archive/5
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
+        }
+
+        // POST: Customer/Archive
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveConfirmed(int id)
+        {
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            customer.CustomerArchived = true;
+            _context.Update(customer);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Customer archived successfully!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Vendor/UnArchive/5
+        [HttpGet]
+        public async Task<IActionResult> UnArchive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers
+                .IgnoreQueryFilters()
+                .Where(c => c.ID == id && c.CustomerArchived)
+                .FirstOrDefaultAsync();
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
+        }
+
+        // POST: Customer/UnArchive
+        [HttpPost, ActionName("UnArchive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UnArchiveConfirmed(int id)
+        {
+            var customer = await _context.Customers
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(c => c.ID == id && c.CustomerArchived);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            customer.CustomerArchived = false;
+            _context.Update(customer);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Customer has been unarchived successfully!";
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

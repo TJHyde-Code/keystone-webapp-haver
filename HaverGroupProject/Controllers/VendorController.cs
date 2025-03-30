@@ -19,7 +19,7 @@ namespace HaverGroupProject.Controllers
             _context = context;
         }
 
-        //Archive
+        //Index includes Archive
         public async Task<IActionResult> Index(bool showArchived = false)
         {
             ViewData["ShowArchived"] = showArchived;
@@ -119,6 +119,79 @@ namespace HaverGroupProject.Controllers
             return View(vendor);
         }
 
+        // POST: Vendor/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,VendorName")] Vendor vendor)
+        {
+            if (id != vendor.ID)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(vendor);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!VendorExists(vendor.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(vendor);
+        }
+
+        // GET: Vendor/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vendor = await _context.Vendors
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (vendor == null)
+            {
+                return NotFound();
+            }
+
+            return View(vendor);
+        }
+
+        // POST: Vendor/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var vendor = await _context.Vendors.FindAsync(id);
+            if (vendor != null)
+            {
+                _context.Vendors.Remove(vendor);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool VendorExists(int id)
+        {
+            return _context.Vendors.Any(e => e.ID == id);
+        }
+
         // GET: Vendor/Archive/5
         public async Task<IActionResult> Archive(int? id)
         {
@@ -199,81 +272,5 @@ namespace HaverGroupProject.Controllers
             TempData["SuccessMessage"] = "Vendor has been unarchived successfully!";
             return RedirectToAction(nameof(Index));
         }
-
-
-
-        // POST: Vendor/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,VendorName")] Vendor vendor)
-        {
-            if (id != vendor.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(vendor);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!VendorExists(vendor.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(vendor);
-        }
-
-        // GET: Vendor/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var vendor = await _context.Vendors
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (vendor == null)
-            {
-                return NotFound();
-            }
-
-            return View(vendor);
-        }
-
-        // POST: Vendor/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var vendor = await _context.Vendors.FindAsync(id);
-            if (vendor != null)
-            {
-                _context.Vendors.Remove(vendor);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool VendorExists(int id)
-        {
-            return _context.Vendors.Any(e => e.ID == id);
-        }
-
     }
 }
