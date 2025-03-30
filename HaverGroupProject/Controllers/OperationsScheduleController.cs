@@ -787,17 +787,17 @@ namespace HaverGroupProject.Controllers
 
 
         /// <summary>
-        /// Gantt Methods for auto generating the Gantt view. (update task may or may not be removed)
+        /// Gantt Methods for auto generating the Gantt view. 
         /// </summary>
         /// <returns></returns>
         #region Gantt Methods
 
         [HttpGet]
-        public async Task<IActionResult> Gantt()
+        public async Task<IActionResult> Gantt(int id)
         {
 
             // Fetch data from the database for the OperationsSchedule
-            var operationsScheduleList = _context.OperationsSchedules
+            var ganttList = _context.OperationsSchedules
                  .Include(o => o.Customer)
                 .Include(o => o.Vendor)
                 .Include(o => o.Engineer)
@@ -807,7 +807,7 @@ namespace HaverGroupProject.Controllers
 
 
             // Return the Gantt view with the data model
-            return View(await operationsScheduleList.ToListAsync());
+            return View(await ganttList.ToListAsync());
         }
 
 
@@ -821,22 +821,23 @@ namespace HaverGroupProject.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTasks()
         {
-            var tasks = await _context.OperationsSchedules
+
+            var tasks = await _context.OperationsSchedules                
                 .Include(g => g.Customer)
                 .ToListAsync();
 
             var formattedTasks = tasks.Select(t => new
             {
                 id = t.ID,
-                customer = t.Customer.CustomerName,
-
+                customer = t.Customer?.CustomerName,
+                
                 dateRanges = new List<DateRange>
                 {
                     new DateRange
                      {
                      Name = "Approval Drawing ",
                      StartDate = t.ApprovalDrawingExpected,
-                     EndDate = t.ApprovalDrawingReleased.GetValueOrDefault(),
+                     EndDate = t.ApprovalDrawingReleased.GetValueOrDefault(t.ApprovalDrawingExpected.AddHours(5)),
                      Color = "#ff9f89",
                      Progress = t.ProgressApprovalDrawing ?? 0
                      },
@@ -844,28 +845,28 @@ namespace HaverGroupProject.Controllers
                      {
                      Name = "PreOrder ",
                      StartDate = t.PreOrderExpected,
-                     EndDate = t.PreOrderReleased.GetValueOrDefault(),
+                     EndDate = t.PreOrderReleased.GetValueOrDefault(t.PreOrderExpected.AddHours(5)),
                      Color = "#85d1f2",
                      Progress = t.ProgressPreOrder ?? 0
                      },
                     new DateRange{
                      Name = "Eng Pckg",
                      StartDate = t.EngineerPackageExpected,
-                     EndDate = t.EngineerPackageReleased.GetValueOrDefault(),
+                     EndDate = t.EngineerPackageReleased.GetValueOrDefault(t.EngineerPackageExpected.AddHours(5)),
                      Color = "#f6ff7c",
                      Progress = t.ProgressEngineerPackage ?? 0
                     },
                     new DateRange{
                      Name = "Purch Ord",
                      StartDate = t.PurchaseOrderExpected,
-                     EndDate = t.PurchaseOrderDueDate.GetValueOrDefault(),
+                     EndDate = t.PurchaseOrderDueDate.GetValueOrDefault(t.PurchaseOrderExpected.AddHours(5)),
                      Color = "#90e39d",
                      Progress = t.ProgressPurchaseOrder ?? 0
                     },
-                    new DateRange{
+                    new DateRange{ 
                      Name = "RTS",
                      StartDate = t.ReadinessToShipExpected,
-                     EndDate = t.ReadinessToShipActual.GetValueOrDefault(),
+                     EndDate = t.ReadinessToShipActual.GetValueOrDefault(t.ReadinessToShipExpected.AddHours(5)),
                      Color = "#f3c8f1",
                      Progress = t.ProgressReadinesstoShip ?? 0
                     }
@@ -875,6 +876,84 @@ namespace HaverGroupProject.Controllers
             return Json(formattedTasks);
         }
 
+        //GET: Gantt Update        
+        public async Task<IActionResult> GanttUpdate(int? id)
+        {
+
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var gantt = await _context.OperationsSchedules
+            .OrderByDescending(o => o.ID)
+            .Include(o => o.Customer)
+            .Include(o => o.Vendor)
+            .Include(o => o.Engineer)
+            .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
+            .Include(o => o.Note)
+            .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
+            .FirstOrDefaultAsync(o => o.ID == id);
+
+            if (gantt == null)
+            {
+                return NotFound();
+            }         
+            
+            return View(gantt);
+        }
+
+        
+
+        //POST: GanttUpdate
+        [HttpPost]
+        public async Task<IActionResult> GanttUpdate(int id, OperationsSchedule model)
+        {
+            var ganttToUpdate = await _context.OperationsSchedules
+                .Include(o => o.Customer)
+                .Include(o => o.Vendor)
+                .Include(o => o.Engineer)
+                .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
+                .Include(o => o.Note)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
+                .FirstOrDefaultAsync(o => o.ID == id);
+
+            if (ganttToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            // Explicitly update the properties
+            ganttToUpdate.ApprovalDrawingReleased = model.ApprovalDrawingReleased;
+            ganttToUpdate.ApprovalDrawingReturned = model.ApprovalDrawingReturned;
+            ganttToUpdate.EngineerPackageReleased = model.EngineerPackageReleased;
+            ganttToUpdate.PreOrderReleased = model.PreOrderReleased;
+            ganttToUpdate.PurchaseOrderDueDate = model.PurchaseOrderDueDate;
+            ganttToUpdate.PUrchaseOrderRecieved = model.PUrchaseOrderRecieved;
+            ganttToUpdate.ReadinessToShipActual = model.ReadinessToShipActual;
+
+            try
+            {
+                _context.Update(ganttToUpdate);
+                await _context.SaveChangesAsync();
+                var allSchedules = await _context.OperationsSchedules
+                .Include(o => o.Customer)
+                .Include(o => o.Vendor)
+                .Include(o => o.Engineer)
+                .Include(o => o.OperationsScheduleMachines).ThenInclude(o => o.MachineDescription)
+                .Include(o => o.Note)
+                .Include(o => o.OperationsScheduleVendors).ThenInclude(d => d.Vendor)
+                .ToListAsync();
+
+                return View("Gantt", allSchedules);
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists please see your system administrator.");
+            }
+
+            return View(ganttToUpdate);
+        }
 
         /// <summary>
         /// Updates an existing Gantt task with new values from the request body.

@@ -8,11 +8,6 @@
 
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
 
-    <div>
-        <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New Gantt</a>
-    </div>
-
-
 
     <div class="container-fluid">
         <div class="row">
@@ -22,10 +17,8 @@
                     <thead class="table-light">
                         <tr>
                             
-                            <th>@Html.DisplayNameFor(model => model.Customer)</th>                                                 
-                            
-                            
-                            
+                            <th>@Html.DisplayNameFor(model => model.Customer)</th> 
+                            <th>@Html.DisplayNameFor(model => model.SalesOrdNum )</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,9 +27,9 @@
                             <tr>
                                 
                                 <td class="d-flex justify-content-between align-items-center">
-                                    <span>@item.Customer.CustomerName </span>
+                                    <span>@item.Customer?.CustomerName </span>                                   
                                     <div class="action-icons">
-                                        <a asp-action="Edit" asp-route-id="@item.ID" class="icon-link">
+                                        <a asp-action="GanttUpdate" asp-route-id="@item.ID" class="icon-link">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
                                         <a asp-action="Delete" asp-route-id="@item.ID" class="icon-link">
@@ -44,6 +37,9 @@
                                         </a>
                                     </div>
                                 </td> 
+                                <td>
+                                    <span>@item.SalesOrdNum</span>
+                                </td>
                             </tr>
                         }
                     </tbody>
@@ -119,8 +115,7 @@
                                 name: range.name,
                                 start: new Date(range.start),
                                 end: new Date(range.end),
-                                color: range.color,
-                                // progress: range.progress,
+                                color: range.color,                                
                                 progress: 100, //default progress to 100%, remove value from seeding.
                                 _row: range.custom_index  // Collapse task related objects to the custom_index.
                             });
@@ -148,8 +143,8 @@
                         gantt.refresh(flatGanttTasks);
 
                     setTimeout(() => {
-                        const rowHeight =28;
-                        const topMargin = 4;
+                        const rowHeight =15;
+                        const topMargin =23;
 
                         function applyYOffset(el, yOffset) {
                             if (!el) return;
@@ -214,7 +209,7 @@
                             
                         });
 
-                        // Handles: 2 per task (start and end)
+                        //Handles: 2 per task (start and end)
                         handles.forEach((handle, index) => {
                             const rowIndex = Math.floor(index / 2);
                             const offset = topMargin + flatGanttTasks[rowIndex]?._row * rowHeight;
@@ -227,19 +222,13 @@
                             row.style.display = "flex";
                             row.style.alignItems = "center";
                             row.style.borderBottom = "none";
-
-
                         });
-
-                        // // Adjust grid backgrounds
-                        // document.querySelectorAll(".grid-row, .grid-background").forEach(grid => {
-                        //     grid.style.height = `${rowHeight}px`;
-                        // });
+                                                
 
                         // Remove or hide only the background bars (the .bar class inside each .bar-wrapper)
                         document.querySelectorAll(".bar-wrapper .bar").forEach(background => {
                             background.style.display = 'none';  // Hide the background bar
-                        });
+                        });                       
 
                         console.log("All Gantt elements fully aligned with margin, colors, and handles.");
                     }, 600);
