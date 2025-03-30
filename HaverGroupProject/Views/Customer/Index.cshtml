@@ -1,12 +1,39 @@
 ﻿@model IEnumerable<HaverGroupProject.Models.Customer>
 
 @{
-	ViewData["Title"] = "Customers";
+    ViewData["Title"] = "Customers";
 }
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+@* USE THIS FOR TESTING:
+<p>showArchived: @ViewData["ShowArchived"]</p>
+<p>Total Vendors Displayed: @Model.Count()</p> *@
+
 
 <h1 style="text-align: center;">Customer</h1>
 
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <p>
+        <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
+    </p>
+    <ul class="nav nav-tabs mb-3">
+        <li class="nav-item">
+            <a class="nav-link @(ViewData["ShowArchived"] as bool? == true ? "" : "active")"
+               asp-action="Index" asp-route-showArchived="false">Active</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link @(ViewData["ShowArchived"] as bool? == true ? "active" : "")"
+               asp-action="Index" asp-route-showArchived="true">Archived</a>
+        </li>
+    </ul>
 	<p>
 		<a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
 	</p>
@@ -32,29 +59,58 @@
 					Orders
 				</th>
 
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td>
-						@Html.DisplayFor(modelItem => item.CustomerName)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.CustConSummary)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.CustomerAddress)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.CustomerPhone)
-					</td>
-					<td>
-						@Html.DisplayFor(modelItem => item.CustomerEmail)
-					</td>
+    <table class="table table-bordered table-striped table-hover">
+        <thead class=" table-col">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CustomerName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr>
+                    <td colspan="2" class="text-center text-muted">No customers found.</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustomerName)
+                            @if (item.CustomerArchived)
+                            {
+                                <span class="badge bg-danger ms-2">Archived</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
+                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
 
+                                @if (!item.CustomerArchived)
+                                {
+                                    <a asp-action="Archive" asp-controller="Customer" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Archive</a>
+                                }
+                                else
+                                {
+                                    <a asp-action="UnArchive" asp-controller="Customer" asp-route-id="@item.ID" class="btn btn-success btn-sm">
+                                        Unarchive
+                                    </a>
+
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+
+        </tbody>
+    </table>
 					<td>
 						@{
 

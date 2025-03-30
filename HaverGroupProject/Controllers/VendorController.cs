@@ -19,11 +19,33 @@ namespace HaverGroupProject.Controllers
             _context = context;
         }
 
+        //Index includes Archive
+        public async Task<IActionResult> Index(bool showArchived = false)
+        {
+            ViewData["ShowArchived"] = showArchived;
+
+            var query = _context.Vendors.IgnoreQueryFilters();
+
+            if (showArchived)
+            {
+                query = query.Where(v => v.VendorArchived);
+            }
+            else
+            {
+                query = query.Where(v => !v.VendorArchived);
+            }
+
+            var vendors = await query.ToListAsync();
+            return View(vendors);
+        }
+
+        /* Commented out below to avoid duplicate error, once it works I can safely delete
         // GET: Vendor
         public async Task<IActionResult> Index()
         {
             return View(await _context.Vendors.ToListAsync());
         }
+        */
 
         // GET: Vendor/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -170,5 +192,85 @@ namespace HaverGroupProject.Controllers
             return _context.Vendors.Any(e => e.ID == id);
         }
 
+        // GET: Vendor/Archive/5
+        public async Task<IActionResult> Archive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vendor = await _context.Vendors
+                .FirstOrDefaultAsync(m => m.ID == id);
+            if (vendor == null)
+            {
+                return NotFound();
+            }
+
+            return View(vendor);
+        }
+
+        // POST: Vendor/Archive
+        [HttpPost, ActionName("Archive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ArchiveConfirmed(int id)
+        {
+            var vendor = await _context.Vendors.FindAsync(id);
+            if (vendor == null)
+            {
+                return NotFound();
+            }
+
+            vendor.VendorArchived = true;
+            _context.Update(vendor);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Vendor archived successfully!";
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Vendor/UnArchive/5
+        [HttpGet]
+        public async Task<IActionResult> UnArchive(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var vendor = await _context.Vendors
+                .IgnoreQueryFilters()
+                .Where(v => v.ID == id && v.VendorArchived)
+                .FirstOrDefaultAsync();
+
+            if (vendor == null)
+            {
+                return NotFound();
+            }
+
+            return View(vendor);
+        }
+
+        // POST: Vendor/UnArchive
+        [HttpPost, ActionName("UnArchive")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UnArchiveConfirmed(int id)
+        {
+            var vendor = await _context.Vendors
+                .IgnoreQueryFilters()
+                .FirstOrDefaultAsync(v => v.ID == id && v.VendorArchived);
+
+            if (vendor == null)
+            {
+                return NotFound();
+            }
+
+            vendor.VendorArchived = false;
+            _context.Update(vendor);
+            await _context.SaveChangesAsync();
+
+            TempData["SuccessMessage"] = "Vendor has been unarchived successfully!";
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
