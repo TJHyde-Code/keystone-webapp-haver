@@ -1,0 +1,109 @@
+﻿@model HaverGroupProject.Models.OperationsSchedule
+@{
+    ViewData["Title"] = "Gantt Update";
+}
+
+<h2>Update Gantt</h2>
+
+<form asp-action="GanttUpdate" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="ID" />
+
+    
+    <table class="table">
+        <thead>
+            <tr>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Customer:</strong></td>
+                <td><strong>@Model.Customer?.CustomerName</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Sales Order Number:</strong></td>
+                <td><strong>@Model.SalesOrdNum</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Production Order #:</strong></td>
+                <td><strong>@Model.ProductionOrderNumber</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Kickoff Meeting:</strong></td>
+                <td><strong>@Model.KickoffMeeting?.ToString("yyyy-MM-dd")</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Expected Approval Drawing:</strong></td>
+                <td><strong>@Model.ApprovalDrawingExpected.ToString("yyyy-MM-dd")</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Approval Drawing Released:</strong></td>
+                <td>
+                    <input asp-for="ApprovalDrawingReleased" type="date" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Approval Drawing Returned:</strong></td>
+                <td>
+                    <input asp-for="ApprovalDrawingReturned" type="date" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Pre-Order Expected:</strong></td>
+                <td><strong>@Model.PreOrderExpected.ToString("yyyy-MM-dd")</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Pre-Order Released:</strong></td>
+                <td>
+                    <input asp-for="PreOrderReleased" type="date" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Engineer Package Expected:</strong></td>
+                <td><strong>@Model.EngineerPackageExpected.ToString("yyyy-MM-dd")</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Engineer Package Released:</strong></td>
+                <td>
+                    <input asp-for="EngineerPackageReleased" type="date" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Purchase Order Expected:</strong></td>
+                <td><strong>@Model.PurchaseOrderExpected.ToString("yyyy-MM-dd")</strong></td>
+            </tr>
+            <tr>
+                <td><strong>Purchase Order Due:</strong></td>
+                <td>
+                    <input asp-for="PurchaseOrderDueDate" type="date" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Purchase Order Received:</strong></td>
+                <td>
+                    <input asp-for="PUrchaseOrderRecieved" type="date" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td><strong>RTS Expected:</strong></td>
+                <td><strong>@Model.ReadinessToShipExpected.ToString("yyyy-MM-dd")</strong></td>
+            </tr>
+            <tr>
+                <td><strong>RTS Actual:</strong></td>
+                <td>
+                    <input asp-for="ReadinessToShipActual" type="date" class="form-control" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Submit Button -->
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </div>
+</form>
+
+@* @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+ *@
