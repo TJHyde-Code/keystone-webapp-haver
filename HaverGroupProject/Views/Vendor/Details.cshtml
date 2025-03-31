@@ -1,26 +1,75 @@
-﻿@model HaverGroupProject.Models.Vendor
+﻿@model HaverGroupProject.ViewModels.VendorDetailsViewModel
 
 @{
     ViewData["Title"] = "Vendor Details";
 }
 
 <div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
-<h1>Details</h1>
+<h1>@Html.DisplayFor(model => model.Vendors.VendorName)</h1>
 
 <div>
-    <h4>Vendor</h4>
+   
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.VendorName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.VendorName)
-        </dd>
-    </dl>
+			<dl class="row">			
+
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Vendors.VendorContactName)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Vendors.VendorContactName)
+				</dd>
+
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Vendors.VendorEmail)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Vendors.VendorEmail)
+				</dd>
+
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Vendors.VendorAddress)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Vendors.VendorAddress)
+				</dd>
+
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Vendors.VendorPhone)
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Vendors.VendorPhone)
+				</dd>
+			</dl>
+		</dl>
+</div>
+	<!-- Active Orders Count Section -->
+	<div class="alert @(Model.ActiveOrdersCount > 0 ? "alert-info" : "alert-warning")">
+		<strong>Active Orders:</strong> @Model.ActiveOrdersCount
+	</div>
+
+	<!-- Display the details of each active order -->
+	@if (Model.ActiveOrdersCount > 0)
+	{
+		<h5>Active Orders</h5>
+		<ul class="list-group">
+			@foreach (var order in Model.ActiveOrders)
+			{
+				<li class="list-group-item">
+					<strong>Sales Order #:</strong> @order.SalesOrdNum
+					<br />
+					<strong>Kickoff Meeting:</strong> @order.KickoffMeeting.Value.ToShortDateString()
+				</li>
+			}
+		</ul>
+	}
+	else
+	{
+		<p>No active orders for this Vendor.</p>
+	}
 </div>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.ID" class="btn btn-primary" >Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Vendors?.ID" class="btn btn-primary" >Edit</a> |
     <a asp-action="Index" class="btn btn-success">Back to List</a>
 </div>

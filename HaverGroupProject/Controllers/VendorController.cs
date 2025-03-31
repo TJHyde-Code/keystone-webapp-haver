@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HaverGroupProject.Data;
 using HaverGroupProject.Models;
+using HaverGroupProject.ViewModels;
 
 namespace HaverGroupProject.Controllers
 {
@@ -24,7 +25,8 @@ namespace HaverGroupProject.Controllers
         {
             ViewData["ShowArchived"] = showArchived;
 
-            var query = _context.Vendors.IgnoreQueryFilters();
+            var query = _context.Vendors
+                .Include(v => v.OperationsSchedules).IgnoreQueryFilters();
 
             if (showArchived)
             {
@@ -55,14 +57,28 @@ namespace HaverGroupProject.Controllers
                 return NotFound();
             }
 
-            var vendor = await _context.Vendors
-                .FirstOrDefaultAsync(m => m.ID == id);
+			var vendor = await _context.Vendors
+				.Include(v => v.OperationsSchedules)
+				.FirstOrDefaultAsync(m => m.ID == id);		
+
+
             if (vendor == null)
             {
                 return NotFound();
             }
 
-            return View(vendor);
+			var activeOrders = vendor.OperationsSchedules
+			   .Where(os => os.KickoffMeeting.HasValue)  // Check if KickoffMeeting is set (active order)
+		   .ToList();
+
+			var viewModel = new VendorDetailsViewModel
+			{
+				Vendors = vendor,
+				ActiveOrdersCount = activeOrders.Count,
+				ActiveOrders = activeOrders
+			};
+
+			return View(viewModel);
         }
 
         // GET: Vendor/Create

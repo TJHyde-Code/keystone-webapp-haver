@@ -39,6 +39,21 @@
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.VendorName)
+                </th>                
+                <th>
+                    @Html.DisplayNameFor(model => model.VendorContactName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VendorAddress)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.VendorPhone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(Model => Model.VendorEmail)
+                </th>
+                <th>
+                    Orders
                 </th>
                 <th></th>
             </tr>
@@ -61,6 +76,41 @@
                             @if (item.VendorArchived)
                             {
                                 <span class="badge bg-danger ms-2">Archived</span>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VendorContactName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VendorAddress)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VendorPhone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.VendorEmail)
+                        </td>
+
+                        <td>
+                            @{
+
+                                var activeOrdersCount = item.OperationsSchedules
+                                .Where(c => c.KickoffMeeting.HasValue)
+                                .Count();
+
+                                if (activeOrdersCount > 1)
+                                {
+                                    <a href="@Url.Action("Details", "Vendor", new { id = item.ID })"
+                                       class="badge bg-info"
+                                       title="View Customer Details">
+                                        +@(activeOrdersCount)
+                                    </a>
+
+                                }
+                                else
+                                {
+                                    @:No Active Orders
+                                }
                             }
                         </td>
                         <td>
