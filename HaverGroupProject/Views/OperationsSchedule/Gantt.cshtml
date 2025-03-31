@@ -123,6 +123,9 @@
                     });                    
                      console.log("flatGantt:", flatGanttTasks);
 
+
+
+
                     // Initialize the Gantt chart with the flat task data
                     let gantt = new Gantt("#gantt_chart", flatGanttTasks, {
                         view_mode: 'Week',
@@ -143,8 +146,22 @@
                         gantt.refresh(flatGanttTasks);
 
                     setTimeout(() => {
-                        const rowHeight =15;
-                        const topMargin =23;
+                        //Play with these as variables in calculating spacing.
+                        //May need toadd padding/margin to progress bars directly.
+                        //Anastasiia's GanttV_2  version in our Teams has a lot of comments for applying stuff/inspecting elements. 
+                        //Functionally everything is here I just can't get the spacing or isolation of the progress bars right.
+                        //Chart is also generating chart rows  for progress bars that have been collapsed into single row. 
+                        //Suggested fix here in the frappe-gantt git by user jellederijke 
+                        //https://github.com/frappe/gantt/issues/95
+                        //Applying it is a mystery to me though.
+
+
+                        //Play with these as variables in calculating spacing.
+                        //current issue is They affect both the rowHeight and Margin for the progress bar and the Chart itself together.
+                        const rowHeight =40;
+                        const topMargin =20;
+
+                        // const yOffset = 23
 
                         function applyYOffset(el, yOffset) {
                             if (!el) return;
@@ -164,9 +181,11 @@
                                         .join(" ");
                                     el.setAttribute("points", updatedPoints);
                                 }
+                                //svg elements
                             } else if (tag === "g") {
                                 el.setAttribute("transform", `translate(0, ${yOffset})`);
                             } else {
+                                // STANDARD HTML ELEMENTS  *use css transform
                                 el.style.transform = `translateY(${yOffset}px)`;
                             }
                         }
@@ -190,6 +209,11 @@
                             label.style.display = "none";
                         });
 
+                        //Hide Handles
+                        handles.forEach(handle => {
+                            handle.style.display = "none";
+                        })
+
                         flatGanttTasks.forEach((task, index) => {
                             const offset = topMargin + task._row * rowHeight;
 
@@ -204,17 +228,9 @@
                             if (progressBars[index]) {
                                 progressBars[index].setAttribute("fill", task.color);
                                 progressBars[index].style.fill = task.color;
-                            }
-
-                            
+                            }                            
                         });
-
-                        //Handles: 2 per task (start and end)
-                        handles.forEach((handle, index) => {
-                            const rowIndex = Math.floor(index / 2);
-                            const offset = topMargin + flatGanttTasks[rowIndex]?._row * rowHeight;
-                            applyYOffset(handle, offset);
-                        });
+                       
 
                         // Adjust .row height and spacing
                         document.querySelectorAll(".gantt .row").forEach(row => {
@@ -231,11 +247,22 @@
                         });                       
 
                         console.log("All Gantt elements fully aligned with margin, colors, and handles.");
+
+                        //Default to scroll to current day
+                        showCurrentDay();
+
                     }, 600);
+
+                     //SCROLL TO TODAY'S DATE ON LOAD
+                    function showCurrentDay() {
+                        const currentDay = document.querySelector('.today-highlight');
+                        if (currentDay) {
+                            currentDay.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                        }
+                    }
 
                 })
                 .catch(error => console.error("Error fetching tasks:", error));
         });
     </script>
-
 }
