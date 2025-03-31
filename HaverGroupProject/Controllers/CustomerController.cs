@@ -25,8 +25,12 @@ namespace HaverGroupProject.Controllers
         {
             ViewData["ShowArchived"] = showArchived;
 
-            var query = _context.Customers.IgnoreQueryFilters();
+            // Start building the query for customers
+            var query = _context.Customers
+                .Include(c => c.OperationsSchedule)                      
+                .IgnoreQueryFilters();             
 
+            // Apply filtering for archived customers based on the 'showArchived' parameter
             if (showArchived)
             {
                 query = query.Where(c => c.CustomerArchived);
@@ -36,7 +40,9 @@ namespace HaverGroupProject.Controllers
                 query = query.Where(c => !c.CustomerArchived);
             }
 
-            var customers = await query.ToListAsync();
+            // Fetch customers along with their KickOffMeetings and Orders
+            var customers = await query.ToListAsync();           
+
             return View(customers);
         }
 
