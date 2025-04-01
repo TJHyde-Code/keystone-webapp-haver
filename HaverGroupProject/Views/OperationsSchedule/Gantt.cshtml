@@ -253,13 +253,13 @@
 
                     }, 600);
 
-                     //SCROLL TO TODAY'S DATE ON LOAD
-                    function showCurrentDay() {
-                        const currentDay = document.querySelector('.today-highlight');
-                        if (currentDay) {
-                            currentDay.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                        }
-                    }
+                    //  //SCROLL TO TODAY'S DATE ON LOAD
+                    // function showCurrentDay() {
+                    //     const currentDay = document.querySelector('.today-highlight');
+                    //     if (currentDay) {
+                    //         currentDay.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                    //     }
+                    // }
 
                 })
                 .catch(error => console.error("Error fetching tasks:", error));
