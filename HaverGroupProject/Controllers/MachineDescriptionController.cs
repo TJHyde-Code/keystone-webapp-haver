@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using HaverGroupProject.Data;
 using HaverGroupProject.Models;
 using HaverGroupProject.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HaverGroupProject.Controllers
 {
+    [Authorize]
     public class MachineDescriptionController : Controller
     {
         private readonly HaverContext _context;

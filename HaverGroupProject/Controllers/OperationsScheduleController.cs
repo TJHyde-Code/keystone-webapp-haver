@@ -14,9 +14,11 @@ using OfficeOpenXml;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HaverGroupProject.Controllers
 {
+    [Authorize]
     public class OperationsScheduleController : Controller
     {
         private readonly HaverContext _context;

@@ -25,6 +25,9 @@ namespace HaverGroupProject.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<MachineDescription> MachineDescriptions { get; set; }
 
+        public DbSet<Employee> Employees { get; set; }          //Employees Set for user management
+        public DbSet<Subscription> Subscriptions { get; set; }  //Push notifications
+
 
         //Added override so instead of deleting it simply switches Archived to true
         public override int SaveChanges()
@@ -96,7 +99,11 @@ namespace HaverGroupProject.Data
             //    .HasForeignKey(o => o.NoteID)
             //    .OnDelete(DeleteBehavior.Restrict);
 
-            
+
+            //Add a unique index to the Employee Email for user management
+            modelBuilder.Entity<Employee>()
+            .HasIndex(a => new { a.Email })
+            .IsUnique();
 
 
             //Many-to-many RelationShip (OperationSchedule <-> Vendor)
