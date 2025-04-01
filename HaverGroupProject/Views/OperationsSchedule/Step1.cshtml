@@ -43,9 +43,22 @@
             </div>
         </div>
 
-        <button type="submit" name="cancel" value="true" class="btn btn-danger">Cancel</button>
-        <button type="submit" class="btn btn-primary">Next</button>
-        <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
+        <div class="d-flex gap-2">
+            <!-- Cancel Button -->
+            <button type="submit" name="cancel" value="true" class="btn btn-outline-danger py-1 px-2" title="Cancel operation">
+                <i class="bi bi-x-circle me-1"></i> Cancel
+            </button>
+
+            <!-- Next Button -->
+            <button type="submit" class="btn btn-outline-primary py-1 px-2" title="Continue to next step">
+                <i class="bi bi-arrow-right me-1"></i> Next
+            </button>
+
+            <!-- Save Button -->
+            <button type="submit" name="save" value="true" class="btn btn-outline-warning py-1 px-2" title="Save progress">
+                <i class="bi bi-save me-1"></i> Save
+            </button>
+        </div>
 
     </form>
 </div>

@@ -33,11 +33,11 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label"><strong>@Html.DisplayNameFor(model => model.First().SalesOrdNum)</strong></label>
-                            <input name="SalesOrderNumber" value="@Context.Request.Query["SalesOrderNumber"]" class="form-control" />
+                            <input name="SalesOrderNumber" value="@Context.Request.Query["SalesOrderNumber"]" class="form-control" placeholder=" Search by Sales Order Number" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><strong>@Html.DisplayNameFor(model => model.First().Customer.CustomerName)</strong></label>
-                            <input name="CustomerName" value="@Context.Request.Query["CustomerName"]" class="form-control" />
+                            <input name="CustomerName" value="@Context.Request.Query["CustomerName"]" class="form-control" placeholder=" Search by Customer Name" />
                         </div>
                     </div>
 
@@ -48,29 +48,32 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><strong>Machine Serial Number</strong></label>
-                            <input name="MachineSerialNumber" value="@Context.Request.Query["MachineSerialNumber"]" class="form-control" />
+                            <input name="MachineSerialNumber" value="@Context.Request.Query["MachineSerialNumber"]" class="form-control" placeholder="Search by Machine Serial Number" />
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label"><strong>Vendor</strong></label>
-                            <input name="Vendor" value="@Context.Request.Query["Vendor"]" class="form-control" />
+                            <input name="Vendor" value="@Context.Request.Query["Vendor"]" class="form-control" placeholder="Search by Vendor's name" />
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><strong>Production Order #</strong></label>
-                            <input name="ProductionOrderNumber" value="@Context.Request.Query["ProductionOrderNumber"]" class="form-control" />
+                            <input name="ProductionOrderNumber" value="@Context.Request.Query["ProductionOrderNumber"]" class="form-control" placeholder="Search by Production Order #" />
                         </div>
                     </div>
 
                     <div class="col-12">
-                        <div class="d-flex justify-content-end gap-2">
-                            <button type="submit" class="btn btn-primary" id="filterButton">
-                                <i class="bi bi-search"></i> Apply Filters
+                        <div class="d-flex justify-content-end gap-1">
+                            <!-- Apply Filters Button (Compact) -->
+                            <button type="submit" class="btn btn-primary btn-sm py-1 px-2" id="filterButton">
+                                <i class="bi bi-search me-1" style="font-size: 0.8rem;"></i>Apply
                                 <span class="spinner-border spinner-border-sm d-none" id="loadingSpinner"></span>
                             </button>
-                            <a asp-action="Index" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-counterclockwise"></i> Clear Filters
+
+                            <!-- Clear Filters Button (Compact) -->
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-sm py-1 px-2">
+                                <i class="bi bi-arrow-counterclockwise me-1" style="font-size: 0.8rem;"></i>Clear
                             </a>
                         </div>
                     </div>
@@ -157,16 +160,16 @@
                             <div class="btn-group" role="group">
                                 <!-- Edit Button -->
                                 <a asp-action="Edit" asp-route-id="@item.ID"
-                                   class="btn btn-outline-primary btn-sm"
+                                   class="btn btn-outline-primary btn-sm py-0 px-1"
                                    title="Edit Record">
-                                    <i class="bi bi-pencil-square me-1"></i> Edit
+                                    <i class="bi bi-pencil-square me-1" style="font-size: 0.8rem;"></i>Edit
                                 </a>
 
                                 <!-- Details Button -->
                                 <a asp-action="Details" asp-route-id="@item.ID"
-                                   class="btn btn-outline-info btn-sm"
+                                   class="btn btn-outline-info btn-sm py-0 px-1"
                                    title="View Details">
-                                    <i class="bi bi-eye-fill me-1"></i> Details
+                                    <i class="bi bi-eye-fill me-1" style="font-size: 0.8rem;"></i>Details
                                 </a>
                             </div>
                         </td>
@@ -196,7 +199,7 @@
         </button>
     </div>
 }
-</div>
+
 
 @section Scripts {
     <script>

@@ -64,10 +64,21 @@
                 </div>
 
                 <!-- Submit Button -->
-                <div class="text-center mt-3">
-                    <a asp-action="Step4" asp-route-id="@Model.ID" class="btn btn-success">Previous</a>
-                    <button type="submit" class="btn btn-success px-4">Finish & Save</button>
-                    <button type="submit" name="save" value="true" class="btn btn-warning">Save</button>
+                <div class="text-center mt-3 d-flex gap-2 justify-content-center">
+                    <!-- Previous Button -->
+                    <a asp-action="Step4" asp-route-id="@Model.ID" class="btn btn-outline-success py-1 px-3">
+                        <i class="bi bi-arrow-left me-1"></i> Previous
+                    </a>
+
+                    <!-- Finish & Save Button -->
+                    <button type="submit" class="btn btn-outline-primary py-1 px-3">
+                        <i class="bi bi-check-circle me-1"></i> Finish & Save
+                    </button>
+
+                    <!-- Save Button -->
+                    <button type="submit" name="save" value="true" class="btn btn-outline-warning py-1 px-3">
+                        <i class="bi bi-save me-1"></i> Save
+                    </button>
                 </div>
             </form>
         </div>

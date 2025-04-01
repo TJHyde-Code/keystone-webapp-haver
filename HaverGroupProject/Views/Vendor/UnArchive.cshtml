@@ -18,9 +18,18 @@
         </dd>
     </dl>
 
-    <form asp-action="UnArchive" method="post">
+    <form asp-action="UnArchive" method="post" class="d-inline">
         <input type="hidden" asp-for="ID" />
-        <input type="submit" value="UnArchive" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        <div class="d-flex gap-2" role="group">
+            <!-- UnArchive Button -->
+            <button type="submit" class="btn btn-success py-1 px-2" title="Restore this record">
+                <i class="bi bi-arrow-counterclockwise me-1"></i> Unarchive
+            </button>
+
+            <!-- Cancel Button -->
+            <a asp-action="Index" class="btn btn-secondary py-1 px-2" title="Return to list">
+                <i class="bi bi-x-circle me-1"></i> Cancel
+            </a>
+        </div>
     </form>
 </div>

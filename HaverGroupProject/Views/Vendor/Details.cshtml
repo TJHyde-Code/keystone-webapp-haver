@@ -4,72 +4,121 @@
     ViewData["Title"] = "Vendor Details";
 }
 
-<div class="card shadow-lg p-4 mb-5 bg-body-tertiary rounded">
-<h1>@Html.DisplayFor(model => model.Vendors.VendorName)</h1>
+<div class="container mt-4">
+    <div class="card shadow-lg p-4 mb-4 rounded-3">
+        <div class="card-header bg-light py-3">
+            <h1 class="display-6 mb-0">
+                <i class="bi bi-building me-2"></i>@Html.DisplayFor(model => model.Vendors.VendorName)
+            </h1>
+        </div>
 
-<div>
-   
-    <hr />
-    <dl class="row">
-			<dl class="row">			
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-8">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="border-bottom pb-2">
+                                <h5 class="text-muted mb-3"><i class="bi bi-person-badge me-2"></i>Contact Information</h5>
+                                <dl class="row">
+                                    <dt class="col-sm-4">Contact Name</dt>
+                                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Vendors.VendorContactName)</dd>
 
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.Vendors.VendorContactName)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.Vendors.VendorContactName)
-				</dd>
+                                    <dt class="col-sm-4">Email</dt>
+                                    <dd class="col-sm-8">
+                                        <a href="mailto:@Model.Vendors.VendorEmail" class="text-decoration-none">
+                                            @Html.DisplayFor(model => model.Vendors.VendorEmail)
+                                        </a>
+                                    </dd>
 
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.Vendors.VendorEmail)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.Vendors.VendorEmail)
-				</dd>
+                                    <dt class="col-sm-4">Phone</dt>
+                                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Vendors.VendorPhone)</dd>
+                                </dl>
+                            </div>
+                        </div>
 
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.Vendors.VendorAddress)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.Vendors.VendorAddress)
-				</dd>
+                        <div class="col-md-6">
+                            <div class="border-bottom pb-2">
+                                <h5 class="text-muted mb-3"><i class="bi bi-geo-alt me-2"></i>Address</h5>
+                                <p class="mb-0">@Html.DisplayFor(model => model.Vendors.VendorAddress)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-				<dt class="col-sm-2">
-					@Html.DisplayNameFor(model => model.Vendors.VendorPhone)
-				</dt>
-				<dd class="col-sm-10">
-					@Html.DisplayFor(model => model.Vendors.VendorPhone)
-				</dd>
-			</dl>
-		</dl>
+            <!-- Active Orders Section -->
+            <div class="mt-4">
+                <div class="alert @(Model.ActiveOrdersCount > 0 ? "alert-info" : "alert-warning") d-flex align-items-center">
+                    <i class="bi @(Model.ActiveOrdersCount > 0 ? "bi-list-check" : "bi-exclamation-triangle") me-2 fs-4"></i>
+                    <div>
+                        <strong>Active Orders:</strong> @Model.ActiveOrdersCount
+                    </div>
+                </div>
+
+                @if (Model.ActiveOrdersCount > 0)
+                {
+                    <div class="card mt-3">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0"><i class="bi bi-card-checklist me-2"></i>Active Orders</h5>
+                        </div>
+                        <div class="card-body p-0">
+                            <ul class="list-group list-group-flush">
+                                @foreach (var order in Model.ActiveOrders)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <strong>SO# @order.SalesOrdNum</strong>
+                                            <div class="text-muted small">
+                                                Kickoff: @order.KickoffMeeting.Value.ToString("MMM dd, yyyy")
+                                            </div>
+                                        </div>
+                                        <span class="badge bg-primary rounded-pill">Active</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="text-center py-3 text-muted">
+                        <i class="bi bi-inbox fs-1"></i>
+                        <p class="fs-5 mt-2">No active orders for this vendor</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex gap-2 mt-3">
+        <a asp-action="Edit" asp-route-id="@Model.Vendors?.ID" class="btn btn-primary px-4">
+            <i class="bi bi-pencil-square me-2"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-outline-secondary px-4">
+            <i class="bi bi-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
 </div>
-	<!-- Active Orders Count Section -->
-	<div class="alert @(Model.ActiveOrdersCount > 0 ? "alert-info" : "alert-warning")">
-		<strong>Active Orders:</strong> @Model.ActiveOrdersCount
-	</div>
 
-	<!-- Display the details of each active order -->
-	@if (Model.ActiveOrdersCount > 0)
-	{
-		<h5>Active Orders</h5>
-		<ul class="list-group">
-			@foreach (var order in Model.ActiveOrders)
-			{
-				<li class="list-group-item">
-					<strong>Sales Order #:</strong> @order.SalesOrdNum
-					<br />
-					<strong>Kickoff Meeting:</strong> @order.KickoffMeeting.Value.ToShortDateString()
-				</li>
-			}
-		</ul>
-	}
-	else
-	{
-		<p>No active orders for this Vendor.</p>
-	}
-</div>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Vendors?.ID" class="btn btn-primary" >Edit</a> |
-    <a asp-action="Index" class="btn btn-success">Back to List</a>
-</div>
+<style>
+    .card {
+        border: none;
+        transition: transform 0.2s;
+    }
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    dt {
+        font-weight: 500;
+        color: #6c757d;
+    }
+    dd {
+        font-weight: 400;
+    }
+    .list-group-item {
+        transition: background-color 0.2s;
+    }
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+    }
+</style>

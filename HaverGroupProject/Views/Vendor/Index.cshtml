@@ -22,7 +22,9 @@
 
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
     <p>
-        <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">Create New</a>
+        <a asp-action="Create" class="btn btn-success" style="font-size: 12px;">
+            <i class="bi bi-plus-circle me-1"></i>Create New
+        </a>
     </p>
     <ul class="nav nav-tabs mb-3">
         <li class="nav-item">
@@ -39,7 +41,7 @@
             <tr>
                 <th>
                     @Html.DisplayNameFor(model => model.VendorName)
-                </th>                
+                </th>
                 <th>
                     @Html.DisplayNameFor(model => model.VendorContactName)
                 </th>
@@ -114,19 +116,38 @@
                             }
                         </td>
                         <td>
-                            <div class="btn-group">
+                            <div class="btn-group" role="group">
                                 @if (!item.VendorArchived)
                                 {
-                                <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-primary btn-sm">Edit</a>
-                                <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Details</a>
-                                <a asp-action="Archive" asp-controller="Vendor" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Archive</a>
+                                    <!-- Edit Button -->
+                                    <a asp-action="Edit" asp-route-id="@item.ID"
+                                       class="btn btn-outline-primary btn-sm py-0 px-1"
+                                       title="Edit Vendor">
+                                        <i class="bi bi-pencil-square me-1" style="font-size: 0.8rem;"></i>Edit
+                                    </a>
+
+                                    <!-- Details Button -->
+                                    <a asp-action="Details" asp-route-id="@item.ID"
+                                       class="btn btn-outline-info btn-sm py-0 px-1"
+                                       title="View Details">
+                                        <i class="bi bi-eye-fill me-1" style="font-size: 0.8rem;"></i>Details
+                                    </a>
+
+                                    <!-- Archive Button -->
+                                    <a asp-action="Archive" asp-controller="Vendor" asp-route-id="@item.ID"
+                                       class="btn btn-outline-danger btn-sm py-0 px-1"
+                                       title="Archive Vendor">
+                                        <i class="bi bi-archive me-1" style="font-size: 0.8rem;"></i>Archive
+                                    </a>
                                 }
                                 else
                                 {
-                                    <a asp-action="UnArchive" asp-controller="Vendor" asp-route-id="@item.ID" class="btn btn-success btn-sm">
-                                        Unarchive
+                                    <!-- Unarchive Button -->
+                                    <a asp-action="UnArchive" asp-controller="Vendor" asp-route-id="@item.ID"
+                                       class="btn btn-outline-success btn-sm py-0 px-1"
+                                       title="Restore Vendor">
+                                        <i class="bi bi-arrow-counterclockwise me-1" style="font-size: 0.8rem;"></i>Unarchive
                                     </a>
-
                                 }
                             </div>
                         </td>

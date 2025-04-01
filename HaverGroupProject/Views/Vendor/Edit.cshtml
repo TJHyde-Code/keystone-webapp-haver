@@ -19,16 +19,23 @@
                     <input asp-for="VendorName" class="form-control input-width" />
                     <span asp-validation-for="VendorName" class="text-danger"></span>
                 </div>
-                <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                <div class="d-flex gap-3 mt-4">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary px-4 py-2">
+                            <i class="bi bi-save-fill me-2"></i>Save
+                        </button>
+                    </div>
+                    <div>
+                        <a asp-action="Index" class="btn btn-success px-4 py-2">
+                            <i class="bi bi-arrow-left me-2"></i>Back to List
+                        </a>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<div>
-    <a asp-action="Index" class="btn btn-success">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{

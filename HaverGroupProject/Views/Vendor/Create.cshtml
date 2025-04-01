@@ -18,16 +18,26 @@
                 <input asp-for="VendorName" class="form-control" />
                 <span asp-validation-for="VendorName" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+                <div class="d-flex gap-2 mt-3">
+                    <!-- Submit Button -->
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary py-1 px-3" title="Create new record">
+                            <i class="bi bi-plus-circle me-1"></i> Create
+                        </button>
+                    </div>
+
+                    <!-- Back Button -->
+                    <div>
+                        <a asp-action="Index" class="btn btn-success py-1 px-3" title="Return to list">
+                            <i class="bi bi-list-ul me-1"></i> Back to List
+                        </a>
+                    </div>
+                </div>
         </form>
     </div>
 </div>
 </div>
-<div>
-    <a asp-action="Index" class="btn btn-success">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
