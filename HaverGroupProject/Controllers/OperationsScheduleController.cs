@@ -827,6 +827,7 @@ namespace HaverGroupProject.Controllers
 
         /// <summary>
         /// Retrieves all Gantt tasks from the database and formats them for the frontend.
+        /// Creates DateRange objects  for each Milestone range. Defaulting end dates to 5 hours to create visual representation on the chart as a 'tick' of colour at the milestone start date.
         /// Converts task properties to the expected format for the Gantt chart.        
         /// *IMPORTANTANT* Property names should be in lowercase for consistency with JavaScript expectations.
         /// </summary>
@@ -917,7 +918,13 @@ namespace HaverGroupProject.Controllers
         }
 
         
-
+        /// <summary>
+        /// Method used by the GanttUpdate.cshtml to add Milestones dates directly do the db for that Schedule.
+        /// skips having to handle new json data going back to the Gantt page.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
         //POST: GanttUpdate
         [HttpPost]
         public async Task<IActionResult> GanttUpdate(int id, OperationsSchedule model)
