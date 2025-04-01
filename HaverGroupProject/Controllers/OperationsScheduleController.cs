@@ -14,6 +14,7 @@ using OfficeOpenXml;
 using System.Drawing;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Threading.Channels;
 
 namespace HaverGroupProject.Controllers
 {
@@ -369,8 +370,20 @@ namespace HaverGroupProject.Controllers
         //POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Step1(MultiStepOperationsScheduleViewModel model, string? save)
+        public async Task<IActionResult> Step1(MultiStepOperationsScheduleViewModel model, string? save, string? cancel)
         {
+            if (!string.IsNullOrEmpty(cancel))
+            {
+                var orderToDelete = await _context.OperationsSchedules.FindAsync(model.ID);
+                if (orderToDelete != null)
+                {
+                    _context.OperationsSchedules.Remove(orderToDelete);
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToAction("Index");
+            }
+
             if (ModelState.IsValid)
             {
                 var operationsSchedule = await _context.OperationsSchedules.FindAsync(model.ID);
