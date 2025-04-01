@@ -57,6 +57,53 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("HaverGroupProject.Models.Employee", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.ToTable("Employees");
+                });
+
             modelBuilder.Entity("HaverGroupProject.Models.Engineer", b =>
                 {
                     b.Property<int>("ID")
@@ -387,6 +434,37 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.ToTable("OperationsScheduleVendors");
                 });
 
+            modelBuilder.Entity("HaverGroupProject.Models.Subscription", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("EmployeeID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PushAuth")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PushEndpoint")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PushP256DH")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmployeeID");
+
+                    b.ToTable("Subscriptions");
+                });
+
             modelBuilder.Entity("HaverGroupProject.Models.Vendor", b =>
                 {
                     b.Property<int>("ID")
@@ -517,11 +595,27 @@ namespace HaverGroupProject.Data.HaverMigrations
                     b.Navigation("Vendor");
                 });
 
+            modelBuilder.Entity("HaverGroupProject.Models.Subscription", b =>
+                {
+                    b.HasOne("HaverGroupProject.Models.Employee", "Employee")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("EmployeeID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
+                });
+
             modelBuilder.Entity("HaverGroupProject.Models.Customer", b =>
                 {
                     b.Navigation("HaverGantts");
 
                     b.Navigation("OperationsSchedule");
+                });
+
+            modelBuilder.Entity("HaverGroupProject.Models.Employee", b =>
+                {
+                    b.Navigation("Subscriptions");
                 });
 
             modelBuilder.Entity("HaverGroupProject.Models.Engineer", b =>

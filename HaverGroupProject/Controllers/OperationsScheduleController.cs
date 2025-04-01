@@ -15,9 +15,11 @@ using System.Drawing;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Threading.Channels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HaverGroupProject.Controllers
 {
+    [Authorize]
     public class OperationsScheduleController : Controller
     {
         private readonly HaverContext _context;

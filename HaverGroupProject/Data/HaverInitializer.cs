@@ -37,6 +37,31 @@ namespace HaverGroupProject.Data
                 //Look for Customers and Vendors first, then SalesOrders
                 try
                 {
+                    // Look for any Employees.  Seed ones to match the seeded Identity accounts.
+                    if (!context.Employees.Any())
+                    {
+                        context.Employees.AddRange(
+                         new Employee
+                         {
+                             FirstName = "Montgomery",
+                             LastName = "Burns",
+                             Email = "admin@hbniagara.com"
+                         },
+                         new Employee
+                         {
+                             FirstName = "Waylon",
+                             LastName = "Smithers",
+                             Email = "sales@hbniagara.com"
+                         },
+                         new Employee
+                         {
+                             FirstName = "Homer",
+                             LastName = "Simpson",
+                             Email = "homer@hbniagara.com"
+                         });
+
+                        context.SaveChanges();
+                    }
                     if (!context.Customers.Any())
                     {
                         context.Customers.AddRange(
@@ -614,63 +639,63 @@ namespace HaverGroupProject.Data
                                 CoatingLining = false,
                                 Disassembly = false
                             },
-                             new MachineDescription
-                             {
-                                 SerialNumber = "SN123481",
-                                 Size = "6'x22'",
-                                 Class = "T-330",
-                                 Deck = "4D",
-                                 NamePlateOrdered = false,
-                                 NameplateRecieved = false,
-                                 InstalledMedia = false,
-                                 SparePartsSpareMedia = false,
-                                 BaseFrame = false,
-                                 AirSeal = false,
-                                 CoatingLining = false,
-                                 Disassembly = false
-                             },
-                              new MachineDescription
-                              {
-                                  SerialNumber = "SN123482",
-                                  Size = "6'x22'",
-                                  Class = "T-330",
-                                  Deck = "4D",
-                                  NamePlateOrdered = false,
-                                  NameplateRecieved = false,
-                                  InstalledMedia = false,
-                                  SparePartsSpareMedia = false,
-                                  BaseFrame = false,
-                                  AirSeal = false,
-                                  CoatingLining = false,
-                                  Disassembly = false
-                              },
-                               new MachineDescription
-                               {
-                                   SerialNumber = "SN123483",
-                                   Size = "6'x22'",
-                                   Class = "T-330",
-                                   Deck = "4D",
-                                   NamePlateOrdered = false,
-                                   NameplateRecieved = false,
-                                   InstalledMedia = false,
-                                   SparePartsSpareMedia = false,
-                                   BaseFrame = false,
-                                   AirSeal = false,
-                                   CoatingLining = false,
-                                   Disassembly = false
-                               },
-                                new MachineDescription
-                                {
-                                    SerialNumber = "SN123484",
-                                    Size = "6'x22'",
-                                    Class = "T-330",
-                                    Deck = "4D",
-                                    NamePlateOrdered = false,
-                                    NameplateRecieved = false,
-                                    InstalledMedia = false,
-                                    SparePartsSpareMedia = false,
-                                    BaseFrame = false,
-                                    AirSeal = false,
+                            new MachineDescription
+                            {
+                                SerialNumber = "SN123481",
+                                Size = "6'x22'",
+                                Class = "T-330",
+                                Deck = "4D",
+                                NamePlateOrdered = false,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
+                                CoatingLining = false,
+                                Disassembly = false
+                            },
+                            new MachineDescription
+                            {
+                                SerialNumber = "SN123482",
+                                Size = "6'x22'",
+                                Class = "T-330",
+                                Deck = "4D",
+                                NamePlateOrdered = false,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
+                                CoatingLining = false,
+                                Disassembly = false
+                            },
+                            new MachineDescription
+                            {
+                                SerialNumber = "SN123483",
+                                Size = "6'x22'",
+                                Class = "T-330",
+                                Deck = "4D",
+                                NamePlateOrdered = false,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
+                                CoatingLining = false,
+                                Disassembly = false
+                            },
+                            new MachineDescription
+                            {
+                                SerialNumber = "SN123484",
+                                Size = "6'x22'",
+                                Class = "T-330",
+                                Deck = "4D",
+                                NamePlateOrdered = false,
+                                NameplateRecieved = false,
+                                InstalledMedia = false,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = false,
+                                AirSeal = false,
                                     CoatingLining = false,
                                     Disassembly = false
                                 }

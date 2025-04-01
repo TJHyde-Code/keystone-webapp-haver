@@ -62,12 +62,12 @@ namespace HaverGroupProject.Data
                     {
                         string defaultPassword = "Pa55w@rd";
 
-                        if (userManager.FindByEmailAsync("admin@outlook.com").Result == null)
+                        if (userManager.FindByEmailAsync("admin@hbniagara.com").Result == null)
                         {
                             IdentityUser user = new IdentityUser
                             {
-                                UserName = "admin@outlook.com",
-                                Email = "admin@outlook.com",
+                                UserName = "admin@hbniagara.com",
+                                Email = "admin@hbniagara.com",
                                 EmailConfirmed = true
                             };
 
@@ -78,12 +78,12 @@ namespace HaverGroupProject.Data
                                 userManager.AddToRoleAsync(user, "Admin").Wait();
                             }
                         }
-                        if (userManager.FindByEmailAsync("super@outlook.com").Result == null)
+                        if (userManager.FindByEmailAsync("sales@hbniagara.com").Result == null)
                         {
                             IdentityUser user = new IdentityUser
                             {
-                                UserName = "super@outlook.com",
-                                Email = "super@outlook.com",
+                                UserName = "sales@hbniagara.com",
+                                Email = "sales@hbniagara.com",
                                 EmailConfirmed = true
                             };
 
@@ -91,15 +91,31 @@ namespace HaverGroupProject.Data
 
                             if (result.Succeeded)
                             {
-                                userManager.AddToRoleAsync(user, "Supervisor").Wait();
+                                userManager.AddToRoleAsync(user, "Sales").Wait();
                             }
                         }
-                        if (userManager.FindByEmailAsync("user@outlook.com").Result == null)
+                        if (userManager.FindByEmailAsync("engineering@hbniagara.com").Result == null)
                         {
                             IdentityUser user = new IdentityUser
                             {
-                                UserName = "user@outlook.com",
-                                Email = "user@outlook.com",
+                                UserName = "engineering@hbniagara.com",
+                                Email = "engineering@hbniagara.com",
+                                EmailConfirmed = true
+                            };
+
+                            IdentityResult result = userManager.CreateAsync(user, defaultPassword).Result;
+
+                            if (result.Succeeded)
+                            {
+                                userManager.AddToRoleAsync(user, "Engineering").Wait();
+                            }
+                        }
+                        if (userManager.FindByEmailAsync("readonly@hbniagara.com").Result == null)
+                        {
+                            IdentityUser user = new IdentityUser
+                            {
+                                UserName = "readonly@hbniagara.com",
+                                Email = "readonly@hbniagara.com",
                                 EmailConfirmed = true
                             };
 

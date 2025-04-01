@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HaverGroupProject.Data;
 using HaverGroupProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HaverGroupProject.Controllers
 {
+    [Authorize]
     public class NoteController : Controller
     {
         private readonly HaverContext _context;
