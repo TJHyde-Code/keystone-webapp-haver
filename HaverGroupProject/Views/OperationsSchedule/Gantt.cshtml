@@ -6,41 +6,43 @@
 
 <h1>Active Gantts</h1>
 
+<div class="color-key">
+    <h5>Legend</h5>
+    <ul id="color-key-list" class="list-unstyled">
+        <!-- Color items will be inserted dynamically here -->
+    </ul>
+</div>
+
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-
-
     <div class="container-fluid">
         <div class="row">
-
-            <div class="col  col-12 col-lg-4 task-table-wrapper">
+            <div class="col col-12 col-lg-4 task-table-wrapper">
                 <table class="table table-bordered">
                     <thead class="table-light">
                         <tr>
-                            
-                            <th>@Html.DisplayNameFor(model => model.Customer)</th> 
-                            <th>@Html.DisplayNameFor(model => model.SalesOrdNum )</th>
+                            <th>@Html.DisplayNameFor(model => model.Customer)</th>
+                            <th>@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                
-                                <td class="d-flex justify-content-between align-items-center">
-                                    <span>@item.Customer?.CustomerName </span>                                   
-                                    <div class="action-icons">
-                                        <a asp-action="GanttUpdate" asp-route-id="@item.ID" class="icon-link">
-                                            <i class="bi bi-pencil-fill"></i>
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@item.ID" class="icon-link">
-                                            <i class="bi bi-trash-fill"></i>
-                                        </a>
-                                    </div>
-                                </td> 
-                                <td>
-                                    <span>@item.SalesOrdNum</span>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td class="d-flex justify-content-between align-items-center">
+                                        <span>@item.Customer?.CustomerName</span>
+                                        <div class="action-icons">
+                                            <a asp-action="GanttUpdate" asp-route-id="@item.ID" class="icon-link">
+                                                <i class="bi bi-pencil-fill"></i>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.ID" class="icon-link">
+                                                <i class="bi bi-trash-fill"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span>@item.SalesOrdNum</span>
+                                    </td>
+                                </tr>
                         }
                     </tbody>
                 </table>
@@ -54,215 +56,204 @@
     </div>
 </div>
 
+
+    <style>
+       .container {
+    padding: 0;
+    margin: 0;
+}
+
+/* Ensure the Gantt chart has full width */
+.gantt-chart-wrapper {
+    width: 60%;
+    padding: 0;
+}
+.container-fluid{
+    width: 2500px;
+}
+
+.color-key {
+    margin-bottom: 15px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 600px
+}
+
+.color-key h5 {
+    margin-bottom: 10px;
+    
+}
+
+#color-key-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.color-key-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+}
+    </style>
+
+
 @section stylesheets {
-    @* stylesheet for Gantt charts *@
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.css">
 }
 
 @section Scripts {
-    @* Script for Gantt charts *@
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js"></script>
 
         <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Fetch task data from the server and convert it into JSON format
-            fetch("@Url.Action("GetTasks", "OperationsSchedule")")
-                .then(response => response.json())
-                .then(tasks => {
-                    console.log("Fetched tasks", tasks);
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch("@Url.Action("GetTasks", "OperationsSchedule")")
+                    .then(response => response.json())
+                    .then(tasks => {
+                        if (!tasks || tasks.length === 0) {
+                            console.error("No tasks found.");
+                            return;
+                        }
 
-                    if (!tasks || tasks.length === 0) {
-                        console.error("No tasks found.");
-                        return;
-                    }                  
-                    //Assigning each task a sequential index
-                    tasks.forEach((task, index) => {                                   
-                        task.custom_index = index; 
-                    });
+                        // Assign a sequential index to each task
+                        tasks.forEach((task, index) => {
+                            task.custom_index = index;
+                        });
 
-                    // Map tasks to the structure required by Gantt
-                    const ganttTasks = tasks.flatMap(task => {                     
-
-                        return {                            
-                            id: task.id,
-                            customer: task.customer,
-                            name: task.customer, // Use customer name as the task name
-                            custom_class: `task-${task.id}`,
-                            ranges: task.dateRanges.map(dateRange => {
-                                const startDate = new Date(dateRange.startDate);  // Start date
-                                const endDate = new Date(dateRange.endDate);      // End date
-
-                                return {                                    
-                                    name: dateRange.name,
-                                    start: startDate.toISOString(),  
-                                    end: endDate.toISOString(),      
-                                    color: dateRange.color,
-                                    progress: dateRange.progress,
-                                    custom_index: task.custom_index
+                        // Flatten tasks into a structure for Gantt chart
+                        const flatGanttTasks = tasks.flatMap(task => {
+                            return task.dateRanges.map(range => {
+                                const startDate = new Date(range.startDate);
+                                const endDate = new Date(range.endDate);
+                                return {
+                                    custom_index: task.custom_index,
+                                    id: task.id,
+                                    customer: task.customer,
+                                    name: range.name,
+                                    start: startDate.toISOString(),
+                                    end: endDate.toISOString(),
+                                    color: range.color,
+                                    progress: 100, // default to 100%
+                                    _row: task.custom_index, // Use custom_index for row position
+                                    topMargin: 10, // Define top margin for the progress bar
+                                    bottomMargin: 8.5// Define bottom margin for the progress bar
                                 };
-                            })
-                        };
-                    });
-
-                    // Flatten the ganttTasks data structure to pass to the Gantt chart
-                    const flatGanttTasks = [];
-                    ganttTasks.forEach(task => {
-                        task.ranges.forEach(range => {
-                            flatGanttTasks.push({
-                                custom_index: range.custom_index,
-                                id: task.id,
-                                customer: task.customer,
-                                name: range.name,
-                                start: new Date(range.start),
-                                end: new Date(range.end),
-                                color: range.color,                                
-                                progress: 100, //default progress to 100%, remove value from seeding.
-                                _row: range.custom_index  // Collapse task related objects to the custom_index.
                             });
                         });
-                    });                    
-                     console.log("flatGantt:", flatGanttTasks);
+
+                        console.log("Flat Gantt tasks:", flatGanttTasks);
+
+                            // Generate the color key based on task colors
+                const colorKeyList = document.getElementById('color-key-list');
+                const colorMap = new Map(); // Store unique colors with their range names
+
+                flatGanttTasks.forEach(task => {
+                if (!colorMap.has(task.color)) {
+                    colorMap.set(task.color, task.name); // Store the color with the corresponding range name
+                }
+            });
+
+            // Generate the color key dynamically
+            colorMap.forEach((rangeName, color) => {
+                const listItem = document.createElement('li');
+                listItem.classList.add('color-key-item');
+                listItem.innerHTML = `
+                    <span class="color-box" style="background-color: ${color};"></span>
+                    <span>${rangeName}</span> <!-- Display range name -->
+                `;
+                colorKeyList.appendChild(listItem);
+            });
 
 
+                        let gantt = new Gantt("#gantt_chart", flatGanttTasks, {
+                            view_mode: 'Day',
+                            on_click: task => console.log("Clicked:", task),
+                            on_date_change: (task, start, end) => updateTask(task, start, end),
+                            custom_popup_html: task => `
+                                        <div class="details-popup">
+                                            <strong>Customer:</strong> ${task.customer}<br/>
+                                            <strong>Milestone:</strong> ${task.name}<br/>
+                                            <strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
+                                            <strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
+                                            <strong>Progress:</strong> ${task.progress}%
+                                        </div>`,
+                            date_format: "yyyy-MM-dd"
+                        });
 
-
-                    // Initialize the Gantt chart with the flat task data
-                    let gantt = new Gantt("#gantt_chart", flatGanttTasks, {
-                        view_mode: 'Week',
-                         on_click: task => console.log("Clicked:", task),
-                         on_date_change: (task, start, end) => updateTask(task, start, end),
-                        custom_popup_html: task => `
-                            <div class="details-popup">
-                                <strong>Customer:</strong> ${task.customer}<br/>
-                                <strong>Milestone:</strong> ${task.name}<br/>
-                                <strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
-                                <strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
-                                <strong>Progress:</strong> ${task.progress}%
-                            </div>`,
-                        date_format: "yyyy-MM-dd" // Ensure consistent date format                        
-                    });
-
-                     // // Wait for the Gantt chart to render completely before applying styles
                         gantt.refresh(flatGanttTasks);
+                        setTimeout(() => {
+                            const rowHeight = 38;
 
-                    setTimeout(() => {
-                        //Play with these as variables in calculating spacing.
-                        //May need toadd padding/margin to progress bars directly.
-                        //Anastasiia's GanttV_2  version in our Teams has a lot of comments for applying stuff/inspecting elements. 
-                        //Functionally everything is here I just can't get the spacing or isolation of the progress bars right.
-                        //Chart is also generating chart rows  for progress bars that have been collapsed into single row. 
-                        //Suggested fix here in the frappe-gantt git by user jellederijke 
-                        //https://github.com/frappe/gantt/issues/95
-                        //Applying it is a mystery to me though.
+                            function applyYOffset(el, yOffset) {
+                                if (!el) return;
+                                const tag = el.tagName.toLowerCase();
 
-
-                        //Play with these as variables in calculating spacing.
-                        //current issue is They affect both the rowHeight and Margin for the progress bar and the Chart itself together.
-                        const rowHeight =40;
-                        const topMargin =20;
-
-                        // const yOffset = 23
-
-                        function applyYOffset(el, yOffset) {
-                            if (!el) return;
-                            const tag = el.tagName.toLowerCase();
-
-                            if (tag === "rect") {
-                                el.setAttribute("y", yOffset);
-                            } else if (tag === "polygon") {
-                                const points = el.getAttribute("points");
-                                if (points) {
-                                    const updatedPoints = points
-                                        .split(" ")
-                                        .map(point => {
+                                if (tag === "rect") {
+                                    el.setAttribute("y", yOffset);
+                                } else if (tag === "polygon") {
+                                    const points = el.getAttribute("points");
+                                    if (points) {
+                                        const updatedPoints = points.split(" ").map(point => {
                                             const [x, y] = point.split(",").map(Number);
                                             return `${x},${y + yOffset}`;
-                                        })
-                                        .join(" ");
-                                    el.setAttribute("points", updatedPoints);
+                                        }).join(" ");
+                                        el.setAttribute("points", updatedPoints);
+                                    }
+                                } else if (tag === "g") {
+                                    el.setAttribute("transform", `translate(0, ${yOffset})`);
+                                } else {
+                                    el.style.transform = `translateY(${yOffset}px)`;
                                 }
-                                //svg elements
-                            } else if (tag === "g") {
-                                el.setAttribute("transform", `translate(0, ${yOffset})`);
-                            } else {
-                                // STANDARD HTML ELEMENTS  *use css transform
-                                el.style.transform = `translateY(${yOffset}px)`;
                             }
-                        }
 
-                        // Add top margin to the gantt chart wrapper
-                        const ganttSvg = document.querySelector("#gantt_chart svg");
-                        if (ganttSvg) {
-                            ganttSvg.style.marginTop = `${topMargin}px`;
-                        }
+                            const bars = document.querySelectorAll(".bar");
+                            const progressBars = document.querySelectorAll(".bar-progress");
+                            const labels = document.querySelectorAll(".bar-label");
+                            const wrappers = document.querySelectorAll(".bar-wrapper");
+                            const polygons = document.querySelectorAll(".progress-polygon");
+                            const taskGroups = document.querySelectorAll("g.task");
 
-                        const bars = document.querySelectorAll(".bar");
-                        const progressBars = document.querySelectorAll(".bar-progress");
-                        const labels = document.querySelectorAll(".bar-label");
-                        const wrappers = document.querySelectorAll(".bar-wrapper");
-                        const polygons = document.querySelectorAll(".progress-polygon");
-                        const handles = document.querySelectorAll(".handle");
-                        const taskGroups = document.querySelectorAll("g.task");
+                            labels.forEach(label => label.style.display = "none");
+                            taskGroups.forEach(group => group.style.display = "none");
 
-                        // Hide labels
-                        labels.forEach(label => {
-                            label.style.display = "none";
-                        });
+                            flatGanttTasks.forEach((task, index) => {
+                                const offset = 12.5 +  (task._row * 19  + task.topMargin) ;
 
-                        //Hide Handles
-                        handles.forEach(handle => {
-                            handle.style.display = "none";
-                        })
+                                applyYOffset(bars[index], offset);
+                                applyYOffset(progressBars[index], offset);
+                                applyYOffset(labels[index], offset);
+                                applyYOffset(wrappers[index], offset);
+                                applyYOffset(polygons[index], offset);
+                                applyYOffset(taskGroups[index], offset);
 
-                        flatGanttTasks.forEach((task, index) => {
-                            const offset = topMargin + task._row * rowHeight;
+                                if (progressBars[index]) {
+                                    progressBars[index].setAttribute("fill", task.color);
+                                    progressBars[index].style.fill = task.color;
+                                }
+                            });
 
-                            applyYOffset(bars[index], offset);
-                            applyYOffset(progressBars[index], offset);
-                            applyYOffset(labels[index], offset);
-                            applyYOffset(wrappers[index], offset);
-                            applyYOffset(polygons[index], offset);
-                            applyYOffset(taskGroups[index], offset);
+                            document.querySelectorAll(".gantt .row").forEach(row => {
+                                row.style.height = `${rowHeight}px`;
+                                row.style.display = "none";
+                            });
 
-                            // Also apply color to progress bar
-                            if (progressBars[index]) {
-                                progressBars[index].setAttribute("fill", task.color);
-                                progressBars[index].style.fill = task.color;
-                            }                            
-                        });
-                       
+                            document.querySelectorAll(".bar-wrapper .bar").forEach(background => {
+                                background.style.display = 'none';
+                            });
 
-                        // Adjust .row height and spacing
-                        document.querySelectorAll(".gantt .row").forEach(row => {
-                            row.style.height = `${rowHeight}px`;
-                            row.style.display = "flex";
-                            row.style.alignItems = "center";
-                            row.style.borderBottom = "none";
-                        });
-                                                
+                            console.log("Bars aligned: 38px each, perfectly stacked.");
+                        }, 600);
 
-                        // Remove or hide only the background bars (the .bar class inside each .bar-wrapper)
-                        document.querySelectorAll(".bar-wrapper .bar").forEach(background => {
-                            background.style.display = 'none';  // Hide the background bar
-                        });                       
-
-                        console.log("All Gantt elements fully aligned with margin, colors, and handles.");
-
-                        //Default to scroll to current day
-                        showCurrentDay();
-
-                    }, 600);
-
-                    //  //SCROLL TO TODAY'S DATE ON LOAD
-                    // function showCurrentDay() {
-                    //     const currentDay = document.querySelector('.today-highlight');
-                    //     if (currentDay) {
-                    //         currentDay.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                    //     }
-                    // }
-
-                })
-                .catch(error => console.error("Error fetching tasks:", error));
-        });
-    </script>
+                    })
+                    .catch(error => console.error("Error fetching tasks:", error));
+            });
+        </script>
 }
