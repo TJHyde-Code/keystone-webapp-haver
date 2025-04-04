@@ -2,69 +2,93 @@
 
 <partial name="_ViewHeading" />
 
-<div class="text-danger">@TempData["message"]</div>
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Summary)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserRoles)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Active)
-            </th>
-            <th class="text-center" style="min-width:120px">
-                <a asp-action="Create" class="btn btn-sm btn-outline-success"
-                   role="button" data-bs-toggle="tooltip" title="Create New @ViewData["ControllerFriendlyName"]">
-                    <strong>&#x270D; Create</strong>
-                </a>
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Summary)<br />
-                    Email: @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @{
-                        foreach (var r in item.UserRoles)
-                        {
-                            @:  @r <br />
-                        }
-                    }
-                </td>
-                <td>
-                    <div class="form-group form-switch">
-                        <input class="form-check-input" type="checkbox" disabled="disabled"
-                        @(Html.Raw(item.Active ? "checked=\"checked\"" : "")) />
-                    </div>
-                </td>
-                <td class="text-center">
-                    <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-outline-primary"
-                       role="button" data-bs-toggle="tooltip" title="Edit @ViewData["ControllerFriendlyName"]">
-                        &#x270E; Edit
-                    </a>
-                    @if (item.NumberOfPushSubscriptions > 0)
+<div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+
+<div class="card shadow-lg rounded-3">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Summary)</th>
+                        <th>@Html.DisplayNameFor(model => model.Phone)</th>
+                        <th>@Html.DisplayNameFor(model => model.UserRoles)</th>
+                        <th>@Html.DisplayNameFor(model => model.Active)</th>
+                        <th class="text-end">
+                            <a asp-action="Create" class="btn btn-success btn-sm py-1 px-2"
+                               role="button" data-bs-toggle="tooltip" title="Create New @ViewData["ControllerFriendlyName"]">
+                                <i class="bi bi-plus-lg me-1" style="font-size: 0.8rem;"></i>
+                                <span style="font-size: 0.8rem;">Create</span>
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
                     {
-                        @:| @{
-                            <a asp-controller="WebPush" asp-action="Send" asp-route-id="@item.ID">Send Notification</a>
-                        }
+                        <tr>
+                            <td>
+                                <strong>@Html.DisplayFor(modelItem => item.Summary)</strong><br />
+                                <small class="text-muted">@Html.DisplayFor(modelItem => item.Email)</small>
+                            </td>
+                            <td>@Html.DisplayFor(modelItem => item.PhoneNumber)</td>
+                            <td>
+                                @foreach (var r in item.UserRoles)
+                                {
+                                    <span class="badge bg-primary me-1">@r</span>
+                                }
+                            </td>
+                            <td>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch"
+                                           disabled @(item.Active ? "checked" : "")>
+                                </div>
+                            </td>
+                            <td class="text-end">
+                                <div class="btn-group" role="group">
+                                    <!-- Edit Button -->
+                                    <a asp-action="Edit" asp-route-id="@item.ID"
+                                       class="btn btn-primary btn-sm py-1 px-2"
+                                       title="Edit"
+                                       data-bs-toggle="tooltip">
+                                        <i class="bi bi-pencil-fill me-1" style="font-size: 0.8rem;"></i>
+                                        <span style="font-size: 0.8rem;">Edit</span>
+                                    </a>
+
+                                    <!-- Notification Button (conditional) -->
+                                    @if (item.NumberOfPushSubscriptions > 0)
+                                    {
+                                        <a asp-controller="WebPush" asp-action="Send" asp-route-id="@item.ID"
+                                           class="btn btn-info btn-sm py-1 px-2"
+                                           title="Send Notification"
+                                           data-bs-toggle="tooltip">
+                                            <i class="bi bi-bell-fill me-1" style="font-size: 0.8rem;"></i>
+                                            <span style="font-size: 0.8rem;">Notify</span>
+                                        </a>
+                                    }
+                                </div>
+                            </td>
+                        </tr>
                     }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+@section Scripts {
+    <script>
+        // Enable tooltips
+        $(function () {
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        });
+    </script>
+}

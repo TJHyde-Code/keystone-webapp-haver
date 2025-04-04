@@ -5,7 +5,7 @@
 }
 
 <center>
-<img src="~/img/ProgressBarStep2.png" asp-append-version="true" alt="Progress bar step two" class="PBar2" style="height: 75px; width:1000px;" />
+    <img src="~/img/ProgressBarStep2.png" asp-append-version="true" alt="Progress bar step two" class="PBar2" style="height: 75px; width:1000px;" />
 </center>
 
 <h2>Step 2: Select or Create a Customer</h2>
@@ -87,7 +87,7 @@
 
             <!-- Save Button -->
             <button type="submit" name="save" value="true" class="btn btn-outline-warning py-1 px-3">
-                <i class="bi bi-save me-1"></i>Save
+                <i class="bi bi-check-circle me-1"></i>Save
             </button>
         </div>
     </form>
@@ -119,7 +119,7 @@
                     <i class="bi bi-x-circle me-1"></i> Cancel
                 </button>
                 <button type="button" id="saveCustomerBtn" class="btn btn-primary">
-                    <i class="bi bi-save me-1"></i> Save Customer
+                    <i class="bi bi-check-circle me-1"></i> Save Customer
                 </button>
             </div>
         </div>
@@ -173,9 +173,9 @@
                     minDate: "today",          // prevent selecting past dates
                     defaultDate: new Date(),   // show today's date by default
                     disableMobile: true        // always use Flatpickr, not native input
-                    });
-                    }
                 });
+            }
+        });
     </script>
 
     <!--Approval Drawing Expected picker-->
@@ -184,10 +184,10 @@
             const kickoff = document.getElementById("ApprovalDrawingPicker");
             if (kickoff) {
                 flatpickr(kickoff, {
-                    dateFormat: "Y-m-d",       
-                    minDate: "today",          
-                    defaultDate: new Date(),   
-                    disableMobile: true        
+                    dateFormat: "Y-m-d",
+                    minDate: "today",
+                    defaultDate: new Date(),
+                    disableMobile: true
                 });
             }
         });

@@ -18,10 +18,10 @@
                 font-weight: 500;
             }
 
-            .accordion-button:not(.collapsed) {
-                background-color: #0A2240; /* Slightly darker blue when expanded */
-                color: #fff;
-            }
+                .accordion-button:not(.collapsed) {
+                    background-color: #0A2240; /* Slightly darker blue when expanded */
+                    color: #fff;
+                }
 
             .accordion-item {
                 border: 1px solid #dee2e6;
@@ -172,13 +172,18 @@
     </div>
 
     <div class="d-flex justify-content-between mt-4">
-        <div class="d-flex justify-content-end gap-3 mt-4">
-            <a asp-action="Index" class="btn btn-outline-secondary">
-                <i class="bi bi-arrow-left me-1"></i>Back to List
+        <div class="d-flex gap-2">
+            <!-- Reduced gap from gap-3 to gap-2 -->
+            <!-- Back Button -->
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm py-1 px-2">
+                <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Back to List</span>
             </a>
 
-            <button type="submit" class="btn btn-primary">
-                <i class="bi bi-save me-1"></i>Save Changes
+            <!-- Save Button -->
+            <button type="submit" class="btn btn-primary btn-sm py-1 px-2">
+                <i class="bi bi-check-circle me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Save Changes</span>
             </button>
         </div>
     </div>

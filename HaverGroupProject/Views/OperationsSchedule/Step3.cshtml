@@ -5,7 +5,7 @@
 }
 
 <center>
-<img src="~/img/ProgressBarStep3.png" asp-append-version="true" alt="Progress bar step three" class="PBar3" style="height: 75px; width:1000px;" />
+    <img src="~/img/ProgressBarStep3.png" asp-append-version="true" alt="Progress bar step three" class="PBar3" style="height: 75px; width:1000px;" />
 </center>
 
 <h2>Step 3: Create a Machine</h2>
@@ -39,7 +39,7 @@
 
             <!-- Save Button -->
             <button type="submit" name="save" value="true" class="btn btn-outline-warning py-1 px-3">
-                <i class="bi bi-save me-1"></i> Save
+                <i class="bi bi-check-circle me-1"></i> Save
             </button>
         </div>
 
@@ -119,7 +119,7 @@
                         </div>
                     </div>
                     <button type="button" class="btn btn-success" id="saveMachine">
-                        <i class="bi bi-save me-1"></i> Save
+                        <i class="bi bi-check-circle me-1"></i> Save
                     </button>
                 </form>
             </div>
@@ -207,14 +207,14 @@
 
                         // Append new machine to the machines list
                         var machineHtml = `
-                                    <li class="list-group-item">
-                                        <strong>Machine:</strong> ${response.newMachineDescription}<br>
-                                        <strong>Serial Number:</strong> ${machineData.SerialNumber}<br>
-                                        <strong>Size:</strong> ${machineData.Size}<br>
-                                        <strong>Class:</strong> ${machineData.Class}<br>
-                                        <strong>Deck:</strong> ${machineData.Deck}
-                                    </li>
-                                `;
+                                        <li class="list-group-item">
+                                            <strong>Machine:</strong> ${response.newMachineDescription}<br>
+                                            <strong>Serial Number:</strong> ${machineData.SerialNumber}<br>
+                                            <strong>Size:</strong> ${machineData.Size}<br>
+                                            <strong>Class:</strong> ${machineData.Class}<br>
+                                            <strong>Deck:</strong> ${machineData.Deck}
+                                        </li>
+                                    `;
                         $('#machinesList').append(machineHtml); // Add the new machine to the list
 
                         // Reset the modal form

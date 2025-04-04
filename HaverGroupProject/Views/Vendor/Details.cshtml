@@ -4,121 +4,169 @@
     ViewData["Title"] = "Vendor Details";
 }
 
-<div class="container mt-4">
-    <div class="card shadow-lg p-4 mb-4 rounded-3">
-        <div class="card-header bg-light py-3">
-            <h1 class="display-6 mb-0">
-                <i class="bi bi-building me-2"></i>@Html.DisplayFor(model => model.Vendors.VendorName)
-            </h1>
-        </div>
+<div id="printArea">
+    <h1 class="text-center">Vendor Details</h1>
 
-        <div class="card-body">
-            <div class="row mb-4">
-                <div class="col-md-8">
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="border-bottom pb-2">
-                                <h5 class="text-muted mb-3"><i class="bi bi-person-badge me-2"></i>Contact Information</h5>
-                                <dl class="row">
-                                    <dt class="col-sm-4">Contact Name</dt>
-                                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Vendors.VendorContactName)</dd>
+    <input id="btnPrint" class="btn btn-info btn-print float-end" type="button"
+           value="Print Details" onclick="PrintView()" />
 
-                                    <dt class="col-sm-4">Email</dt>
-                                    <dd class="col-sm-8">
-                                        <a href="mailto:@Model.Vendors.VendorEmail" class="text-decoration-none">
-                                            @Html.DisplayFor(model => model.Vendors.VendorEmail)
-                                        </a>
-                                    </dd>
+    <div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
 
-                                    <dt class="col-sm-4">Phone</dt>
-                                    <dd class="col-sm-8">@Html.DisplayFor(model => model.Vendors.VendorPhone)</dd>
-                                </dl>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="border-bottom pb-2">
-                                <h5 class="text-muted mb-3"><i class="bi bi-geo-alt me-2"></i>Address</h5>
-                                <p class="mb-0">@Html.DisplayFor(model => model.Vendors.VendorAddress)</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Active Orders Section -->
-            <div class="mt-4">
-                <div class="alert @(Model.ActiveOrdersCount > 0 ? "alert-info" : "alert-warning") d-flex align-items-center">
-                    <i class="bi @(Model.ActiveOrdersCount > 0 ? "bi-list-check" : "bi-exclamation-triangle") me-2 fs-4"></i>
-                    <div>
-                        <strong>Active Orders:</strong> @Model.ActiveOrdersCount
-                    </div>
-                </div>
-
-                @if (Model.ActiveOrdersCount > 0)
-                {
-                    <div class="card mt-3">
-                        <div class="card-header bg-light">
-                            <h5 class="mb-0"><i class="bi bi-card-checklist me-2"></i>Active Orders</h5>
-                        </div>
-                        <div class="card-body p-0">
-                            <ul class="list-group list-group-flush">
-                                @foreach (var order in Model.ActiveOrders)
-                                {
-                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <strong>SO# @order.SalesOrdNum</strong>
-                                            <div class="text-muted small">
-                                                Kickoff: @order.KickoffMeeting.Value.ToString("MMM dd, yyyy")
-                                            </div>
-                                        </div>
-                                        <span class="badge bg-primary rounded-pill">Active</span>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="text-center py-3 text-muted">
-                        <i class="bi bi-inbox fs-1"></i>
-                        <p class="fs-5 mt-2">No active orders for this vendor</p>
-                    </div>
-                }
+        <!-- Vendor Information -->
+        <div class="card mb-3">
+            <div class="card-header details-header text-white">Vendor Information</div>
+            <div class="card-body">
+                <p><strong>@Html.DisplayNameFor(model => model.Vendors.VendorName):</strong> @Model.Vendors.VendorName</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Vendors.VendorContactName):</strong> @Model.Vendors.VendorContactName</p>
+                <p>
+                    <strong>@Html.DisplayNameFor(model => model.Vendors.VendorEmail):</strong>
+                    <a href="mailto:@Model.Vendors.VendorEmail" class="text-decoration-none">@Model.Vendors.VendorEmail</a>
+                </p>
+                <p><strong>@Html.DisplayNameFor(model => model.Vendors.VendorPhone):</strong> @Model.Vendors.VendorPhone</p>
+                <p><strong>@Html.DisplayNameFor(model => model.Vendors.VendorAddress):</strong> @Model.Vendors.VendorAddress</p>
             </div>
         </div>
-    </div>
 
-    <div class="d-flex gap-2 mt-3">
-        <a asp-action="Edit" asp-route-id="@Model.Vendors?.ID" class="btn btn-primary px-4">
-            <i class="bi bi-pencil-square me-2"></i>Edit
-        </a>
-        <a asp-action="Index" class="btn btn-outline-secondary px-4">
-            <i class="bi bi-arrow-left me-2"></i>Back to List
-        </a>
+        <!-- Active Orders Summary -->
+        <div class="card mb-3">
+            <div class="card-header details-header text-white">Orders Summary</div>
+            <div class="card-body">
+                <div class="alert @(Model.ActiveOrdersCount > 0 ? "alert-info" : "alert-warning")">
+                    <strong>Active Orders:</strong> @Model.ActiveOrdersCount
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Orders List -->
+        @if (Model.ActiveOrdersCount > 0)
+        {
+            <div class="card mb-3">
+                <div class="card-header details-header text-white">Active Orders</div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        @foreach (var order in Model.ActiveOrders)
+                        {
+                            <li class="list-group-item">
+                                <strong>SO# @order.SalesOrdNum</strong> -
+                                Kickoff: @order.KickoffMeeting.Value.ToString("MMM dd, yyyy")
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3">
+                <div class="card-header details-header text-white">Active Orders</div>
+                <div class="card-body">
+                    <p>No active orders for this vendor.</p>
+                </div>
+            </div>
+        }
+
     </div>
 </div>
 
+<!-- Buttons -->
+<div class="btn-group" role="group">
+    <!-- Edit Button -->
+    <a asp-action="Edit" asp-route-id="@Model.Vendors?.ID"
+       class="btn btn-primary btn-sm py-1 px-2"
+       title="Edit Record">
+        <i class="bi bi-pencil-fill me-1" style="font-size: 0.8rem;"></i>
+        <span style="font-size: 0.8rem;">Edit</span>
+    </a>
+
+    <!-- Back to List Button -->
+    <a asp-action="Index"
+       class="btn btn-success btn-sm py-1 px-2"
+       title="Back to List">
+        <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
+        <span style="font-size: 0.8rem;">Back to List</span>
+    </a>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        function PrintView() {
+            // Referencing the Print Button.
+            var btnPrint = document.getElementById("btnPrint");
+
+            // Hiding the Print Button.
+            btnPrint.style.display = "none";
+
+            // Referencing the HTML Body.
+            var printArea = document.getElementById("printArea");
+
+            // Creating a new window.
+            var printWindow = window.open('', '_blank', 'top=100, left=200, height=500, width=700');
+            // Write content to the new window
+            // Note: Some browsers add a header and footer but some do not.
+            // We will suppress them for consistent output by setting the margin to zero
+            printWindow.document.write('<html><head><title>Vendor Details</title>');
+            printWindow.document.write('<style>@@media print { @@page { margin: 0; } body { margin: 1cm; } }</style>');
+            printWindow.document.write('</head><body>');
+
+            // Writting the contents of Body in window.
+            printWindow.document.write(printArea.innerHTML);
+
+            // Closing the document.
+            printWindow.document.close();
+
+            // Printing the window.
+            printWindow.print();
+
+            // Showing the Print Button.
+            btnPrint.style.display = "block";
+
+            // Close the new window after printing
+            printWindow.close();
+        }
+    </script>
+}
+
 <style>
-    .card {
-        border: none;
-        transition: transform 0.2s;
+    .details-header {
+        background-color: #0A2240;
     }
-    .card:hover {
-        transform: translateY(-2px);
+
+    .shadow-lg {
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
     }
-    dt {
-        font-weight: 500;
-        color: #6c757d;
+
+    .rounded {
+        border-radius: 0.5rem !important;
     }
-    dd {
-        font-weight: 400;
+
+    .btn-print {
+        position: absolute;
+        right: 20px;
+        top: 20px;
     }
+
     .list-group-item {
-        transition: background-color 0.2s;
+        border-left: none;
+        border-right: none;
     }
-    .list-group-item:hover {
-        background-color: #f8f9fa;
+
+    .alert-info {
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
     }
+
+    .alert-warning {
+        background-color: #fff3cd;
+        border-color: #bee5eb;
+        color: #0c5460;
+    }
+
+    a.text-decoration-none {
+        color: inherit;
+    }
+
+        a.text-decoration-none:hover {
+            text-decoration: underline;
+        }
 </style>

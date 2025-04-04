@@ -1,98 +1,233 @@
 ﻿@model HaverGroupProject.ViewModels.EmployeeAdminVM
 
-<partial name="_ViewHeading" />
+@{
+    ViewData["Title"] = "Edit Employee";
+}
 
-<hr />
+<div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
+    <h1 class="text-center mb-4">Edit Employee</h1>
 
-<form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row">
-        <div class="col-md-4">
-            <input type="hidden" asp-for="ID" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control"  autofocus />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-                <div>
-                    Note:  Changing Email will reset the password for the new Login and the user will need to use Forgot Password with the new Email.
-                </div>
-            </div>
-            <div class="form-group form-switch">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Active" /> @Html.DisplayNameFor(model => model.Active)
-                </label>
-                @{
-                    if (Model.Active == true)
-                    {
-                        <div>
-                                            <strong>
-                                                Warning! If you make this user inactive, their login to the system will also be removed.
-                                                If you ever want to allow them to login again, make them Active and let them know they must use Forgot Password to set a new one for this email address.
-                                            </strong>
-                        </div>
-                    }
-                    else
-                    {
-                        <div><strong>If you make this user active, let them know to use Forgot Password to set a new one for this email address.</strong></div>
-                    }
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="ID" />
+
+        <div class="accordion" id="employeeAccordion">
+            <!-- Custom Styling -->
+            <style>
+                .accordion-button {
+                    background-color: #0A2240;
+                    color: #fff;
+                    font-weight: 500;
                 }
-            </div>
-            <div class="form-group">
-                <label asp-for="UserRoles" class="control-label"></label>
-                <table>
-                    <tr>
-                        @{
-                            int cnt = 0;
-                            List<HaverGroupProject.ViewModels.RoleVM> roles = ViewBag.Roles;
-                            foreach (var role in roles)
-                            {
-                                if (cnt++ % 3 == 0)
-                                {
-                                @:</tr><tr>
-                                }
-                                @:<td>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox"
-                                               id="@role.RoleName-CheckBox"
-                                               name="selectedRoles"
-                                               value="@role.RoleName"
-                                               @(Html.Raw(role.Assigned ? "checked=\"checked\"" : "")) />
-                                        <label class="form-check-label" "@role.RoleName-CheckBox">@role.RoleName  &nbsp;&nbsp;</label>
+
+                .accordion-button:not(.collapsed) {
+                    background-color: #0A2240;
+                    color: #fff;
+                }
+
+                .accordion-item {
+                    border: 1px solid #dee2e6;
+                    margin-bottom: 10px;
+                    border-radius: 5px !important;
+                }
+
+                .accordion-body {
+                    background-color: #f8f9fa;
+                }
+
+                .form-label {
+                    color: #495057;
+                    font-weight: 500;
+                }
+
+                .form-control {
+                    border: 1px solid #ced4da;
+                    background-color: #fff;
+                }
+
+                .alert-warning {
+                    background-color: #fff3cd;
+                    border-color: #ffeeba;
+                    color: #856404;
+                }
+
+                .alert-danger {
+                    background-color: #f8d7da;
+                    border-color: #f5c6cb;
+                    color: #721c24;
+                }
+
+                .alert-info {
+                    background-color: #d1ecf1;
+                    border-color: #bee5eb;
+                    color: #0c5460;
+                }
+
+                .form-switch .form-check-input {
+                    width: 3em;
+                    height: 1.5em;
+                }
+
+                .role-table {
+                    width: 100%;
+                }
+
+                    .role-table td {
+                        padding: 8px;
+                        vertical-align: middle;
+                    }
+            </style>
+
+            <!-- Step 1: Basic Information -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingBasic">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBasic" aria-expanded="true">
+                        <i class="bi bi-person-vcard me-2"></i>Step 1: Basic Information
+                    </button>
+                </h2>
+                <div id="collapseBasic" class="accordion-collapse collapse show">
+                    <div class="accordion-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="FirstName" class="form-label">First Name</label>
+                                    <input asp-for="FirstName" class="form-control" autofocus />
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="LastName" class="form-label">Last Name</label>
+                                    <input asp-for="LastName" class="form-control" />
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Phone" class="form-label">Phone</label>
+                                    <input asp-for="Phone" class="form-control" />
+                                    <span asp-validation-for="Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label asp-for="Email" class="form-label">Email</label>
+                                    <input asp-for="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                    <div class="alert alert-warning mt-2">
+                                        <small><i class="bi bi-exclamation-triangle"></i> Changing Email will reset the password for the new Login. The user will need to use Forgot Password with the new Email.</small>
                                     </div>
-                                @:</td>
-                            }
-                        @:</tr>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Account Status -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingStatus">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStatus">
+                        <i class="bi bi-person-lock me-2"></i>Step 2: Account Status
+                    </button>
+                </h2>
+                <div id="collapseStatus" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="Active" asp-for="Active">
+                            <label class="form-check-label fw-bold" for="Active">Active</label>
+                        </div>
+
+                        @if (Model.Active == true)
+                        {
+                            <div class="alert alert-danger">
+                                <strong><i class="bi bi-exclamation-octagon"></i> Warning!</strong> If you make this user inactive, their login to the system will also be removed.
+                                If you ever want to allow them to login again, make them Active and let them know they must use Forgot Password to set a new one for this email address.
+                            </div>
                         }
-                    </table>
+                        else
+                        {
+                            <div class="alert alert-info">
+                                <strong><i class="bi bi-info-circle"></i> Note:</strong> If you make this user active, let them know to use Forgot Password to set a new one for this email address.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Role Assignment -->
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingRoles">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRoles">
+                        <i class="bi bi-shield-lock me-2"></i>Step 3: Role Assignment
+                    </button>
+                </h2>
+                <div id="collapseRoles" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                        <label class="form-label mb-3">Assign Roles</label>
+                        <div class="card">
+                            <div class="card-body">
+                                <table class="role-table">
+                                    @{
+                                        int cnt = 0;
+                                        List<HaverGroupProject.ViewModels.RoleVM> roles = ViewBag.Roles;
+                                        foreach (var role in roles)
+                                        {
+                                            if (cnt++ % 3 == 0)
+                                            {
+                                                @:<tr>
+                                            }
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" type="checkbox"
+                                                           id="@role.RoleName-CheckBox"
+                                                           name="selectedRoles"
+                                                           value="@role.RoleName"
+                                                           @(Html.Raw(role.Assigned ? "checked=\"checked\"" : "")) />
+                                                    <label class="form-check-label" for="@role.RoleName-CheckBox">@role.RoleName</label>
+                                                </div>
+                                            </td>
+                                            if (cnt % 3 == 0)
+                                            {
+                                                @:</tr>
+                                            }
+                                        }
+                                        if (cnt % 3 != 0)
+                                        {
+                                            @:</tr>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-primary" />
-    </div>
-</form>
 
-<div>
-    <partial name="_BackToList" />
+        <div class="d-flex justify-content-between mt-4">
+            <div class="d-flex gap-2">
+                <!-- Back Button -->
+                <a asp-action="Index" class="btn btn-outline-secondary btn-sm py-1 px-2">
+                    <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
+                    <span style="font-size: 0.8rem;">Back to List</span>
+                </a>
+
+                <!-- Save Button -->
+                <button type="submit" class="btn btn-primary btn-sm py-1 px-2">
+                    <i class="bi bi-check-circle me-1" style="font-size: 0.8rem;"></i>
+                    <span style="font-size: 0.8rem;">Save Changes</span>
+                </button>
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Step 1 - Create Operations Schedule";
 }
 <center>
-<img src="~/img/ProgressBarStep1.png" asp-append-version="true" alt="Progress bar step one" class="PBar1" style="height:75px; width:1000px;" />
+    <img src="~/img/ProgressBarStep1.png" asp-append-version="true" alt="Progress bar step one" class="PBar1" style="height:75px; width:1000px;" />
 </center>
 
 <h2>Step 1: Enter Operations Schedule Details</h2>
@@ -56,7 +56,7 @@
 
             <!-- Save Button -->
             <button type="submit" name="save" value="true" class="btn btn-outline-warning py-1 px-2" title="Save progress">
-                <i class="bi bi-save me-1"></i> Save
+                <i class="bi bi-check-circle me-1"></i> Save
             </button>
         </div>
 
@@ -80,19 +80,19 @@
                     minDate: "today",          // prevent selecting past dates
                     defaultDate: new Date(),   // show today's date by default
                     disableMobile: true        // always use Flatpickr, not native input
-                    });
-                    }
                 });
+            }
+        });
 
-                // Set Sales Order and Kickoff Date to 1 week from now
-                function autofillForm() {
-                    document.getElementById('SalesOrdNum').value = '10475587';
-                    const kickoff = document.getElementById('kickoff-picker');
-                    if (kickoff && kickoff._flatpickr) {
-                        const oneWeekFromToday = new Date();
-                        oneWeekFromToday.setDate(oneWeekFromToday.getDate() + 7);
-                        kickoff._flatpickr.setDate(oneWeekFromToday);
-                    }
-                }
+        // Set Sales Order and Kickoff Date to 1 week from now
+        function autofillForm() {
+            document.getElementById('SalesOrdNum').value = '10475587';
+            const kickoff = document.getElementById('kickoff-picker');
+            if (kickoff && kickoff._flatpickr) {
+                const oneWeekFromToday = new Date();
+                oneWeekFromToday.setDate(oneWeekFromToday.getDate() + 7);
+                kickoff._flatpickr.setDate(oneWeekFromToday);
+            }
+        }
     </script>
 }
