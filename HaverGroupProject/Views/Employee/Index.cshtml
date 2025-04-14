@@ -11,7 +11,8 @@
 }
 
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-
+    <!--Added instruction for clarity on Active Status toggle-->
+    <span>Change employee Active status using the Edit button</span>
 <div class="card shadow-lg rounded-3">
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -48,8 +49,8 @@
                             </td>
                             <td>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" role="switch"
-                                           disabled @(item.Active ? "checked" : "")>
+                                            <input class="form-check-input" type="checkbox" role="switch"
+                                                   disabled @(item.Active ? "checked" : "")>
                                 </div>
                             </td>
                             <td class="text-end">
