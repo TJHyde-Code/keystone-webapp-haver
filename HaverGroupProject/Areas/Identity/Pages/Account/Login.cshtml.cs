@@ -127,12 +127,12 @@ namespace HaverGroupProject.Areas.Identity.Pages.Account
                 {
                     var emp = _context.Employees.Where(e => e.Email == Input.Email).FirstOrDefault();
                     CookieHelper.CookieSet(HttpContext, "userName", emp.Summary, 3200);
-                    if (String.IsNullOrEmpty(emp.Phone))
-                    {
-                        //Nag to complete the profile?
-                        TempData["message"] = "Please enter the phone number.";
-                        returnUrl = "~/EmployeeAccount/Edit";
-                    }
+                    //if (String.IsNullOrEmpty(emp.Phone))
+                    //{
+                    //    //Nag to complete the profile?
+                    //    TempData["message"] = "Please enter the phone number.";
+                    //    returnUrl = "~/EmployeeAccount/Edit";
+                    //}
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
