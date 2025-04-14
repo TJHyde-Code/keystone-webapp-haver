@@ -20,15 +20,16 @@
                 <table class="table table-bordered">
                     <thead class="table-light">
                         <tr>
-                            <th>@Html.DisplayNameFor(model => model.Customer)</th>
-                            <th>@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
+                            <th class="col-customer">@Html.DisplayNameFor(model => model.Customer)</th>
+                            <th class="col-sales">@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                                <tr>
-                                    <td class="d-flex justify-content-between align-items-center">
+                            <tr>
+                                <td class="col-customer">
+                                    <div class="d-flex justify-content-between align-items-center">
                                         <span>@item.Customer?.CustomerName</span>
                                         <div class="action-icons">
                                             <a asp-action="GanttUpdate" asp-route-id="@item.ID" class="icon-link">
@@ -38,11 +39,12 @@
                                                 <i class="bi bi-trash-fill"></i>
                                             </a>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <span>@item.SalesOrdNum</span>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                                <td class="col-sales">
+                                    <span>@item.SalesOrdNum</span>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -111,7 +113,79 @@
     height: 20px;
     border-radius: 3px;
 }
+
+    .task-table-wrapper {
+        width: 350px;
+        max-width: 400px;
+        flex-shrink: 0;
+        
+    }
+    .task-table-wrapper table {
+        table-layout: fixed;
+        
+    }
+
+    .task-table-wrapper th.col-customer,
+    .task-table-wrapper td.col-customer {
+        width: 80px;
+        max-width: 200px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .task-table-wrapper th.col-sales,
+    .task-table-wrapper td.col-sales {
+        width: 80px;
+        max-width: 120px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .task-table-wrapper .col-customer > .d-flex {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .task-table-wrapper .col-customer span,
+    .task-table-wrapper .col-sales span {
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .task-table-wrapper .action-icons {
+        flex: 0 0 auto;
+        min-width: 40px;
+        display: flex;
+        gap: 0.3rem;
+    }
+
+        .task-table-wrapper .action-icons a {
+            color: #555;
+            
+        }
+
+        .task-table-wrapper table tbody tr {
+            height: 38px;
+            line-height: 1;
+            padding: 0;
+        }
+
+        .task-table-wrapper td,
+        .task-table-wrapper th {
+            height: 38px;
+            vertical-align: middle;           
+           
+        }
+
+   
     </style>
+
+
 
 
 @section stylesheets {
