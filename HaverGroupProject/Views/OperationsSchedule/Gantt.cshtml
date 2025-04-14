@@ -1,352 +1,430 @@
 ﻿@model IEnumerable<HaverGroupProject.Models.OperationsSchedule>
 
 @{
-    ViewData["Title"] = "Gantt";
+	ViewData["Title"] = "Gantt";
 }
 
 <h1>Active Gantts</h1>
 
 <div class="color-key">
-    <h5>Legend</h5>
-    <ul id="color-key-list" class="list-unstyled">
-        <!-- Color items will be inserted dynamically here -->
-    </ul>
+	<h5>Legend</h5>
+	<ul id="color-key-list" class="list-unstyled">
+		<!-- Color items will be inserted dynamically here -->
+	</ul>
 </div>
 
 <div class="shadow-lg p-3 mb-5 bg-body-tertiary rounded">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col col-12 col-lg-4 task-table-wrapper">
-                <table class="table table-bordered">
-                    <thead class="table-light">
-                        <tr>
-                            <th class="col-customer">@Html.DisplayNameFor(model => model.Customer)</th>
-                            <th class="col-sales">@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="col-customer">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span>@item.Customer?.CustomerName</span>
-                                        <div class="action-icons">
-                                            <a asp-action="GanttUpdate" asp-route-id="@item.ID" class="icon-link">
-                                                <i class="bi bi-pencil-fill"></i>
-                                            </a>
-                                            <a asp-action="Delete" asp-route-id="@item.ID" class="icon-link">
-                                                <i class="bi bi-trash-fill"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="col-sales">
-                                    <span>@item.SalesOrdNum</span>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col col-12 col-lg-4 task-table-wrapper">
+				<table class="table table-bordered">
+					<thead class="table-light">
+						<tr>
+							<th class="col-customer">@Html.DisplayNameFor(model => model.Customer)</th>
+							<th class="col-sales">@Html.DisplayNameFor(model => model.SalesOrdNum)</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td class="col-customer">
+									<div class="d-flex justify-content-between align-items-center">
+										<span>@item.Customer?.CustomerName</span>
+										<div class="action-icons">
+											<a asp-action="GanttUpdate" asp-route-id="@item.ID" class="icon-link">
+												<i class="bi bi-pencil-fill"></i>
+											</a>
+											<a asp-action="Delete" asp-route-id="@item.ID" class="icon-link">
+												<i class="bi bi-trash-fill"></i>
+											</a>
+										</div>
+									</div>
+								</td>
+								<td class="col-sales">
+									<span>@item.SalesOrdNum</span>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
 
-            <!-- GANTT CHART DIV -->
-            <div class="col-12 col-lg-8 gantt-chart-wrapper">
-                <div id="gantt_chart" class="gantt-chart"></div>
-            </div>
-        </div>
-    </div>
+			<!-- GANTT CHART DIV -->
+			<div class="col-12 col-lg-8 gantt-chart-wrapper">
+				<div id="gantt_chart" class="gantt-chart"></div>
+			</div>
+		</div>
+	</div>
 </div>
 
 
-    <style>
-       .container {
-    padding: 0;
-    margin: 0;
-}
+<style>
+	.container {
+		padding: 0;
+		margin: 0;
+	}
 
-    /* Prevent grab cursor on Gantt bars */
-    .gantt .bar,
-    .gantt .bar-wrapper,
-    .gantt .bar-progress,
-    .gantt .bar-group {
-        cursor: default !important;
-    }
+	/* Prevent grab cursor on Gantt bars */
+	.gantt .bar,
+	.gantt .bar-wrapper,
+	.gantt .bar-progress,
+	.gantt .bar-group {
+		cursor: default !important;
+	}
 
-/* Ensure the Gantt chart has full width */
-.gantt-chart-wrapper {
-    width: 60%;
-    padding: 0;
-}
-.container-fluid{
-    width: 2500px;
-}
+	/* Ensure the Gantt chart has full width */
+	.gantt-chart-wrapper {
+		width: 60%;
+		padding: 0;
+	}
 
-.color-key {
-    margin-bottom: 15px;
-    padding: 10px;
-    background-color: #f8f9fa;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 600px
-}
+	.container-fluid {
+		width: 2500px;
+	}
 
-.color-key h5 {
-    margin-bottom: 10px;
-    
-}
+	.color-key {
+		margin-bottom: 15px;
+		padding: 10px;
+		background-color: #f8f9fa;
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		width: 600px
+	}
 
-#color-key-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+		.color-key h5 {
+			margin-bottom: 10px;
+		}
 
-.color-key-item {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
+	#color-key-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
 
-.color-box {
-    width: 20px;
-    height: 20px;
-    border-radius: 3px;
-}
+	.color-key-item {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
 
-    .task-table-wrapper {
-        width: 350px;
-        max-width: 400px;
-        flex-shrink: 0;
-        
-    }
-    .task-table-wrapper table {
-        table-layout: fixed;
-        
-    }
+	.color-box {
+		width: 20px;
+		height: 20px;
+		border-radius: 3px;
+	}
 
-    .task-table-wrapper th.col-customer,
-    .task-table-wrapper td.col-customer {
-        width: 80px;
-        max-width: 200px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+	.task-table-wrapper {
+		width: 350px;
+		max-width: 400px;
+		flex-shrink: 0;
+	}
 
-    .task-table-wrapper th.col-sales,
-    .task-table-wrapper td.col-sales {
-        width: 80px;
-        max-width: 120px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+		.task-table-wrapper table {
+			table-layout: fixed;
+		}
 
-    .task-table-wrapper .col-customer > .d-flex {
-        justify-content: space-between;
-        align-items: center;
-    }
+		.task-table-wrapper th.col-customer,
+		.task-table-wrapper td.col-customer {
+			width: 80px;
+			max-width: 200px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
 
-    .task-table-wrapper .col-customer span,
-    .task-table-wrapper .col-sales span {
-        display: inline-block;
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
+		.task-table-wrapper th.col-sales,
+		.task-table-wrapper td.col-sales {
+			width: 80px;
+			max-width: 120px;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
 
-    .task-table-wrapper .action-icons {
-        flex: 0 0 auto;
-        min-width: 40px;
-        display: flex;
-        gap: 0.3rem;
-    }
+		.task-table-wrapper .col-customer > .d-flex {
+			justify-content: space-between;
+			align-items: center;
+		}
 
-        .task-table-wrapper .action-icons a {
-            color: #555;
-            
-        }
+		.task-table-wrapper .col-customer span,
+		.task-table-wrapper .col-sales span {
+			display: inline-block;
+			width: 100%;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
 
-        .task-table-wrapper table tbody tr {
-            height: 38px;
-            line-height: 1;
-            padding: 0;
-        }
+		.task-table-wrapper .action-icons {
+			flex: 0 0 auto;
+			min-width: 40px;
+			display: flex;
+			gap: 0.3rem;
+		}
 
-        .task-table-wrapper td,
-        .task-table-wrapper th {
-            height: 38px;
-            vertical-align: middle;           
-           
-        }
+			.task-table-wrapper .action-icons a {
+				color: #555;
+			}
 
-   
-    </style>
+		.task-table-wrapper table tbody tr {
+			height: 38px;
+			line-height: 1;
+			padding: 0;
+		}
+
+		.task-table-wrapper td,
+		.task-table-wrapper th {
+			height: 38px;
+			vertical-align: middle;
+		}
+
+	
+
+</style>
 
 
 
 
 @section stylesheets {
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.css">
 }
 
 @section Scripts {
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/frappe-gantt/0.5.0/frappe-gantt.min.js"></script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                fetch("@Url.Action("GetTasks", "OperationsSchedule")")
-                    .then(response => response.json())
-                    .then(tasks => {
-                        if (!tasks || tasks.length === 0) {
-                            console.error("No tasks found.");
-                            return;
-                        }
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			fetch("@Url.Action("GetTasks", "OperationsSchedule")")
+				.then(response => response.json())
+				.then(tasks => {
+					if (!tasks || tasks.length === 0) {
+						console.error("No tasks found.");
+						return;
+					}
 
-                        // Assign a sequential index to each task
-                        tasks.forEach((task, index) => {
-                            task.custom_index = index;
-                        });
+					// Assign a sequential index to each task
+					tasks.forEach((task, index) => {
+						task.custom_index = index;
+					});
 
-                        // Flatten tasks into a structure for Gantt chart
-                        const flatGanttTasks = tasks.flatMap(task => {
-                            return task.dateRanges.map(range => {
-                                const startDate = new Date(range.startDate);
-                                const endDate = new Date(range.endDate);
-                                return {
-                                    custom_index: task.custom_index,
-                                    id: task.id,
-                                    customer: task.customer,
-                                    name: range.name,
-                                    start: startDate.toISOString(),
-                                    end: endDate.toISOString(),
-                                    color: range.color,
-                                    progress: 100, // default to 100%
-                                    _row: task.custom_index, // Use custom_index for row position
-                                    topMargin: 10, // Define top margin for the progress bar
-                                    bottomMargin: 8.5// Define bottom margin for the progress bar
-                                };
-                            });
-                        });
+					// Flatten tasks into a structure for Gantt chart
+					const flatGanttTasks = tasks.flatMap(task => {
+						return task.dateRanges.map(range => {
+							const startDate = new Date(range.startDate);
+							const endDate = new Date(range.endDate);
+							return {
+								custom_index: task.custom_index,
+								id: task.id,
+								customer: task.customer,
+								name: range.name,
+								start: startDate.toISOString(),
+								end: endDate.toISOString(),
+								color: range.color,
+								progress: 100, // default to 100%
+								// row_id: task.custom_index,
+								_row: task.custom_index, // Use custom_index for row position
+								topMargin: 10, // Define top margin for the progress bar
+								bottomMargin: 8.5// Define bottom margin for the progress bar
+							};
+						});
+					});
 
-                        console.log("Flat Gantt tasks:", flatGanttTasks);
+					console.log("Flat Gantt tasks:", flatGanttTasks);
 
-                            // Generate the color key based on task colors
-                const colorKeyList = document.getElementById('color-key-list');
-                const colorMap = new Map(); // Store unique colors with their range names
+					// Generate the color key based on task colors
+					const colorKeyList = document.getElementById('color-key-list');
+					const colorMap = new Map(); // Store unique colors with their range names
 
-                flatGanttTasks.forEach(task => {
-                if (!colorMap.has(task.color)) {
-                    colorMap.set(task.color, task.name); // Store the color with the corresponding range name
-                }
-            });
+					flatGanttTasks.forEach(task => {
+						if (!colorMap.has(task.color)) {
+							colorMap.set(task.color, task.name); // Store the color with the corresponding range name
+						}
+					});
 
-            // Generate the color key dynamically
-            colorMap.forEach((rangeName, color) => {
-                const listItem = document.createElement('li');
-                listItem.classList.add('color-key-item');
-                listItem.innerHTML = `
-                    <span class="color-box" style="background-color: ${color};"></span>
-                    <span>${rangeName}</span> <!-- Display range name -->
-                `;
-                colorKeyList.appendChild(listItem);
-            });
+					// Generate the color key dynamically
+					colorMap.forEach((rangeName, color) => {
+						const listItem = document.createElement('li');
+						listItem.classList.add('color-key-item');
+						listItem.innerHTML = `
+							<span class="color-box" style="background-color: ${color};"></span>
+							<span>${rangeName}</span> <!-- Display range name -->
+						`;
+						colorKeyList.appendChild(listItem);
+					});
 
 
-                        let gantt = new Gantt("#gantt_chart", flatGanttTasks, {
-                            view_mode: 'Day',
-                            on_click: task => console.log("Clicked:", task),
-                            on_date_change: (task, start, end) => updateTask(task, start, end),
-                            custom_popup_html: task => `
-                                        <div class="details-popup">
-                                            <strong>Customer:</strong> ${task.customer}<br/>
-                                            <strong>Milestone:</strong> ${task.name}<br/>
-                                            <strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
-                                            <strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
-                                            <strong>Progress:</strong> ${task.progress}%
-                                        </div>`,
-                            date_format: "yyyy-MM-dd"
-                        });
+					let gantt = new Gantt("#gantt_chart", flatGanttTasks, {
+						view_mode: 'Day',
+						on_click: task => console.log("Clicked:", task),
+						on_date_change: (task, start, end) => updateTask(task, start, end),
+						custom_popup_html: task => `
+												<div class="details-popup">
+													<strong>Customer:</strong> ${task.customer}<br/>
+													<strong>Milestone:</strong> ${task.name}<br/>
+													<strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
+													<strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
+													<strong>Progress:</strong> ${task.progress}%
+												</div>`,
+						date_format: "yyyy-MM-dd"
+					});
 
-                        //SCROLL TO TODAY'S DATE ON LOAD
-                    function showCurrentDay() {
-                        const currentDay = document.querySelector('.today-highlight');
-                        if (currentDay) {
-                            currentDay.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-                        }
-                    }
+					// Add this helper function just before overriding make_grid_rows
+					function createSVG(tag, attrs) {
+						const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+						for (const attr in attrs) {
+							if (attr === "append_to") {
+								attrs.append_to.appendChild(el);
+							} else {
+								el.setAttribute(attr, attrs[attr]);
+							}
+						}
+						return el;
+					}
 
-                        gantt.refresh(flatGanttTasks);
-                        setTimeout(() => {
-                            const rowHeight = 38;
 
-                            function applyYOffset(el, yOffset) {
-                                if (!el) return;
-                                const tag = el.tagName.toLowerCase();
+					// 🛠️ OVERRIDE make_grid_rows to use unique _row IDs
+					gantt.make_grid_rows = function () {
+						const distinctRows = [...new Set(this.tasks.map(t => t._row))];
+						const rows_layer = createSVG('g', { append_to: this.layers.grid });
+						const lines_layer = createSVG('g', { append_to: this.layers.grid });
 
-                                if (tag === "rect") {
-                                    el.setAttribute("y", yOffset);
-                                } else if (tag === "polygon") {
-                                    const points = el.getAttribute("points");
-                                    if (points) {
-                                        const updatedPoints = points.split(" ").map(point => {
-                                            const [x, y] = point.split(",").map(Number);
-                                            return `${x},${y + yOffset}`;
-                                        }).join(" ");
-                                        el.setAttribute("points", updatedPoints);
-                                    }
-                                } else if (tag === "g") {
-                                    el.setAttribute("transform", `translate(0, ${yOffset})`);
-                                } else {
-                                    el.style.transform = `translateY(${yOffset}px)`;
-                                }
-                            }
+						const row_width = this.dates.length * this.options.column_width;
+						const row_height = this.options.bar_height + this.options.padding;
 
-                            const bars = document.querySelectorAll(".bar");
-                            const progressBars = document.querySelectorAll(".bar-progress");
-                            const labels = document.querySelectorAll(".bar-label");
-                            const wrappers = document.querySelectorAll(".bar-wrapper");
-                            const polygons = document.querySelectorAll(".progress-polygon");
-                            const taskGroups = document.querySelectorAll("g.task");
+						let row_y = this.options.header_height + this.options.padding / 2;
 
-                            labels.forEach(label => label.style.display = "none");
-                            taskGroups.forEach(group => group.style.display = "none");
+						for (const row of distinctRows) {
+							createSVG('rect', {
+								x: 0,
+								y: row_y,
+								width: row_width,
+								height: row_height,
+								class: 'grid-row',
+								append_to: rows_layer
+							});
 
-                            flatGanttTasks.forEach((task, index) => {
-                                const offset = 12.5 +  (task._row * 19  + task.topMargin) ;
+							createSVG('line', {
+								x1: 0,
+								y1: row_y + row_height,
+								x2: row_width,
+								y2: row_y + row_height,
+								class: 'row-line',
+								append_to: lines_layer
+							});
 
-                                applyYOffset(bars[index], offset);
-                                applyYOffset(progressBars[index], offset);
-                                applyYOffset(labels[index], offset);
-                                applyYOffset(wrappers[index], offset);
-                                applyYOffset(polygons[index], offset);
-                                applyYOffset(taskGroups[index], offset);
+							row_y += row_height;
+						}
+					};
 
-                                if (progressBars[index]) {
-                                    progressBars[index].setAttribute("fill", task.color);
-                                    progressBars[index].style.fill = task.color;
-                                }
-                            });
 
-                            document.querySelectorAll(".gantt .row").forEach(row => {
-                                row.style.height = `${rowHeight}px`;
-                                row.style.display = "none";
-                            });
+					// Recalculate and manually set SVG height based on visible rows
+					const uniqueRows = [...new Set(flatGanttTasks.map(t => t._row))];
+					const newSvgHeight = gantt.options.header_height +
+						uniqueRows.length * (gantt.options.bar_height + gantt.options.padding) +
+						gantt.options.padding;
 
-                            document.querySelectorAll(".bar-wrapper .bar").forEach(background => {
-                                background.style.display = 'none';
-                            });
+					document.querySelector("#gantt_chart svg").setAttribute("height", newSvgHeight);
 
-                            console.log("Bars aligned: 38px each, perfectly stacked.");
 
-                                 //CALL FUNCTION TO SCROLL TO TODAY'S DATE (optional)
-                            showCurrentDay();
-                        }, 1000);
+					// Hide or remove extra grid rows left over by default behavior
+					setTimeout(() => {
+						const uniqueRowCount = [...new Set(flatGanttTasks.map(t => t._row))].length;
+						const visibleRows = document.querySelectorAll('.grid .grid-row');
+						const visibleLines = document.querySelectorAll('.grid .row-line');
 
-                    })
-                    .catch(error => console.error("Error fetching tasks:", error));
-            });
-        </script>
+						visibleRows.forEach((row, index) => {
+							if (index >= uniqueRowCount) {
+								row.remove(); // Or row.style.display = 'none';
+							}
+						});
+
+						visibleLines.forEach((line, index) => {
+							if (index >= uniqueRowCount) {
+								line.remove(); // Or line.style.display = 'none';
+							}
+						});
+					}, 100); // slight delay ensures it's after initial render
+
+					//SCROLL TO TODAY'S DATE ON LOAD
+					function showCurrentDay() {
+						const currentDay = document.querySelector('.today-highlight');
+						if (currentDay) {
+							currentDay.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+						}
+					}
+
+
+
+					
+					setTimeout(() => {
+						const rowHeight = 38;
+
+						function applyYOffset(el, yOffset) {
+							if (!el) return;
+							const tag = el.tagName.toLowerCase();
+
+							if (tag === "rect") {
+								el.setAttribute("y", yOffset);
+							} else if (tag === "polygon") {
+								const points = el.getAttribute("points");
+								if (points) {
+									const updatedPoints = points.split(" ").map(point => {
+										const [x, y] = point.split(",").map(Number);
+										return `${x},${y + yOffset}`;
+									}).join(" ");
+									el.setAttribute("points", updatedPoints);
+								}
+							} else if (tag === "g") {
+								el.setAttribute("transform", `translate(0, ${yOffset})`);
+							} else {
+								el.style.transform = `translateY(${yOffset}px)`;
+							}
+						}
+
+						const bars = document.querySelectorAll(".bar");
+						const progressBars = document.querySelectorAll(".bar-progress");
+						const labels = document.querySelectorAll(".bar-label");
+						const wrappers = document.querySelectorAll(".bar-wrapper");
+						const polygons = document.querySelectorAll(".progress-polygon");
+						const taskGroups = document.querySelectorAll("g.task");
+
+						labels.forEach(label => label.style.display = "none");
+						taskGroups.forEach(group => group.style.display = "none");
+
+						flatGanttTasks.forEach((task, index) => {
+							const offset = 12.5 + (task._row * 19 + task.topMargin);
+
+							applyYOffset(bars[index], offset);
+							applyYOffset(progressBars[index], offset);
+							applyYOffset(labels[index], offset);
+							applyYOffset(wrappers[index], offset);
+							applyYOffset(polygons[index], offset);
+							applyYOffset(taskGroups[index], offset);
+
+							if (progressBars[index]) {
+								progressBars[index].setAttribute("fill", task.color);
+								progressBars[index].style.fill = task.color;
+							}
+						});
+
+						document.querySelectorAll(".gantt .row").forEach(row => {
+							row.style.height = `${rowHeight}px`;
+							row.style.display = "none";
+						});
+
+						document.querySelectorAll(".bar-wrapper .bar").forEach(background => {
+							background.style.display = 'none';
+						});
+
+						console.log("Bars aligned: 38px each, perfectly stacked.");
+
+						//CALL FUNCTION TO SCROLL TO TODAY'S DATE (optional)
+						showCurrentDay();
+					}, 1000);
+
+				})
+				.catch(error => console.error("Error fetching tasks:", error));
+		});
+	</script>
 }
