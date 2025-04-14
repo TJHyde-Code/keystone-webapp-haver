@@ -179,8 +179,6 @@
 			vertical-align: middle;
 		}
 
-	
-
 </style>
 
 
@@ -247,9 +245,9 @@
 						const listItem = document.createElement('li');
 						listItem.classList.add('color-key-item');
 						listItem.innerHTML = `
-							<span class="color-box" style="background-color: ${color};"></span>
-							<span>${rangeName}</span> <!-- Display range name -->
-						`;
+									<span class="color-box" style="background-color: ${color};"></span>
+									<span>${rangeName}</span> <!-- Display range name -->
+								`;
 						colorKeyList.appendChild(listItem);
 					});
 
@@ -259,13 +257,13 @@
 						on_click: task => console.log("Clicked:", task),
 						on_date_change: (task, start, end) => updateTask(task, start, end),
 						custom_popup_html: task => `
-												<div class="details-popup">
-													<strong>Customer:</strong> ${task.customer}<br/>
-													<strong>Milestone:</strong> ${task.name}<br/>
-													<strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
-													<strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
-													<strong>Progress:</strong> ${task.progress}%
-												</div>`,
+														<div class="details-popup">
+															<strong>Customer:</strong> ${task.customer}<br/>
+															<strong>Milestone:</strong> ${task.name}<br/>
+															<strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
+															<strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
+															<strong>Progress:</strong> ${task.progress}%
+														</div>`,
 						date_format: "yyyy-MM-dd"
 					});
 
@@ -356,7 +354,7 @@
 
 
 
-					
+
 					setTimeout(() => {
 						const rowHeight = 38;
 
