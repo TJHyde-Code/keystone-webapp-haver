@@ -18,6 +18,10 @@
             box-sizing: border-box;
         }
 
+        .main-content.full-width {
+            margin-left: 0 !important;
+        }
+
         .sidebar {
             width: 250px;
             background-color: #0A2240; /* Dark background */
@@ -89,66 +93,71 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <!-- Sidebar Header -->
-        <div class="sidebar-header">
-            <h3>Dashboard</h3>
-            <div>
-                <!-- Close icon (visible when sidebar is open) -->
-                <i class="bi bi-x-lg toggle-icon close-icon" onclick="toggleSidebar()" aria-label="Close sidebar"></i>
-               
-            </div>
-        </div>
 
-        <!-- Navigation Links -->
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a asp-controller="Home" asp-action="Index" class="nav-link">
-                    <i class="bi bi-house"></i> Home
-                </a>
-            </li>
-            <li class="nav-item">
-                <a asp-controller="OperationsSchedule" asp-action="Index" class="nav-link">
-                    <i class="bi bi-speedometer2"></i> Sales Orders
-                </a>
-            </li>
-            <li class="nav-item">
-                <a asp-controller="Customer" asp-action="Index" class="nav-link">
-                    <i class="bi bi-people"></i> Customers
-                </a>
-            </li>
-            <li class="nav-item">
-                <a asp-controller="Vendor" asp-action="Index" class="nav-link">
-                    <i class="bi bi-building"></i> Vendors
-                </a>
-            </li>
-            
-            @* <li class="nav-item">
-                <a asp-controller="HaverGantt" asp-action="Index" class="nav-link">
-                    <i class="bi bi-bar-chart-line"></i> Gantt Charts
-                </a>
-            </li> *@
-            <li class="nav-item">
-                <a asp-controller="OperationsSchedule" asp-action="Gantt" class="nav-link">
-                    <i class="bi bi-bar-chart-line"></i> Gantt Charts
-                </a>
-            </li>
-            @if (User.IsInRole("Admin"))
-            {
-                <li><hr class="dropdown-divider" /></li>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <!-- Sidebar Header -->
+            <div class="sidebar-header">
+                <h3>Dashboard</h3>
+                <div>
+                    <!-- Close icon (visible when sidebar is open) -->
+                    <i class="bi bi-x-lg toggle-icon close-icon" onclick="toggleSidebar()" aria-label="Close sidebar"></i>
+
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a asp-controller="Employee" asp-action="Index" class="nav-link">
-                        <i class="bi bi-fingerprint"></i>Employees
+                    <a asp-controller="Home" asp-action="Index" class="nav-link">
+                        <i class="bi bi-house"></i> Home
                     </a>
                 </li>
-            }
-        </ul>
-    </div>
+                <li class="nav-item">
+                    <a asp-controller="OperationsSchedule" asp-action="Index" class="nav-link">
+                        <i class="bi bi-speedometer2"></i> Sales Orders
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Customer" asp-action="Index" class="nav-link">
+                        <i class="bi bi-people"></i> Customers
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Vendor" asp-action="Index" class="nav-link">
+                        <i class="bi bi-building"></i> Vendors
+                    </a>
+                </li>
 
-    <!-- Main Content -->
-    <div class="main-content" id="mainContent">
-        <header>
+                @* <li class="nav-item">
+            <a asp-controller="HaverGantt" asp-action="Index" class="nav-link">
+            <i class="bi bi-bar-chart-line"></i> Gantt Charts
+            </a>
+            </li> *@
+                <li class="nav-item">
+                    <a asp-controller="OperationsSchedule" asp-action="Gantt" class="nav-link">
+                        <i class="bi bi-bar-chart-line"></i> Gantt Charts
+                    </a>
+                </li>
+                @if (User.IsInRole("Admin"))
+                {
+                    <li><hr class="dropdown-divider" /></li>
+                    <li class="nav-item">
+                        <a asp-controller="Employee" asp-action="Index" class="nav-link">
+                            <i class="bi bi-fingerprint"></i>Employees
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+    }
+
+        <!-- Main Content -->
+        <div class="main-content @(User.Identity.IsAuthenticated ? "" : "full-width")" id="mainContent">
+            <header>
             <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 
                 <div class="container-fluid">
@@ -179,6 +188,8 @@
             </div>
         </footer>
     </div>
+
+    
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
