@@ -57,7 +57,7 @@ namespace HaverGroupProject.Data
                          {
                              FirstName = "Homer",
                              LastName = "Simpson",
-                             Email = "homer@hbniagara.com"
+                             Email = "engineering@hbniagara.com"
                          });
 
                         context.SaveChanges();
