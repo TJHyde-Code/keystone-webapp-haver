@@ -65,26 +65,30 @@
             </div>
         }
 
+
+
+        <!-- Buttons -->
+        <div class="btn-group" role="group">
+
+            <!-- Back to List Button -->
+            <a asp-action="Index"
+               class="btn btn-success btn-sm py-1 px-2"
+               title="Back to List">
+                <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Back to List</span>
+            </a>
+
+            <!-- Edit Button -->
+            <a asp-action="Edit" asp-route-id="@Model.Vendors?.ID"
+               class="btn btn-primary btn-sm py-1 px-2"
+               title="Edit Record">
+                <i class="bi bi-pencil-fill me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Edit Details</span>
+            </a>
+
+
+        </div>
     </div>
-</div>
-
-<!-- Buttons -->
-<div class="btn-group" role="group">
-    <!-- Edit Button -->
-    <a asp-action="Edit" asp-route-id="@Model.Vendors?.ID"
-       class="btn btn-primary btn-sm py-1 px-2"
-       title="Edit Record">
-        <i class="bi bi-pencil-fill me-1" style="font-size: 0.8rem;"></i>
-        <span style="font-size: 0.8rem;">Edit</span>
-    </a>
-
-    <!-- Back to List Button -->
-    <a asp-action="Index"
-       class="btn btn-success btn-sm py-1 px-2"
-       title="Back to List">
-        <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
-        <span style="font-size: 0.8rem;">Back to List</span>
-    </a>
 </div>
 
 @section Scripts {

@@ -7,7 +7,7 @@
 <div id="printArea">
     <h1 class="text-center">Customer Details</h1>
 
-    <input id="btnPrint" class="btn btn-info btn-print float-end" type="button"
+    <input id="btnPrint" class="btn btn-info btn-sm py-1 px-2 btn-print" type="button"
            value="Print Details" onclick="PrintView()" />
 
     <div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
@@ -62,60 +62,47 @@
             </div>
         }
 
+
+
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <div class="d-flex gap-2">
+                <!-- Back to List Button -->
+                <a asp-action="Index"
+                   class="btn btn-success btn-sm py-1 px-2"
+                   title="Back to List">
+                    <i class="bi bi-arrow-left me-1"></i>Back to List
+                </a>
+
+                <!-- Edit Button -->
+                <a asp-action="Edit" asp-route-id="@Model.Customer?.ID"
+                   class="btn btn-primary btn-sm py-1 px-2"
+                   title="Edit Record">
+                    <i class="bi bi-pencil-fill me-1"></i>Edit Details
+                </a>
+            </div>
+        </div>
     </div>
-</div>
-
-<!-- Buttons -->
-<div class="btn-group" role="group">
-    <!-- Edit Button -->
-    <a asp-action="Edit" asp-route-id="@Model.Customer?.ID"
-       class="btn btn-primary btn-sm py-1 px-2"
-       title="Edit Record">
-        <i class="bi bi-pencil-fill me-1"></i>Edit
-    </a>
-
-    <!-- Back to List Button -->
-    <a asp-action="Index"
-       class="btn btn-success btn-sm py-1 px-2"
-       title="Back to List">
-        <i class="bi bi-arrow-left me-1"></i>Back to List
-    </a>
 </div>
 
 @section Scripts {
     <script type="text/javascript">
         function PrintView() {
-            // Referencing the Print Button.
             var btnPrint = document.getElementById("btnPrint");
-
-            // Hiding the Print Button.
             btnPrint.style.display = "none";
 
-            // Referencing the HTML Body.
             var printArea = document.getElementById("printArea");
-
-            // Creating a new window.
             var printWindow = window.open('', '_blank', 'top=100, left=200, height=500, width=700');
-            // Write content to the new window
-            // Note: Some browsers add a header and footer but some do not.
-            // We will suppress them for consistent output by setting the margin to zero
+
             printWindow.document.write('<html><head><title>Customer Details</title>');
             printWindow.document.write('<style>@@media print { @@page { margin: 0; } body { margin: 1cm; } }</style>');
             printWindow.document.write('</head><body>');
-
-            // Writting the contents of Body in window.
             printWindow.document.write(printArea.innerHTML);
-
-            // Closing the document.
             printWindow.document.close();
-
-            // Printing the window.
             printWindow.print();
 
-            // Showing the Print Button.
             btnPrint.style.display = "block";
-
-            // Close the new window after printing
             printWindow.close();
         }
     </script>

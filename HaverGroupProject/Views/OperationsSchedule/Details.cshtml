@@ -5,12 +5,10 @@
 }
 
 <div id="printArea">
+    <h1 class="text-center">Order Details</h1>
 
-    <h1 class="text-center">Details</h1>
-
-    <input id="btnPrint" class="btn btn-info btn-print float-end" type="button"
+    <input id="btnPrint" class="btn btn-info btn-sm py-1 px-2 btn-print" type="button"
            value="Print Details" onclick="PrintView()" />
-
 
     <div class="shadow-lg p-4 mb-5 bg-body-tertiary rounded">
 
@@ -36,7 +34,6 @@
             </div>
         </div>
 
-
         <!-- Machine List -->
         <div class="card mb-3">
             <div class="card-header details-header text-white">Machines(s)</div>
@@ -52,24 +49,19 @@
                 }
                 else
                 {
-                    <p>No vendors associated with this schedule.</p>
+                    <p>No machines associated with this order.</p>
                 }
             </div>
         </div>
 
         <!-- Operations Schedule -->
         <div class="card mb-3">
-            <div class="card-header details-header">Operations Schedule</div>
+            <div class="card-header details-header text-white">Order Information</div>
             <div class="card-body">
                 <p><strong>@Html.DisplayNameFor(model => model.SalesOrdNum):</strong> @Html.DisplayFor(model => model.SalesOrdNum)</p>
-
-
                 <p><strong>@Html.DisplayNameFor(model => model.KickoffMeeting):</strong> @Html.DisplayFor(model => model.KickoffMeeting)</p>
-                @* <p><strong>@Html.DisplayNameFor(model => model.ReleaseApprovalDrawing):</strong> @Html.DisplayFor(model => model.ReleaseApprovalDrawing)</p> *@
                 <p><strong>@Html.DisplayNameFor(model => model.PONum):</strong> @Html.DisplayFor(model => model.PONum)</p>
                 <p><strong>@Html.DisplayNameFor(model => model.ProductionOrderNumber):</strong> @Html.DisplayFor(model => model.ProductionOrderNumber)</p>
-                @*  <p><strong>@Html.DisplayNameFor(model => model.PODueDate):</strong> @Html.DisplayFor(model => model.PODueDate)</p>
-                <p><strong>@Html.DisplayNameFor(model => model.DeliveryDate):</strong> @Html.DisplayFor(model => model.DeliveryDate)</p> *@
             </div>
         </div>
 
@@ -88,7 +80,7 @@
                 }
                 else
                 {
-                    <p>No vendors associated with this schedule.</p>
+                    <p>No vendors associated with this order.</p>
                 }
             </div>
         </div>
@@ -106,61 +98,73 @@
             </div>
         </div>
 
+
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <div class="d-flex gap-2">
+                <!-- Back to List Button -->
+                <a asp-action="Index"
+                   class="btn btn-success btn-sm py-1 px-2"
+                   title="Back to List">
+                    <i class="bi bi-arrow-left me-1"></i>Back to List
+                </a>
+
+                <!-- Edit Button -->
+                <a asp-action="Edit" asp-route-id="@Model?.ID"
+                   class="btn btn-primary btn-sm py-1 px-2"
+                   title="Edit Record">
+                    <i class="bi bi-pencil-fill me-1"></i>Edit Details
+                </a>
+            </div>
+        </div>
+
+
     </div>
-
 </div>
 
-<!-- Buttons -->
-<div class="btn-group" role="group">
-    <!-- Edit Button -->
-    <a asp-action="Edit" asp-route-id="@Model?.ID"
-       class="btn btn-primary btn-sm"
-       title="Edit Record">
-        <i class="bi bi-pencil-fill me-1"></i>Edit
-    </a>
-
-    <!-- Back to List Button -->
-    <a asp-action="Index"
-       class="btn btn-success btn-sm"
-       title="Back to List">
-        <i class="bi bi-list me-1"></i>Back to List
-    </a>
-</div>
 @section Scripts {
     <script type="text/javascript">
         function PrintView() {
-            // Referencing the Print Button.
             var btnPrint = document.getElementById("btnPrint");
-
-            // Hiding the Print Button.
             btnPrint.style.display = "none";
 
-            // Referencing the HTML Body.
             var printArea = document.getElementById("printArea");
-
-            // Creating a new window.
             var printWindow = window.open('', '_blank', 'top=100, left=200, height=500, width=700');
-            // Write content to the new window
-            // Note: Some browsers add a header and footer but some do not.
-            // We will suppress them for consistent output by setting the margin to zero
+
             printWindow.document.write('<html><head><title>Order Details</title>');
             printWindow.document.write('<style>@@media print { @@page { margin: 0; } body { margin: 1cm; } }</style>');
             printWindow.document.write('</head><body>');
-
-            // Writting the contents of Body in window.
             printWindow.document.write(printArea.innerHTML);
-
-            // Closing the document.
             printWindow.document.close();
-
-            // Printing the window.
             printWindow.print();
 
-            // Showing the Print Button.
             btnPrint.style.display = "block";
-
-            // Close the new window after printing
             printWindow.close();
         }
     </script>
-}	
+}
+
+<style>
+    .details-header {
+        background-color: #0A2240;
+    }
+
+    .shadow-lg {
+        box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important;
+    }
+
+    .rounded {
+        border-radius: 0.5rem !important;
+    }
+
+    .btn-print {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+
+    .list-group-item {
+        border-left: none;
+        border-right: none;
+    }
+</style>

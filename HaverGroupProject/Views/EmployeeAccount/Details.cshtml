@@ -2,41 +2,96 @@
 
 <partial name="_ViewHeading" />
 
-<h3>Account for: @Model.Summary</h3>
+<style>
+    .employee-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-<div>
-    <hr />
+    .employee-header {
+        color: #0A2240;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .detail-row {
+        margin-bottom: 1rem;
+    }
+
+    .detail-label {
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .detail-value {
+        color: #6c757d;
+    }
+
+    .edit-btn {
+        background-color: #0A2240;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+        .edit-btn:hover {
+            background-color: #1A3A6F;
+            color: white;
+        }
+
+    .alert-danger {
+        background-color: rgba(220, 53, 69, 0.1);
+        border-color: rgba(220, 53, 69, 0.3);
+        color: #dc3545;
+        border-radius: 0.375rem;
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+</style>
+
+<div class="employee-card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <h4 class="employee-header">Account for: @Model.Summary</h4>
+
     <div class="alert alert-danger" style="display: none;">
         <strong>Note:</strong>
         <ul id="errorMessage"></ul>
     </div>
-    <dl class="row">
-        <dt class="col-sm-4">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.DisplayNameFor(model => model.Phone)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-        <dt class="col-sm-4">
-            @Html.DisplayNameFor(model => model.NumberOfPushSubscriptions)
-        </dt>
-        <dd class="col-sm-6">
-            @Html.DisplayFor(model => model.NumberOfPushSubscriptions)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit Account Details</a>
+
+    <div class="detail-row">
+        <span class="detail-label">@Html.DisplayNameFor(model => model.FirstName):</span>
+        <span class="detail-value">@Html.DisplayFor(model => model.FirstName)</span>
+    </div>
+
+    <div class="detail-row">
+        <span class="detail-label">@Html.DisplayNameFor(model => model.LastName):</span>
+        <span class="detail-value">@Html.DisplayFor(model => model.LastName)</span>
+    </div>
+
+    <div class="detail-row">
+        <span class="detail-label">@Html.DisplayNameFor(model => model.Phone):</span>
+        <span class="detail-value">@Html.DisplayFor(model => model.PhoneNumber)</span>
+    </div>
+
+    <div class="detail-row">
+        <span class="detail-label">@Html.DisplayNameFor(model => model.NumberOfPushSubscriptions):</span>
+        <span class="detail-value">@Html.DisplayFor(model => model.NumberOfPushSubscriptions)</span>
+    </div>
+
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.ID"
+           class="btn btn-sm py-1 px-2 edit-btn"
+           style="background-color: #0A2240; color: white; border: 1px solid #0A2240;"
+           title="Edit Account Details">
+            <i class="bi bi-pencil-fill me-1" style="font-size: 0.8rem;"></i>
+            <span style="font-size: 0.8rem;">Edit Account Details</span>
+        </a>
+    </div>
 </div>

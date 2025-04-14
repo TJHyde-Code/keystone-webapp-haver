@@ -4,6 +4,41 @@
     ViewData["Title"] = "Step 3 - Select or Create Machine";
 }
 
+<style>
+    .btn-previous {
+        background-color: #6c757d; /* Gray */
+        color: white;
+        border: 1px solid #6c757d;
+    }
+
+        .btn-previous:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+
+    .btn-next {
+        background-color: #28a745; /* Green */
+        color: white;
+        border: 1px solid #28a745;
+    }
+
+        .btn-next:hover {
+            background-color: #218838;
+            color: white;
+        }
+
+    .btn-save {
+        background-color: #0A2240; /* Deep blue */
+        color: white;
+        border: 1px solid #0A2240;
+    }
+
+        .btn-save:hover {
+            background-color: #1A3A6F;
+            color: white;
+        }
+</style>
+
 <center>
     <img src="~/img/ProgressBarStep3.png" asp-append-version="true" alt="Progress bar step three" class="PBar3" style="height: 75px; width:1000px;" />
 </center>
@@ -27,27 +62,26 @@
         </div>
 
         <div class="d-flex gap-2 mt-3">
-            <!-- Previous Button -->
-            <a asp-action="Step2" asp-route-id="@Model.ID" class="btn btn-outline-success py-1 px-3">
-                <i class="bi bi-arrow-left me-1"></i> Previous
+            <!-- Previous Button (Gray) -->
+            <a asp-action="Step2" asp-route-id="@Model.ID" class="btn btn-previous btn-sm py-1 px-2">
+                <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Previous Page</span>
             </a>
 
-            <!-- Next Button -->
-            <button type="submit" class="btn btn-outline-primary py-1 px-3">
-                <i class="bi bi-arrow-right me-1"></i> Next
+            <!-- Next Button (Green) -->
+            <button type="submit" class="btn btn-next btn-sm py-1 px-2">
+                <i class="bi bi-arrow-right me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Next Page</span>
             </button>
 
-            <!-- Save Button -->
-            <button type="submit" name="save" value="true" class="btn btn-outline-warning py-1 px-3">
-                <i class="bi bi-check-circle me-1"></i> Save
+            <!-- Save Button (Blue) -->
+            <button type="submit" name="save" value="true" class="btn btn-save btn-sm py-1 px-2">
+                <i class="bi bi-check-circle me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Save Process</span>
             </button>
         </div>
-
-
     </form>
 </div>
-
-
 
 <!-- Machine Modal -->
 <div class="modal fade" id="machineModal" tabindex="-1" aria-labelledby="machineModalLabel" aria-hidden="true">
@@ -207,14 +241,14 @@
 
                         // Append new machine to the machines list
                         var machineHtml = `
-                                        <li class="list-group-item">
-                                            <strong>Machine:</strong> ${response.newMachineDescription}<br>
-                                            <strong>Serial Number:</strong> ${machineData.SerialNumber}<br>
-                                            <strong>Size:</strong> ${machineData.Size}<br>
-                                            <strong>Class:</strong> ${machineData.Class}<br>
-                                            <strong>Deck:</strong> ${machineData.Deck}
-                                        </li>
-                                    `;
+                                                <li class="list-group-item">
+                                                    <strong>Machine:</strong> ${response.newMachineDescription}<br>
+                                                    <strong>Serial Number:</strong> ${machineData.SerialNumber}<br>
+                                                    <strong>Size:</strong> ${machineData.Size}<br>
+                                                    <strong>Class:</strong> ${machineData.Class}<br>
+                                                    <strong>Deck:</strong> ${machineData.Deck}
+                                                </li>
+                                            `;
                         $('#machinesList').append(machineHtml); // Add the new machine to the list
 
                         // Reset the modal form

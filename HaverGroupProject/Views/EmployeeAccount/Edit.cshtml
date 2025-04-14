@@ -2,40 +2,124 @@
 
 <partial name="_ViewHeading" />
 
-<h4>Edit Account for @User.Identity.Name</h4>
+<style>
+    .edit-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-<div class="text-danger">@TempData["message"]</div>
-<hr />
-<form asp-action="Edit">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="row">
-        <div class="col-md-4">
-            <input type="hidden" asp-for="ID" />
-            <input type="hidden" name="Email" value="@User.Identity.Name" />
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label"></label>
-                <input asp-for="Phone" class="form-control" />
-                <span asp-validation-for="Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+    .edit-header {
+        color: #0A2240;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    .control-label {
+        font-weight: 500;
+        color: #495057;
+        margin-bottom: 0.5rem;
+        display: block;
+    }
+
+    .form-control {
+        border: 1px solid #ced4da;
+        border-radius: 0.25rem;
+        padding: 0.5rem 0.75rem;
+        width: 100%;
+    }
+
+        .form-control:focus {
+            border-color: #0A2240;
+            box-shadow: 0 0 0 0.2rem rgba(10, 34, 64, 0.25);
+        }
+
+    .btn-primary {
+        background-color: #0A2240;
+        border-color: #0A2240;
+        padding: 0.5rem 1rem;
+    }
+
+        .btn-primary:hover {
+            background-color: #1A3A6F;
+            border-color: #1A3A6F;
+        }
+
+    .back-link {
+        color: #0A2240;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+            color: #1A3A6F;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        margin-bottom: 1rem;
+        display: block;
+    }
+</style>
+
+<div class="edit-card shadow-lg p-3 mb-5 bg-body-tertiary rounded">
+    <h4 class="edit-header">Edit Account for @User.Identity.Name</h4>
+
+    <div class="text-danger">@TempData["message"]</div>
+
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="hidden" asp-for="ID" />
+                <input type="hidden" name="Email" value="@User.Identity.Name" />
+
+                <div class="form-group">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LastName" class="control-label"></label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <div class="d-flex gap-2">
+                        <!-- Back Button -->
+                        <a asp-action="Details" class="btn btn-success btn-sm py-1 px-2">
+                            <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
+                            <span style="font-size: 0.8rem;">Back to Account</span>
+                        </a>
+
+                        <!-- Save Button -->
+                        <button type="submit" class="btn btn-primary btn-sm py-1 px-2">
+                            <i class="bi bi-check-circle me-1" style="font-size: 0.8rem;"></i>
+                            <span style="font-size: 0.8rem;">Save Changes</span>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 
-<div>
-    <a asp-action="Details">Back to Account Details</a>
+
 </div>
 
 @section Scripts {
