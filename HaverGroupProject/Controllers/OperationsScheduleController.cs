@@ -229,7 +229,10 @@ namespace HaverGroupProject.Controllers
 
                 PreOrder = operationsSchedule.Note?.PreOrder,
                 Scope = operationsSchedule.Note?.Scope,
-                BudgetAssembHrs = operationsSchedule.Note?.OtherComments
+                BudgetAssembHrs = operationsSchedule.Note?.BudgetAssembHrs,
+                ActualAssembHours = operationsSchedule.Note?.ActualAssembHours,
+                ActualReworkHours = operationsSchedule.Note?.ActualReworkHours,
+                OtherComments = operationsSchedule.Note?.OtherComments
             };
 
             return View(viewModel);
