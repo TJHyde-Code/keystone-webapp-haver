@@ -8,98 +8,210 @@
 <form asp-action="GanttUpdate" method="post" enctype="multipart/form-data">
     <input type="hidden" asp-for="ID" />
 
-    
-    <table class="table">
-        <thead>
-            <tr>
-               
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><strong>Customer:</strong></td>
-                <td><strong>@Model.Customer?.CustomerName</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Sales Order Number:</strong></td>
-                <td><strong>@Model.SalesOrdNum</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Production Order #:</strong></td>
-                <td><strong>@Model.ProductionOrderNumber</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Kickoff Meeting:</strong></td>
-                <td><strong>@Model.KickoffMeeting?.ToString("yyyy-MM-dd")</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Expected Approval Drawing:</strong></td>
-                <td><strong>@Model.ApprovalDrawingExpected.ToString("yyyy-MM-dd")</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Approval Drawing Released:</strong></td>
-                <td>
-                    <input asp-for="ApprovalDrawingReleased" type="date" class="form-control" />
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Approval Drawing Returned:</strong></td>
-                <td>
-                    <input asp-for="ApprovalDrawingReturned" type="date" class="form-control" />
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Pre-Order Expected:</strong></td>
-                <td><strong>@Model.PreOrderExpected.ToString("yyyy-MM-dd")</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Pre-Order Released:</strong></td>
-                <td>
-                    <input asp-for="PreOrderReleased" type="date" class="form-control" />
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Engineer Package Expected:</strong></td>
-                <td><strong>@Model.EngineerPackageExpected.ToString("yyyy-MM-dd")</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Engineer Package Released:</strong></td>
-                <td>
-                    <input asp-for="EngineerPackageReleased" type="date" class="form-control" />
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Purchase Order Expected:</strong></td>
-                <td><strong>@Model.PurchaseOrderExpected.ToString("yyyy-MM-dd")</strong></td>
-            </tr>
-            <tr>
-                <td><strong>Purchase Order Due:</strong></td>
-                <td>
-                    <input asp-for="PurchaseOrderDueDate" type="date" class="form-control" />
-                </td>
-            </tr>
-            <tr>
-                <td><strong>Purchase Order Received:</strong></td>
-                <td>
-                    <input asp-for="PUrchaseOrderRecieved" type="date" class="form-control" />
-                </td>
-            </tr>
-            <tr>
-                <td><strong>RTS Expected:</strong></td>
-                <td><strong>@Model.ReadinessToShipExpected.ToString("yyyy-MM-dd")</strong></td>
-            </tr>
-            <tr>
-                <td><strong>RTS Actual:</strong></td>
-                <td>
-                    <input asp-for="ReadinessToShipActual" type="date" class="form-control" />
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Custom Styling -->
+    <style>
+        .accordion-button {
+            background-color: #0A2240;
+            color: #fff;
+            font-weight: 500;
+        }
+
+            .accordion-button:not(.collapsed) {
+                background-color: #0A2240;
+                color: #fff;
+            }
+
+        .accordion-item {
+            border: 1px solid #dee2e6;
+            margin-bottom: 10px;
+            border-radius: 5px !important;
+        }
+
+        .accordion-body {
+            background-color: #f8f9fa;
+        }
+
+        .form-label {
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .form-control {
+            border: 1px solid #ced4da;
+            background-color: #fff;
+        }
+
+        .table {
+            background-color: #fff;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+            .table tbody tr:nth-child(even) {
+                background-color: #f8f9fa;
+            }
+
+        strong {
+            color: #495057;
+        }
+
+        .btn-primary {
+            background-color: #0A2240;
+            border-color: #0A2240;
+        }
+
+            .btn-primary:hover {
+                background-color: #0a2b53;
+                border-color: #0a2b53;
+            }
+    </style>
+
+    <div class="accordion" id="ganttAccordion">
+        <!-- Section 1: Project Information -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="bi bi-info-circle me-2"></i>Project Information
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#ganttAccordion">
+                <div class="accordion-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%;"><strong>Customer:</strong></td>
+                                <td><strong>@Model.Customer?.CustomerName</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sales Order Number:</strong></td>
+                                <td><strong>@Model.SalesOrdNum</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Production Order #:</strong></td>
+                                <td><strong>@Model.ProductionOrderNumber</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Kickoff Meeting:</strong></td>
+                                <td><strong>@Model.KickoffMeeting?.ToString("yyyy-MM-dd")</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Drawing & Order Details -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <i class="bi bi-file-earmark-text me-2"></i>Drawing & Order Details
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#ganttAccordion">
+                <div class="accordion-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%;"><strong>Expected Approval Drawing:</strong></td>
+                                <td><strong>@Model.ApprovalDrawingExpected.ToString("yyyy-MM-dd")</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Approval Drawing Released:</strong></td>
+                                <td>
+                                    <input asp-for="ApprovalDrawingReleased" type="date" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Approval Drawing Returned:</strong></td>
+                                <td>
+                                    <input asp-for="ApprovalDrawingReturned" type="date" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pre-Order Expected:</strong></td>
+                                <td><strong>@Model.PreOrderExpected.ToString("yyyy-MM-dd")</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Pre-Order Released:</strong></td>
+                                <td>
+                                    <input asp-for="PreOrderReleased" type="date" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Engineer Package Expected:</strong></td>
+                                <td><strong>@Model.EngineerPackageExpected.ToString("yyyy-MM-dd")</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Engineer Package Released:</strong></td>
+                                <td>
+                                    <input asp-for="EngineerPackageReleased" type="date" class="form-control" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Purchase & Shipping -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <i class="bi bi-truck me-2"></i>Purchase & Shipping
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#ganttAccordion">
+                <div class="accordion-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td style="width: 30%;"><strong>Purchase Order Expected:</strong></td>
+                                <td><strong>@Model.PurchaseOrderExpected.ToString("yyyy-MM-dd")</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchase Order Due:</strong></td>
+                                <td>
+                                    <input asp-for="PurchaseOrderDueDate" type="date" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Purchase Order Received:</strong></td>
+                                <td>
+                                    <input asp-for="PUrchaseOrderRecieved" type="date" class="form-control" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>RTS Expected:</strong></td>
+                                <td><strong>@Model.ReadinessToShipExpected.ToString("yyyy-MM-dd")</strong></td>
+                            </tr>
+                            <tr>
+                                <td><strong>RTS Actual:</strong></td>
+                                <td>
+                                    <input asp-for="ReadinessToShipActual" type="date" class="form-control" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Submit Button -->
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary">Save Changes</button>
+    <div class="d-flex justify-content-between mt-4">
+        <div class="d-flex gap-2">
+            <!-- Back Button -->
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm py-1 px-2">
+                <i class="bi bi-arrow-left me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Back to List</span>
+            </a>
+
+            <!-- Save Button -->
+            <button type="submit" class="btn btn-primary btn-sm py-1 px-2">
+                <i class="bi bi-check-circle me-1" style="font-size: 0.8rem;"></i>
+                <span style="font-size: 0.8rem;">Save Changes</span>
+            </button>
+        </div>
     </div>
 </form>
 
