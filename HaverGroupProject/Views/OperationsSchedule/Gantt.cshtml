@@ -63,6 +63,14 @@
     margin: 0;
 }
 
+    /* Prevent grab cursor on Gantt bars */
+    .gantt .bar,
+    .gantt .bar-wrapper,
+    .gantt .bar-progress,
+    .gantt .bar-group {
+        cursor: default !important;
+    }
+
 /* Ensure the Gantt chart has full width */
 .gantt-chart-wrapper {
     width: 60%;
