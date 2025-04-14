@@ -58,7 +58,10 @@ table {
     margin-right: 5px;
 }
 
-
+.btn-outline-info {
+    color: #336699;
+    border-color: #336699;
+}
 
 .btn-success {
     background-color: #0A2240;
