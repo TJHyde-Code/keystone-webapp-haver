@@ -8,6 +8,7 @@ namespace HaverGroupProject.Models
 
         #region Summary Properties
 
+        [Display(Name ="Engineer")]
         public string EngSummary
         {
             get
@@ -62,6 +63,7 @@ namespace HaverGroupProject.Models
         [StringLength(10)]
         public string? EngPhone { get; set; }
 
+        [Display(Name ="Email")]
         [Required(ErrorMessage = "Email Address is required.")]
         [StringLength(255)]
         [DataType(DataType.EmailAddress)]
