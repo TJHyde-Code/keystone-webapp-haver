@@ -245,9 +245,9 @@
 						const listItem = document.createElement('li');
 						listItem.classList.add('color-key-item');
 						listItem.innerHTML = `
-									<span class="color-box" style="background-color: ${color};"></span>
-									<span>${rangeName}</span> <!-- Display range name -->
-								`;
+													<span class="color-box" style="background-color: ${color};"></span>
+													<span>${rangeName}</span> <!-- Display range name -->
+												`;
 						colorKeyList.appendChild(listItem);
 					});
 
@@ -257,15 +257,84 @@
 						on_click: task => console.log("Clicked:", task),
 						on_date_change: (task, start, end) => updateTask(task, start, end),
 						custom_popup_html: task => `
-														<div class="details-popup">
-															<strong>Customer:</strong> ${task.customer}<br/>
-															<strong>Milestone:</strong> ${task.name}<br/>
-															<strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
-															<strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
-															<strong>Progress:</strong> ${task.progress}%
-														</div>`,
+									<div class="details-popup">
+										<strong>Customer:</strong> ${task.customer}<br/>
+										<strong>Milestone:</strong> ${task.name}<br/>
+										<strong>Start:</strong> ${new Date(task.start).toLocaleDateString()}<br/>
+										<strong>End:</strong> ${new Date(task.end).toLocaleDateString()}<br/>
+									</div>`,
 						date_format: "yyyy-MM-dd"
 					});
+
+					//AI helped  create this function to over-ride hover functionality to display on location
+					//to display Date(Task) range details.
+					function setupHoverPopups(gantt) {
+						const bars = document.querySelectorAll(".bar-wrapper");
+
+						bars.forEach((bar, index) => {
+							const task = gantt.tasks[index];
+							if (!task) return;
+
+							let popup;
+
+							bar.addEventListener("mouseenter", (e) => {
+								// Create tooltip element
+								popup = document.createElement("div");
+								popup.className = "gantt-hover-popup";
+								popup.innerHTML = gantt.options.custom_popup_html(task);
+								document.body.appendChild(popup);
+
+								// Style it
+								Object.assign(popup.style, {
+									position: "absolute",
+									zIndex: 9999,
+									backgroundColor: "#fff",
+									border: "1px solid #ccc",
+									padding: "8px",
+									borderRadius: "4px",
+									boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+									pointerEvents: "none",
+									fontSize: "13px",
+									lineHeight: "1.4",
+									whiteSpace: "nowrap"
+								});
+							});
+
+							bar.addEventListener("mousemove", (e) => {
+								if (!popup) return;
+
+								// Offset position
+								let offsetX = 15;
+								let offsetY = 15;
+
+								let left = e.pageX + offsetX;
+								let top = e.pageY + offsetY;
+
+								// Ensure it stays within viewport
+								const popupRect = popup.getBoundingClientRect();
+								const maxRight = window.innerWidth - popupRect.width - 10;
+								const maxBottom = window.innerHeight - popupRect.height - 10;
+
+								if (left > maxRight) {
+									left = maxRight;
+								}
+								if (top > maxBottom) {
+									top = maxBottom;
+								}
+
+								popup.style.left = `${left}px`;
+								popup.style.top = `${top}px`;
+							});
+
+							bar.addEventListener("mouseleave", () => {
+								if (popup && popup.parentNode) {
+									popup.parentNode.removeChild(popup);
+									popup = null;
+								}
+							});
+						});
+					}
+
 
 					// Add this helper function just before overriding make_grid_rows
 					function createSVG(tag, attrs) {
@@ -420,6 +489,9 @@
 						//CALL FUNCTION TO SCROLL TO TODAY'S DATE (optional)
 						showCurrentDay();
 					}, 1000);
+
+					setupHoverPopups(gantt);
+
 
 				})
 				.catch(error => console.error("Error fetching tasks:", error));
