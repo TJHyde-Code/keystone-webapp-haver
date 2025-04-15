@@ -191,6 +191,59 @@ namespace HaverGroupProject.Models
             {
                 yield return new ValidationResult("Readiness to ship actual date must not be set in the past", ["ReadinessToShipActual"]);
             }
+            //Validation chain for Milestone dates.
+            if (KickoffMeeting.HasValue && KickoffMeeting.Value > ApprovalDrawingExpected)
+            {
+                yield return new ValidationResult("Approval Drawing Expected must be after Kickoff Meeting", ["ApprovalDrawingExpected"]);
+            }
+            else if (ApprovalDrawingReleased.HasValue && ApprovalDrawingExpected > ApprovalDrawingReleased.Value)
+            {
+                yield return new ValidationResult("Approval Drawing Released must be after Approval Drawing Expected", ["ApprovalDrawingReleased"]);
+            }
+            else if (ApprovalDrawingReturned.HasValue && ApprovalDrawingReleased.HasValue &&
+                     ApprovalDrawingReleased.Value > ApprovalDrawingReturned.Value)
+            {
+                yield return new ValidationResult("Approval Drawing Returned must be after Approval Drawing Released", ["ApprovalDrawingReturned"]);
+            }
+            else if (PreOrderExpected < ApprovalDrawingExpected)
+            {
+                yield return new ValidationResult("Pre-Order Expected must be after Approval Drawing Expected", ["PreOrderExpected"]);
+            }
+            else if (PreOrderReleased.HasValue && PreOrderExpected > PreOrderReleased.Value)
+            {
+                yield return new ValidationResult("Pre-Order Released must be after Pre-Order Expected", ["PreOrderReleased"]);
+            }
+            else if (EngineerPackageExpected < PreOrderExpected)
+            {
+                yield return new ValidationResult("Engineer Package Expected must be after Pre-Order Expected", ["EngineerPackageExpected"]);
+            }
+            else if (EngineerPackageReleased.HasValue && EngineerPackageExpected > EngineerPackageReleased.Value)
+            {
+                yield return new ValidationResult("Engineer Package Released must be after Engineer Package Expected", ["EngineerPackageReleased"]);
+            }
+            else if (PurchaseOrderExpected < EngineerPackageExpected)
+            {
+                yield return new ValidationResult("Purchase Order Expected must be after Engineer Package Expected", ["PurchaseOrderExpected"]);
+            }
+            else if (PurchaseOrderDueDate.HasValue && PurchaseOrderExpected > PurchaseOrderDueDate.Value)
+            {
+                yield return new ValidationResult("Purchase Order Due Date must be after Purchase Order Expected", ["PurchaseOrderDueDate"]);
+            }
+            else if (PUrchaseOrderRecieved.HasValue && PurchaseOrderDueDate.HasValue &&
+                     PurchaseOrderDueDate.Value > PUrchaseOrderRecieved.Value)
+            {
+                yield return new ValidationResult("Purchase Order Received must be after Purchase Order Due Date", ["PurchaseOrderRecieved"]);
+            }
+            else if (ReadinessToShipExpected < PurchaseOrderExpected)
+            {
+                yield return new ValidationResult("RTS Expected must be after Purchase Order Expected", ["ReadinessToShipExpected"]);
+            }
+            else if (ReadinessToShipActual.HasValue && ReadinessToShipExpected > ReadinessToShipActual.Value)
+            {
+                yield return new ValidationResult("Actual RTS must be after RTS Expected", ["ReadinessToShipActual"]);
+            }
+
+
         }
 
         #endregion
