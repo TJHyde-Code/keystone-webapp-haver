@@ -202,10 +202,19 @@ namespace HaverGroupProject.Controllers
             {
                 ID = operationsSchedule.ID,
                 SalesOrdNum = operationsSchedule.SalesOrdNum,
-                //ExtSalesOrdNum = operationsSchedule.ExtSalesOrdNum,
-                //PackageReleaseName = operationsSchedule.PackageReleaseName,
                 KickoffMeeting = operationsSchedule.KickoffMeeting,
-                //ReleaseApprovalDrawing = operationsSchedule.ReleaseApprovalDrawing,
+                //Get Milestone dates.
+                ApprovalDrawingExpected = operationsSchedule.ApprovalDrawingExpected,
+                PreOrderExpected = operationsSchedule.PreOrderExpected,
+                EngineerPackageExpected = operationsSchedule.EngineerPackageExpected,
+                PurchaseOrderExpected = operationsSchedule.PurchaseOrderExpected,
+                ReadinessToShipExpected = operationsSchedule.ReadinessToShipExpected,
+
+                //Booleans
+                QIComplete = operationsSchedule.QIComplete,
+                NCRRaised = operationsSchedule.NCRRaised,
+
+                Value = operationsSchedule.Value,
 
                 CustomerID = operationsSchedule.CustomerID,
                 Customers = _context.Customers
@@ -224,8 +233,7 @@ namespace HaverGroupProject.Controllers
                     .ToList(),
 
                 ProductionOrderNumber = operationsSchedule.ProductionOrderNumber,
-                //PODueDate = operationsSchedule.PODueDate,
-                //DeliveryDate = operationsSchedule.DeliveryDate,
+               
 
                 PreOrder = operationsSchedule.Note?.PreOrder,
                 Scope = operationsSchedule.Note?.Scope,
@@ -253,16 +261,24 @@ namespace HaverGroupProject.Controllers
 
                 if (operationsSchedule == null) return NotFound();
 
-                operationsSchedule.SalesOrdNum = model.SalesOrdNum;
-                //operationsSchedule.ExtSalesOrdNum = model.ExtSalesOrdNum;
-                //operationsSchedule.PackageReleaseName = model.PackageReleaseName;
+                operationsSchedule.SalesOrdNum = model.SalesOrdNum;                
                 operationsSchedule.KickoffMeeting = model.KickoffMeeting;
-                //operationsSchedule.ReleaseApprovalDrawing = model.ReleaseApprovalDrawing;
+                //Added required Milestone starts for edit
+                operationsSchedule.ApprovalDrawingExpected = model.ApprovalDrawingExpected.Value;
+                operationsSchedule.PreOrderExpected = model.PreOrderExpected.Value;
+                operationsSchedule.EngineerPackageExpected= model.EngineerPackageExpected.Value;
+                operationsSchedule.PurchaseOrderExpected = model.PurchaseOrderExpected.Value;
+                operationsSchedule.ReadinessToShipExpected = model.ReadinessToShipExpected.Value;
+                //Booleans
+                operationsSchedule.QIComplete = model.QIComplete;
+                operationsSchedule.NCRRaised = model.NCRRaised;
+
+                operationsSchedule.Value = model.Value;
+
                 operationsSchedule.CustomerID = model.CustomerID;
                 operationsSchedule.MachineDescriptionID = model.MachineDescriptionID;
                 operationsSchedule.ProductionOrderNumber = model.ProductionOrderNumber;
-                //operationsSchedule.PODueDate = model.PODueDate;
-                //operationsSchedule.DeliveryDate = model.DeliveryDate;
+                
 
                 if (operationsSchedule.Note == null)
                 {
