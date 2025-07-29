@@ -1,64 +1,80 @@
-# Keystone Project: Haver Scheduling and shipping organizer.
+# 📦 Haver Scheduling & Shipping Organizer
 
-A web application for keeping track of customer orders, information, and production dates  built as part of a final year team project at Niagara College.
+**Keystone Capstone Project** – Final Year Team Project | Niagara College  
+A web-based internal tool designed to help manufacturers track customer orders, manage production timelines, and modernize their outdated Excel-based workflow.
 
-## Login Credentials
-Admin 
--email: admin@hbniagara.com
--password: pa55w@rd
+---
 
-Sales
--email: sales@hbniagara.com
--password: pa55w@rd
+## 🔐 Demo Credentials
 
-Engineer
--email: engineer@hbniagara.com 
--password: pa55w@rd
+Login using one of the following test accounts:
 
-## Overview
+| Role      | Email                     | Password   |
+|-----------|---------------------------|------------|
+| Admin     | admin@hbniagara.com       | pa55w@rd   |
+| Sales     | sales@hbniagara.com       | pa55w@rd   |
+| Engineer  | engineer@hbniagara.com    | pa55w@rd   |
 
-This project was built as the capstone for Computer Programming at Niagara College. It’s a tracking and scheduling web/desktop app that is intended to help our client
-approach things in a more modern and sustainable way. Previously all of their shipping, progress goals, client and customer information was maintained through excel spreadsheets.
+> _Note: This is a prototype for demonstration purposes only. Not intended for live deployment._
 
-## Features
-Key features:
-- A scalable database of vendors and customers.
-- A scalable database of orders.
-- Individual or group tracking of active orders for vendors and/or customers.(TJHyde-Code)
-- Login authentication and permissions to prevent unwanted data entry/manipulation
-- Stylized step-wizard to walk the user through creating a product order. (TJHyde-Code & Team Member)
-- The ability to archive certain things such as vendors or customers so that they no longer appear in order creation to prevent accidental usage. (Active orders linked to them remain)
-- An auto generating Gantt chart to track key dates within single product order to track progress of the order. (Approval drawing, reviews, parts, read to ship etc.) (TJHyde-Code)
+---
 
-## Tech Used
-- C#
-- ASP.NET MVC
-- Entity Framework
-- Identity Framework
-- SQlite
-- Razor Views
-- Bootstrap/Css
-- Javascript
-- Git + Github
+## 🧭 Overview
 
-## My Role and Contributions
+This application was developed as part of a final-semester capstone project in the Computer Programming program at Niagara College. The goal was to replace a client’s inefficient Excel-based workflow with a modern, user-friendly web application.
 
-I was responsible for the following:
-- Designing and implementing the database schema using Entity Framework (Code-First)
-- Initial property/Class creation and validations.
-- Tracking of orders linked to various vendors/Customers. (Visible in detail and main/index pages respectively)
-- Helping with the Order creation Step-wizard.
-- maintaining controller logic.
-- Helping Develop PDF and Excell printing/downloading.
-- Gantt creation and maintenance, continuity across all  stages.
-- Managing Git version control.
-- Testing and debugging
+**Core Use Case:**  
+Track product orders from intake to delivery, assign vendors, monitor production steps, and generate visual progress timelines via Gantt charts.
 
-## Testing and public use 
-This is not a consumer-ready product and should only be viewed locally.
+---
 
+## ⭐ Key Features
 
+- ✅ Scalable database of customers and vendors  
+- ✅ Role-based login system with permissions  
+- ✅ Multi-step "wizard" interface for new order creation  
+- ✅ Auto-generated Gantt charts to visualize production progress  
+- ✅ Archiving system for outdated vendors/customers  
+- ✅ Export functionality for PDF and Excel reporting  
+- ✅ Order tracking by vendor and customer views  
+- ✅ Modern, responsive UI with Razor & Bootstrap  
 
-## License: Legal permissions are covered under normal base Copyright laws
+---
 
+## 🛠️ Technologies Used
 
+- **Language:** C#  
+- **Frameworks:** ASP.NET MVC, Entity Framework (Code-First), Identity Framework  
+- **Database:** SQLite  
+- **Frontend:** Razor Views, JavaScript, Bootstrap/CSS  
+- **Tools:** Git, GitHub  
+
+---
+
+## 👨‍💻 My Role & Contributions
+
+I was primarily responsible for backend development and application logic, including:
+
+- Database schema design (Entity Framework Code-First)  
+- Data validation and model property creation  
+- Order/vendor/customer relationship logic  
+- Order tracking visibility (main dashboard + detail views)  
+- Partial development of the order creation step-wizard  
+- Controller logic and business rules  
+- Partial development of the PDF and Excel export functionality  
+- Dynamic Gantt chart creation for tracking order stages (e.g., drawings, approvals, parts, shipment)  
+- Source control (Git branching, merge conflict resolution)  
+- Testing, debugging, and documentation  
+
+---
+
+## 🧪 Testing & Usage
+
+This application was developed for classroom and client demonstration purposes and is **not consumer-ready**.  
+You can clone and run it locally to explore functionality using the credentials above.
+
+---
+
+## 📄 License
+
+All rights reserved. This codebase is protected under standard academic copyright.
