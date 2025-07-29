@@ -11,9 +11,9 @@ Login using one of the following test accounts:
 
 | Role      | Email                     | Password   |
 |-----------|---------------------------|------------|
-| Admin     | admin@hbniagara.com       | pa55w@rd   |
-| Sales     | sales@hbniagara.com       | pa55w@rd   |
-| Engineer  | engineer@hbniagara.com    | pa55w@rd   |
+| Admin     | admin@hbniagara.com       | Pa55w@rd   |
+| Sales     | sales@hbniagara.com       | Pa55w@rd   |
+| Engineer  | engineer@hbniagara.com    | Pa55w@rd   |
 
 > _Note: This is a prototype for demonstration purposes only. Not intended for live deployment._
 
