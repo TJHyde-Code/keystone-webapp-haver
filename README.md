@@ -1,6 +1,6 @@
 # 📦 Haver Scheduling & Shipping Organizer
 
-**Keystone Capstone Project** – Final Year Team Project | Niagara College  
+**Capstone Project** – Final Year Team Project | Niagara College  
 A web-based internal tool designed to help manufacturers track customer orders, manage production timelines, and modernize their outdated Excel-based workflow.
 
 ---
