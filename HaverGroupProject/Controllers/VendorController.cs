@@ -27,8 +27,13 @@ namespace HaverGroupProject.Controllers
         {
             ViewData["ShowArchived"] = showArchived;
 
+            //var query = _context.Vendors
+            //    .Include(v => v.OperationsSchedules).IgnoreQueryFilters();
+
             var query = _context.Vendors
-                .Include(v => v.OperationsSchedules).IgnoreQueryFilters();
+                        .Include(v => v.OperationsScheduleVendors)
+                         .ThenInclude(osv => osv.OperationsSchedule)
+                        .IgnoreQueryFilters();
 
             if (showArchived)
             {
@@ -59,9 +64,9 @@ namespace HaverGroupProject.Controllers
                 return NotFound();
             }
 
-			var vendor = await _context.Vendors
-				.Include(v => v.OperationsSchedules)
-				.FirstOrDefaultAsync(m => m.ID == id);		
+            var vendor = await _context.Vendors
+                .Include(v => v.OperationsSchedules)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
 
             if (vendor == null)
@@ -69,18 +74,18 @@ namespace HaverGroupProject.Controllers
                 return NotFound();
             }
 
-			var activeOrders = vendor.OperationsSchedules
-			   .Where(os => os.KickoffMeeting.HasValue)  // Check if KickoffMeeting is set (active order)
-		   .ToList();
+            var activeOrders = vendor.OperationsSchedules
+               .Where(os => os.KickoffMeeting.HasValue)  // Check if KickoffMeeting is set (active order)
+           .ToList();
 
-			var viewModel = new VendorDetailsViewModel
-			{
-				Vendors = vendor,
-				ActiveOrdersCount = activeOrders.Count,
-				ActiveOrders = activeOrders
-			};
+            var viewModel = new VendorDetailsViewModel
+            {
+                Vendors = vendor,
+                ActiveOrdersCount = activeOrders.Count,
+                ActiveOrders = activeOrders
+            };
 
-			return View(viewModel);
+            return View(viewModel);
         }
 
         // GET: Vendor/Create
