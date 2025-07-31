@@ -65,18 +65,19 @@ namespace HaverGroupProject.Controllers
             }
 
             var vendor = await _context.Vendors
-                .Include(v => v.OperationsSchedules)
-                .FirstOrDefaultAsync(m => m.ID == id);
-
+                        .Include(v => v.OperationsScheduleVendors)
+                        .ThenInclude(osv => osv.OperationsSchedule)
+                        .FirstOrDefaultAsync(m => m.ID == id);
 
             if (vendor == null)
             {
                 return NotFound();
             }
 
-            var activeOrders = vendor.OperationsSchedules
-               .Where(os => os.KickoffMeeting.HasValue)  // Check if KickoffMeeting is set (active order)
-           .ToList();
+            var activeOrders = vendor.OperationsScheduleVendors?
+                            .Select(osv => osv.OperationsSchedule)
+                            .Where(os => os != null && os.KickoffMeeting.HasValue)
+                            .ToList() ?? new List<OperationsSchedule>();
 
             var viewModel = new VendorDetailsViewModel
             {
