@@ -796,7 +796,6 @@ namespace HaverGroupProject.Data
                             {
                                 SalesOrdNum = 10465896,
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123456").ID, 
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
                                 ApprovalDrawingExpected = DateTime.Now.AddDays(7),
                                 ApprovalDrawingReleased = DateTime.Now.AddDays(9),
@@ -810,9 +809,7 @@ namespace HaverGroupProject.Data
                                 PUrchaseOrderRecieved = DateTime.Now.AddDays(30),
                                 ReadinessToShipExpected = DateTime.Now.AddDays(38),
                                 ReadinessToShipActual = DateTime.Now.AddDays(40),
-
-                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
-
+                                //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                 PONum = "4500798688",
                                 ProductionOrderNumber = "PO987654",
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
@@ -823,9 +820,6 @@ namespace HaverGroupProject.Data
                              {
                                  SalesOrdNum = 10465897,
                                  CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-
-                                 //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123457").ID,
-
                                  KickoffMeeting = DateTime.Parse("2024-11-11"),
                                  ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                  ApprovalDrawingReleased = DateTime.Now.AddDays(14),
@@ -839,7 +833,7 @@ namespace HaverGroupProject.Data
                                  PUrchaseOrderRecieved = DateTime.Now.AddDays(30),
                                  ReadinessToShipExpected = DateTime.Now.AddDays(38),
                                  ReadinessToShipActual = DateTime.Now.AddDays(45),
-                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                 //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
                                  PONum = "4500798689",
                                  ProductionOrderNumber = "PO987655",
                                  EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
@@ -850,9 +844,6 @@ namespace HaverGroupProject.Data
                         {
                             SalesOrdNum = 10465898,
                             CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-
-                            //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123458").ID,
-
                             KickoffMeeting = DateTime.Parse("2024-11-11"),
                             ApprovalDrawingExpected = DateTime.Now.AddDays(2),
                             ApprovalDrawingReleased = DateTime.Now.AddDays(4),
@@ -866,7 +857,7 @@ namespace HaverGroupProject.Data
                             PUrchaseOrderRecieved = DateTime.Now.AddDays(13),
                             ReadinessToShipExpected = DateTime.Now.AddDays(14),
                             ReadinessToShipActual = DateTime.Now.AddDays(22),
-                            VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                            //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                             PONum = "4500798689",
                             ProductionOrderNumber = "PO987656",
                             EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
@@ -877,9 +868,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465899,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123459").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(9),
@@ -893,7 +881,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(32),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(33),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(27),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
                                                     PONum = "4500798690",
                                                     ProductionOrderNumber = "PO987657",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
@@ -904,9 +892,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465900,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123460").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(5),
@@ -920,7 +905,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(25),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(30),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(31),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
                                                     PONum = "4500798691",
                                                     ProductionOrderNumber = "PO987658",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
@@ -931,9 +916,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465901,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123461").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-13),
@@ -947,7 +929,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(10),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(14),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(15),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID,
                                                     PONum = "4500798692",
                                                     ProductionOrderNumber = "PO987659",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
@@ -958,9 +940,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465902,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123462").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-20),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
@@ -974,7 +953,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(6),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(10),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(15),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
                                                     PONum = "4500798693",
                                                     ProductionOrderNumber = "PO987660",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
@@ -985,9 +964,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465903,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123463").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(3),
@@ -1001,7 +977,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(31),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(33),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(35),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                                     PONum = "4500798694",
                                                     ProductionOrderNumber = "PO987661",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
@@ -1013,9 +989,6 @@ namespace HaverGroupProject.Data
                                                     SalesOrdNum = 10465904,
 
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123464").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(7),
@@ -1029,7 +1002,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(28),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(30),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(32),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                                     PONum = "4500798695",
                                                     ProductionOrderNumber = "PO987662",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
@@ -1040,9 +1013,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465905,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123465").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(7),
@@ -1056,7 +1026,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(27),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(29),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(31),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                                     PONum = "4500798696",
                                                     ProductionOrderNumber = "PO987663",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
@@ -1067,9 +1037,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465906,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123466").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-28),
@@ -1083,7 +1050,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(-5),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(-3),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(0),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
                                                     PONum = "4500798697",
                                                     ProductionOrderNumber = "PO987664",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
@@ -1094,9 +1061,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465908,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123467").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-27),
@@ -1110,7 +1074,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(-3),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(-1),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(2),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                                     PONum = "4500798699",
                                                     ProductionOrderNumber = "PO987666",
 
@@ -1122,9 +1086,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465909,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123468").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-22),
@@ -1138,7 +1099,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(4),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(6),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(8),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID,
                                                     PONum = "4500798700",
                                                     ProductionOrderNumber = "PO987667",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
@@ -1149,9 +1110,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465910,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123469").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-28),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
@@ -1165,7 +1123,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(3),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(5),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(7),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                                     PONum = "4500798701",
                                                     ProductionOrderNumber = "PO987668",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
@@ -1176,9 +1134,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465911,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123470").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-22),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-19),
@@ -1192,7 +1147,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(8),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(10),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(12),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID,
                                                     PONum = "4500798702",
                                                     ProductionOrderNumber = "PO987668",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
@@ -1203,9 +1158,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465912,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-18),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
@@ -1219,7 +1171,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(11),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(13),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(15),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
                                                     PONum = "4500798703",
                                                     ProductionOrderNumber = "PO987668",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
@@ -1230,9 +1182,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465913,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-20),
@@ -1246,7 +1195,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(13),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(15),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(17),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID,
                                                     PONum = "4500798704",
                                                     ProductionOrderNumber = "PO987669",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
@@ -1257,9 +1206,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465914,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123472").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
@@ -1273,7 +1219,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(9),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(12),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(14),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                                     PONum = "4500798705",
                                                     ProductionOrderNumber = "PO987670",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
@@ -1284,9 +1230,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465915,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123473").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-20),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
@@ -1300,7 +1243,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(14),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(16),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(18),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                                     PONum = "4500798706",
                                                     ProductionOrderNumber = "PO987671",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
@@ -1311,9 +1254,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465916,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123474").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-20),
@@ -1338,9 +1278,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465917,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123475").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-10),
@@ -1354,7 +1291,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(16),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(20),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(22),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                                     PONum = "4500798708",
                                                     ProductionOrderNumber = "PO987673",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
@@ -1365,9 +1302,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465918,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123476").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-10),
@@ -1381,7 +1315,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(16),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(20),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(22),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                                     PONum = "4500798709",
                                                     ProductionOrderNumber = "PO987674",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
@@ -1392,9 +1326,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465919,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123477").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(3),
@@ -1408,10 +1339,9 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(14),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(15),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                                     PONum = "4500798710",
                                                     ProductionOrderNumber = "PO987676",
-
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                                     //NoteID = 1
                                                 },
@@ -1420,9 +1350,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465920,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123478").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-3),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(4),
@@ -1437,7 +1364,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(40),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(41),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(44),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID,
                                                     PONum = "4500798711",
                                                     ProductionOrderNumber = "PO987677",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
@@ -1448,9 +1375,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465921,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123479").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(6),
@@ -1464,7 +1388,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(33),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(37),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(40),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                                     PONum = "4500798712",
                                                     ProductionOrderNumber = "PO987678",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
@@ -1475,9 +1399,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465922,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123480").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-10),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-7),
@@ -1491,7 +1412,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(20),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(25),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(30),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID,
                                                     PONum = "4500798713",
                                                     ProductionOrderNumber = "PO987679",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
@@ -1502,9 +1423,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465923,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123481").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
@@ -1518,7 +1436,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(12),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(15),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(20),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID,
                                                     PONum = "4500798714",
                                                     ProductionOrderNumber = "PO987680",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID,
@@ -1529,9 +1447,6 @@ namespace HaverGroupProject.Data
                                                     {
                                                         SalesOrdNum = 10465924,
                                                         CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-
-                                                        //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123482").ID,
-
                                                         KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                         ApprovalDrawingExpected = DateTime.Now.AddDays(7),
                                                         ApprovalDrawingReleased = DateTime.Now.AddDays(10),
@@ -1545,7 +1460,7 @@ namespace HaverGroupProject.Data
                                                         PUrchaseOrderRecieved = DateTime.Now.AddDays(31),
                                                         ReadinessToShipExpected = DateTime.Now.AddDays(32),
                                                         ReadinessToShipActual = DateTime.Now.AddDays(35),
-                                                        VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                                                        //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
                                                         PONum = "4500798715",
                                                         ProductionOrderNumber = "PO987681",
                                                         EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
@@ -1556,9 +1471,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465925,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123483").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-12),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-8),
@@ -1572,7 +1484,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(25),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(30),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(35),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                                     PONum = "4500798716",
                                                     ProductionOrderNumber = "PO987682",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
@@ -1583,9 +1495,6 @@ namespace HaverGroupProject.Data
                                                 {
                                                     SalesOrdNum = 10465926,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-
-                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
-
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(7),
@@ -1599,7 +1508,7 @@ namespace HaverGroupProject.Data
                                                     PUrchaseOrderRecieved = DateTime.Now.AddDays(31),
                                                     ReadinessToShipExpected = DateTime.Now.AddDays(35),
                                                     ReadinessToShipActual = DateTime.Now.AddDays(40),
-                                                    VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
+                                                    //VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID,
                                                     PONum = "4500798717",
                                                     ProductionOrderNumber = "PO987682",
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
@@ -1649,7 +1558,152 @@ namespace HaverGroupProject.Data
                             new OperationsScheduleVendor
                             {
                                 OperationsScheduleID = 1,
-                                VendorID = 1
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 2,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 3,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 4,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 5,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 6,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hamilton Industrial").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 7,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 8,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 9,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 10,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 11,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 12,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 13,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Forward Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 14,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 15,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Princeton Processing").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 16,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 17,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Jameson Parts").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 18,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 19,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 20,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 21,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 22,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 23,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 24,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Wilfred Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 25,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 26,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "MasterCraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 27,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Niagara Metalworks").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 28,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 29,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID
+                            },
+                            new OperationsScheduleVendor
+                            {
+                                OperationsScheduleID = 30,
+                                VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Hudson Metal").ID
                             }
                         );
                         context.SaveChanges();
@@ -1661,7 +1715,8 @@ namespace HaverGroupProject.Data
                 }
 
 
-
+                //To keep things simple and clean all but ONE order was seeded with multiple machines.
+                //I'll address it later when the tedium of it doesn't make me want to pull my hair out.
                 //Seed Data for OperationShecduleMachine M:M
                 try
                 {

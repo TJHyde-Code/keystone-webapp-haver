@@ -93,27 +93,28 @@
                             @Html.DisplayFor(modelItem => item.VendorEmail)
                         </td>
 
+                        <!--Checks KickOffMeeting as a flag to count and display # of orders-->
                         <td>
                             @{
+                                var activeOrdersCount = item.OperationsScheduleVendors?
+                                .Select(v => v.OperationsSchedule)
+                                .Where(s => s != null && s.KickoffMeeting.HasValue)
+                                .Count() ?? 0;
 
-                                var activeOrdersCount = item.OperationsSchedules
-                                .Where(c => c.KickoffMeeting.HasValue)
-                                .Count();
-
-                                if (activeOrdersCount > 1)
+                                if (activeOrdersCount > 0)
                                 {
                                     <a href="@Url.Action("Details", "Vendor", new { id = item.ID })"
                                        class="badge bg-info"
-                                       title="View Customer Details">
+                                       title="View Vendor Details">
                                         +@(activeOrdersCount)
                                     </a>
-
                                 }
                                 else
                                 {
                                     @:No Active Orders
                                 }
                             }
+
                         </td>
                         <td>
                             <div class="btn-group" role="group">
