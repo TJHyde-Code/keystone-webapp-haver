@@ -62,6 +62,11 @@ namespace HaverGroupProject.Data
         //ModelBuilder        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            //TH - 
+            modelBuilder.Entity<OperationsScheduleMachine>()
+               .HasKey(m => new { m.OperationsScheduleID, m.MachineDescriptionID });
+
             //Cascade Delete protection.
 
             ////Vendor Relationship
@@ -78,7 +83,7 @@ namespace HaverGroupProject.Data
             //    .HasForeignKey(o => o.CustomerID)
             //    .OnDelete(DeleteBehavior.Restrict); //Allows null in Step1
 
-            ////MachineDescription Relationship
+            //MachineDescription Relationship
             //modelBuilder.Entity<OperationsSchedule>()
             //    .HasOne(o => o.MachineDescription)
             //    .WithMany()

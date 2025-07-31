@@ -31,12 +31,12 @@ namespace HaverGroupProject.Controllers
 
         // GET: OperationsSchedule
         public async Task<IActionResult> Index(
-     string SalesOrderNumber,
-     string CustomerName,
-     string EngineerFirstName,
-     string MachineSerialNumber,
-     string Vendor,
-     string ProductionOrderNumber)
+             string SalesOrderNumber,
+             string CustomerName,
+             string EngineerFirstName,
+             string MachineSerialNumber,
+             string Vendor,
+             string ProductionOrderNumber)
         {
             // First get all necessary data from database
             var operationsSchedules = await _context.OperationsSchedules

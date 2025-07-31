@@ -119,6 +119,8 @@
                         <td>@Html.DisplayFor(modelItem => item.SalesOrdNum)</td>
                         <td>@(item.Customer != null ? item.Customer.CustomerName : "N/A")</td>
                         <td>@(item.Engineer != null ? item.Engineer.EngSummary : "N/A")</td>
+
+
                         <td>
                             @{
                                 var machines = item.OperationsScheduleMachines?.Select(m => m?.MachineDescription.DescriptionSummary ?? "No Machines").ToList() ?? new List<string>();
@@ -136,7 +138,26 @@
                                 }
                             }
                         </td>
-                        <td>@(item.MachineDescription != null ? item.MachineDescription.SerialNumber : "N/A")</td>
+                        <td>
+                            @{
+                                var serial = item.OperationsScheduleMachines?.Select(s => s.MachineDescription.SerialNumber ?? "No serial #").ToList() ?? new List<string>();
+                                if (serial.Any())
+                                {
+                                    <span>@serial.First()</span>
+                                    if(serial.Count > 1)
+                                    {
+                                        <span class="badge bg-info">+@(serial.Count - 1)</span>
+                                    }
+                                   
+                                }
+                                else
+                                {
+                                    @:No Serial
+                                }
+                            }
+                            </td>
+                       
+
                         <td>
                             @{
                                 var vendors = item.OperationsScheduleVendors?.Select(v => v?.Vendor?.VendorName ?? "Unknown Vendor").ToList() ?? new List<string>();
@@ -155,8 +176,58 @@
                             }
                         </td>
                         <td>@(item.ProductionOrderNumber ?? "N/A")</td>
-                        <td>@(item.MachineDescription != null && item.MachineDescription.InstalledMedia ? "Installed Media" : "No Extras")</td>
+
+                       
+
                         <td>
+                            @{
+                                var extras = item.OperationsScheduleMachines?
+                                        .SelectMany(m => new[] {
+                                                m.MachineDescription.NamePlateOrdered     ? "Name Plate Ordered"     : null,
+                                                m.MachineDescription.NameplateRecieved    ? "Name Plate Received"    : null,
+                                                m.MachineDescription.BaseFrame            ? "Base Frame"             : null,
+                                                m.MachineDescription.AirSeal              ? "Air Seal"               : null,
+                                                m.MachineDescription.CoatingLining        ? "Coating / Lining"       : null,
+                                                m.MachineDescription.Disassembly          ? "Disassembly"            : null
+
+
+                                })
+                                        .Where(x => x != null)
+                                        .ToList() ?? new List<string>();
+
+                                var collapseId = $"collapseExtras_{item.ID}";
+                                if (extras.Any())
+                                {
+                                    <span>@extras.First()</span>
+                                    if(extras.Count > 1)
+                                    {
+                                        
+                                        <button class="badge bg-info border-0" type="button" data-bs-toggle="collapse" data-bs-target="#@collapseId" aria-expanded="false" aria-controls="@collapseId">
+                                            +@((extras.Count) - 1)
+                                        </button>
+
+                                        <div class="collapse mt-2" id="@collapseId">
+                                            <ul class="list-unstyled mb-0">
+                                                @foreach (var extra in extras)
+                                                {
+                                                    <li>• @extra</li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    @:No Extras
+                                }
+
+                            }
+                        </td>
+
+                        @* <td>@(item.MachineDescription != null && item.MachineDescription.InstalledMedia ? "Installed Media" : "No Extras")</td>  *@                       
+
+                        <td>
+
                             <div class="btn-group" role="group">
                                 <!-- Edit Button -->
                                 <a asp-action="Edit" asp-route-id="@item.ID"
