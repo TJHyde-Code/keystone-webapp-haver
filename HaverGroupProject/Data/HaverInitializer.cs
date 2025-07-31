@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
-using HaverGroupProject.Models;
-using System.Diagnostics;
-using System.Linq.Expressions;
+﻿using System.Diagnostics;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection.PortableExecutable;
+using HaverGroupProject.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
+using Org.BouncyCastle.Crypto.IO;
 
 namespace HaverGroupProject.Data
 {
@@ -696,9 +698,24 @@ namespace HaverGroupProject.Data
                                 SparePartsSpareMedia = false,
                                 BaseFrame = false,
                                 AirSeal = false,
-                                    CoatingLining = false,
-                                    Disassembly = false
-                                }
+                                CoatingLining = false,
+                                Disassembly = false
+                            },
+                            new MachineDescription
+                            {
+                                SerialNumber = "SN123485",
+                                Size = "7'x25'",
+                                Class = "T-310",
+                                Deck = "1D",
+                                NamePlateOrdered = true,
+                                NameplateRecieved = true,
+                                InstalledMedia = true,
+                                SparePartsSpareMedia = false,
+                                BaseFrame = true,
+                                AirSeal = true,
+                                CoatingLining = false,
+                                Disassembly = true
+                            }                   
 
                         );
                         context.SaveChanges();
@@ -772,12 +789,12 @@ namespace HaverGroupProject.Data
                     if (!context.OperationsSchedules.Any())
                     {
                         context.OperationsSchedules.AddRange(
+                            // 1
                             new OperationsSchedule
                             {
                                 SalesOrdNum = 10465896,
-
                                 CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                                MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123456").ID,
+                                //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123456").ID, 
                                 KickoffMeeting = DateTime.Parse("2024-11-11"),
                                 ApprovalDrawingExpected = DateTime.Now.AddDays(7),
                                 ApprovalDrawingReleased = DateTime.Now.AddDays(9),
@@ -791,17 +808,22 @@ namespace HaverGroupProject.Data
                                 PUrchaseOrderRecieved = DateTime.Now.AddDays(30),
                                 ReadinessToShipExpected = DateTime.Now.AddDays(38),
                                 ReadinessToShipActual = DateTime.Now.AddDays(40),
+
                                 VendorID = context.Vendors.FirstOrDefault(d => d.VendorName == "Kraft Machining").ID,
+
                                 PONum = "4500798688",
                                 ProductionOrderNumber = "PO987654",
                                 EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                 //NoteID = 1
                             },
+                            //2
                              new OperationsSchedule
                              {
                                  SalesOrdNum = 10465897,
                                  CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                                 MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123457").ID,
+
+                                 //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123457").ID,
+
                                  KickoffMeeting = DateTime.Parse("2024-11-11"),
                                  ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                  ApprovalDrawingReleased = DateTime.Now.AddDays(14),                                 
@@ -821,12 +843,13 @@ namespace HaverGroupProject.Data
                                  EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                  //NoteID = 1
                              },
+                             //3
                         new OperationsSchedule
                         {
                             SalesOrdNum = 10465898,
-
                             CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Connor Company").ID,
-                            MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123458").ID,
+
+                            //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123458").ID,
 
                             KickoffMeeting = DateTime.Parse("2024-11-11"),
                             ApprovalDrawingExpected = DateTime.Now.AddDays(2),
@@ -847,11 +870,13 @@ namespace HaverGroupProject.Data
                             EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                             //NoteID = 1
                         },
+                        //4
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465899,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123459").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123459").ID,
 
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
@@ -872,11 +897,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                                     //NoteID = 1
                                                 },
+                                                //5
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465900,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123460").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123460").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(5),
@@ -896,11 +924,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                                     //NoteID = 1
                                                 },
+                                                //6
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465901,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Potato Shakers").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123461").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123461").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-13),
@@ -920,11 +951,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                                     //NoteID = 1
                                                 },
+                                                //7
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465902,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123462").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123462").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-20),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
@@ -944,11 +978,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                                     //NoteID = 1
                                                 },
+                                                //8
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465903,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123463").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123463").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(3),
@@ -968,12 +1005,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                                     //NoteID = 1
                                                 },
+                                                //9
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465904,
 
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Centenial Grinding").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123464").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123464").ID,
 
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
@@ -994,11 +1033,13 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                                     //NoteID = 1
                                                 },
+                                                //10
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465905,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123465").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123465").ID,
 
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
@@ -1019,11 +1060,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                                     //NoteID = 1
                                                 },
+                                                //11
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465906,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123466").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123466").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-28),
@@ -1043,11 +1087,13 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                                     //NoteID = 1
                                                 },
+                                                //12
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465908,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Honest Jays").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123467").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123467").ID,
 
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
@@ -1069,11 +1115,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                                     //NoteID = 1
                                                 },
+                                                //13
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465909,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123468").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123468").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-22),
@@ -1093,11 +1142,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                                     //NoteID = 1
                                                 },
+                                                //14
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465910,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123469").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123469").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-28),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
@@ -1117,11 +1169,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                                     //NoteID = 1
                                                 },
+                                                //15
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465911,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Masher McMash").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123470").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123470").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-22),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-19),
@@ -1141,11 +1196,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                                     //NoteID = 1
                                                 },
+                                                //16
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465912,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-18),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
@@ -1165,11 +1223,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                                     //NoteID = 1
                                                 },
+                                                //17
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465913,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123471").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-20),
@@ -1189,11 +1250,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                                     //NoteID = 1
                                                 },
+                                                //18
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465914,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "We Dig Holes").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123472").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123472").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
@@ -1213,11 +1277,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                                     //NoteID = 1
                                                 },
+                                                //19 
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465915,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123473").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123473").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-20),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-15),
@@ -1237,11 +1304,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                                     //NoteID = 1
                                                 },
+                                                //20 
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465916,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123474").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123474").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-25),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-20),
@@ -1261,11 +1331,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                                     //NoteID = 1
                                                 },
+                                                //21
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465917,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Sifting Made Easy").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123475").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123475").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-10),
@@ -1285,11 +1358,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID
                                                     //NoteID = 1
                                                 },
+                                                //22
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465918,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123476").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123476").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-15),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-10),
@@ -1309,11 +1385,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                                     //NoteID = 1
                                                 },
+                                                //23
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465919,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123477").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123477").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(3),
@@ -1334,11 +1413,13 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                                     //NoteID = 1
                                                 },
+                                                //24
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465920,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Pinnacle Pellet").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123478").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123478").ID,
 
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-3),
@@ -1360,11 +1441,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                                     //NoteID = 1
                                                 },
+                                                //25
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465921,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123479").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123479").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(1),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(6),
@@ -1384,11 +1468,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Robert" && d.EngLastName == "Aquilini").ID
                                                     //NoteID = 1
                                                 },
+                                                //26
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465922,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123480").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123480").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-10),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-7),
@@ -1408,11 +1495,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Mike" && d.EngLastName == "Jones").ID
                                                     //NoteID = 1
                                                 },
+                                                //27
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465923,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Farland Outfitters").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123481").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123481").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-30),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-25),
@@ -1432,11 +1522,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Larry" && d.EngLastName == "Johnson").ID,
                                                     NoteID = 1
                                                 },
+                                                //28
                                                     new OperationsSchedule
                                                     {
                                                         SalesOrdNum = 10465924,
                                                         CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-                                                        MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123482").ID,
+
+                                                        //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123482").ID,
+
                                                         KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                         ApprovalDrawingExpected = DateTime.Now.AddDays(7),
                                                         ApprovalDrawingReleased = DateTime.Now.AddDays(10),
@@ -1456,11 +1549,14 @@ namespace HaverGroupProject.Data
                                                         EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "Greg" && d.EngLastName == "Naismith").ID
                                                         //NoteID = 1
                                                     },
+                                                    //29
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465925,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123483").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123483").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(-12),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(-8),
@@ -1480,11 +1576,14 @@ namespace HaverGroupProject.Data
                                                     EngineerID = context.Engineers.FirstOrDefault(d => d.EngFirstName == "John" && d.EngLastName == "Doe").ID
                                                     //NoteID = 1
                                                 },
+                                                //30
                                                 new OperationsSchedule
                                                 {
                                                     SalesOrdNum = 10465926,
                                                     CustomerID = context.Customers.FirstOrDefault(d => d.CustomerName == "Windsor Contracting").ID,
-                                                    MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
+
+                                                    //MachineDescriptionID = context.MachineDescriptions.FirstOrDefault(d => d.SerialNumber == "SN123484").ID,
+
                                                     KickoffMeeting = DateTime.Parse("2024-11-11"),
                                                     ApprovalDrawingExpected = DateTime.Now.AddDays(5),
                                                     ApprovalDrawingReleased = DateTime.Now.AddDays(7),
@@ -1559,18 +1658,172 @@ namespace HaverGroupProject.Data
                     Console.WriteLine($"An error occurred while seeding operations schedule vendors: {ex.Message}");
                 }
 
+                
+
                 //Seed Data for OperationShecduleMachine M:M
                 try
                 {
                     if (!context.OperationsScheduleMachines.Any())
-                    {
+                    {               
+
                         context.OperationsScheduleMachines.AddRange(
                             new OperationsScheduleMachine
                             {
                                 OperationsScheduleID = 1,
-                                MachineDescriptionID = 1,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123456").ID
+                            },                            
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 2,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123457").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 3,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123458").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 4,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123459").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 5,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123460").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 6,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123461").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 7,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123462").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 8,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123463").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 9,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123464").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 10,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123465").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 11,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123466").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 12,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123467").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 13,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123468").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 14,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123469").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 15,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123470").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 16,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123471").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 17,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123471").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 18,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123472").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 19,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123473").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 20,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123474").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 21,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123475").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 22,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123476").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 23,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123477").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 24,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123478").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 25,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123479").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 26,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123480").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 27,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123481").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 28,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123482").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 29,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123483").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 30,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123484").ID
+                            },
+                            new OperationsScheduleMachine
+                            {
+                                OperationsScheduleID = 30,
+                                MachineDescriptionID = context.MachineDescriptions.Single(d => d.SerialNumber == "SN123485").ID
                             }
                         );
+
                         context.SaveChanges();
                     }
 
