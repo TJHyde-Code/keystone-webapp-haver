@@ -46,7 +46,7 @@ Track product orders from intake to delivery, assign vendors, monitor production
 - **Language:** C#  
 - **Frameworks:** ASP.NET MVC, Entity Framework (Code-First), Identity Framework  
 - **Database:** SQLite  
-- **Frontend:** Razor Views, JavaScript, Bootstrap/CSS  
+- **Frontend:** Razor Views, Blazor, JavaScript, Bootstrap/CSS  
 - **Tools:** Git, GitHub  
 
 ---
